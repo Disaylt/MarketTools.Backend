@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  
+  markettools.webapi:
+    image: ${DOCKER_REGISTRY-}markettoolswebapi
+    volumes:
+    - D:\Common\Settings:/app/test
+    build:
+      context: .
+      dockerfile: MarketTools.WebApi/Dockerfile
