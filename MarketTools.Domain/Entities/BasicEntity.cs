@@ -9,7 +9,7 @@ namespace MarketTools.Domain.Entities
     public class BasicEntity
     {
         public int Id { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public DateTime UpdateDate { get; set; } = DateTime.UtcNow;
     }
 }

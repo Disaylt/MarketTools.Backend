@@ -9,5 +9,6 @@ namespace MarketTools.Domain.Entities
 {
     public class AppIdentityUser : IdentityUser
     {
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
     }
 }
