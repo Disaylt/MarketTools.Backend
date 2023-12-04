@@ -1,5 +1,5 @@
+using MarketTools.Infrastructure;
 using MarketTools.MainDatabaseProvider;
-using MarketTools.Persistence;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
