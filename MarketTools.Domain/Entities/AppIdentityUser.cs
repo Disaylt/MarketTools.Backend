@@ -10,5 +10,7 @@ namespace MarketTools.Domain.Entities
     public class AppIdentityUser : IdentityUser
     {
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+
+        public List<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set; } = new List<AutoresponderRecommendationProduct>();
     }
 }

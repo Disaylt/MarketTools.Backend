@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class BasicEntity
+    public class BaseEntity
     {
         public int Id { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
