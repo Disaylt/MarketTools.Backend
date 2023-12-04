@@ -8,7 +8,7 @@ namespace MarketTools.WebApi.Extensions
         {
             builder.Configuration
                 .AddJsonFile(
-                $"additions/sequreconfig.{builder.Environment.EnvironmentName}.json",
+                $"/appfiles/sequreconfig.{builder.Environment.EnvironmentName}.json",
                 false);
             builder.Services.Configure<SequreSettings>(builder.Configuration.GetSection("sequre"));
 

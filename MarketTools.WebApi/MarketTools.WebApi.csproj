@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MarketTools.Application\MarketTools.Application.csproj" />
-    <ProjectReference Include="..\MarketTools.Persistence\MarketTools.Persistence.csproj" />
+    <ProjectReference Include="..\MarketTools.Infrastructure\MarketTools.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

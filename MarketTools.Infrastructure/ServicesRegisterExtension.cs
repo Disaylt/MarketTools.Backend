@@ -1,6 +1,5 @@
-﻿using MarketTools.Persistence.Database;
+﻿using MarketTools.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Persistence
+namespace MarketTools.Infrastructure
 {
     public static class ServicesRegisterExtension
     {
-        public static IServiceCollection AddPersistenceLayer(this IServiceCollection serviceDescriptors)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection serviceDescriptors)
         {
 
             return serviceDescriptors;

@@ -1,7 +1,7 @@
 using MarketTools.Application.Models.Common;
 using Microsoft.Extensions.DependencyInjection;
-using MarketTools.Persistence;
 using MarketTools.WebApi.Extensions;
+using MarketTools.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.AddWebConfiguration();
 builder.Services.AddCurrentApp();
-builder.Services.AddPersistenceLayer();
+builder.Services.AddInfrastructureLayer();
 
 string connectionMainDb = builder.Configuration["sequre:DatabaseConnections:Main"] ?? throw new NullReferenceException();
 builder.Services.AddMainDatabase(connectionMainDb);

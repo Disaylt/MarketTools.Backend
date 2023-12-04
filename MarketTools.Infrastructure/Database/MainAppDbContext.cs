@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Persistence.Database
+namespace MarketTools.Infrastructure.Database
 {
     public class MainAppDbContext : IdentityDbContext<AppIdentityUser>
     {
