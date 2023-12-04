@@ -11,4 +11,10 @@ namespace MarketTools.Domain.Enums
         WB,
         OZON
     }
+
+    public enum AutoresponderColumnType
+    {
+        Standard,
+        Recommendation
+    }
 }

@@ -12,5 +12,6 @@ namespace MarketTools.Domain.Entities
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
 
         public List<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set; } = new List<AutoresponderRecommendationProduct>();
+        public List<AutoresponderColumn> AutoreponderColumns { get; set; } = new List<AutoresponderColumn>();
     }
 }
