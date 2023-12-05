@@ -16,5 +16,6 @@ namespace MarketTools.Domain.Entities
         public AppIdentityUser User { get; set; } = null!;
 
         public List<AutoresponderTemplateArticle> Articles { get; set; } = new List<AutoresponderTemplateArticle>();
+        public List<AutoresponderColumnBindPosition> BindPositions { get; set; } = new List<AutoresponderColumnBindPosition>();
     }
 }

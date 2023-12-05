@@ -18,5 +18,6 @@ namespace MarketTools.Domain.Entities
         public AppIdentityUser User { get; set; } = null!;
 
         public List<AutoresponderCell> Cells { get; set; } = new List<AutoresponderCell>();
+        public List<AutoresponderColumnBindPosition> BindPositions { get; set; } = new List<AutoresponderColumnBindPosition>();
     }
 }

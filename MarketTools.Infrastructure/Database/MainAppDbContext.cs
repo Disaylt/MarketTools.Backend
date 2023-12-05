@@ -18,6 +18,13 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<AutoresponderCell> AutoresponderCells { get; set; } = null!;
         public DbSet<AutoresponderTemplate> AutoresponderTemplates { get; set; } = null!;
         public DbSet<AutoresponderTemplateArticle> AutoresponderTemplateArticles { get; set; } = null!;
+        public DbSet<AutoresponderColumnBindPosition> AutoresponderColumnBindPositions { get; set; } = null!;
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<AutoresponderColumnBindPosition>().HasKey(x => new { x.Position, x.TemplateId });
+        }
     }
 }
