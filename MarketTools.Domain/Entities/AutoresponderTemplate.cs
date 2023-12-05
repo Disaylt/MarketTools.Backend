@@ -14,5 +14,7 @@ namespace MarketTools.Domain.Entities
 
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
+
+        public List<AutoresponderTemplateArticle> Articles { get; set; } = new List<AutoresponderTemplateArticle>();
     }
 }

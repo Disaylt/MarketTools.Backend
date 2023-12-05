@@ -17,5 +17,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set;} = null!;
         public DbSet<AutoresponderCell> AutoresponderCells { get; set; } = null!;
         public DbSet<AutoresponderTemplate> AutoresponderTemplates { get; set; } = null!;
+        public DbSet<AutoresponderTemplateArticle> AutoresponderTemplateArticles { get; set; } = null!;
+
     }
 }
