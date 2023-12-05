@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Database
 {
-    public class MainAppDbContext : IdentityDbContext<AppIdentityUser>
+    public class MainAppDbContext : IdentityDbContext<AppIdentityUser>, IMainDatabaseContext
     {
         public MainAppDbContext(DbContextOptions<MainAppDbContext> options) : base(options) { }
 
@@ -31,7 +32,6 @@ namespace MarketTools.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
             builder.Entity<AutoresponderColumnBindPosition>().HasKey(x => new { x.Position, x.TemplateId });
             builder.Entity<AutoresponderConnectionRating>().HasKey(x => new { x.Rating, x.ConnectionId });
         }

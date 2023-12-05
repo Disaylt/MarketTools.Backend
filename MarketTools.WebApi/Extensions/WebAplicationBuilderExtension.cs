@@ -11,7 +11,7 @@ namespace MarketTools.WebApi.Extensions
                 $"{builder.Configuration.GetValue<string>("MpToolsSettingsPath")}sequreconfig.{builder.Environment.EnvironmentName}.json",
                 false);
             builder.Services.Configure<SequreSettings>(builder.Configuration.GetSection("sequre"));
-
+            
             return builder;
         }
     }
