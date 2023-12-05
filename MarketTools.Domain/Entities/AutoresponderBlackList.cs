@@ -14,5 +14,7 @@ namespace MarketTools.Domain.Entities
 
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
+
+        public List<AutoresponderBanWord> BanWords { get; set; } = new List<AutoresponderBanWord>();
     }
 }

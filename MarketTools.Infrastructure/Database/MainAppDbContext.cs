@@ -26,6 +26,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections { get; set; } = null!;
         public DbSet<WbOpenApiSellerConnection> WbOpenApiSellerConnections { get; set; } = null!;
         public DbSet<AutoresponderBlackList> AutoresponderBlackLists { get; set; } = null!;
+        public DbSet<AutoresponderBanWord> AutoresponderBanWords { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
