@@ -12,8 +12,6 @@ namespace MarketTools.Domain.Entities
         public int ConnectionId { get; set; }
         public AutoresponderConnection Connection { get; set; } = null!;
 
-        public int? MainTemplateId { get; set; }
-        public AutoresponderTemplate? MainTemplate { get; set; }
         public List<AutoresponderTemplate> Templates { get; set; } = new List<AutoresponderTemplate>();
 
         public int? BindAutoresponerBlackListId { get; set; }
