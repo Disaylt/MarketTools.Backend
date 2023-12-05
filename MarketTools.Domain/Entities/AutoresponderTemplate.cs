@@ -19,5 +19,6 @@ namespace MarketTools.Domain.Entities
 
         public List<AutoresponderTemplateArticle> Articles { get; set; } = new List<AutoresponderTemplateArticle>();
         public List<AutoresponderColumnBindPosition> BindPositions { get; set; } = new List<AutoresponderColumnBindPosition>();
+        public List<AutoresponderConnectionRating> Ratings { get; set; } = new List<AutoresponderConnectionRating>();
     }
 }

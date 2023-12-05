@@ -11,5 +11,8 @@ namespace MarketTools.Domain.Entities
         public int Rating { get; set; }
         public int ConnectionId { get; set; }
         public AutoresponderConnection Connection { get; set; } = null!;
+
+        public AutoresponderTemplate? MainTemplate { get; set; }
+        public List<AutoresponderTemplate> Templates { get; set; } = new List<AutoresponderTemplate>();
     }
 }

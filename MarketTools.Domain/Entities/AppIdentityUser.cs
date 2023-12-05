@@ -15,5 +15,6 @@ namespace MarketTools.Domain.Entities
         public List<AutoresponderColumn> AutoreponderColumns { get; set; } = new List<AutoresponderColumn>();
         public List<AutoresponderTemplate> AutoresponderTemplates { get; set; } = new List<AutoresponderTemplate>();
         public List<SellerConnection> SellerConnections { get; set;} = new List<SellerConnection>();
+        public List<AutoresponderBlackList> AutoresponderBlackLists { get; set;} = new List<AutoresponderBlackList>();
     }
 }
