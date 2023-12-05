@@ -22,6 +22,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<AutoresponderConnection> AutoresponderConnections { get; set; } = null!;
         public DbSet<AutoresponderConnectionRating> AutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<AutoresponderTemplateSettings> AutoresponderTemplateSettings { get; set; } = null!;
+        public DbSet<SellerConnection> SellerConnections { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
