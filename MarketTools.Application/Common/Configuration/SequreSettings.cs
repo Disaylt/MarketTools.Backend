@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Models.Common
+namespace MarketTools.Application.Common.Configuration
 {
     public class SequreSettings
     {

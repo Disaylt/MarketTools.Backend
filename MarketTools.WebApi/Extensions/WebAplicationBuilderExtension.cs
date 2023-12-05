@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Models.Common;
+﻿using MarketTools.Application.Common.Configuration;
 
 namespace MarketTools.WebApi.Extensions
 {
