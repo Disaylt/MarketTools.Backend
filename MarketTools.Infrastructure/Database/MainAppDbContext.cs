@@ -12,5 +12,9 @@ namespace MarketTools.Infrastructure.Database
     public class MainAppDbContext : IdentityDbContext<AppIdentityUser>
     {
         public MainAppDbContext(DbContextOptions<MainAppDbContext> options) : base(options) { }
+
+        public DbSet<AutoresponderColumn> AutoresponderColumns { get; set; } = null!;
+        public DbSet<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set;} = null!;
+        public DbSet<AutoresponderCell> AutoresponderCells { get; set; } = null!;
     }
 }
