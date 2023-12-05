@@ -23,6 +23,8 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<AutoresponderConnectionRating> AutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<AutoresponderTemplateSettings> AutoresponderTemplateSettings { get; set; } = null!;
         public DbSet<SellerConnection> SellerConnections { get; set; } = null!;
+        public DbSet<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections { get; set; } = null!;
+        public DbSet<WbOpenApiSellerConnection> WbOpenApiSellerConnections { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
