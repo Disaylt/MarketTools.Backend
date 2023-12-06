@@ -8,6 +8,7 @@ namespace MarketTools.Application.Common.Exceptions
 {
     public class DefaultBadRequestException : Exception
     {
-
+        public DefaultBadRequestException() { }
+        public DefaultBadRequestException(string message) : base(message) { }
     }
 }

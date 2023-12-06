@@ -8,6 +8,7 @@ namespace MarketTools.Application.Common.Exceptions
 {
     public class IdentityUnauthorizedException : Exception
     {
-
+        public IdentityUnauthorizedException() { }
+        public IdentityUnauthorizedException(string message) : base(message) { }
     }
 }
