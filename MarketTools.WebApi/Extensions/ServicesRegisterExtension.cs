@@ -1,5 +1,8 @@
 ﻿
+using FluentValidation;
 using MarketTools.Application.Common.Mappings;
+using MarketTools.WebApi.Common.Exceptions;
+using MarketTools.WebApi.Interfaces;
 using System.Reflection;
 
 namespace MarketTools.WebApi.Extensions
@@ -12,6 +15,7 @@ namespace MarketTools.WebApi.Extensions
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
 
             return serviceDescriptors;
         }

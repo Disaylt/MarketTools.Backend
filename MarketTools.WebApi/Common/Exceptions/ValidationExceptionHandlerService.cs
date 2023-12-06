@@ -1,24 +1,27 @@
 ﻿using FluentValidation;
 using MarketTools.WebApi.Interfaces;
+using MarketTools.WebApi.Models.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
 
-namespace MarketTools.WebApi.Services.Exceptions
+namespace MarketTools.WebApi.Common.Exceptions
 {
     public class ValidationExceptionHandlerService : IWebExceptionHandlerService<ValidationException>
     {
         public async Task HandleAsync(HttpContext context, ValidationException exception)
         {
             IEnumerable<string> errorMessagess = exception.Errors
-                .Select(x=> x.ErrorMessage)
+                .Select(x => x.ErrorMessage)
                 .ToList();
 
-            ProblemDetails problemDetails = new ProblemDetails
+            ErrorResultVm problemDetails = new ErrorResultVm
             {
                 Type = "MediatR validation exception",
                 Title = exception.Message,
                 Status = (int)HttpStatusCode.BadRequest,
-                Extensions = new Dictionary<string, object?>()
+                Errors = new Dictionary<string, IEnumerable<string>>()
                 {
                     {"ValidationErrors",  errorMessagess }
                 }
