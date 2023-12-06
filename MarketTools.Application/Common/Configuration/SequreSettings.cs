@@ -11,6 +11,40 @@ namespace MarketTools.Application.Common.Configuration
         public IEnumerable<string> Proxies { get; set; } = Enumerable.Empty<string>();
         public required TelegramBotsStorage TelegramBots { get; set; }
         public required DatabaseConnectionsStorage DatabaseConnections { get; set; }
+        public required JwtStorage Jwt { get; set; }
+    }
+
+    public class JwtStorage
+    {
+        private string? _validAudience;
+        public string ValidAudience
+        {
+            get
+            {
+                return _validAudience ?? throw new NullReferenceException();
+            }
+            set { _validAudience = value; }
+        }
+
+        private string? _validIssuer;
+        public string ValidIssuer
+        {
+            get
+            {
+                return _validIssuer ?? throw new NullReferenceException();
+            }
+            set { _validIssuer = value; }
+        }
+
+        private string? _secret;
+        public string Secret
+        {
+            get
+            {
+                return _secret ?? throw new NullReferenceException();
+            }
+            set { _secret = value; }
+        }
     }
 
     public class DatabaseConnectionsStorage
