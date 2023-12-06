@@ -1,13 +1,9 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Infrastructure.Database;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MediatR;
+using System.Reflection;
 
 namespace MarketTools.Infrastructure
 {
@@ -15,6 +11,8 @@ namespace MarketTools.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection serviceDescriptors)
         {
+            serviceDescriptors.AddMediatR(x=> x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
             return serviceDescriptors;
         }
 

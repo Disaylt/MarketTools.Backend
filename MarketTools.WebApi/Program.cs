@@ -1,4 +1,3 @@
-using MarketTools.Application.Models.Common;
 using Microsoft.Extensions.DependencyInjection;
 using MarketTools.WebApi.Extensions;
 using MarketTools.Infrastructure;
