@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using System.Reflection;
+using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Infrastructure.Identity;
 
 namespace MarketTools.Infrastructure
 {
@@ -11,6 +13,10 @@ namespace MarketTools.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection serviceDescriptors)
         {
+            serviceDescriptors.AddScoped<AuthHelper>();
+            serviceDescriptors.AddScoped<IAuthReadHelper>(provider => provider.GetRequiredService<AuthHelper>());
+            serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
+
             serviceDescriptors.AddMediatR(x=> x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             return serviceDescriptors;
