@@ -22,6 +22,10 @@ namespace MarketTools.Application.Cases.User.Command.Register
                 Email = request.Email,
                 UserName = request.Email
             };
+            return new TokenVm
+            {
+                Token = "123123"
+            };
 
             await AddUserAsync(appIdentityUser, request.Password);
 

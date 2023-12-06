@@ -38,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<UserIdMiddleware>();
+app.SetUserIdToAuthHelper();
 
 app.MapControllers();
 
