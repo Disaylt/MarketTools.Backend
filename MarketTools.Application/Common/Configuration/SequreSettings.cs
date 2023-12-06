@@ -16,6 +16,8 @@ namespace MarketTools.Application.Common.Configuration
 
     public class JwtStorage
     {
+        public int ExpireDay { get; set; } = 1;
+
         private string? _validAudience;
         public string ValidAudience
         {
