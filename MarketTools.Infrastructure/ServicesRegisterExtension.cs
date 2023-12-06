@@ -16,6 +16,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<AuthHelper>();
             serviceDescriptors.AddScoped<IAuthReadHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
+            serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
 
             serviceDescriptors.AddMediatR(x=> x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
