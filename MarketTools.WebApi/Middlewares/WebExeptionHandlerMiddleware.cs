@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.WebApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
@@ -18,8 +19,11 @@ namespace MarketTools.WebApi.Middlewares
             {
                 switch (ex)
                 {
-                    case ValidationException validationException:
-                        await RunValidationExceptionHandlerAsync(context, serviceProvider, validationException);
+                    case ValidationException exception:
+                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
+                        break;
+                    case DefaultBadRequestException exception:
+                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
                         break;
                     default:
                         throw;
@@ -27,10 +31,10 @@ namespace MarketTools.WebApi.Middlewares
             }
         }
 
-        private async Task RunValidationExceptionHandlerAsync(HttpContext context, IServiceProvider serviceProvider, ValidationException validationException)
+        private async Task RunExceptionHandlerAsync<T>(HttpContext context, IServiceProvider serviceProvider, T exception) where T : Exception
         {
-            IWebExceptionHandlerService<ValidationException> exceptionHandlerService = serviceProvider.GetRequiredService<IWebExceptionHandlerService<ValidationException>>();
-            await exceptionHandlerService.HandleAsync(context, validationException);
+            IWebExceptionHandlerService<T> exceptionHandlerService = serviceProvider.GetRequiredService<IWebExceptionHandlerService<T>>();
+            await exceptionHandlerService.HandleAsync(context, exception);
         }
     }
 }

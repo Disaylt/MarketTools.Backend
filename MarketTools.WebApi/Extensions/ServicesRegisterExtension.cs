@@ -1,5 +1,6 @@
 ﻿
 using FluentValidation;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.WebApi.Common.Exceptions;
 using MarketTools.WebApi.Interfaces;
@@ -16,6 +17,7 @@ namespace MarketTools.WebApi.Extensions
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultBadRequestException>, DefaultBadRequestExceptionHandlerService>();
 
             return serviceDescriptors;
         }
