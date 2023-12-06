@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Common.Behavoirs;
 using MarketTools.Application.Common.Configuration;
+using MarketTools.Application.Common.Mappings;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,11 @@ namespace MarketTools.Application
             services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+            });
+
             return services;
         }
 

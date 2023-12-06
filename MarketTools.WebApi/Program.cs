@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MarketTools.WebApi.Extensions;
 using MarketTools.Infrastructure;
 using MarketTools.Application;
+using MarketTools.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.AddWebConfiguration();
 builder.Services.AddCurrentApp();
+builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddInfrasrtuctureIdentity();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddApplicationLayer();
 
@@ -32,8 +35,10 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
-app.SetUserIdToAuthHelper();
+
+app.UseMiddleware<UserIdMiddleware>();
 
 app.MapControllers();
 

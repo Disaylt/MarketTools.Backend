@@ -6,7 +6,9 @@ namespace MarketTools.WebApi.Extensions
     {
         public static IApplicationBuilder SetUserIdToAuthHelper(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<UserIdMiddleware>();
+            builder.UseMiddleware<UserIdMiddleware>();
+
+            return builder;
         }
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MarketTools.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace MarketTools.Infrastructure
 {
@@ -22,8 +24,6 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
 
-            AddJwtAuth(serviceDescriptors, configuration);
-
             return serviceDescriptors;
         }
 
@@ -35,7 +35,24 @@ namespace MarketTools.Infrastructure
             return serviceDescriptors;
         }
 
-        private static void AddJwtAuth(IServiceCollection serviceDescriptors, IConfiguration configuration)
+        public static IServiceCollection AddInfrasrtuctureIdentity(this IServiceCollection serviceDescriptors)
+        {
+            serviceDescriptors.AddIdentityCore<AppIdentityUser>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+            .AddEntityFrameworkStores<MainAppDbContext>()
+            .AddDefaultTokenProviders();
+
+            return serviceDescriptors;
+        }
+
+        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, IConfiguration configuration)
         {
             IConfigurationSection jwtSeciton = configuration.GetRequiredSection("Sequre")
                 .GetRequiredSection("Jwt");
@@ -61,6 +78,8 @@ namespace MarketTools.Infrastructure
                     };
                 };
             });
+
+            return serviceDescriptors;
         }
     }
 }

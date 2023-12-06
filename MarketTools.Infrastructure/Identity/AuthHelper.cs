@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Identity
 {
-    internal class AuthHelper : IAuthReadHelper, IAuthWriteHelper
+    public class AuthHelper : IAuthReadHelper, IAuthWriteHelper
     {
         private string? _userId;
         public string UserId
