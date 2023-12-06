@@ -5,6 +5,7 @@ namespace MarketTools.WebApi.Extensions
     {
         public static IServiceCollection AddCurrentApp(this IServiceCollection serviceDescriptors)
         {
+
             return serviceDescriptors;
         }
     }
