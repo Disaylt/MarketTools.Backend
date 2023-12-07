@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create;
+using MarketTools.Application.Models.Commands;
+using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Autoreponder;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +25,15 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
             ColumnVm result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            DefaultDeleteCommand<AutoresponderColumn> command = new DefaultDeleteCommand<AutoresponderColumn> { Id = id };
+            await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }

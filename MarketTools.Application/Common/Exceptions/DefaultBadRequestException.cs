@@ -8,7 +8,7 @@ namespace MarketTools.Application.Common.Exceptions
 {
     public class DefaultBadRequestException : Exception
     {
-        public DefaultBadRequestException() { }
+        public DefaultBadRequestException() : base("Не удалось обработать ваш запрос.") { }
         public DefaultBadRequestException(string message) : base(message) { }
     }
 }
