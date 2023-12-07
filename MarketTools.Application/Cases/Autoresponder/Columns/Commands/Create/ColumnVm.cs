@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
