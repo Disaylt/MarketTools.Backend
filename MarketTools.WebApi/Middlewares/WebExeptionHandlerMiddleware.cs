@@ -3,6 +3,7 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.WebApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
+using System;
 using System.Security.Claims;
 
 namespace MarketTools.WebApi.Middlewares
@@ -26,6 +27,9 @@ namespace MarketTools.WebApi.Middlewares
                         await RunExceptionHandlerAsync(context, serviceProvider, exception);
                         break;
                     case DefaultNotFoundException exception:
+                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
+                        break;
+                    case IdentityUnauthorizedException exception:
                         await RunExceptionHandlerAsync(context, serviceProvider, exception);
                         break;
                     default:

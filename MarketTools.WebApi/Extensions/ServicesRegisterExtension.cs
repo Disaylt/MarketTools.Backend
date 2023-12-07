@@ -26,6 +26,7 @@ namespace MarketTools.WebApi.Extensions
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultBadRequestException>, DefaultBadRequestExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultNotFoundException>, DefaultNotFoundExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
 
 
             return serviceDescriptors;
