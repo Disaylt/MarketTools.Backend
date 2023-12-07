@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Cases\User\Command\Login\" />
     <Folder Include="Cases\User\Queries\GetUser\" />
   </ItemGroup>
 

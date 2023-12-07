@@ -21,5 +21,17 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
             return Ok(token);
         }
+
+        [HttpGet]
+        [Route("is-auth")]
+        public IActionResult IsAuth()
+        {
+            AuthCheckVm responseModel = new AuthCheckVm
+            {
+                IsAuth = User.Identity?.IsAuthenticated ?? false
+            };
+
+            return Ok(responseModel);
+        }
     }
 }
