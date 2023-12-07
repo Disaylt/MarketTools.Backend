@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
+namespace MarketTools.Application.Cases.Autoresponder.Columns.Queries.GetList
 {
-    public class ColumnCreateCommand : IRequest<ColumnVm>
+    public class GetListQuery : IRequest<IEnumerable<ColumnVm>>
     {
-        public string Name { get; set; } = null!;
+
     }
 }

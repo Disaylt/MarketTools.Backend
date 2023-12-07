@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
+namespace MarketTools.Application.Cases.Autoresponder.Columns.Models
 {
     public class ColumnVm : IHasMap
     {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarketTools.Application.Cases.Autoresponder.Columns.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
