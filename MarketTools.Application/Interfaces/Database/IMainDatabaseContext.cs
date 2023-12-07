@@ -28,8 +28,7 @@ namespace MarketTools.Application.Interfaces.Database
 
         public DbSet<AppIdentityUser> Users { get; set; }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        public Task<int> SaveChangesAsync();
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         public DatabaseFacade Database { get; }
     }
 }
