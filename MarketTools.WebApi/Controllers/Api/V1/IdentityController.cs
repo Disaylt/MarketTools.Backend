@@ -4,6 +4,7 @@ using MarketTools.Application.Cases.User.Command.Register;
 using MarketTools.Application.Cases.User.Models;
 using MarketTools.WebApi.Models.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    
     public class IdentityController(IMediator _mediator, IMapper _mapper) : ControllerBase
     {
         [HttpPost]
@@ -25,6 +27,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
         [HttpGet]
         [Route("is-auth")]
+        [Authorize]
         public IActionResult IsAuth()
         {
             AuthCheckVm responseModel = new AuthCheckVm

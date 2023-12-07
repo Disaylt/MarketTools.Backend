@@ -51,35 +51,5 @@ namespace MarketTools.Infrastructure
 
             return serviceDescriptors;
         }
-
-        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, IConfiguration configuration)
-        {
-            IConfigurationSection jwtSeciton = configuration.GetRequiredSection("Sequre")
-                .GetRequiredSection("Jwt");
-            byte[] secret = Encoding.UTF8.GetBytes(jwtSeciton.GetValue<string>("Secret") ?? throw new NullReferenceException("JWT secret is null"));
-            serviceDescriptors.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                {
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidAudience = jwtSeciton.GetValue<string>("ValidAudience"),
-                        ValidIssuer = jwtSeciton.GetValue<string>("ValidIssuer"),
-                        IssuerSigningKey = new SymmetricSecurityKey(secret)
-                    };
-                };
-            });
-
-            return serviceDescriptors;
-        }
     }
 }

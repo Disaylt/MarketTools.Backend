@@ -25,6 +25,9 @@ namespace MarketTools.WebApi.Middlewares
                     case DefaultBadRequestException exception:
                         await RunExceptionHandlerAsync(context, serviceProvider, exception);
                         break;
+                    case DefaultNotFoundException exception:
+                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
+                        break;
                     default:
                         throw;
                 }

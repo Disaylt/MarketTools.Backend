@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Common.Configuration;
 using MarketTools.Application.Interfaces.Identity;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,12 +19,16 @@ namespace MarketTools.Infrastructure.Identity
     {
         public string Create(IdentityUser user)
         {
+            DateTime expires = GetExpireDate();
+            List<Claim> claims = CreateClaims(user);
+            SigningCredentials signingCredentials = CreateSigningCredentials();
+
             JwtSecurityToken jwtSecurityToken = new(
                 _sequreSettings.Value.Jwt.ValidIssuer,
                 _sequreSettings.Value.Jwt.ValidAudience,
-                CreateClaims(user),
-                expires: GetExpireDate(),
-                signingCredentials: CreateSigningCredentials());
+                claims,
+                expires: expires,
+                signingCredentials: signingCredentials);
 
             return new JwtSecurityTokenHandler()
                 .WriteToken(jwtSecurityToken);
@@ -31,7 +36,8 @@ namespace MarketTools.Infrastructure.Identity
 
         private SigningCredentials CreateSigningCredentials()
         {
-            SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_sequreSettings.Value.Jwt.Secret));
+            byte[] secretBytes = Encoding.UTF8.GetBytes(_sequreSettings.Value.Jwt.Secret);
+            SymmetricSecurityKey authSigningKey = new SymmetricSecurityKey(secretBytes);
 
             return new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256);
         }
@@ -46,7 +52,7 @@ namespace MarketTools.Infrastructure.Identity
             return new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
+                new Claim(JwtRegisteredClaimNames.Iat, EpochTime.GetIntDate(DateTime.UtcNow).ToString(CultureInfo.InvariantCulture), ClaimValueTypes.Integer64),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Email, user.Email!)
