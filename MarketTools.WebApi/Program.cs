@@ -1,23 +1,28 @@
-using MarketTools.Application.Models.Common;
 using Microsoft.Extensions.DependencyInjection;
-using MarketTools.Persistence;
 using MarketTools.WebApi.Extensions;
+using MarketTools.Infrastructure;
+using MarketTools.Application;
+using MarketTools.WebApi.Middlewares;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddWebConfiguration();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.AddWebConfiguration();
 builder.Services.AddCurrentApp();
-builder.Services.AddPersistenceLayer();
+builder.Services.AddApplicationLayer();
+builder.Services.AddBaererSwager();
 
-string connectionMainDb = builder.Configuration["sequre:DatabaseConnections:Main"] ?? throw new NullReferenceException();
+string connectionMainDb = builder.Configuration["Sequre:DatabaseConnections:Main"] ?? throw new NullReferenceException();
 builder.Services.AddMainDatabase(connectionMainDb);
+builder.Services.AddInfrastructureLayer(builder.Configuration);
+builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddInfrasrtuctureIdentity();
 
 var app = builder.Build();
 
@@ -25,13 +30,18 @@ if (app.Environment.IsDevelopment())
 {
 
 }
-
+app.UseMiddleware<WebExeptionHandlerMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseCors();
+
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.SetUserIdToAuthHelper();
 
 app.MapControllers();
 
