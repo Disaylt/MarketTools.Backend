@@ -27,6 +27,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAsync()
         {
             UserVm response = await _mediator.Send(new GetUserQuery());
