@@ -2,6 +2,7 @@
 using MarketTools.Application.Cases.User.Command.Login;
 using MarketTools.Application.Cases.User.Command.Register;
 using MarketTools.Application.Cases.User.Models;
+using MarketTools.Application.Cases.User.Queries.GetUser;
 using MarketTools.WebApi.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,8 +27,16 @@ namespace MarketTools.WebApi.Controllers.Api.V1
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAsync()
+        {
+            UserVm response = await _mediator.Send(new GetUserQuery());
+
+            return Ok(response);
+        }
+
+
+        [HttpGet]
         [Route("is-auth")]
-        [Authorize]
         public IActionResult IsAuth()
         {
             AuthCheckVm responseModel = new AuthCheckVm
