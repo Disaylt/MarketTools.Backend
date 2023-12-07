@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.WebApi.Models.Identity
 {
-    public class NewUserDto : IMapWith<RegisterUserCommand>
+    public class NewUserDto : IHasMap
     {
         [Required(ErrorMessage = "Введите почту")]
         [EmailAddress(ErrorMessage = "Введите почту")]

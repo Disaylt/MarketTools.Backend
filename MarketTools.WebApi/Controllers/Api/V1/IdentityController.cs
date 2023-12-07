@@ -33,5 +33,6 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
             return Ok(responseModel);
         }
+
     }
 }

@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarketTools.Application.Common.Mappings
 {
-    public interface IMapWith<T>
+    public interface IHasMap
     {
         void Mapping(Profile profile);
     }
