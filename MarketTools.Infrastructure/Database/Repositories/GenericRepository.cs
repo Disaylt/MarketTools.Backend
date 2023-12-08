@@ -26,34 +26,34 @@ namespace MarketTools.Infrastructure.Database.Repositories
 
         public virtual async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
-            return await DbSet.FirstOrDefaultAsync(condition)
+            return await DbSet.FirstOrDefaultAsync(condition, cancellationToken)
                 ?? throw new DefaultNotFoundException();
         }
 
         public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
-            return await DbSet.FirstOrDefaultAsync(condition);
+            return await DbSet.FirstOrDefaultAsync(condition, cancellationToken);
         }
 
         public virtual async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await DbSet.AddAsync(entity);
+            await DbSet.AddAsync(entity, cancellationToken);
         }
 
         public virtual async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            await DbSet.AddRangeAsync(entities);
+            await DbSet.AddRangeAsync(entities, cancellationToken);
         }
 
         public virtual async Task<IEnumerable<T>> GetRangeAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.Where(condition)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
         public virtual async Task<IEnumerable<T>> GetRangeAsync(CancellationToken cancellationToken = default)
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.ToListAsync(cancellationToken);
         }
 
         public virtual void Remove(T entity)

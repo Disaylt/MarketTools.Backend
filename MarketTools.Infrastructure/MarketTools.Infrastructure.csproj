@@ -29,8 +29,4 @@
     <ProjectReference Include="..\MarketTools.Domain\MarketTools.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\AuthRepositories\" />
-  </ItemGroup>
-
 </Project>
