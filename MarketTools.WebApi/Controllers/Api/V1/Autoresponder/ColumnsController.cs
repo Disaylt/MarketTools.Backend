@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/autoresponder/[controller]")]
     [ApiController]
     [Authorize]
     public class ColumnsController
