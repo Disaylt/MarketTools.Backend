@@ -13,28 +13,28 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Database.AuthRepositories
 {
-    internal class GenericAuthRepository : GenericRepository<AutoresponderColumn>, IAuthRepository<AutoresponderColumn>
+    internal class GenericAuthRepository<T> : GenericRepository<T>, IAuthRepository<T> where T : class
     {
-        private readonly Expression<Func<AutoresponderColumn, bool>> _userCondition;
-        public GenericAuthRepository(DbSet<AutoresponderColumn> dbSet, Expression<Func<AutoresponderColumn, bool>> userCondition) : base(dbSet)
+        private readonly Expression<Func<T, bool>> _userCondition;
+        public GenericAuthRepository(DbSet<T> dbSet, Expression<Func<T, bool>> userCondition) : base(dbSet)
         {
             _userCondition = userCondition;
         }
 
-        public override async Task<AutoresponderColumn> FirstAsync(Expression<Func<AutoresponderColumn, bool>> condition, CancellationToken cancellationToken = default)
+        public override async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await FirstOrDefaultAsync(condition, cancellationToken)
                  ?? throw new DefaultNotFoundException();
         }
 
-        public override async Task<IEnumerable<AutoresponderColumn>> GetRangeAsync(CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<T>> GetRangeAsync(CancellationToken cancellationToken = default)
         {
             return await DbSet
                 .Where(_userCondition)
                 .ToListAsync(cancellationToken);
         }
 
-        public override async Task<IEnumerable<AutoresponderColumn>> GetRangeAsync(Expression<Func<AutoresponderColumn, bool>> condition, CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<T>> GetRangeAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet
                 .Where(_userCondition)
@@ -42,14 +42,14 @@ namespace MarketTools.Infrastructure.Database.AuthRepositories
                 .ToListAsync(cancellationToken);
         }
 
-        public override async Task<AutoresponderColumn?> FirstOrDefaultAsync(Expression<Func<AutoresponderColumn, bool>> condition, CancellationToken cancellationToken = default)
+        public override async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet
                 .Where(_userCondition)
                 .FirstOrDefaultAsync(condition, cancellationToken);
         }
 
-        public override async Task<bool> AnyAsync(Expression<Func<AutoresponderColumn, bool>> condition, CancellationToken cancellationToken = default)
+        public override async Task<bool> AnyAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet
                 .Where(_userCondition)
