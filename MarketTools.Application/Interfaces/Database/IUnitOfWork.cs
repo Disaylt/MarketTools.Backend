@@ -9,7 +9,6 @@ namespace MarketTools.Application.Interfaces.Database
 {
     public interface IUnitOfWork
     {
-        public IAuthRepository<T> GetAuthRepository<T>() where T : class;
         public IRepository<T> GetRepository<T>() where T : class;
         public DbSet<T> GetDbSet<T>() where T : class;
         public void Commit();
