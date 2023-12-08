@@ -21,8 +21,8 @@ namespace MarketTools.Application.Common.Behavoirs
             var context = new ValidationContext<TRequest>(request);
 
             var failures = _validators
-                .Select(v => v.Validate(context))
-                .SelectMany(result => result.Errors)
+                .Select(async v => await v.ValidateAsync(context))
+                .SelectMany(result => result.Result.Errors)
                 .Where(failure => failure != null)
                 .ToList();
 
