@@ -19,7 +19,7 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddBaererSwager();
 
 string connectionMainDb = builder.Configuration["Sequre:DatabaseConnections:Main"] ?? throw new NullReferenceException();
-builder.Services.AddMainDatabase(connectionMainDb);
+builder.Services.AddDatabases(connectionMainDb);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddJwtAuth(builder.Configuration);
 builder.Services.AddInfrasrtuctureIdentity();
