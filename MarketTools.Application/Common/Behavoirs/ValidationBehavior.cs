@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
+using MarketTools.Application.Common.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -23,15 +25,25 @@ namespace MarketTools.Application.Common.Behavoirs
             var failures = _validators
                 .Select(async v => await v.ValidateAsync(context))
                 .SelectMany(result => result.Result.Errors)
-                .Where(failure => failure != null)
-                .ToList();
+                .FirstOrDefault(x => x != null);
 
-            if (failures.Count != 0)
+            if(failures != null)
             {
-                throw new ValidationException(failures);
+                ThrowErrorByCode(failures);
             }
 
             return next();
+        }
+
+        private void ThrowErrorByCode(ValidationFailure validationFailure)
+        {
+            switch (validationFailure.ErrorCode)
+            {
+                case "404":
+                    throw new DefaultNotFoundException(validationFailure.ErrorMessage);
+                default:
+                    throw new ValidationException(validationFailure.ErrorMessage);
+            }
         }
     }
 }

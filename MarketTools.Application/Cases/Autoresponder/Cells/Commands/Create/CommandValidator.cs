@@ -21,6 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
                     return await authUnitOfWork.AutoresponderColumns
                         .AnyAsync(x=> x.Id ==  columnId);
                 })
+                .WithErrorCode("404")
                 .WithMessage("Колонка не найдена.");
         }
     }

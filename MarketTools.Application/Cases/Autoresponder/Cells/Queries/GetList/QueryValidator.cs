@@ -18,6 +18,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Queries.GetList
                     return await authUnitOfWork.AutoresponderColumns
                         .AnyAsync(column => column.Id == columnId, ct);
                 })
+                .WithErrorCode("404")
                 .WithMessage("Колонка не найдена.");
         }
     }
