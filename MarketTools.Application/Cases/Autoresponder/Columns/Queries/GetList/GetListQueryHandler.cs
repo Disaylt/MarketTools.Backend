@@ -17,9 +17,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Queries.GetList
         (IMapper _mapper,
         IAuthReadHelper _authReadHelper,
         IMainDatabaseContext _context)
-        : IRequestHandler<GetListQuery, IEnumerable<ColumnVm>>
+        : IRequestHandler<GetListColumnsQuery, IEnumerable<ColumnVm>>
     {
-        public async Task<IEnumerable<ColumnVm>> Handle(GetListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ColumnVm>> Handle(GetListColumnsQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<AutoresponderColumn> entities = await _context.AutoresponderColumns
                 .Where(x => x.UserId == _authReadHelper.UserId)
