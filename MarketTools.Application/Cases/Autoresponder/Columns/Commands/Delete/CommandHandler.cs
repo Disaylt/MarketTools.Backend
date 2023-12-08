@@ -14,22 +14,16 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Delete
 {
     public class CommandHandler
-        (IMainDatabaseContext _mainDatabaseContext,
-        IAuthReadHelper _authReadHelper)
+        (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DefaultDeleteCommand<AutoresponderColumn>>
     {
         public async Task Handle(DefaultDeleteCommand<AutoresponderColumn> request, CancellationToken cancellationToken)
         {
-            AutoresponderColumn entity = await GetEntityAsync(request.Id);
-            _mainDatabaseContext.AutoresponderColumns.Remove(entity);
-            await _mainDatabaseContext.SaveChangesAsync();
-        }
+            AutoresponderColumn entity = await _authUnitOfWork.AutoresponderColumns
+                .FirstAsync(x=> x.Id == request.Id);
 
-        private async Task<AutoresponderColumn> GetEntityAsync(int id)
-        {
-            return await _mainDatabaseContext.AutoresponderColumns
-                .FirstOrDefaultAsync(x => x.Id == id && x.UserId == _authReadHelper.UserId)
-                ?? throw new DefaultNotFoundException();
+            _authUnitOfWork.AutoresponderColumns.Remove(entity);
+            await _authUnitOfWork.CommintAsync();
         }
     }
 }

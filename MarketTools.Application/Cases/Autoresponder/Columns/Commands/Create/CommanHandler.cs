@@ -12,17 +12,19 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
 {
-    public class CommanHandler(IMainDatabaseContext _context, 
+    public class CommanHandler(IUnitOfWork _unitOfWork, 
         IAuthReadHelper _authReadHelper,
         IMapper _mapper) 
         : IRequestHandler<ColumnCreateCommand, ColumnVm>
     {
+        private readonly IRepository<AutoresponderColumn> _repository = _unitOfWork.GetRepository<AutoresponderColumn>();
+
         public async Task<ColumnVm> Handle(ColumnCreateCommand request, CancellationToken cancellationToken)
         {
             AutoresponderColumn entity = Create(request.Name);
 
-            await _context.AutoresponderColumns.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _repository.AddAsync(entity);
+            await _unitOfWork.CommintAsync();
 
             ColumnVm columnVm = _mapper.Map<ColumnVm>(entity);
 

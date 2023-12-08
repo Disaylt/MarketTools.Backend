@@ -16,20 +16,18 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update
 {
     public class CommandHandler
         (IMapper _mapper,
-        IMainDatabaseContext _context,
-        IAuthReadHelper _authReadHelper)
+        IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCellCommand, CellVm>
     {
         public async Task<CellVm> Handle(UpdateCellCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderCell entity = await _context.AutoresponderCells
-                .FirstOrDefaultAsync(x => x.Id == request.Id && x.Column.UserId == _authReadHelper.UserId)
-                ?? throw new DefaultNotFoundException();
+            AutoresponderCell entity = await _authUnitOfWork.AutoresponderCells
+                .FirstAsync(x => x.Id == request.Id);
 
             entity.Value = request.Value;
 
-            _context.AutoresponderCells.Update(entity);
-            await _context.SaveChangesAsync();
+            _authUnitOfWork.AutoresponderCells.Update(entity);
+            await _authUnitOfWork.CommintAsync();
 
             return _mapper.Map<CellVm>(entity);
         }

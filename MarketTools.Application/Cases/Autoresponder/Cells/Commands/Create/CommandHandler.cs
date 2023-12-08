@@ -14,16 +14,17 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
 {
     public class CommandHandler 
         (IMapper _mapper,
-        IMainDatabaseContext _context)
+        IUnitOfWork _unitOfWork)
         : IRequestHandler<CreateCellCommand, CellVm>
     {
+        private readonly IRepository<AutoresponderCell> _repository = _unitOfWork.GetRepository<AutoresponderCell>();
+
         public async Task<CellVm> Handle(CreateCellCommand request, CancellationToken cancellationToken)
         {
             AutoresponderCell entity = Create(request);
 
-            await _context.AutoresponderCells
-                .AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _repository.AddAsync(entity);
+            await _unitOfWork.CommintAsync();
 
             return _mapper.Map<CellVm>(entity);
         }

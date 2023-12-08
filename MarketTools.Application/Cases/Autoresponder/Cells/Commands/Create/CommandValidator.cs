@@ -13,13 +13,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
 {
     public class CommandValidator : AbstractValidator<CreateCellCommand>
     {
-        public CommandValidator(IMainDatabaseContext _context, IAuthReadHelper _authReadHelper) 
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork) 
         {
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    return await _context.AutoresponderColumns
-                        .AnyAsync(x=> x.Id == columnId && x.UserId == _authReadHelper.UserId);
+                    return await authUnitOfWork.AutoresponderColumns
+                        .AnyAsync(x=> x.Id ==  columnId);
                 })
                 .WithMessage("Колонка не найдена.");
         }
