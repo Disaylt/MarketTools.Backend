@@ -27,10 +27,12 @@ namespace MarketTools.Infrastructure
             return serviceDescriptors;
         }
 
-        public static IServiceCollection AddMainDatabase(this IServiceCollection serviceDescriptors, string connection)
+        public static IServiceCollection AddDatabases(this IServiceCollection serviceDescriptors, string connection)
         {
-            serviceDescriptors.AddDbContext<IMainDatabaseContext, MainAppDbContext>(options =>
+            serviceDescriptors.AddDbContext<MainAppDbContext>(options =>
                 options.UseNpgsql(connection));
+            serviceDescriptors.AddScoped<IUnitOfWork, UnitOfWork>();
+            serviceDescriptors.AddScoped<IAuthUnitOfWork, AuthUnitOfWork>();
 
             return serviceDescriptors;
         }
