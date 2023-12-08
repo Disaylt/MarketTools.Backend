@@ -21,8 +21,4 @@
     <ProjectReference Include="..\MarketTools.Domain\MarketTools.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Cases\Autoresponder\Cells\Commands\Update\" />
-  </ItemGroup>
-
 </Project>
