@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cases\Autoresponder\Cells\Commands\Delete\" />
     <Folder Include="Cases\Autoresponder\Cells\Commands\Update\" />
   </ItemGroup>
 
