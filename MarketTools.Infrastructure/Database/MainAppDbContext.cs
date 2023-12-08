@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Database
 {
-    public class MainAppDbContext : IdentityDbContext<AppIdentityUser>, IMainDatabaseContext
+    public class MainAppDbContext : IdentityDbContext<AppIdentityUser>
     {
         public MainAppDbContext(DbContextOptions<MainAppDbContext> options) : base(options) { }
 
