@@ -20,28 +20,28 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CellCreateDto body)
+        public async Task<IActionResult> CreateAsync([FromBody] CellCreateDto body, CancellationToken cancellationToken)
         {
             CreateCellCommand command = _mapper.Map<CreateCellCommand>(body);
-            CellVm result = await _mediator.Send(command);
+            CellVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
             DefaultDeleteCommand<AutoresponderCell> command = new DefaultDeleteCommand<AutoresponderCell> { Id = id };
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] CellUpdateDto body)
+        public async Task<IActionResult> UpdateAsync([FromBody] CellUpdateDto body, CancellationToken cancellationToken)
         {
             UpdateCellCommand command = _mapper.Map<UpdateCellCommand>(body);
-            CellVm result = await _mediator.Send(command);
+            CellVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
         }

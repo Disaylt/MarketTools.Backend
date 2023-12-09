@@ -20,19 +20,19 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body)
+        public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body, CancellationToken cancellationToken)
         {
             ColumnCreateCommand command = _mapper.Map<ColumnCreateCommand>(body);
-            ColumnVm result = await _mediator.Send(command);
+            ColumnVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
             DefaultDeleteCommand<AutoresponderColumn> command = new DefaultDeleteCommand<AutoresponderColumn> { Id = id };
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
 
             return Ok();
         }

@@ -15,10 +15,10 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetRangeAsync()
+        public async Task<IActionResult> GetRangeAsync(CancellationToken cancellationToken)
         {
             GetListColumnsQuery query = new GetListColumnsQuery();
-            IEnumerable<ColumnVm> result = await _mediator.Send(query);
+            IEnumerable<ColumnVm> result = await _mediator.Send(query, cancellationToken);
 
             return Ok(result);
         }
