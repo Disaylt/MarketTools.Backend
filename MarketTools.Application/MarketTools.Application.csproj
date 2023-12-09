@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Cases\Autoresponder\Tempaltes\Queries\" />
     <Folder Include="Interfaces\Database\" />
   </ItemGroup>
 
