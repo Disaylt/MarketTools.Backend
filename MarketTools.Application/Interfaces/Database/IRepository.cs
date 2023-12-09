@@ -9,6 +9,7 @@ namespace MarketTools.Application.Interfaces.Database
 {
     public interface IRepository<T> where T : class
     {
+        public Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
         public Task<bool> AnyAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
         public Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
         public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
@@ -20,6 +21,5 @@ namespace MarketTools.Application.Interfaces.Database
         public void RemoveRange(IEnumerable<T> entities);
         public void UpdateRange(IEnumerable<T> entities);
         public void Update(T entity);
-        Task<IEnumerable<T1>> GetRangeAsync<T1>(Func<T1, bool> value, CancellationToken ct);
     }
 }

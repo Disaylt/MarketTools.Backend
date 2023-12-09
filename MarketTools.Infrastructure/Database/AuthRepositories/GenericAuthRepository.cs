@@ -21,6 +21,13 @@ namespace MarketTools.Infrastructure.Database.AuthRepositories
             _userCondition = userCondition;
         }
 
+        public override async Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        {
+            await DbSet.Where(_userCondition)
+                .Where(condition)
+                .ExecuteDeleteAsync(cancellationToken);
+        }
+
         public override async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await FirstOrDefaultAsync(condition, cancellationToken)
