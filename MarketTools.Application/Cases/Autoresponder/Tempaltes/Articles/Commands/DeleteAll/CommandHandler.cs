@@ -12,14 +12,13 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.DeleteAll
 {
     public class CommandHandler
-        (IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper)
+        (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DeleteAllArticlesCommand>
     {
-        private readonly DbSet<AutoresponderTemplateArticle> _dbSet = _unitOfWork.GetDbSet<AutoresponderTemplateArticle>();
-        public Task Handle(DeleteAllArticlesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteAllArticlesCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await _authUnitOfWork.AutoresponderTemplateArticles
+                .ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);
         }
     }
 }

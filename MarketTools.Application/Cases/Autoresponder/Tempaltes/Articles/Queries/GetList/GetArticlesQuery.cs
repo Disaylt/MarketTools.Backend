@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add
+namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Queries.GetList
 {
-    public class AddArticleCommand : TemplateBasicCommand, IRequest<ArticleVm>
+    public class GetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<ArticleVm>>
     {
-        public required string Article { get; set; }
+
     }
 }

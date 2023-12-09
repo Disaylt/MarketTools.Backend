@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Validations
 {
-    public class AddCommandValidator<T> : AbstractValidator<T> where T : AddCommand
+    public class TemplateInteractValidator<T> : AbstractValidator<T> where T : TemplateBasicCommand
     {
-        public AddCommandValidator(IAuthUnitOfWork authUnitOfWork)
+        public TemplateInteractValidator(IAuthUnitOfWork authUnitOfWork)
         {
             RuleFor(x => x.TemplateId)
                 .MustAsync(async (v, ct) =>

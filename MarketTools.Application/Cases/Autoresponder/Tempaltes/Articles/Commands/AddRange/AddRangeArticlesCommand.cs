@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.AddRange
 {
-    public class AddRangeArticlesCommand : AddCommand, IRequest<IEnumerable<ArticleVm>>
+    public class AddRangeArticlesCommand : TemplateBasicCommand, IRequest<IEnumerable<ArticleVm>>
     {
         public required IEnumerable<string> Articles { get; set; }
     }

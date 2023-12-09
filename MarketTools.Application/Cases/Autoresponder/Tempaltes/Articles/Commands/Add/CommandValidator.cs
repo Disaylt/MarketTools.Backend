@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add
 {
-    public class CommandValidator : AddCommandValidator<AddArticleCommand>
+    public class CommandValidator : TemplateInteractValidator<AddArticleCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, IUnitOfWork unitOfWork) : base(authUnitOfWork)
         {
