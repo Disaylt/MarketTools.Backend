@@ -13,7 +13,7 @@ namespace MarketTools.Application.Interfaces.Database
         public DbSet<T> GetDbSet<T>() where T : class;
         public void Commit();
         public void Rollback();
-        public Task CommintAsync();
+        public Task CommintAsync(CancellationToken cancellationToken = default);
         public Task RollbackAsync();
     }
 }

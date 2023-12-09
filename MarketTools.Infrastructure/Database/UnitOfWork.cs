@@ -18,7 +18,7 @@ namespace MarketTools.Infrastructure.Database
             DbContext = dbContext;
         }
 
-        public async Task CommintAsync()
+        public async Task CommintAsync(CancellationToken cancellationToken = default)
         {
             await DbContext.SaveChangesAsync();
         }
