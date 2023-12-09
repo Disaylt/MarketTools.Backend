@@ -20,5 +20,6 @@ namespace MarketTools.Application.Interfaces.Database
         public void RemoveRange(IEnumerable<T> entities);
         public void UpdateRange(IEnumerable<T> entities);
         public void Update(T entity);
+        Task<IEnumerable<T1>> GetRangeAsync<T1>(Func<T1, bool> value, CancellationToken ct);
     }
 }
