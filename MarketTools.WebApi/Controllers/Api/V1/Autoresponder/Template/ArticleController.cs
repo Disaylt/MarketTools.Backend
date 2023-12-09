@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add;
 using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models;
+using MarketTools.Application.Models.Commands;
+using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Autoreponder.Template;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +26,15 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Template
             ArticleVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
+        {
+            DefaultDeleteCommand<AutoresponderTemplateArticle> command = new DefaultDeleteCommand<AutoresponderTemplateArticle> { Id = id };
+            await _mediator.Send(command, cancellationToken);
+
+            return Ok();
         }
     }
 }
