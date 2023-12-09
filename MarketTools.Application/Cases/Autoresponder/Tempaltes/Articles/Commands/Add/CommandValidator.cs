@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models;
+using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Validations;
 using MarketTools.Application.Interfaces.Database;
 using System;
 using System.Collections.Generic;
@@ -8,17 +10,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add
 {
-    public class CommandValidator : AbstractValidator<AddArticleCommand>
+    public class CommandValidator : AddCommandValidator<AddArticleCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork) 
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
         {
-            RuleFor(x => x.TemplateId)
-                .MustAsync(async (v, ct) =>
-                {
-                    return await authUnitOfWork.AutoresponderTemplates.AnyAsync(x => x.Id == v);
-                })
-                .WithErrorCode("404")
-                .WithMessage("Шаблон не найден.");
+            
         }
     }
 }

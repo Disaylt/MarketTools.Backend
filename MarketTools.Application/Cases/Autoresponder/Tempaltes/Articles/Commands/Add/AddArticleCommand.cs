@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add
 {
-    public class AddArticleCommand : IRequest<ArticleVm>
+    public class AddArticleCommand : AddCommand, IRequest<ArticleVm>
     {
         public required string Article { get; set; }
-        public int TemplateId { get; set; }
     }
 }
