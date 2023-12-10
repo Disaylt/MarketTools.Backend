@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Models
 {
-    internal class SettingsVm : IHasMap
+    public class SettingsVm : IHasMap
     {
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
