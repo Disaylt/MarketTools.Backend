@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update
+namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
 {
-    public class UpdateCellCommand : IRequest<CellVm>
+    public class CreateCommand : IRequest<CellVm>
     {
-        public int Id { get; set; }
+        public int ColumnId { get; set; }
         public required string Value { get; set; }
     }
 }

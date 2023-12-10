@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Columns.Queries.GetList
 {
-    public class GetListQueryHandler
+    public class QueryHandler
         (IMapper _mapper,
         IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetListColumnsQuery, IEnumerable<ColumnVm>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<ColumnVm>>
     {
-        public async Task<IEnumerable<ColumnVm>> Handle(GetListColumnsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ColumnVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<AutoresponderColumn> entities = await _authUnitOfWork.AutoresponderColumns
                 .GetRangeAsync();

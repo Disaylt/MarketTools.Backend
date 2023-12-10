@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Columns.Queries.GetList
 {
-    public class GetListColumnsQuery : IRequest<IEnumerable<ColumnVm>>
+    public class GetRangeQuery : IRequest<IEnumerable<ColumnVm>>
     {
 
     }

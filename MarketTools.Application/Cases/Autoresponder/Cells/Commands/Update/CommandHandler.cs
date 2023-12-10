@@ -17,9 +17,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update
     public class CommandHandler
         (IMapper _mapper,
         IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<UpdateCellCommand, CellVm>
+        : IRequestHandler<UpdateCommand, CellVm>
     {
-        public async Task<CellVm> Handle(UpdateCellCommand request, CancellationToken cancellationToken)
+        public async Task<CellVm> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             AutoresponderCell entity = await _authUnitOfWork.AutoresponderCells
                 .FirstAsync(x => x.Id == request.Id);

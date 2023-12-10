@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList
 {
-    public class GetTemplatesListQuery : IRequest<IEnumerable<TemplateVm>>
+    public class GetRangeQuery : IRequest<IEnumerable<TemplateVm>>
     {
 
     }

@@ -28,7 +28,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Template
         [Route("all")]
         public async Task<IActionResult> DeleteAsync(int templateId)
         {
-            DeleteAllArticlesCommand command = new DeleteAllArticlesCommand {  TemplateId = templateId };
+            DeleteAllCommand command = new DeleteAllCommand {  TemplateId = templateId };
             await _mediator.Send(command);
 
             return Ok();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.AddRange
 {
-    public class CommandValidator : TemplateInteractValidator<AddRangeArticlesCommand>
+    public class CommandValidator : TemplateInteractValidator<AddRangeCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
         {

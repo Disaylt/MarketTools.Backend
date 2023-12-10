@@ -15,7 +15,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Command
     {
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderTemplateSettings entity = await FindAsync(request.Id, cancellationToken);
+            AutoresponderTemplateSettings entity = await FindAsync(request.TemplateId, cancellationToken);
             Change(entity, request);
 
             _authUnitOfWork.AutoresponderTemplateSettings.Update(entity);

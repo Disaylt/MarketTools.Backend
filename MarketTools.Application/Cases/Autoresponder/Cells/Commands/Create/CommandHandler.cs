@@ -15,11 +15,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
     public class CommandHandler 
         (IMapper _mapper,
         IUnitOfWork _unitOfWork)
-        : IRequestHandler<CreateCellCommand, CellVm>
+        : IRequestHandler<CreateCommand, CellVm>
     {
         private readonly IRepository<AutoresponderCell> _repository = _unitOfWork.GetRepository<AutoresponderCell>();
 
-        public async Task<CellVm> Handle(CreateCellCommand request, CancellationToken cancellationToken)
+        public async Task<CellVm> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
             AutoresponderCell entity = Create(request);
 
@@ -29,7 +29,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
             return _mapper.Map<CellVm>(entity);
         }
 
-        private AutoresponderCell Create(CreateCellCommand request)
+        private AutoresponderCell Create(CreateCommand request)
         {
             return new AutoresponderCell
             {

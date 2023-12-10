@@ -15,11 +15,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
     public class CommanHandler(IUnitOfWork _unitOfWork, 
         IAuthReadHelper _authReadHelper,
         IMapper _mapper) 
-        : IRequestHandler<ColumnCreateCommand, ColumnVm>
+        : IRequestHandler<CreateCommand, ColumnVm>
     {
         private readonly IRepository<AutoresponderColumn> _repository = _unitOfWork.GetRepository<AutoresponderColumn>();
 
-        public async Task<ColumnVm> Handle(ColumnCreateCommand request, CancellationToken cancellationToken)
+        public async Task<ColumnVm> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
             AutoresponderColumn entity = Create(request.Name);
 

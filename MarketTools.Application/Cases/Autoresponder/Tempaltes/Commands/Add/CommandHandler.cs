@@ -16,11 +16,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Commands.Add
         (IMapper _mapper,
         IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<AddTemplateCommand, TemplateVm>
+        : IRequestHandler<AddCommand, TemplateVm>
     {
         private readonly IRepository<AutoresponderTemplate> _repository = _unitOfWork.GetRepository<AutoresponderTemplate>();
 
-        public async Task<TemplateVm> Handle(AddTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<TemplateVm> Handle(AddCommand request, CancellationToken cancellationToken)
         {
             AutoresponderTemplate entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
@@ -29,7 +29,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Commands.Add
             return _mapper.Map<TemplateVm>(entity);
         }
 
-        private AutoresponderTemplate Build(AddTemplateCommand request)
+        private AutoresponderTemplate Build(AddCommand request)
         {
             return new AutoresponderTemplate
             {

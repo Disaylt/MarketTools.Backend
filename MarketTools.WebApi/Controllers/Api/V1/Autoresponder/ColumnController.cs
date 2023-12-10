@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body, CancellationToken cancellationToken)
         {
-            ColumnCreateCommand command = _mapper.Map<ColumnCreateCommand>(body);
+            CreateCommand command = _mapper.Map<CreateCommand>(body);
             ColumnVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);

@@ -14,9 +14,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList
     public class QueryHandler
         (IMapper _mapper,
         IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetTemplatesListQuery, IEnumerable<TemplateVm>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<TemplateVm>>
     {
-        public async Task<IEnumerable<TemplateVm>> Handle(GetTemplatesListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TemplateVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<AutoresponderTemplate> entities = await _authUnitOfWork
                 .AutoresponderTemplates

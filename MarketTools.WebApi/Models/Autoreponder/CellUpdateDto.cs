@@ -9,7 +9,7 @@ namespace MarketTools.WebApi.Models.Autoreponder
         public int Id { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CellUpdateDto, UpdateCellCommand>();
+            profile.CreateMap<CellUpdateDto, UpdateCommand>();
         }
     }
 }

@@ -14,10 +14,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
     public class CommandHandler
         (IMapper _mapper,
         IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRangeArticlesCommand, IEnumerable<ArticleVm>>
+        : IRequestHandler<AddRangeCommand, IEnumerable<ArticleVm>>
     {
         private readonly IRepository<AutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<AutoresponderTemplateArticle>();
-        public async Task<IEnumerable<ArticleVm>> Handle(AddRangeArticlesCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ArticleVm>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<AutoresponderTemplateArticle> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
             await _repository.AddRangeAsync(newEntities, cancellationToken);
@@ -26,7 +26,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
             return _mapper.Map<IEnumerable<ArticleVm>>(newEntities);
         }
 
-        private async Task<IEnumerable<AutoresponderTemplateArticle>> BuildOnlyNewArticlesAsync(AddRangeArticlesCommand request, CancellationToken ct)
+        private async Task<IEnumerable<AutoresponderTemplateArticle>> BuildOnlyNewArticlesAsync(AddRangeCommand request, CancellationToken ct)
         {
             IEnumerable<AutoresponderTemplateArticle> currentEntities = await _repository.GetRangeAsync(x=> x.TemplateId == request.TemplateId, ct);
             

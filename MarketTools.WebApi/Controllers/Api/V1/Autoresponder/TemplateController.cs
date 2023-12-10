@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] TemplateCreateDto body, CancellationToken ct)
         {
-            AddTemplateCommand command = _mapper.Map<AddTemplateCommand>(body);
+            AddCommand command = _mapper.Map<AddCommand>(body);
             TemplateVm result = await _mediator.Send(command, ct);
 
             return Ok(result);

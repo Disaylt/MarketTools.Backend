@@ -13,9 +13,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DeleteAllArticlesCommand>
+        : IRequestHandler<DeleteAllCommand>
     {
-        public async Task Handle(DeleteAllArticlesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteAllCommand request, CancellationToken cancellationToken)
         {
             await _authUnitOfWork.AutoresponderTemplateArticles
                 .ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);

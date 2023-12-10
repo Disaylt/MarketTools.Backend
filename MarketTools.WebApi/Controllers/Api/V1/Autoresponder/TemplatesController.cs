@@ -16,7 +16,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
-            IEnumerable<TemplateVm> result = await _mediator.Send(new GetTemplatesListQuery(), cancellationToken);
+            IEnumerable<TemplateVm> result = await _mediator.Send(new GetRangeQuery(), cancellationToken);
 
             return Ok(result);
         }

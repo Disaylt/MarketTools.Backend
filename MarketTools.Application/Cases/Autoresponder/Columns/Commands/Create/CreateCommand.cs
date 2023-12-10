@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
 {
-    public class ColumnCreateCommand : IRequest<ColumnVm>
+    public class CreateCommand : IRequest<ColumnVm>
     {
         public string Name { get; set; } = null!;
     }

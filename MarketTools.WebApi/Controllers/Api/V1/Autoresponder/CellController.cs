@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CellCreateDto body, CancellationToken cancellationToken)
         {
-            CreateCellCommand command = _mapper.Map<CreateCellCommand>(body);
+            CreateCommand command = _mapper.Map<CreateCommand>(body);
             CellVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);
@@ -40,7 +40,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] CellUpdateDto body, CancellationToken cancellationToken)
         {
-            UpdateCellCommand command = _mapper.Map<UpdateCellCommand>(body);
+            UpdateCommand command = _mapper.Map<UpdateCommand>(body);
             CellVm result = await _mediator.Send(command, cancellationToken);
 
             return Ok(result);

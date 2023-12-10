@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
 {
-    public class CommandValidator : AbstractValidator<CreateCellCommand>
+    public class CommandValidator : AbstractValidator<CreateCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork) 
         {
