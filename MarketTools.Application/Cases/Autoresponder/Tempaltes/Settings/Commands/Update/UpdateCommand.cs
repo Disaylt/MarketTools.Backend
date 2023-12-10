@@ -10,7 +10,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Command
 {
     public class UpdateCommand : IRequest
     {
-        public int TemplateId { get; set; }
+        public int Id { get; set; }
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
         public bool AsMainTemplate { get; set; }
