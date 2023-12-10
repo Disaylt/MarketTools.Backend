@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models
 {
-    public class RecommandationProductVm : IHasMap
+    public class RecommendationProductVm : IHasMap
     {
+        public int Id { get; set; }
         public required string FeedbackArticle { get; set; }
         public string? FeedbackProductName { get; set; }
         public string? RecommendationArticle { get; set; }
@@ -21,7 +22,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Mod
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AutoresponderRecommendationProduct, RecommandationProductVm>();
+            profile.CreateMap<AutoresponderRecommendationProduct, RecommendationProductVm>();
         }
     }
 }
