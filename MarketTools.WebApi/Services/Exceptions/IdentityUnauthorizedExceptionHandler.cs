@@ -3,19 +3,19 @@ using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Exceptions;
 using System.Net;
 
-namespace MarketTools.WebApi.Common.Exceptions
+namespace MarketTools.WebApi.Services.Exceptions
 {
-    public class DefaultBadRequestExceptionHandlerService : IWebExceptionHandlerService<DefaultBadRequestException>
+    public class IdentityUnauthorizedExceptionHandler : IWebExceptionHandlerService<IdentityUnauthorizedException>
     {
-        public async Task HandleAsync(HttpContext context, DefaultBadRequestException exception)
+        public async Task HandleAsync(HttpContext context, IdentityUnauthorizedException exception)
         {
             IEnumerable<string> errorMessagess = new List<string>() { exception.Message };
 
             ErrorResultVm problemDetails = new ErrorResultVm
             {
-                Type = "Bad request",
-                Title = "Default bad request",
-                Status = (int)HttpStatusCode.BadRequest,
+                Type = "Unauthorized",
+                Title = "User id is null",
+                Status = (int)HttpStatusCode.Unauthorized,
                 Errors = new Dictionary<string, IEnumerable<string>>()
                 {
                     {"Details",  errorMessagess }
@@ -23,7 +23,7 @@ namespace MarketTools.WebApi.Common.Exceptions
             };
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
     }

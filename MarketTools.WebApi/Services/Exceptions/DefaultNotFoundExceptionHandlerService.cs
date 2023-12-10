@@ -3,7 +3,7 @@ using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Exceptions;
 using System.Net;
 
-namespace MarketTools.WebApi.Common.Exceptions
+namespace MarketTools.WebApi.Services.Exceptions
 {
     public class DefaultNotFoundExceptionHandlerService : IWebExceptionHandlerService<DefaultNotFoundException>
     {

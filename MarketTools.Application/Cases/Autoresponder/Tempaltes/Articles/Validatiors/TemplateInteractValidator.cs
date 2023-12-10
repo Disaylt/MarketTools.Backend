@@ -14,9 +14,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Validat
         public TemplateInteractValidator(IAuthUnitOfWork authUnitOfWork)
         {
             RuleFor(x => x.TemplateId)
-                .MustAsync(async (v, ct) =>
+                .MustAsync(async (templateId, ct) =>
                 {
-                    return await authUnitOfWork.AutoresponderTemplates.AnyAsync(x => x.Id == v);
+                    return await authUnitOfWork.AutoresponderTemplates.AnyAsync(x => x.Id == templateId);
                 })
                 .WithErrorCode("404")
                 .WithMessage("Шаблон не найден.");

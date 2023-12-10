@@ -40,4 +40,8 @@
     <ProjectReference Include="..\MarketTools.Infrastructure\MarketTools.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
 </Project>

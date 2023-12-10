@@ -6,16 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
 
-namespace MarketTools.WebApi.Common.Exceptions
+namespace MarketTools.WebApi.Services.Exceptions
 {
     public class ValidationExceptionHandlerService : IWebExceptionHandlerService<ValidationException>
     {
         public async Task HandleAsync(HttpContext context, ValidationException exception)
         {
-            IEnumerable<string> errorMessagess = exception.Errors
-                .Select(x => x.ErrorMessage)
-                .ToList();
-
             ErrorResultVm problemDetails = new ErrorResultVm
             {
                 Type = "MediatR validation exception",
@@ -23,7 +19,7 @@ namespace MarketTools.WebApi.Common.Exceptions
                 Status = (int)HttpStatusCode.BadRequest,
                 Errors = new Dictionary<string, IEnumerable<string>>()
                 {
-                    {"ValidationErrors",  errorMessagess }
+                    {"ValidationErrors",  new List<string> { exception.Message } }
                 }
             };
 

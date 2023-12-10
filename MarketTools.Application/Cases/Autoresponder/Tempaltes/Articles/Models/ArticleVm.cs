@@ -11,8 +11,8 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models
 {
     public class ArticleVm : IHasMap
     {
+        public int Id { get; set; }
         public required string Article { get; set; }
-        public int TemplateId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<AutoresponderTemplateArticle, ArticleVm>();

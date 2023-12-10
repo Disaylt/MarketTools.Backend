@@ -19,8 +19,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
             RuleFor(x => x)
                 .MustAsync(async (value, ct) =>
                 {
-                    return await repository.AnyAsync(entity => 
+                    bool isExists = await repository.AnyAsync(entity => 
                         entity.Article == value.Article && entity.TemplateId == value.TemplateId);
+                    return !isExists;
                 })
                 .WithMessage("Такой арткул уже добавлен.");
         }
