@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cases\Autoresponder\RecommendationProducts\Commands\Delete\" />
     <Folder Include="Cases\Autoresponder\RecommendationProducts\Commands\Update\" />
     <Folder Include="Cases\Autoresponder\RecommendationProducts\Queries\GetRange\" />
     <Folder Include="Interfaces\Database\" />
