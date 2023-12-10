@@ -19,6 +19,11 @@ namespace MarketTools.Infrastructure.Database.Repositories
             DbSet = dbSet;
         }
 
+        public virtual async Task<int> CounAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        {
+            return await DbSet.CountAsync(condition, cancellationToken);
+        }
+
         public virtual async Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             await DbSet.Where(condition)
