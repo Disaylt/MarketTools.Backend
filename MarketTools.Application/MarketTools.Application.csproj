@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cases\Autoresponder\Tempaltes\Settings\" />
     <Folder Include="Interfaces\Database\" />
   </ItemGroup>
 

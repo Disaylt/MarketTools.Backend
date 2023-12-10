@@ -5,12 +5,18 @@ using MarketTools.Application;
 using MarketTools.WebApi.Middlewares;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MarketTools.WebApi.Common.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddWebConfiguration();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.Converters.Add(new StringJsonConverter());
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
