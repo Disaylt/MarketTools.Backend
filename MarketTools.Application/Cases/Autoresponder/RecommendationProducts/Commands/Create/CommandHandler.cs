@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Create
 {
     public class CommandHandler
-        (IMediator _mediator,
-        IMapper _mapper,
+        (IMapper _mapper,
         IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
         : IRequestHandler<CreateCommand, RecommendationProductVm>
