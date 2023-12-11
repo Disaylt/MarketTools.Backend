@@ -17,38 +17,34 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
 {
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork,
-        IAuthReadHelper _authReadHelper,
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, PageResult<RecommendationProductVm>>
     {
-        private readonly DbSet<AutoresponderRecommendationProduct> _dbSet = _authUnitOfWork.GetDbSet<AutoresponderRecommendationProduct>();
-
-        public Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            
+            int total = await GetDbRequest(request)
+                .CountAsync(cancellationToken);
+            IEnumerable<AutoresponderRecommendationProduct> entities = await GetDbRequest(request)
+                .Skip(request.Skip)
+                .Take(request.Take)
+                .ToListAsync(cancellationToken);
+
+            IEnumerable<RecommendationProductVm> recommendationProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(entities);
+
+            return new PageResult<RecommendationProductVm>(total, recommendationProducts);
         }
 
-        private async Task<IEnumerable<AutoresponderRecommendationProduct>> GetRangeAsync(GetRangeQuery request, CancellationToken cancellationToken)
+        private IQueryable<AutoresponderRecommendationProduct> GetDbRequest(GetRangeQuery request)
         {
-            IQueryable<AutoresponderRecommendationProduct> dbRequest = _dbSet.Where(x => x.UserId == _authReadHelper.UserId);
+            IQueryable<AutoresponderRecommendationProduct> dbRequest = _authUnitOfWork.AutoresponderRecommendationProducts
+                .GetAsQueryable();
 
-            if(request.Article != null)
+            if (request.Article != null)
             {
-                dbRequest = dbRequest.Where(x=> x.FeedbackArticle.Contains(request.Article));
+                dbRequest = dbRequest.Where(x => x.FeedbackArticle == request.Article);
             }
 
-            dbRequest = dbRequest.Skip(request.Skip)
-                .Take(request.Take);
-
-            return await dbRequest.ToListAsync(cancellationToken);
-        }
-
-        private async Task<int> CountTotalAsync(GetRangeQuery request, CancellationToken cancellationToken)
-        {
-            if()
-
-            return await _authUnitOfWork.AutoresponderRecommendationProducts
-                .CountAsync(cancellationToken);
+            return dbRequest;
         }
     }
 }
