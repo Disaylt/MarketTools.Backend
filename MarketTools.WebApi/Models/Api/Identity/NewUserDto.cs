@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.User.Command.Register;
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Identity
+namespace MarketTools.WebApi.Models.Api.Identity
 {
     public class NewUserDto : IHasMap
     {

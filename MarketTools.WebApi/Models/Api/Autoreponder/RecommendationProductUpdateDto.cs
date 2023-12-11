@@ -2,7 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Update;
 using MarketTools.Application.Common.Mappings;
 
-namespace MarketTools.WebApi.Models.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder
 {
     public class RecommendationProductUpdateDto : RecommendationProductDetails, IHasMap
     {

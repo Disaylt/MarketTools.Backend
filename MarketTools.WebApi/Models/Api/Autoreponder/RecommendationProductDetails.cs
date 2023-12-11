@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder
 {
     public class RecommendationProductDetails
     {

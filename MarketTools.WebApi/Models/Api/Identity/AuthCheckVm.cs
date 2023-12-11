@@ -1,4 +1,4 @@
-﻿namespace MarketTools.WebApi.Models.Identity
+﻿namespace MarketTools.WebApi.Models.Api.Identity
 {
     public class AuthCheckVm
     {

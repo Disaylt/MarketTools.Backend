@@ -4,7 +4,7 @@ using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Command
 using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
-using MarketTools.WebApi.Models.Autoreponder;
+using MarketTools.WebApi.Models.Api.Autoreponder;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
 {
-    [Route("api/v1/autoresponder/[controller]")]
+    [Route("api/v1/autoresponder/recommendation-product")]
     [ApiController]
     [Authorize]
     public class RecommendationProductController

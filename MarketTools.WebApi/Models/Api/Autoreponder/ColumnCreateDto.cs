@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create;
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder
 {
     public class ColumnCreateDto : IHasMap
     {

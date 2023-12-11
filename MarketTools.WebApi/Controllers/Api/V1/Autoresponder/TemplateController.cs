@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.Autoresponder.Tempaltes.Commands.Add;
 using MarketTools.Application.Cases.Autoresponder.Tempaltes.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
-using MarketTools.WebApi.Models.Autoreponder;
+using MarketTools.WebApi.Models.Api.Autoreponder;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

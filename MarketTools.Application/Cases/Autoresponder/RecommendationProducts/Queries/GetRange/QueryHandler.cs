@@ -37,7 +37,8 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
         private IQueryable<AutoresponderRecommendationProduct> GetDbRequest(GetRangeQuery request)
         {
             IQueryable<AutoresponderRecommendationProduct> dbRequest = _authUnitOfWork.AutoresponderRecommendationProducts
-                .GetAsQueryable();
+                .GetAsQueryable()
+                .Where(x=> x.MarketplaceName == request.MarketplaceName);
 
             if (request.Article != null)
             {

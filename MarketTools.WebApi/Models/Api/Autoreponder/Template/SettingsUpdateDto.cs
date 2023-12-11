@@ -2,7 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Commands.Update;
 using MarketTools.Application.Common.Mappings;
 
-namespace MarketTools.WebApi.Models.Autoreponder.Template
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Template
 {
     public class SettingsUpdateDto : IHasMap
     {
