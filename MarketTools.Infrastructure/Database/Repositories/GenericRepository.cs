@@ -19,7 +19,17 @@ namespace MarketTools.Infrastructure.Database.Repositories
             DbSet = dbSet;
         }
 
-        public virtual async Task<int> CounAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        public virtual IQueryable<T> GetAsQueryable()
+        {
+            return DbSet.AsQueryable();
+        }
+
+        public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet.CountAsync(cancellationToken);
+        }
+
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.CountAsync(condition, cancellationToken);
         }

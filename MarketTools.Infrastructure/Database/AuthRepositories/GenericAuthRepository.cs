@@ -21,7 +21,18 @@ namespace MarketTools.Infrastructure.Database.AuthRepositories
             _userCondition = userCondition;
         }
 
-        public override async Task<int> CounAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        public override IQueryable<T> GetAsQueryable()
+        {
+            return DbSet.Where(_userCondition)
+                .AsQueryable();
+        }
+
+        public override async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet.CountAsync(_userCondition, cancellationToken);
+        }
+
+        public override async Task<int> CountAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.Where(_userCondition)
                 .CountAsync(condition, cancellationToken);

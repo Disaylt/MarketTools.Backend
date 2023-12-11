@@ -21,6 +21,8 @@ namespace MarketTools.Application.Interfaces.Database
         public void RemoveRange(IEnumerable<T> entities);
         public void UpdateRange(IEnumerable<T> entities);
         public void Update(T entity);
-        public Task<int> CounAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
+        public Task<int> CountAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
+        public Task<int> CountAsync(CancellationToken cancellationToken = default);
+        public IQueryable<T> GetAsQueryable();
     }
 }
