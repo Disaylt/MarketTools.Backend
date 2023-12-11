@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Queries.GetRange
@@ -22,30 +23,36 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
     {
         public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            int total = await GetDbRequest(request)
-                .CountAsync(cancellationToken);
-            IEnumerable<AutoresponderRecommendationProduct> entities = await GetDbRequest(request)
-                .Skip(request.Skip)
-                .Take(request.Take)
-                .ToListAsync(cancellationToken);
+            IQueryable<AutoresponderRecommendationProduct> query = GetDbQueery(request);
+            IEnumerable<AutoresponderRecommendationProduct> entities = await GetEntitiesAsync(request, query, cancellationToken);
+            int total = await query.CountAsync(cancellationToken);
 
             IEnumerable<RecommendationProductVm> recommendationProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(entities);
 
             return new PageResult<RecommendationProductVm>(total, recommendationProducts);
         }
 
-        private IQueryable<AutoresponderRecommendationProduct> GetDbRequest(GetRangeQuery request)
+        private async Task<IEnumerable<AutoresponderRecommendationProduct>> GetEntitiesAsync(GetRangeQuery request, IQueryable<AutoresponderRecommendationProduct> query, CancellationToken cancellationToken)
         {
-            IQueryable<AutoresponderRecommendationProduct> dbRequest = _authUnitOfWork.AutoresponderRecommendationProducts
+            return await query
+                .OrderBy(x => x.Id)
+                .Skip(request.Skip)
+                .Take(request.Take)
+                .ToListAsync(cancellationToken);
+        }
+
+        private IQueryable<AutoresponderRecommendationProduct> GetDbQueery(GetRangeQuery request)
+        {
+            IQueryable<AutoresponderRecommendationProduct> query = _authUnitOfWork.AutoresponderRecommendationProducts
                 .GetAsQueryable()
                 .Where(x=> x.MarketplaceName == request.MarketplaceName);
 
             if (request.Article != null)
             {
-                dbRequest = dbRequest.Where(x => x.FeedbackArticle == request.Article);
+                query = query.Where(x => x.FeedbackArticle == request.Article);
             }
 
-            return dbRequest;
+            return query;
         }
     }
 }
