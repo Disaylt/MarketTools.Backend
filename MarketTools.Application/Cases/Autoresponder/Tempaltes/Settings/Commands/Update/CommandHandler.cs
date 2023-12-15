@@ -13,12 +13,15 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Command
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand>
     {
+        private readonly IAuthRepository<AutoresponderTemplateSettings> _repository = _authUnitOfWork.AutoresponderTemplateSettings;
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderTemplateSettings entity = await FindAsync(request.TemplateId, cancellationToken);
+            AutoresponderTemplateSettings entity = await _repository
+                .FirstAsync(x => x.TemplateId == request.TemplateId, cancellationToken);
+
             Change(entity, request);
 
-            _authUnitOfWork.AutoresponderTemplateSettings.Update(entity);
+            _repository.Update(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
         }
 
@@ -27,12 +30,6 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Command
             entity.AsMainTemplate = request.AsMainTemplate;
             entity.IsSkipWithTextFeedbacks = request.IsSkipWithTextFeedbacks;
             entity.IsSkipEmptyFeedbacks = request.IsSkipEmptyFeedbacks;
-        }
-
-        private async Task<AutoresponderTemplateSettings> FindAsync(int id, CancellationToken ct)
-        {
-            return await _authUnitOfWork.AutoresponderTemplateSettings
-                .FirstAsync(x => x.TemplateId == id, ct);
         }
     }
 }

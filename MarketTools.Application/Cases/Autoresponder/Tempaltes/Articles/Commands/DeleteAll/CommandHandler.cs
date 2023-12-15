@@ -15,10 +15,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DeleteAllCommand>
     {
+        private readonly IAuthRepository<AutoresponderTemplateArticle> _repository = _authUnitOfWork.AutoresponderTemplateArticles;
         public async Task Handle(DeleteAllCommand request, CancellationToken cancellationToken)
         {
-            await _authUnitOfWork.AutoresponderTemplateArticles
-                .ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);
+            await _repository.ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);
         }
     }
 }

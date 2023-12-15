@@ -1,6 +1,8 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.Database.AuthRepositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,11 +21,6 @@ namespace MarketTools.Infrastructure.Database
         {
             _authReadHelper = authReadHelper;
         }
-
-        //public IAuthRepository<T> GetAuthRepository<T>() where T : class
-        //{
-        //    string typeName = nameof(T);
-        //}
 
         public IAuthRepository<AutoresponderColumn> AutoresponderColumns 
             => new GenericAuthRepository<AutoresponderColumn>(GetDbSet<AutoresponderColumn>(), x => x.UserId == _authReadHelper.UserId);

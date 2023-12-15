@@ -17,12 +17,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Delete
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DefaultDeleteCommand<AutoresponderColumn>>
     {
+        private readonly IAuthRepository<AutoresponderColumn> _repository = _authUnitOfWork.AutoresponderColumns;
+
         public async Task Handle(DefaultDeleteCommand<AutoresponderColumn> request, CancellationToken cancellationToken)
         {
-            AutoresponderColumn entity = await _authUnitOfWork.AutoresponderColumns
-                .FirstAsync(x=> x.Id == request.Id);
+            AutoresponderColumn entity = await _repository.FirstAsync(x=> x.Id == request.Id);
 
-            _authUnitOfWork.AutoresponderColumns.Remove(entity);
+            _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync();
         }
     }

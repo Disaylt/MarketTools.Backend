@@ -21,6 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, PageResult<RecommendationProductVm>>
     {
+        private readonly IAuthRepository<AutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
         public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IQueryable<AutoresponderRecommendationProduct> query = GetDbQueery(request);
@@ -43,7 +44,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
 
         private IQueryable<AutoresponderRecommendationProduct> GetDbQueery(GetRangeQuery request)
         {
-            IQueryable<AutoresponderRecommendationProduct> query = _authUnitOfWork.AutoresponderRecommendationProducts
+            IQueryable<AutoresponderRecommendationProduct> query = _repository
                 .GetAsQueryable()
                 .Where(x=> x.MarketplaceName == request.MarketplaceName);
 

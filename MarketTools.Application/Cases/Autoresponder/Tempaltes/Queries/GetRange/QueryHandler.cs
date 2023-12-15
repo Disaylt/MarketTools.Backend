@@ -16,11 +16,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList
         IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeQuery, IEnumerable<TemplateVm>>
     {
+        private readonly IAuthRepository<AutoresponderTemplate> _repository = _authUnitOfWork.AutoresponderTemplates;
         public async Task<IEnumerable<TemplateVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<AutoresponderTemplate> entities = await _authUnitOfWork
-                .AutoresponderTemplates
-                .GetRangeAsync();
+            IEnumerable<AutoresponderTemplate> entities = await _repository.GetRangeAsync();
 
             return _mapper.Map<IEnumerable<TemplateVm>>(entities);
         }

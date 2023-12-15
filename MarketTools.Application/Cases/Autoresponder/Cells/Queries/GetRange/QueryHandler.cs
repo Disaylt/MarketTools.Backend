@@ -16,10 +16,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Queries.GetList
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, IEnumerable<CellVm>>
     {
+        private readonly IAuthRepository<AutoresponderCell> _repository = _authUnitOfWork.AutoresponderCells;
         public async Task<IEnumerable<CellVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<AutoresponderCell> entities = await _authUnitOfWork.AutoresponderCells
-                .GetRangeAsync(x => x.ColumnId == request.CollumnId);
+            IEnumerable<AutoresponderCell> entities = await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);
 
             return _mapper.Map<IEnumerable<CellVm>>(entities);
         }
