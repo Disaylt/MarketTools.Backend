@@ -15,6 +15,8 @@ namespace MarketTools.Domain.Entities
         [MaxLength(300)]
         public string? Description { get; set; }
         public bool IsActive { get; set; }
+        public int NumConnectionsAttempt { get; set; }
+        public DateTime LastBadConnectDate { get; set; }
 
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
