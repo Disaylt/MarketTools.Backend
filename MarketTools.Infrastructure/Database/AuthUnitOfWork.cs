@@ -20,6 +20,11 @@ namespace MarketTools.Infrastructure.Database
             _authReadHelper = authReadHelper;
         }
 
+        //public IAuthRepository<T> GetAuthRepository<T>() where T : class
+        //{
+        //    string typeName = nameof(T);
+        //}
+
         public IAuthRepository<AutoresponderColumn> AutoresponderColumns 
             => new GenericAuthRepository<AutoresponderColumn>(GetDbSet<AutoresponderColumn>(), x => x.UserId == _authReadHelper.UserId);
 

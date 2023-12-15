@@ -16,26 +16,22 @@ namespace MarketTools.WebApi.Middlewares
             {
                 await _next(context);
             }
-            catch(Exception ex)
+            catch(ValidationException exception)
             {
-                switch (ex)
-                {
-                    case ValidationException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case DefaultBadRequestException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case DefaultNotFoundException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case IdentityUnauthorizedException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    default:
-                        throw;
-                }
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }
+            catch(DefaultBadRequestException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(DefaultNotFoundException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(IdentityUnauthorizedException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            } 
         }
 
         private async Task RunExceptionHandlerAsync<T>(HttpContext context, IServiceProvider serviceProvider, T exception) where T : Exception
