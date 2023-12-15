@@ -11,6 +11,9 @@ namespace MarketTools.Domain.Entities
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
+
+        [MaxLength(300)]
+        public string? Description { get; set; }
         public bool IsActive { get; set; }
 
         public string UserId { get; set; } = null!;
