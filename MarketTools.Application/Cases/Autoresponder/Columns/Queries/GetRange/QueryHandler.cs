@@ -18,10 +18,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Queries.GetList
         IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeQuery, IEnumerable<ColumnVm>>
     {
-        private readonly IAuthRepository<AutoresponderColumn> _repository = _authUnitOfWork.AutoresponderColumns;
+        private readonly IAuthRepository<AutoresponderStandardColumn> _repository = _authUnitOfWork.AutoresponderColumns;
         public async Task<IEnumerable<ColumnVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<AutoresponderColumn> entities = await _repository.GetRangeAsync();
+            IEnumerable<AutoresponderStandardColumn> entities = await _repository.GetRangeAsync();
 
             IEnumerable<ColumnVm> result = _mapper.Map<IEnumerable<ColumnVm>>(entities);
 

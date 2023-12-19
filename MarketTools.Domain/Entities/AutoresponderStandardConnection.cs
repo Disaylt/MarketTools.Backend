@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderConnection
+    public class AutoresponderStandardConnection
     {
         public bool IsActive { get; set; }
 
@@ -15,6 +15,6 @@ namespace MarketTools.Domain.Entities
         public int SellerConnectionId { get; set; }
         public SellerConnection SellerConnection { get; set; } = null!;
 
-        public List<AutoresponderConnectionRating> Ratings { get; set; } = new List<AutoresponderConnectionRating>();
+        public List<AutoresponderStandardConnectionRating> Ratings { get; set; } = new List<AutoresponderStandardConnectionRating>();
     }
 }

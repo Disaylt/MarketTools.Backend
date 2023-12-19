@@ -17,11 +17,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
         IMapper _mapper) 
         : IRequestHandler<CreateCommand, ColumnVm>
     {
-        private readonly IRepository<AutoresponderColumn> _repository = _unitOfWork.GetRepository<AutoresponderColumn>();
+        private readonly IRepository<AutoresponderStandardColumn> _repository = _unitOfWork.GetRepository<AutoresponderStandardColumn>();
 
         public async Task<ColumnVm> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderColumn entity = Create(request.Name);
+            AutoresponderStandardColumn entity = Create(request.Name);
 
             await _repository.AddAsync(entity);
             await _unitOfWork.CommintAsync();
@@ -31,9 +31,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create
             return columnVm;
         }
 
-        private AutoresponderColumn Create(string name)
+        private AutoresponderStandardColumn Create(string name)
         {
-            return new AutoresponderColumn
+            return new AutoresponderStandardColumn
             {
                 Name = name,
                 UserId = _authReadHelper.UserId

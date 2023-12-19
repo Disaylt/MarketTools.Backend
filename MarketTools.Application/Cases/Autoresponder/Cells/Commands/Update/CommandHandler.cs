@@ -19,10 +19,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update
         IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand, CellVm>
     {
-        private readonly IAuthRepository<AutoresponderCell> _repository = _authUnitOfWork.AutoresponderCells;
+        private readonly IAuthRepository<AutoresponderStandardCell> _repository = _authUnitOfWork.AutoresponderCells;
         public async Task<CellVm> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            AutoresponderStandardCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
             entity.Value = request.Value;
 

@@ -16,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AutoresponderCell, CellVm>();
+            profile.CreateMap<AutoresponderStandardCell, CellVm>();
         }
     }
 }

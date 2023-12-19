@@ -18,20 +18,20 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Commands.Add
         IAuthReadHelper _authReadHelper)
         : IRequestHandler<AddCommand, TemplateVm>
     {
-        private readonly IRepository<AutoresponderTemplate> _repository = _unitOfWork.GetRepository<AutoresponderTemplate>();
+        private readonly IRepository<AutoresponderStandardTemplate> _repository = _unitOfWork.GetRepository<AutoresponderStandardTemplate>();
 
         public async Task<TemplateVm> Handle(AddCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderTemplate entity = Build(request);
+            AutoresponderStandardTemplate entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync();
 
             return _mapper.Map<TemplateVm>(entity);
         }
 
-        private AutoresponderTemplate Build(AddCommand request)
+        private AutoresponderStandardTemplate Build(AddCommand request)
         {
-            return new AutoresponderTemplate
+            return new AutoresponderStandardTemplate
             {
                 Name = request.Name,
                 UserId = _authReadHelper.UserId

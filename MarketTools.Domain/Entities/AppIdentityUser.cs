@@ -11,10 +11,10 @@ namespace MarketTools.Domain.Entities
     {
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
 
-        public List<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set; } = new List<AutoresponderRecommendationProduct>();
-        public List<AutoresponderColumn> AutoreponderColumns { get; set; } = new List<AutoresponderColumn>();
-        public List<AutoresponderTemplate> AutoresponderTemplates { get; set; } = new List<AutoresponderTemplate>();
+        public List<AutoresponderStandardRecommendationProduct> AutoresponderRecommendationProducts { get; set; } = new List<AutoresponderStandardRecommendationProduct>();
+        public List<AutoresponderStandardColumn> AutoreponderColumns { get; set; } = new List<AutoresponderStandardColumn>();
+        public List<AutoresponderStandardTemplate> AutoresponderTemplates { get; set; } = new List<AutoresponderStandardTemplate>();
         public List<SellerConnection> SellerConnections { get; set;} = new List<SellerConnection>();
-        public List<AutoresponderBlackList> AutoresponderBlackLists { get; set;} = new List<AutoresponderBlackList>();
+        public List<AutoresponderStandardBlackList> AutoresponderBlackLists { get; set;} = new List<AutoresponderStandardBlackList>();
     }
 }

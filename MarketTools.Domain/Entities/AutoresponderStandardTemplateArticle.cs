@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderTemplateArticle : BaseEntity
+    public class AutoresponderStandardTemplateArticle : BaseEntity
     {
         [MaxLength(50)]
         public string Article { get; set; } = null!;
 
         public int TemplateId { get; set; }
-        public AutoresponderTemplate Template { get; set; } = null!;
+        public AutoresponderStandardTemplate Template { get; set; } = null!;
     }
 }

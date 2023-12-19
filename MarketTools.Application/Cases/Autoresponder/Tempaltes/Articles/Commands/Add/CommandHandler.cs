@@ -16,20 +16,20 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
         IUnitOfWork _unitOfWork)
         : IRequestHandler<AddCommand, ArticleVm>
     {
-        private readonly IRepository<AutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<AutoresponderTemplateArticle>();
+        private readonly IRepository<AutoresponderStandardTemplateArticle> _repository = _unitOfWork.GetRepository<AutoresponderStandardTemplateArticle>();
 
         public async Task<ArticleVm> Handle(AddCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderTemplateArticle entity = Build(request);
+            AutoresponderStandardTemplateArticle entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return _mapper.Map<ArticleVm>(entity);
         }
 
-        private AutoresponderTemplateArticle Build(AddCommand request)
+        private AutoresponderStandardTemplateArticle Build(AddCommand request)
         {
-            return new AutoresponderTemplateArticle
+            return new AutoresponderStandardTemplateArticle
             {
                 Article = request.Article,
                 TemplateId = request.TemplateId

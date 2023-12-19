@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderCell : BaseEntity
+    public class AutoresponderStandardCell : BaseEntity
     {
         [MaxLength(1000)]
         public string Value { get; set; } = null!;
 
         public int ColumnId { get; set; }
-        public AutoresponderColumn Column { get; set; } = null!;
+        public AutoresponderStandardColumn Column { get; set; } = null!;
     }
 }

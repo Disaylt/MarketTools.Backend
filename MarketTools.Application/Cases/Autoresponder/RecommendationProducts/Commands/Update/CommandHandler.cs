@@ -14,16 +14,16 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand>
     {
-        private readonly IAuthRepository<AutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
+        private readonly IAuthRepository<AutoresponderStandardRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderRecommendationProduct autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);
+            AutoresponderStandardRecommendationProduct autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);
             Change(request, autoresponderRecommendationProduct);
             _repository.Update(autoresponderRecommendationProduct);
             await _authUnitOfWork.CommintAsync(cancellationToken);
         }
 
-        private void Change(UpdateCommand request, AutoresponderRecommendationProduct autoresponderRecommendationProduct)
+        private void Change(UpdateCommand request, AutoresponderStandardRecommendationProduct autoresponderRecommendationProduct)
         {
             autoresponderRecommendationProduct.FeedbackArticle = request.FeedbackArticle;
             autoresponderRecommendationProduct.RecommendationArticle = request.RecommendationArticle;

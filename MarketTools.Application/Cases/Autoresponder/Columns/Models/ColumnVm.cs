@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Columns.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AutoresponderColumn, ColumnVm>();
+            profile.CreateMap<AutoresponderStandardColumn, ColumnVm>();
         }
     }
 }

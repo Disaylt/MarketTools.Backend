@@ -21,11 +21,11 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, PageResult<RecommendationProductVm>>
     {
-        private readonly IAuthRepository<AutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
+        private readonly IAuthRepository<AutoresponderStandardRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
         public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<AutoresponderRecommendationProduct> query = GetDbQueery(request);
-            IEnumerable<AutoresponderRecommendationProduct> entities = await GetEntitiesAsync(request, query, cancellationToken);
+            IQueryable<AutoresponderStandardRecommendationProduct> query = GetDbQueery(request);
+            IEnumerable<AutoresponderStandardRecommendationProduct> entities = await GetEntitiesAsync(request, query, cancellationToken);
             int total = await query.CountAsync(cancellationToken);
 
             IEnumerable<RecommendationProductVm> recommendationProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(entities);
@@ -33,7 +33,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
             return new PageResult<RecommendationProductVm>(total, recommendationProducts);
         }
 
-        private async Task<IEnumerable<AutoresponderRecommendationProduct>> GetEntitiesAsync(GetRangeQuery request, IQueryable<AutoresponderRecommendationProduct> query, CancellationToken cancellationToken)
+        private async Task<IEnumerable<AutoresponderStandardRecommendationProduct>> GetEntitiesAsync(GetRangeQuery request, IQueryable<AutoresponderStandardRecommendationProduct> query, CancellationToken cancellationToken)
         {
             return await query
                 .OrderBy(x => x.Id)
@@ -42,9 +42,9 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Que
                 .ToListAsync(cancellationToken);
         }
 
-        private IQueryable<AutoresponderRecommendationProduct> GetDbQueery(GetRangeQuery request)
+        private IQueryable<AutoresponderStandardRecommendationProduct> GetDbQueery(GetRangeQuery request)
         {
-            IQueryable<AutoresponderRecommendationProduct> query = _repository
+            IQueryable<AutoresponderStandardRecommendationProduct> query = _repository
                 .GetAsQueryable()
                 .Where(x=> x.MarketplaceName == request.MarketplaceName);
 

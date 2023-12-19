@@ -22,7 +22,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateCommand, AutoresponderRecommendationProduct>();
+            profile.CreateMap<CreateCommand, AutoresponderStandardRecommendationProduct>();
         }
     }
 }

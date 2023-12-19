@@ -21,6 +21,6 @@ namespace MarketTools.Domain.Entities
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
-        public AutoresponderConnection AutoresponderConnection { get; set; } = new AutoresponderConnection();
+        public AutoresponderStandardConnection AutoresponderConnection { get; set; } = new AutoresponderStandardConnection();
     }
 }

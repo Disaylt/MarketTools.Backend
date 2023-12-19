@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderColumn : BaseEntity
+    public class AutoresponderStandardColumn : BaseEntity
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
@@ -17,7 +17,7 @@ namespace MarketTools.Domain.Entities
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
-        public List<AutoresponderCell> Cells { get; set; } = new List<AutoresponderCell>();
-        public List<AutoresponderColumnBindPosition> BindPositions { get; set; } = new List<AutoresponderColumnBindPosition>();
+        public List<AutoresponderStandardCell> Cells { get; set; } = new List<AutoresponderStandardCell>();
+        public List<AutoresponderStandardColumnBindPosition> BindPositions { get; set; } = new List<AutoresponderStandardColumnBindPosition>();
     }
 }

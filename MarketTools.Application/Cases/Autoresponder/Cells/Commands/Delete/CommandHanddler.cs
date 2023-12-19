@@ -15,13 +15,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Delete
 {
     public class CommandHanddler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<AutoresponderCell>>
+        : IRequestHandler<DefaultDeleteCommand<AutoresponderStandardCell>>
     {
-        private readonly IAuthRepository<AutoresponderCell> _repository = _authUnitOfWork.AutoresponderCells;
+        private readonly IAuthRepository<AutoresponderStandardCell> _repository = _authUnitOfWork.AutoresponderCells;
 
-        public async Task Handle(DefaultDeleteCommand<AutoresponderCell> request, CancellationToken cancellationToken)
+        public async Task Handle(DefaultDeleteCommand<AutoresponderStandardCell> request, CancellationToken cancellationToken)
         {
-            AutoresponderCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            AutoresponderStandardCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync();

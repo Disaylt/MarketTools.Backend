@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderRecommendationProduct : BaseEntity
+    public class AutoresponderStandardRecommendationProduct : BaseEntity
     {
         [MaxLength(25, ErrorMessage = "Превышена максимальная длинна артикула купленного продукта")]
         public string FeedbackArticle { get; set; } = null!;

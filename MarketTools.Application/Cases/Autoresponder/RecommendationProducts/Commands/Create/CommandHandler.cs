@@ -18,20 +18,20 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
         IAuthReadHelper _authReadHelper)
         : IRequestHandler<CreateCommand, RecommendationProductVm>
     {
-        private readonly IRepository<AutoresponderRecommendationProduct> _repository = _unitOfWork.GetRepository<AutoresponderRecommendationProduct>();
+        private readonly IRepository<AutoresponderStandardRecommendationProduct> _repository = _unitOfWork.GetRepository<AutoresponderStandardRecommendationProduct>();
 
         public async Task<RecommendationProductVm> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderRecommendationProduct entity = Build(request);
+            AutoresponderStandardRecommendationProduct entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return _mapper.Map<RecommendationProductVm>(entity);
         }
 
-        private AutoresponderRecommendationProduct Build(CreateCommand request)
+        private AutoresponderStandardRecommendationProduct Build(CreateCommand request)
         {
-            AutoresponderRecommendationProduct entity = _mapper.Map<AutoresponderRecommendationProduct>(request);
+            AutoresponderStandardRecommendationProduct entity = _mapper.Map<AutoresponderStandardRecommendationProduct>(request);
             entity.UserId = _authReadHelper.UserId;
 
             return entity;
