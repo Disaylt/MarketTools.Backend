@@ -12,12 +12,12 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<AutoresponderStandardRecommendationProduct>>
+        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderRecommendationProduct>>
     {
-        private readonly IAuthRepository<AutoresponderStandardRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
-        public async Task Handle(DefaultDeleteCommand<AutoresponderStandardRecommendationProduct> request, CancellationToken cancellationToken)
+        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
+        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> request, CancellationToken cancellationToken)
         {
-            AutoresponderStandardRecommendationProduct entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            StandardAutoresponderRecommendationProduct entity = await _repository.FirstAsync(x => x.Id == request.Id);
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
         }

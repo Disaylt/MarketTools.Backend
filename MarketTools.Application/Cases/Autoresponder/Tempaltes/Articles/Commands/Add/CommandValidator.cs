@@ -15,7 +15,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Command
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, IUnitOfWork unitOfWork) : base(authUnitOfWork)
         {
-            IRepository<AutoresponderStandardTemplateArticle> repository = unitOfWork.GetRepository<AutoresponderStandardTemplateArticle>();
+            IRepository<StandardAutoresponderTemplateArticle> repository = unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
             RuleFor(x => x)
                 .MustAsync(async (value, ct) =>
                 {

@@ -15,7 +15,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models
         public required string Article { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AutoresponderStandardTemplateArticle, ArticleVm>();
+            profile.CreateMap<StandardAutoresponderTemplateArticle, ArticleVm>();
         }
     }
 }

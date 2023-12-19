@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class AutoresponderStandardTemplateSettings
+    public class StandardAutoresponderTemplateSettings
     {
         [Key]
         public int TemplateId { get; set; }
-        public AutoresponderStandardTemplate Template { get; set; } = null!;
+        public StandardAutoresponderTemplate Template { get; set; } = null!;
 
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }

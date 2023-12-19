@@ -30,7 +30,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken ct)
         {
-            DefaultDeleteCommand<AutoresponderStandardTemplate> command = new DefaultDeleteCommand<AutoresponderStandardTemplate> { Id = id };
+            DefaultDeleteCommand<StandardAutoresponderTemplate> command = new DefaultDeleteCommand<StandardAutoresponderTemplate> { Id = id };
             await _mediator.Send(command, ct);
 
             return Ok();

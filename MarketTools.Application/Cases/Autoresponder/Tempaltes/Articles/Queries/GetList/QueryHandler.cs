@@ -16,10 +16,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Queries
         IMapper _mapper)
         : IRequestHandler<GetArticlesQuery, IEnumerable<ArticleVm>>
     {
-        private readonly IRepository<AutoresponderStandardTemplateArticle> _repository = _unitOfWork.GetRepository<AutoresponderStandardTemplateArticle>();
+        private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
         public async Task<IEnumerable<ArticleVm>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<AutoresponderStandardTemplateArticle> entities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, cancellationToken);
+            IEnumerable<StandardAutoresponderTemplateArticle> entities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, cancellationToken);
 
             return _mapper.Map<IEnumerable<ArticleVm>>(entities);
         }

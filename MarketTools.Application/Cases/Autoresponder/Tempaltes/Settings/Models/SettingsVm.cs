@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AutoresponderStandardTemplateSettings, SettingsVm>();
+            profile.CreateMap<StandardAutoresponderTemplateSettings, SettingsVm>();
         }
     }
 }

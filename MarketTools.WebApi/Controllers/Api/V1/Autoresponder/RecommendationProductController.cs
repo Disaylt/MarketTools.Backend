@@ -32,7 +32,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            DefaultDeleteCommand<AutoresponderStandardRecommendationProduct> command = new DefaultDeleteCommand<AutoresponderStandardRecommendationProduct> { Id = id };
+            DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> command = new DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();

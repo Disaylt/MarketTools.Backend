@@ -16,11 +16,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Queries
         IMapper _mapper)
         : IRequestHandler<GetCommand, SettingsVm>
     {
-        private readonly IAuthRepository<AutoresponderStandardTemplateSettings> _repository = _authUnitOfWork.AutoresponderTemplateSettings;
+        private readonly IAuthRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.AutoresponderTemplateSettings;
 
         public async Task<SettingsVm> Handle(GetCommand request, CancellationToken cancellationToken)
         {
-            AutoresponderStandardTemplateSettings entity = await _repository
+            StandardAutoresponderTemplateSettings entity = await _repository
                 .FirstAsync(x=> x.TemplateId == request.TemplateId);
             
             return _mapper.Map<SettingsVm>(entity);
