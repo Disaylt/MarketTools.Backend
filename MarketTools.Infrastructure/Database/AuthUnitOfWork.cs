@@ -22,31 +22,31 @@ namespace MarketTools.Infrastructure.Database
             _authReadHelper = authReadHelper;
         }
 
-        public IAuthRepository<StandardAutoresponderColumn> AutoresponderColumns 
+        public IAuthRepository<StandardAutoresponderColumn> StandardAutoresponderColumns 
             => new GenericAuthRepository<StandardAutoresponderColumn>(GetDbSet<StandardAutoresponderColumn>(), x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderRecommendationProduct> AutoresponderRecommendationProducts
+        public IAuthRepository<StandardAutoresponderRecommendationProduct> StandardAutoresponderRecommendationProducts
             => new GenericAuthRepository<StandardAutoresponderRecommendationProduct>(GetDbSet<StandardAutoresponderRecommendationProduct>(), x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderCell> AutoresponderCells
+        public IAuthRepository<StandardAutoresponderCell> StandardAutoresponderCells
             => new GenericAuthRepository<StandardAutoresponderCell>(GetDbSet<StandardAutoresponderCell>(), x => x.Column.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderTemplate> AutoresponderTemplates
+        public IAuthRepository<StandardAutoresponderTemplate> StandardAutoresponderTemplates
             => new GenericAuthRepository<StandardAutoresponderTemplate>(GetDbSet<StandardAutoresponderTemplate>(), x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderTemplateArticle> AutoresponderTemplateArticles
+        public IAuthRepository<StandardAutoresponderTemplateArticle> StandardAutoresponderTemplateArticles
             => new GenericAuthRepository<StandardAutoresponderTemplateArticle>(GetDbSet<StandardAutoresponderTemplateArticle>(), x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderColumnBindPosition> AutoresponderColumnBindPositions
+        public IAuthRepository<StandardAutoresponderColumnBindPosition> StandardAutoresponderColumnBindPositions
             => new GenericAuthRepository<StandardAutoresponderColumnBindPosition>(GetDbSet<StandardAutoresponderColumnBindPosition>(), x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderConnection> AutoresponderConnections
+        public IAuthRepository<StandardAutoresponderConnection> StandardAutoresponderConnections
             => new GenericAuthRepository<StandardAutoresponderConnection>(GetDbSet<StandardAutoresponderConnection>(), x => x.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderConnectionRating> AutoresponderConnectionRatings
+        public IAuthRepository<StandardAutoresponderConnectionRating> StandardAutoresponderConnectionRatings
              => new GenericAuthRepository<StandardAutoresponderConnectionRating>(GetDbSet<StandardAutoresponderConnectionRating>(), x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderTemplateSettings> AutoresponderTemplateSettings
+        public IAuthRepository<StandardAutoresponderTemplateSettings> StandardAutoresponderTemplateSettings
             => new GenericAuthRepository<StandardAutoresponderTemplateSettings>(GetDbSet<StandardAutoresponderTemplateSettings>(), x => x.Template.UserId == _authReadHelper.UserId);
 
         public IAuthRepository<SellerConnection> SellerConnections
@@ -58,10 +58,10 @@ namespace MarketTools.Infrastructure.Database
         public IAuthRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections
             => new GenericAuthRepository<WbOpenApiSellerConnection>(GetDbSet<WbOpenApiSellerConnection>(), x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderBlackList> AutoresponderBlackLists
+        public IAuthRepository<StandardAutoresponderBlackList> StandardAutoresponderBlackLists
             => new GenericAuthRepository<StandardAutoresponderBlackList>(GetDbSet<StandardAutoresponderBlackList>(), x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<StandardAutoresponderBanWord> AutoresponderBanWords
+        public IAuthRepository<StandardAutoresponderBanWord> StandardAutoresponderBanWords
             => new GenericAuthRepository<StandardAutoresponderBanWord>(GetDbSet<StandardAutoresponderBanWord>(), x => x.BlackList.UserId == _authReadHelper.UserId);
     }
 }

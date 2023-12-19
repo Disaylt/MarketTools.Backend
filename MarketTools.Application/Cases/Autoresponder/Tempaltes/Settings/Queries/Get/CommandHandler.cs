@@ -16,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Queries
         IMapper _mapper)
         : IRequestHandler<GetCommand, SettingsVm>
     {
-        private readonly IAuthRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.AutoresponderTemplateSettings;
+        private readonly IAuthRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.StandardAutoresponderTemplateSettings;
 
         public async Task<SettingsVm> Handle(GetCommand request, CancellationToken cancellationToken)
         {

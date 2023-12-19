@@ -14,7 +14,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderRecommendationProduct>>
     {
-        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
+        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
         public async Task Handle(DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProduct entity = await _repository.FirstAsync(x => x.Id == request.Id);

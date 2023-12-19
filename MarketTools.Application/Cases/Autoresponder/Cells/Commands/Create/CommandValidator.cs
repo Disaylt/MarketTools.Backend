@@ -18,7 +18,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    return await authUnitOfWork.AutoresponderColumns
+                    return await authUnitOfWork.StandardAutoresponderColumns
                         .AnyAsync(x=> x.Id ==  columnId);
                 })
                 .WithErrorCode("404")

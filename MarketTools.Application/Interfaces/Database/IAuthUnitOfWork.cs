@@ -10,19 +10,19 @@ namespace MarketTools.Application.Interfaces.Database
 {
     public interface IAuthUnitOfWork : IUnitOfWork
     {
-        public IAuthRepository<StandardAutoresponderColumn> AutoresponderColumns { get; }
-        public IAuthRepository<StandardAutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; }
-        public IAuthRepository<StandardAutoresponderCell> AutoresponderCells { get; }
-        public IAuthRepository<StandardAutoresponderTemplate> AutoresponderTemplates { get; }
-        public IAuthRepository<StandardAutoresponderTemplateArticle> AutoresponderTemplateArticles { get; }
-        public IAuthRepository<StandardAutoresponderColumnBindPosition> AutoresponderColumnBindPositions { get; }
-        public IAuthRepository<StandardAutoresponderConnection> AutoresponderConnections { get; }
-        public IAuthRepository<StandardAutoresponderConnectionRating> AutoresponderConnectionRatings { get; }
-        public IAuthRepository<StandardAutoresponderTemplateSettings> AutoresponderTemplateSettings { get; }
+        public IAuthRepository<StandardAutoresponderColumn> StandardAutoresponderColumns { get; }
+        public IAuthRepository<StandardAutoresponderRecommendationProduct> StandardAutoresponderRecommendationProducts { get; }
+        public IAuthRepository<StandardAutoresponderCell> StandardAutoresponderCells { get; }
+        public IAuthRepository<StandardAutoresponderTemplate> StandardAutoresponderTemplates { get; }
+        public IAuthRepository<StandardAutoresponderTemplateArticle> StandardAutoresponderTemplateArticles { get; }
+        public IAuthRepository<StandardAutoresponderColumnBindPosition> StandardAutoresponderColumnBindPositions { get; }
+        public IAuthRepository<StandardAutoresponderConnection> StandardAutoresponderConnections { get; }
+        public IAuthRepository<StandardAutoresponderConnectionRating> StandardAutoresponderConnectionRatings { get; }
+        public IAuthRepository<StandardAutoresponderTemplateSettings> StandardAutoresponderTemplateSettings { get; }
         public IAuthRepository<SellerConnection> SellerConnections { get; }
         public IAuthRepository<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections { get; }
         public IAuthRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections { get; }
-        public IAuthRepository<StandardAutoresponderBlackList> AutoresponderBlackLists { get; }
-        public IAuthRepository<StandardAutoresponderBanWord> AutoresponderBanWords { get; }
+        public IAuthRepository<StandardAutoresponderBlackList> StandardAutoresponderBlackLists { get; }
+        public IAuthRepository<StandardAutoresponderBanWord> StandardAutoresponderBanWords { get; }
     }
 }

@@ -16,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Validat
             RuleFor(x => x.TemplateId)
                 .MustAsync(async (templateId, ct) =>
                 {
-                    return await authUnitOfWork.AutoresponderTemplates.AnyAsync(x => x.Id == templateId);
+                    return await authUnitOfWork.StandardAutoresponderTemplates.AnyAsync(x => x.Id == templateId);
                 })
                 .WithErrorCode("404")
                 .WithMessage("Шаблон не найден.");

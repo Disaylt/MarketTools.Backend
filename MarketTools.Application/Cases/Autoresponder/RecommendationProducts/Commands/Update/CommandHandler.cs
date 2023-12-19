@@ -14,7 +14,7 @@ namespace MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Com
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand>
     {
-        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.AutoresponderRecommendationProducts;
+        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProduct autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);

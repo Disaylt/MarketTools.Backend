@@ -13,7 +13,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Command
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand>
     {
-        private readonly IAuthRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.AutoresponderTemplateSettings;
+        private readonly IAuthRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.StandardAutoresponderTemplateSettings;
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateSettings entity = await _repository

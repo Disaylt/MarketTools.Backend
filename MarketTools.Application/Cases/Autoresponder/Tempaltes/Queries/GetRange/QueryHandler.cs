@@ -16,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList
         IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeQuery, IEnumerable<TemplateVm>>
     {
-        private readonly IAuthRepository<StandardAutoresponderTemplate> _repository = _authUnitOfWork.AutoresponderTemplates;
+        private readonly IAuthRepository<StandardAutoresponderTemplate> _repository = _authUnitOfWork.StandardAutoresponderTemplates;
         public async Task<IEnumerable<TemplateVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderTemplate> entities = await _repository.GetRangeAsync();

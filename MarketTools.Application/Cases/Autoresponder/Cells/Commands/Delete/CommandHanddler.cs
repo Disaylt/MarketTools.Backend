@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Cells.Commands.Delete
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderCell>>
     {
-        private readonly IAuthRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.AutoresponderCells;
+        private readonly IAuthRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
 
         public async Task Handle(DefaultDeleteCommand<StandardAutoresponderCell> request, CancellationToken cancellationToken)
         {
