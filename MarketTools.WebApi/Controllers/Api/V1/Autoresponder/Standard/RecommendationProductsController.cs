@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
+namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 {
-    [Route("api/v1/autoresponder/recommendation-products")]
+    [Route("api/v1/autoresponder/standard/recommendation-products")]
     [ApiController]
     [Authorize]
-    public class RecommendationProductsController 
+    public class RecommendationProductsController
         (IMediator _mediator,
         IMapper _mapper)
         : ControllerBase

@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
+namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 {
-    [Route("api/v1/autoresponder/[controller]")]
+    [Route("api/v1/autoresponder/standard/[controller]")]
     [ApiController]
     [Authorize]
     public class ColumnController(
-        IMediator _mediator, 
-        IMapper _mapper) 
+        IMediator _mediator,
+        IMapper _mapper)
         : ControllerBase
     {
         [HttpPost]

@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder
+namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 {
-    [Route("api/v1/autoresponder/recommendation-product")]
+    [Route("api/v1/autoresponder/standard/recommendation-product")]
     [ApiController]
     [Authorize]
     public class RecommendationProductController

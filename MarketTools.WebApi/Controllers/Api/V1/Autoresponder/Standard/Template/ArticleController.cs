@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Template
+namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
 {
-    [Route("api/v1/autoresponder/template/[controller]")]
+    [Route("api/v1/autoresponder/standard/template/[controller]")]
     [ApiController]
     [Authorize]
     public class ArticleController
