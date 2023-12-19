@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Create;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;

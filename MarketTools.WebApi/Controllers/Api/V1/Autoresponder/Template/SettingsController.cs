@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Models;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Queries.Get;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get;
 using MarketTools.WebApi.Models.Api.Autoreponder.Template;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

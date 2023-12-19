@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Template;

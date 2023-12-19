@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Columns.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.Columns.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create;
+using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;

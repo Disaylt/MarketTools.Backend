@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Commands.Update;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update;
 using MarketTools.Application.Common.Mappings;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder

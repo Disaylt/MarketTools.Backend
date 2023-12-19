@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Queries.GetRange;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;

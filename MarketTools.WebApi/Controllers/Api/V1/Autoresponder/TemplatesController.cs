@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Tempaltes.Models;
+﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Models;
 using MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

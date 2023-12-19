@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Cells.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Cells.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
+using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
+using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;

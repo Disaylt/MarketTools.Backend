@@ -1,6 +1,6 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.DeleteAll;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Queries.GetList;
+﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Settings.Commands.Update;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
 using MarketTools.Application.Common.Mappings;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder.Template

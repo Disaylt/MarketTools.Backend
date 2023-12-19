@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models;
-using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Queries.GetRange;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
+using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Domain.Common;
 using MarketTools.WebApi.Models.Api.Autoreponder;
 using MediatR;

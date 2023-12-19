@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Commands.Add;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add;
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;
 
