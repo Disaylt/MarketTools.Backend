@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Cells.Commands.Update;
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;

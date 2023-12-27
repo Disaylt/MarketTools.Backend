@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Models;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Queries.GetList;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries.GetRange;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

@@ -1,5 +1,4 @@
-﻿using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models;
-using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;

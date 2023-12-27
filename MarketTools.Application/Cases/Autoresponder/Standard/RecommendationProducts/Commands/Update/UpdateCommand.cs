@@ -1,5 +1,4 @@
-﻿using MarketTools.Application.Cases.Autoresponder.RecommendationProducts.Models;
-using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;

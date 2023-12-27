@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Validatiors;
-using MarketTools.Application.Cases.Autoresponder.Tempaltes.Articles.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using System;
