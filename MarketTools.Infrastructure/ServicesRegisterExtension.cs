@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 
 namespace MarketTools.Infrastructure
 {
@@ -23,6 +25,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IAuthReadHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
+            serviceDescriptors.AddSingleton<IStandardAutoresponderLimitationsService, StandardAutoresponderBaseLimitationsService>();
 
             return serviceDescriptors;
         }
