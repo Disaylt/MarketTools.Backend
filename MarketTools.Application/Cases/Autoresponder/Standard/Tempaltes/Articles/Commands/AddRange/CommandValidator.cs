@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Validatiors;
+using MarketTools.Application.Interfaces.Autoresponder.Standard.Models;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,26 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandValidator : TemplateInteractValidator<AddRangeCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork, 
+            IStandardAutoresponderLimitationsService standardAutoresponderLimitationsService) 
+            : base(authUnitOfWork)
         {
             RuleFor(x => x.Articles)
                 .Must(x => x.Count() > 1500)
+                .WithErrorCode("400")
                 .WithMessage("Невозможно добавить более 1500 артикулов за 1 раз.");
+
+            RuleFor(x => x)
+                .MustAsync(async (article, ct) =>
+                {
+                    StandardAutoresponderLimitsDto limits = await standardAutoresponderLimitationsService.GetAsync();
+                    int totalArticles = await authUnitOfWork.StandardAutoresponderTemplateArticles.CountAsync();
+                    int totalArticlesForAdd = article.Articles.Count();
+
+                    return totalArticles + totalArticlesForAdd < limits.MaxTemplateArticles;
+                })
+                .WithErrorCode("400")
+                .WithMessage("Превышен лимит шаблонов.");
         }
     }
 }
