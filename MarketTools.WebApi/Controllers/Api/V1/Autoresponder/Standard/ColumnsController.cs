@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
 using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.GetRange;
+using MarketTools.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetRangeAsync(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRangeAsync(AutoresponderColumnType type, CancellationToken cancellationToken)
         {
-            GetRangeQuery query = new GetRangeQuery();
+            GetRangeQuery query = new GetRangeQuery { Type = type };
             IEnumerable<ColumnVm> result = await _mediator.Send(query, cancellationToken);
 
             return Ok(result);

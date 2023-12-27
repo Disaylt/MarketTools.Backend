@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
+using MarketTools.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.G
 {
     public class GetRangeQuery : IRequest<IEnumerable<ColumnVm>>
     {
-
+        public AutoresponderColumnType Type { get; set; }
     }
 }

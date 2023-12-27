@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
+using MarketTools.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
     public class CreateCommand : IRequest<ColumnVm>
     {
         public string Name { get; set; } = null!;
+        public AutoresponderColumnType Type { get; set; }
     }
 }
