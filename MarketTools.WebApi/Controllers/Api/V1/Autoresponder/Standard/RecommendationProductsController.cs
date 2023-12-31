@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> GetAsync([FromQuery] RecommendationProductGetRangeDto webQuery, CancellationToken cancellationToken)
         {
             GetRangeQuery query = _mapper.Map<GetRangeQuery>(webQuery);
-            PageResult<RecommendationProductVm> result = await _mediator.Send(query);
+            PageResult<RecommendationProductVm> result = await _mediator.Send(query,cancellationToken);
 
             return Ok(result);
         }

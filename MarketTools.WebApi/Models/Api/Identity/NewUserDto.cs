@@ -7,7 +7,6 @@ namespace MarketTools.WebApi.Models.Api.Identity
 {
     public class NewUserDto : IHasMap
     {
-        [Required(ErrorMessage = "Введите почту")]
         [EmailAddress(ErrorMessage = "Введите почту")]
         public required string Email { get; set; }
 
@@ -16,7 +15,6 @@ namespace MarketTools.WebApi.Models.Api.Identity
         public required string Password { get; set; }
 
         [Required(ErrorMessage = "Повторите пароль")]
-        [Length(6, 30, ErrorMessage = "Введите от 6 до 30 символов")]
         public required string RepeatPassword { get; set; }
 
         public void Mapping(Profile profile)

@@ -7,7 +7,6 @@ namespace MarketTools.WebApi.Models.Api.Identity
 {
     public class LoginDto : IHasMap
     {
-        [Required(ErrorMessage = "Введите почту")]
         [EmailAddress(ErrorMessage = "Введите почту")]
         public required string Email { get; set; }
 

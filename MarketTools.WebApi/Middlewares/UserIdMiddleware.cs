@@ -9,6 +9,7 @@ namespace MarketTools.WebApi.Middlewares
 
         public async Task Invoke(HttpContext context, IAuthWriteHelper authWriteHelper)
         {
+            await Task.Delay(500);
             string? userId = context.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId != null)

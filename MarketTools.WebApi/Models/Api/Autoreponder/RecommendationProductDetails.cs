@@ -5,6 +5,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder
     public class RecommendationProductDetails
     {
         [MaxLength(25, ErrorMessage = "Превышена максимальная длинна артикула купленного продукта")]
+        [Required(ErrorMessage = "Введите артикул")]
         public string FeedbackArticle { get; set; } = null!;
 
         [MaxLength(100, ErrorMessage = "Превышена максимальная длинна названия купленного продукта")]

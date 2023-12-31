@@ -21,7 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
 
         public async Task<ColumnVm> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderColumn entity = Create(request.Name);
+            StandardAutoresponderColumn entity = Create(request);
 
             await _repository.AddAsync(entity);
             await _unitOfWork.CommintAsync();
@@ -31,12 +31,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
             return columnVm;
         }
 
-        private StandardAutoresponderColumn Create(string name)
+        private StandardAutoresponderColumn Create(CreateCommand request)
         {
             return new StandardAutoresponderColumn
             {
-                Name = name,
-                UserId = _authReadHelper.UserId
+                Name = request.Name,
+                Type = request.Type,
+                UserId = _authReadHelper.UserId,
             };
         }
     }
