@@ -40,7 +40,7 @@ namespace MarketTools.Application.Common.Behavoirs
             switch (validationFailure.ErrorCode)
             {
                 case "404":
-                    throw new DefaultNotFoundException(validationFailure.ErrorMessage);
+                    throw new AppNotFoundException(validationFailure.ErrorMessage);
                 default:
                     throw new ValidationException(validationFailure.ErrorMessage);
             }

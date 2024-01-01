@@ -5,9 +5,9 @@ using System.Net;
 
 namespace MarketTools.WebApi.Services.Exceptions
 {
-    public class DefaultNotFoundExceptionHandlerService : IWebExceptionHandlerService<DefaultNotFoundException>
+    public class DefaultNotFoundExceptionHandlerService : IWebExceptionHandlerService<AppNotFoundException>
     {
-        public async Task HandleAsync(HttpContext context, DefaultNotFoundException exception)
+        public async Task HandleAsync(HttpContext context, AppNotFoundException exception)
         {
             IEnumerable<string> errorMessagess = new List<string>() { exception.Message };
 

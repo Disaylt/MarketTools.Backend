@@ -48,7 +48,7 @@ namespace MarketTools.Infrastructure.Database.Repositories
         public virtual async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.FirstOrDefaultAsync(condition, cancellationToken)
-                ?? throw new DefaultNotFoundException();
+                ?? throw new AppNotFoundException();
         }
 
         public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)

@@ -40,7 +40,7 @@ namespace MarketTools.Application.Cases.User.Command.Register
                 string errorMessage = result.Errors
                     .FirstOrDefault()?
                     .Description ?? "-";
-                throw new DefaultBadRequestException(errorMessage);
+                throw new AppBadRequestException(errorMessage);
             }
         }
     }

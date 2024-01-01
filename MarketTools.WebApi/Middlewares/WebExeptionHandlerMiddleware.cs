@@ -20,11 +20,11 @@ namespace MarketTools.WebApi.Middlewares
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }
-            catch(DefaultBadRequestException exception)
+            catch(AppBadRequestException exception)
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }
-            catch(DefaultNotFoundException exception)
+            catch(AppNotFoundException exception)
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }

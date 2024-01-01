@@ -24,8 +24,8 @@ namespace MarketTools.WebApi.Extensions
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultBadRequestException>, DefaultBadRequestExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultNotFoundException>, DefaultNotFoundExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppBadRequestException>, DefaultBadRequestExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppNotFoundException>, DefaultNotFoundExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
 
 

@@ -48,7 +48,7 @@ namespace MarketTools.Infrastructure.Database.AuthRepositories
         public override async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await FirstOrDefaultAsync(condition, cancellationToken)
-                 ?? throw new DefaultNotFoundException();
+                 ?? throw new AppNotFoundException();
         }
 
         public override async Task<IEnumerable<T>> GetRangeAsync(CancellationToken cancellationToken = default)

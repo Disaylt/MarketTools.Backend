@@ -17,11 +17,11 @@ namespace MarketTools.Application.Cases.User.Command.Login
         public async Task<TokenVm> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             AppIdentityUser user = await _userManager.FindByEmailAsync(request.Email)
-                ?? throw new DefaultNotFoundException("Пользователь не найден.");
+                ?? throw new AppNotFoundException("Пользователь не найден.");
 
             if(await _userManager.CheckPasswordAsync(user, request.Password) is false)
             {
-                throw new DefaultBadRequestException("Пароль не подходит.");
+                throw new AppBadRequestException("Пароль не подходит.");
             }
 
             string token = _tokenService.Create(user);

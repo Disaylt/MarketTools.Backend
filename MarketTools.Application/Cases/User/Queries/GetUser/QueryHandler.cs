@@ -20,7 +20,7 @@ namespace MarketTools.Application.Cases.User.Queries.GetUser
         public async Task<UserVm> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             AppIdentityUser appIdentityUser = await _userManager.FindByIdAsync(_authReadHelper.UserId) 
-                ?? throw new DefaultNotFoundException();
+                ?? throw new AppNotFoundException();
 
             UserVm userVm = _mapper.Map<UserVm>(appIdentityUser);
 

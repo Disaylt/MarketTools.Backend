@@ -5,9 +5,9 @@ using System.Net;
 
 namespace MarketTools.WebApi.Services.Exceptions
 {
-    public class DefaultBadRequestExceptionHandlerService : IWebExceptionHandlerService<DefaultBadRequestException>
+    public class DefaultBadRequestExceptionHandlerService : IWebExceptionHandlerService<AppBadRequestException>
     {
-        public async Task HandleAsync(HttpContext context, DefaultBadRequestException exception)
+        public async Task HandleAsync(HttpContext context, AppBadRequestException exception)
         {
             IEnumerable<string> errorMessagess = new List<string>() { exception.Message };
 
