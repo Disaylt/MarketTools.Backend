@@ -8,6 +8,6 @@ namespace MarketTools.Application.Interfaces.Excel
 {
     public interface IExcelWriter<T>
     {
-        public Stream Read(IEnumerable<T> data);
+        public Stream Write(IEnumerable<T> data);
     }
 }

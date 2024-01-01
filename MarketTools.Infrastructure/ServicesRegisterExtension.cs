@@ -28,8 +28,8 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
             serviceDescriptors.AddSingleton<IStandardAutoresponderLimitationsService, StandardAutoresponderBaseLimitationsService>();
 
-            serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelService>();
-            serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelService>();
+            serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
+            serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
 
             return serviceDescriptors;
         }
