@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
 {
     internal class RecommendationProductsExcelConverterService
-        : IExcelReader<StandardAutoresponderRecommendationProduct>,
+        : ExcelBase,
+        IExcelReader<StandardAutoresponderRecommendationProduct>,
         IExcelWriter<StandardAutoresponderRecommendationProduct>
     {
         public IEnumerable<StandardAutoresponderRecommendationProduct> Read(Stream stream)
@@ -45,6 +46,24 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
                 .AddHeaders(columnsDetail)
                 .SetWidth(columnsDetail)
                 .Build();
+
+            AddValues(xLWorksheet, data);
+
+            return SaveAs(workbook);
+        }
+
+        private void AddValues(IXLWorksheet xLWorksheet, IEnumerable<StandardAutoresponderRecommendationProduct> data)
+        {
+            int rowPostion = 2;
+            foreach (var item in data)
+            {
+                xLWorksheet.Cell(rowPostion, (int)RecommendationProductsColumns.FeedbackArticle).SetValue(item.FeedbackArticle);
+                xLWorksheet.Cell(rowPostion, (int)RecommendationProductsColumns.FeedbackProductName).SetValue(item.FeedbackProductName);
+                xLWorksheet.Cell(rowPostion, (int)RecommendationProductsColumns.RecommendationArticle).SetValue(item.RecommendationArticle);
+                xLWorksheet.Cell(rowPostion, (int)RecommendationProductsColumns.RecommendationProductName).SetValue(item.RecommendationProductName);
+
+                rowPostion += 1;
+            }
         }
 
         private IEnumerable<StandardAutoresponderRecommendationProduct> ConvertFrom(IEnumerable<IXLRow> useRows)
