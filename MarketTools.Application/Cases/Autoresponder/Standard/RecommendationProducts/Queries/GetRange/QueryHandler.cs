@@ -24,9 +24,9 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
         public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<StandardAutoresponderRecommendationProduct> query = GetDbQueery(request);
-            IEnumerable<StandardAutoresponderRecommendationProduct> entities = await GetEntitiesAsync(request, query, cancellationToken);
-            int total = await query.CountAsync(cancellationToken);
+            IQueryable<StandardAutoresponderRecommendationProduct> baseQuery = GetBaseQueery(request);
+            IEnumerable<StandardAutoresponderRecommendationProduct> entities = await GetEntitiesAsync(request, baseQuery, cancellationToken);
+            int total = await baseQuery.CountAsync(cancellationToken);
 
             IEnumerable<RecommendationProductVm> recommendationProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(entities);
 
@@ -42,13 +42,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
                 .ToListAsync(cancellationToken);
         }
 
-        private IQueryable<StandardAutoresponderRecommendationProduct> GetDbQueery(GetRangeQuery request)
+        private IQueryable<StandardAutoresponderRecommendationProduct> GetBaseQueery(GetRangeQuery request)
         {
             IQueryable<StandardAutoresponderRecommendationProduct> query = _repository
                 .GetAsQueryable()
                 .Where(x => x.MarketplaceName == request.MarketplaceName);
 
-            if (request.Article != null)
+            if (string.IsNullOrEmpty(request.Article) == false)
             {
                 query = query.Where(x => x.FeedbackArticle == request.Article);
             }

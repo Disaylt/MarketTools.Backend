@@ -2,6 +2,8 @@
 using MarketTools.Application.Common.Behavoirs;
 using MarketTools.Application.Common.Configuration;
 using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces;
+using MarketTools.Application.Services;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,8 @@ namespace MarketTools.Application
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
+
+            services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
 
             return services;
         }

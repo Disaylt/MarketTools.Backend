@@ -24,7 +24,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
             CellVm result = await _mediator.Send(command, cancellationToken);
-
+            
             return Ok(result);
         }
 
