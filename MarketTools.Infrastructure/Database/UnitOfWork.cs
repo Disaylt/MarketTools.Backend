@@ -28,15 +28,9 @@ namespace MarketTools.Infrastructure.Database
             DbContext.SaveChanges();
         }
 
-        public DbSet<T> GetDbSet<T>() where T : class
-        {
-            return DbContext.Set<T>();
-        }
-
         public virtual IRepository<T> GetRepository<T>() where T : class
         {
             DbSet<T> set = DbContext.Set<T>();
-
             return new GenericRepository<T>(set);
         }
 
