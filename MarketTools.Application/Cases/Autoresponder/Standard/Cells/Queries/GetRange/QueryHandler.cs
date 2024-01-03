@@ -16,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.Get
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, IEnumerable<CellVm>>
     {
-        private readonly IAuthRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
+        private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
         public async Task<IEnumerable<CellVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderCell> entities = await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);

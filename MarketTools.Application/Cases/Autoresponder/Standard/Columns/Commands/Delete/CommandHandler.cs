@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderColumn>>
     {
-        private readonly IAuthRepository<StandardAutoresponderColumn> _repository = _authUnitOfWork.StandardAutoresponderColumns;
+        private readonly IRepository<StandardAutoresponderColumn> _repository = _authUnitOfWork.StandardAutoresponderColumns;
 
         public async Task Handle(DefaultDeleteCommand<StandardAutoresponderColumn> request, CancellationToken cancellationToken)
         {

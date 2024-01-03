@@ -21,7 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         IMapper _mapper)
         : IRequestHandler<GetRangeQuery, PageResult<RecommendationProductVm>>
     {
-        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
         public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             IQueryable<StandardAutoresponderRecommendationProduct> baseQuery = GetBaseQueery(request);

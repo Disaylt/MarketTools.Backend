@@ -14,7 +14,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         IExcelWriter<StandardAutoresponderRecommendationProduct> _excelWriter)
         : IRequestHandler<GetExcelQuery, Stream>
     {
-        private readonly IAuthRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
 
         public async Task<Stream> Handle(GetExcelQuery request, CancellationToken cancellationToken)
         {
