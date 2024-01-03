@@ -45,6 +45,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
             IXLWorksheet xLWorksheet = new ExcelWorkshetBuilder(workbook)
                 .AddHeaders(columnsDetail)
                 .SetWidth(columnsDetail)
+                .SetWrapText(true)
                 .Build();
 
             AddValues(xLWorksheet, data);

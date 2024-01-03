@@ -1,8 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
-using MarketTools.Domain.Entities;
-using MarketTools.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,12 +8,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Database.AuthRepositories
+namespace MarketTools.Infrastructure.Database.Repositories
 {
-    internal class GenericAuthRepository<T> : GenericRepository<T>, IAuthRepository<T> where T : class
+    internal class AuthRepository<T> : GenericRepository<T>, IRepository<T> where T : class
     {
         private readonly Expression<Func<T, bool>> _userCondition;
-        public GenericAuthRepository(DbSet<T> dbSet, Expression<Func<T, bool>> userCondition) : base(dbSet)
+        public AuthRepository(DbSet<T> dbSet, Expression<Func<T, bool>> userCondition) : base(dbSet)
         {
             _userCondition = userCondition;
         }

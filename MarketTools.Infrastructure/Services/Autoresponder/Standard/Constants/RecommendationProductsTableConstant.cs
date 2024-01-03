@@ -18,25 +18,25 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard.Constants
             {
                 Position = (int)RecommendationProductsColumns.FeedbackArticle,
                 Name = "Артикул",
-                Width = 100
+                Width = 20
             },
             new ColumnDetailsDto
             {
-                Position = (int)RecommendationProductsColumns.FeedbackArticle,
+                Position = (int)RecommendationProductsColumns.FeedbackProductName,
                 Name = "Название",
-                Width = 300
+                Width = 60
             },
             new ColumnDetailsDto
             {
-                Position = (int)RecommendationProductsColumns.FeedbackArticle,
+                Position = (int)RecommendationProductsColumns.RecommendationArticle,
                 Name = "Рек. артикул",
-                Width = 100
+                Width = 20
             },
             new ColumnDetailsDto
             {
-                Position = (int)RecommendationProductsColumns.FeedbackArticle,
+                Position = (int)RecommendationProductsColumns.RecommendationProductName,
                 Name = "Рек. название",
-                Width = 300
+                Width = 60
             }
         };
     }

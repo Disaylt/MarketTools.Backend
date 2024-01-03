@@ -33,7 +33,7 @@ namespace MarketTools.Infrastructure.Database
             return DbContext.Set<T>();
         }
 
-        public IRepository<T> GetRepository<T>() where T : class
+        public virtual IRepository<T> GetRepository<T>() where T : class
         {
             DbSet<T> set = DbContext.Set<T>();
 

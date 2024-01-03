@@ -19,9 +19,9 @@ namespace MarketTools.Infrastructure.Excel
 
         public ExcelWorkshetBuilder AddHeaders(IEnumerable<ColumnDetailsDto> columnsDetail)
         {
-            foreach(ColumnDetailsDto columnDetail in columnsDetail)
+            IXLRow row = _xLWorksheet.Row(1);
+            foreach (ColumnDetailsDto columnDetail in columnsDetail)
             {
-                IXLRow row = _xLWorksheet.Row(1);
                 row.Cell(columnDetail.Position).Value = columnDetail.Name;
             }
 
@@ -34,6 +34,13 @@ namespace MarketTools.Infrastructure.Excel
             {
                 _xLWorksheet.Column(columnDetail.Position).Width = columnDetail.Width;
             }
+
+            return this;
+        }
+
+        public ExcelWorkshetBuilder SetWrapText(bool isActive)
+        {
+            _xLWorksheet.Style.Alignment.WrapText = isActive;
 
             return this;
         }
