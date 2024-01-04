@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.User.Command.Login
 {
-    public class CommandHandler(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService) : IRequestHandler<LoginUserCommand, TokenVm>
+    public class CommandHandler(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService) 
+        : IRequestHandler<LoginUserCommand, TokenVm>
     {
         public async Task<TokenVm> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {

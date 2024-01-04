@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.User.Command.Register
 {
-    internal class CommandHandler(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService) : IRequestHandler<RegisterUserCommand, TokenVm>
+    public class CommandHandler(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService) 
+        : IRequestHandler<RegisterUserCommand, TokenVm>
     {
 
         public async Task<TokenVm> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
