@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Common.Configuration;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Domain.Common.Constants;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -20,7 +21,7 @@ namespace MarketTools.Infrastructure.Identity
         public string Create(IdentityUser user)
         {
             DateTime expires = GetExpireDate();
-            List<Claim> claims = CreateClaims(user);
+            IEnumerable<Claim> claims = new ClaimsBuilder(user).Build();
             SigningCredentials signingCredentials = CreateSigningCredentials();
 
             JwtSecurityToken jwtSecurityToken = new(
@@ -47,16 +48,5 @@ namespace MarketTools.Infrastructure.Identity
             return DateTime.UtcNow.AddDays(_sequreSettings.Value.Jwt.ExpireDay);
         }
 
-        private List<Claim> CreateClaims(IdentityUser user)
-        {
-            return new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, EpochTime.GetIntDate(DateTime.UtcNow).ToString(CultureInfo.InvariantCulture), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName!),
-                new Claim(ClaimTypes.Email, user.Email!)
-            };
-        }
     }
 }
