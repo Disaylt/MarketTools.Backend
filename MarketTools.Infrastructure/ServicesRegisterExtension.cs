@@ -17,6 +17,8 @@ using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Excel;
 using MarketTools.Application.Interfaces;
 using MarketTools.Domain.Interfaces.Limits;
+using MarketTools.Application.Common.Mappings;
+using MarketTools.Domain.Common.Constants;
 
 namespace MarketTools.Infrastructure
 {
@@ -32,6 +34,8 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
+
+            AddSolutionMapping(serviceDescriptors);
 
             return serviceDescriptors;
         }
@@ -61,6 +65,20 @@ namespace MarketTools.Infrastructure
             .AddDefaultTokenProviders();
 
             return serviceDescriptors;
+        }
+
+        private static void AddSolutionMapping(IServiceCollection serviceDescriptors)
+        {
+            IEnumerable<Assembly> solutionAsemblies = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(x => x.FullName != null && x.FullName.Contains(SolutionConstants.SolutionName));
+            foreach (Assembly assembly in solutionAsemblies)
+            {
+                serviceDescriptors.AddAutoMapper(config =>
+                {
+                    config.AddProfile(new AssemblyMappingProfile(assembly));
+                });
+            }
         }
     }
 }
