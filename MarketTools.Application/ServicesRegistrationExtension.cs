@@ -24,10 +24,6 @@ namespace MarketTools.Application
             services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddAutoMapper(config =>
-            {
-                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-            });
 
             services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
 

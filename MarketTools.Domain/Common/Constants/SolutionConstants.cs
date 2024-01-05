@@ -9,6 +9,6 @@ namespace MarketTools.Domain.Common.Constants
     public static class SolutionConstants
     {
         public static string SolutionConfigPathEnvName => "MpToolsSettingsPath";
-        public static string SolutionName => "MpTools";
+        public static string SolutionName => "MarketTools";
     }
 }
