@@ -5,6 +5,7 @@ using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Domain.Entities;
 using MarketTools.Infrastructure.Database;
+using MarketTools.WebApi.Common.Json;
 using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Services.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,6 +26,11 @@ namespace MarketTools.WebApi.Extensions
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppNotFoundException>, DefaultNotFoundExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
 
+            serviceDescriptors.AddControllers()
+                .AddJsonOptions(opt =>
+                {
+                    opt.JsonSerializerOptions.Converters.Add(new StringJsonConverter());
+                });
 
             return serviceDescriptors;
         }

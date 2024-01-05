@@ -14,12 +14,6 @@ builder.AddWebConfiguration();
 SequreSettings sequreConfiguration = builder.Configuration.GetSection("Sequre").Get<SequreSettings>()
     ?? throw new NullReferenceException();
 
-builder.Services.AddControllers()
-    .AddJsonOptions(opt =>
-    {
-        opt.JsonSerializerOptions.Converters.Add(new StringJsonConverter());
-    });
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -38,7 +32,7 @@ if (app.Environment.IsDevelopment())
 {
 
 }
-app.UseMiddleware<WebExeptionHandlerMiddleware>();
+app.UseWebExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -55,7 +49,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.SetUserIdToAuthHelper();
+app.UseWriteAuthHelper();
 
 app.MapControllers();
 
