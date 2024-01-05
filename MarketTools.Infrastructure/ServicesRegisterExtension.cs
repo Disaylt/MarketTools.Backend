@@ -19,6 +19,7 @@ using MarketTools.Application.Interfaces;
 using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Common.Constants;
+using MarketTools.Domain.Common.Configuration;
 
 namespace MarketTools.Infrastructure
 {
@@ -40,10 +41,9 @@ namespace MarketTools.Infrastructure
             return serviceDescriptors;
         }
 
-        public static IServiceCollection AddDatabases(this IServiceCollection serviceDescriptors, string connection)
+        public static IServiceCollection AddDatabases(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddDbContext<MainAppDbContext>(options =>
-                options.UseNpgsql(connection));
+            serviceDescriptors.AddNpgsql<MainAppDbContext>(sequreSettings.Database.MainConnectionString);
             serviceDescriptors.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceDescriptors.AddScoped<IAuthUnitOfWork, AuthUnitOfWork>();
 

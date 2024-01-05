@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Common.Behavoirs;
-using MarketTools.Application.Common.Configuration;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Services;
+using MarketTools.Domain.Common.Configuration;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

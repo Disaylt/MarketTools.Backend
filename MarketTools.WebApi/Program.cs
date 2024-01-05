@@ -6,10 +6,13 @@ using MarketTools.WebApi.Middlewares;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MarketTools.WebApi.Common.Json;
+using MarketTools.Domain.Common.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddWebConfiguration();
+SequreSettings sequreConfiguration = builder.Configuration.GetSection("Sequre").Get<SequreSettings>()
+    ?? throw new NullReferenceException();
 
 builder.Services.AddControllers()
     .AddJsonOptions(opt =>
@@ -24,10 +27,9 @@ builder.Services.AddCurrentApp();
 builder.Services.AddApplicationLayer();
 builder.Services.AddBaererSwager();
 
-string connectionMainDb = builder.Configuration["Sequre:DatabaseConnections:Main"] ?? throw new NullReferenceException();
-builder.Services.AddDatabases(connectionMainDb);
+builder.Services.AddDatabases(sequreConfiguration);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
-builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddJwtAuth(sequreConfiguration);
 builder.Services.AddInfrasrtuctureIdentity();
 
 var app = builder.Build();

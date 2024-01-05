@@ -1,5 +1,5 @@
-﻿using MarketTools.Application.Common.Configuration;
-using MarketTools.Application.Interfaces.Identity;
+﻿using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Domain.Common.Configuration;
 using MarketTools.Domain.Common.Constants;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;

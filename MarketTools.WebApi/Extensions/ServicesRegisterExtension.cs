@@ -2,6 +2,7 @@
 using FluentValidation;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Common.Mappings;
+using MarketTools.Domain.Common.Configuration;
 using MarketTools.Domain.Entities;
 using MarketTools.Infrastructure.Database;
 using MarketTools.WebApi.Interfaces;
@@ -28,15 +29,9 @@ namespace MarketTools.WebApi.Extensions
             return serviceDescriptors;
         }
 
-        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            IConfigurationSection jwtSeciton = configuration.GetRequiredSection("Sequre")
-                .GetRequiredSection("Jwt");
-
-            string? validAudience = jwtSeciton.GetValue<string>("ValidAudience");
-            string? validIssuer = jwtSeciton.GetValue<string>("ValidIssuer");
-            string secret = jwtSeciton.GetValue<string>("Secret") ?? throw new NullReferenceException("JWT secret is null");
-            byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
+            byte[] secretBytes = Encoding.UTF8.GetBytes(sequreSettings.Jwt.Secret);
 
             serviceDescriptors.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -49,8 +44,8 @@ namespace MarketTools.WebApi.Extensions
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
-                        ValidAudience = validAudience,
-                        ValidIssuer = validIssuer,
+                        ValidAudience = sequreSettings.Jwt.ValidAudience,
+                        ValidIssuer = sequreSettings.Jwt.ValidIssuer,
                         IssuerSigningKey = new SymmetricSecurityKey(secretBytes)
                     };
                 };
