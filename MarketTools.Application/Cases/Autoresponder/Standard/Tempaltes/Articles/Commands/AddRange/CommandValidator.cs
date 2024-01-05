@@ -8,13 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarketTools.Application.Interfaces;
+using MarketTools.Domain.Interfaces.Limits;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.AddRange
 {
     public class CommandValidator : TemplateInteractValidator<AddRangeCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork, 
-            IStandardAutoresponderLimitationsService standardAutoresponderLimitationsService) 
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork,
+            ILimitsService<IStandarAutoresponderLimits> limitsService) 
             : base(authUnitOfWork)
         {
             RuleFor(x => x.Articles)
@@ -25,7 +27,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             RuleFor(x => x)
                 .MustAsync(async (article, ct) =>
                 {
-                    StandardAutoresponderLimitsDto limits = await standardAutoresponderLimitationsService.GetAsync();
+                    IStandarAutoresponderLimits limits = await limitsService.GetAsync();
                     int totalArticles = await authUnitOfWork.StandardAutoresponderTemplateArticles.CountAsync();
                     int totalArticlesForAdd = article.Articles.Count();
 

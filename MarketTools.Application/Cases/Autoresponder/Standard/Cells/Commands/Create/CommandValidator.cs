@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Autoresponder.Standard.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Interfaces.Limits;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
 {
     public class CommandValidator : AbstractValidator<CreateCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork, IStandardAutoresponderLimitationsService standardAutoresponderLimitationsService)
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
@@ -29,7 +31,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    StandardAutoresponderLimitsDto limits = await standardAutoresponderLimitationsService.GetAsync();
+                    IStandarAutoresponderLimits limits = await limitsService.GetAsync();
                     int totalCells = await authUnitOfWork.StandardAutoresponderCells.CountAsync(x=> x.ColumnId == columnId);
 
                     return totalCells < limits.MaxCells;
