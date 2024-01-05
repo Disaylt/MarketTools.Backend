@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Excel;
+using MarketTools.Application.Interfaces;
+using MarketTools.Domain.Interfaces.Limits;
 
 namespace MarketTools.Infrastructure
 {
@@ -26,7 +28,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IAuthReadHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
-            serviceDescriptors.AddSingleton<IStandardAutoresponderLimitationsService, StandardAutoresponderBaseLimitationsService>();
+            serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
 
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProduct>, RecommendationProductsExcelConverterService>();
