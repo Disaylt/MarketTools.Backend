@@ -30,7 +30,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
                 .SetArticle(request.Article)
                 .SetPagination(request.PageRequest)
                 .Build()
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }
