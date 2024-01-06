@@ -1,5 +1,4 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
-using MarketTools.Domain.Entities;
+﻿using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;

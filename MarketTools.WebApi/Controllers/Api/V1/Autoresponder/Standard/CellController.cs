@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Spreadsheet;
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;
@@ -43,9 +43,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> UpdateAsync([FromBody] CellUpdateDto body, CancellationToken cancellationToken)
         {
             UpdateCommand command = _mapper.Map<UpdateCommand>(body);
-            CellVm result = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderCell newCell = await _mediator.Send(command, cancellationToken);
 
-            return Ok(result);
+            CellVm cellVm = _mapper.Map<CellVm>(newCell);
+
+            return Ok(cellVm);
         }
     }
 }

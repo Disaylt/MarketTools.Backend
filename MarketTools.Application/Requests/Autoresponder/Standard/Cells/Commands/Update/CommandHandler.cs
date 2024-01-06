@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
@@ -17,10 +16,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Up
     public class CommandHandler
         (IMapper _mapper,
         IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<UpdateCommand, CellVm>
+        : IRequestHandler<UpdateCommand, StandardAutoresponderCell>
     {
         private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
-        public async Task<CellVm> Handle(UpdateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderCell> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
@@ -29,7 +28,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Up
             _repository.Update(entity);
             await _authUnitOfWork.CommintAsync();
 
-            return _mapper.Map<CellVm>(entity);
+            return entity;
         }
     }
 }

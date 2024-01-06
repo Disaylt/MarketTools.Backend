@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
