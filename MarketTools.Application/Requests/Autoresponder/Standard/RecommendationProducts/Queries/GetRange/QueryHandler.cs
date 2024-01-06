@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries;
@@ -23,7 +22,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
     {
         private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
 
-        public async Task<IEnumerable<StandardAutoresponderRecommendationProduct>> IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProduct>>.Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProduct>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             return await new RecommendationProductsQueryBuilder(_repository)
                 .SetMarketplace(request.MarketplaceName)

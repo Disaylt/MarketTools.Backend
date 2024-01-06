@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create;
 using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;
@@ -24,7 +23,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] RecommendationProductCreateDto body, CancellationToken cancellationToken)
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
-            RecommendationProductVm result = await _mediator.Send(command);
+            StandardAutoresponderRecommendationProduct entiry = await _mediator.Send(command);
+
+            RecommendationProductVm result = _mapper.Map<RecommendationProductVm>(entiry);
 
             return Ok(result);
         }
