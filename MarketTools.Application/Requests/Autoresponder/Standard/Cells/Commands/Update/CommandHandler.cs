@@ -14,8 +14,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update
 {
     public class CommandHandler
-        (IMapper _mapper,
-        IAuthUnitOfWork _authUnitOfWork)
+        (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand, StandardAutoresponderCell>
     {
         private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;

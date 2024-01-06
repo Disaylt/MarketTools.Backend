@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;
@@ -23,9 +22,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body, CancellationToken cancellationToken)
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
-            ColumnVm result = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderColumn newColumn = await _mediator.Send(command, cancellationToken);
 
-            return Ok(result);
+            ColumnVm viewColumn = _mapper.Map<ColumnVm>(newColumn);
+
+            return Ok(viewColumn);
         }
 
         [HttpDelete]

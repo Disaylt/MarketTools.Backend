@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
@@ -13,22 +12,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create
 {
     public class CommanHandler(IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper,
-        IMapper _mapper)
-        : IRequestHandler<CreateCommand, ColumnVm>
+        IAuthReadHelper _authReadHelper)
+        : IRequestHandler<CreateCommand, StandardAutoresponderColumn>
     {
         private readonly IRepository<StandardAutoresponderColumn> _repository = _unitOfWork.GetRepository<StandardAutoresponderColumn>();
 
-        public async Task<ColumnVm> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderColumn> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderColumn entity = Create(request);
 
             await _repository.AddAsync(entity);
             await _unitOfWork.CommintAsync();
 
-            ColumnVm columnVm = _mapper.Map<ColumnVm>(entity);
-
-            return columnVm;
+            return entity;
         }
 
         private StandardAutoresponderColumn Create(CreateCommand request)
