@@ -16,16 +16,12 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.G
     public class QueryHandler
         (IMapper _mapper,
         IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery, IEnumerable<ColumnVm>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderColumn>>
     {
         private readonly IRepository<StandardAutoresponderColumn> _repository = _authUnitOfWork.StandardAutoresponderColumns;
-        public async Task<IEnumerable<ColumnVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderColumn>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<StandardAutoresponderColumn> entities = await _repository.GetRangeAsync(x=> x.Type == request.Type);
-
-            IEnumerable<ColumnVm> result = _mapper.Map<IEnumerable<ColumnVm>>(entities);
-
-            return result;
+            return await _repository.GetRangeAsync(x=> x.Type == request.Type);
         }
     }
 }

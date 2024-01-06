@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models
+namespace MarketTools.WebApi.Models.Api.Autoreponder
 {
     public class ColumnVm : IHasMap
     {

@@ -1,6 +1,8 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Models;
+﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.GetRange;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
+using MarketTools.WebApi.Models.Api.Autoreponder;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,16 +14,18 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
     [ApiController]
     [Authorize]
     public class ColumnsController
-        (IMediator _mediator)
+        (IMediator _mediator, IMapper _mapper)
         : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetRangeAsync(AutoresponderColumnType type, CancellationToken cancellationToken)
         {
             GetRangeQuery query = new GetRangeQuery { Type = type };
-            IEnumerable<ColumnVm> result = await _mediator.Send(query, cancellationToken);
+            IEnumerable<StandardAutoresponderColumn> entities = await _mediator.Send(query, cancellationToken);
 
-            return Ok(result);
+            IEnumerable<ColumnVm> viewClumns = _mapper.Map<IEnumerable<ColumnVm>>(entities);
+
+            return Ok(viewClumns);
         }
     }
 }
