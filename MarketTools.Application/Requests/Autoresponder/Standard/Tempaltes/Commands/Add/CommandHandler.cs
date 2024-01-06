@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
@@ -13,20 +12,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Commands.Add
 {
     public class CommandHandler
-        (IMapper _mapper,
-        IUnitOfWork _unitOfWork,
+        (IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<AddCommand, TemplateVm>
+        : IRequestHandler<AddCommand, StandardAutoresponderTemplate>
     {
         private readonly IRepository<StandardAutoresponderTemplate> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplate>();
 
-        public async Task<TemplateVm> Handle(AddCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderTemplate> Handle(AddCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplate entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync();
 
-            return _mapper.Map<TemplateVm>(entity);
+            return entity;
         }
 
         private StandardAutoresponderTemplate Build(AddCommand request)
