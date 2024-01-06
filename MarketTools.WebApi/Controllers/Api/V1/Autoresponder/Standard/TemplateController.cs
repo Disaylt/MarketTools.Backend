@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Commands.Add;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Models;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder;
@@ -22,9 +21,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] TemplateCreateDto body, CancellationToken ct)
         {
             AddCommand command = _mapper.Map<AddCommand>(body);
-            TemplateVm result = await _mediator.Send(command, ct);
+            StandardAutoresponderTemplate template = await _mediator.Send(command, ct);
 
-            return Ok(result);
+            TemplateVm viewTemplate = _mapper.Map<TemplateVm>(template);
+
+            return Ok(viewTemplate);
         }
 
         [HttpDelete]
