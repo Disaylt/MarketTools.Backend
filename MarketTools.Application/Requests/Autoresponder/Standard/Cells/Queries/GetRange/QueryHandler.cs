@@ -14,14 +14,12 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.Get
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork,
         IMapper _mapper)
-        : IRequestHandler<GetRangeQuery, IEnumerable<CellVm>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderCell>>
     {
         private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
-        public async Task<IEnumerable<CellVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderCell>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<StandardAutoresponderCell> entities = await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);
-
-            return _mapper.Map<IEnumerable<CellVm>>(entities);
+            return await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);
         }
     }
 }
