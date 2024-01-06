@@ -42,5 +42,13 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 
             return File(stream, "application/octet-stream", "RecommendationTable.xlsx");
         }
+
+        [HttpPost]
+        [Route("excel")]
+        public IActionResult AddRangeAsyncFromExcel( IFormFile file)
+        {
+            
+            return Ok();
+        }
     }
 }

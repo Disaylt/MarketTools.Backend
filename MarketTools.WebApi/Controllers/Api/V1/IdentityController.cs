@@ -35,7 +35,6 @@ namespace MarketTools.WebApi.Controllers.Api.V1
             return Ok(response);
         }
 
-
         [HttpGet]
         [Route("is-auth")]
         public IActionResult IsAuth()
