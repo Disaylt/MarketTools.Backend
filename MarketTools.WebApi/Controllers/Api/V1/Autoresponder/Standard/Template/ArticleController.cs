@@ -23,9 +23,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> CreateAsync([FromBody] ArticleCreateDto body, CancellationToken cancellationToken)
         {
             AddCommand command = _mapper.Map<AddCommand>(body);
-            ArticleVm result = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderTemplateArticle article = await _mediator.Send(command, cancellationToken);
 
-            return Ok(result);
+            ArticleVm viewArticle = _mapper.Map<ArticleVm>(article);
+
+            return Ok(viewArticle);
         }
 
         [HttpDelete]

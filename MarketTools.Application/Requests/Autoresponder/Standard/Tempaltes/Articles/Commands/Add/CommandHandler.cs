@@ -12,19 +12,18 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add
 {
     public class CommandHandler
-        (IMapper _mapper,
-        IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddCommand, ArticleVm>
+        (IUnitOfWork _unitOfWork)
+        : IRequestHandler<AddCommand, StandardAutoresponderTemplateArticle>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
 
-        public async Task<ArticleVm> Handle(AddCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderTemplateArticle> Handle(AddCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateArticle entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
-            return _mapper.Map<ArticleVm>(entity);
+            return entity;
         }
 
         private StandardAutoresponderTemplateArticle Build(AddCommand request)

@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
+using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList
 {
-    public class GetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<ArticleVm>>
+    public class GetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticle>>
     {
 
     }

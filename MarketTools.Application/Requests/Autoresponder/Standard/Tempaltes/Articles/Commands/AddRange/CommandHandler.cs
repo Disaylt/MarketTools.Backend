@@ -12,18 +12,17 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.AddRange
 {
     public class CommandHandler
-        (IMapper _mapper,
-        IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRangeCommand, IEnumerable<ArticleVm>>
+        (IUnitOfWork _unitOfWork)
+        : IRequestHandler<AddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticle>>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
-        public async Task<IEnumerable<ArticleVm>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderTemplateArticle>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderTemplateArticle> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
             await _repository.AddRangeAsync(newEntities, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<ArticleVm>>(newEntities);
+            return newEntities;
         }
 
         private async Task<IEnumerable<StandardAutoresponderTemplateArticle>> BuildOnlyNewArticlesAsync(AddRangeCommand request, CancellationToken ct)

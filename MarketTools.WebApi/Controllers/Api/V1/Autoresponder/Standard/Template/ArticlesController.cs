@@ -1,6 +1,9 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll;
+﻿using AutoMapper;
+using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList;
+using MarketTools.Domain.Entities;
+using MarketTools.WebApi.Models.Api.Autoreponder.Template;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,16 +15,18 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
     [ApiController]
     [Authorize]
     public class ArticlesController
-        (IMediator _mediator)
+        (IMediator _mediator, IMapper _mapper)
         : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetAsync(int templateId)
         {
             GetArticlesQuery query = new GetArticlesQuery { TemplateId = templateId };
-            IEnumerable<ArticleVm> result = await _mediator.Send(query);
+            IEnumerable<StandardAutoresponderTemplateArticle> articles = await _mediator.Send(query);
 
-            return Ok(result);
+            IEnumerable<ArticleVm> viewArticles = _mapper.Map<IEnumerable<ArticleVm>>(articles);
+
+            return Ok(viewArticles);
         }
 
         [HttpDelete]
