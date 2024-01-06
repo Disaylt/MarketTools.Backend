@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Models;
+using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create
 {
-    public class CreateCommand : IRequest<CellVm>
+    public class CreateCommand : IRequest<StandardAutoresponderCell>
     {
         public int ColumnId { get; set; }
         public required string Value { get; set; }

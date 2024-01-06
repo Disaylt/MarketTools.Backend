@@ -23,9 +23,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] CellCreateDto body, CancellationToken cancellationToken)
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
-            CellVm result = await _mediator.Send(command, cancellationToken);
-            
-            return Ok(result);
+            StandardAutoresponderCell newCell = await _mediator.Send(command, cancellationToken);
+
+            CellVm cellVm = _mapper.Map<CellVm>(newCell);
+
+            return Ok(cellVm);
         }
 
         [HttpDelete]
