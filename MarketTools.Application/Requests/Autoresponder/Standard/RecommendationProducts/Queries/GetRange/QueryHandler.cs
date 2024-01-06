@@ -2,6 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries;
 using MarketTools.Domain.Common;
 using MarketTools.Domain.Entities;
 using MediatR;
@@ -17,43 +18,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange
 {
     public class QueryHandler
-        (IAuthUnitOfWork _authUnitOfWork,
-        IMapper _mapper)
-        : IRequestHandler<GetRangeQuery, PageResult<RecommendationProductVm>>
+        (IAuthUnitOfWork _authUnitOfWork)
+        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProduct>>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
-        public async Task<PageResult<RecommendationProductVm>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProduct>> IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProduct>>.Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<StandardAutoresponderRecommendationProduct> baseQuery = GetBaseQueery(request);
-            IEnumerable<StandardAutoresponderRecommendationProduct> entities = await GetEntitiesAsync(request, baseQuery, cancellationToken);
-            int total = await baseQuery.CountAsync(cancellationToken);
-
-            IEnumerable<RecommendationProductVm> recommendationProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(entities);
-
-            return new PageResult<RecommendationProductVm>(total, recommendationProducts);
-        }
-
-        private async Task<IEnumerable<StandardAutoresponderRecommendationProduct>> GetEntitiesAsync(GetRangeQuery request, IQueryable<StandardAutoresponderRecommendationProduct> query, CancellationToken cancellationToken)
-        {
-            return await query
-                .OrderBy(x => x.Id)
-                .Skip(request.Skip)
-                .Take(request.Take)
-                .ToListAsync(cancellationToken);
-        }
-
-        private IQueryable<StandardAutoresponderRecommendationProduct> GetBaseQueery(GetRangeQuery request)
-        {
-            IQueryable<StandardAutoresponderRecommendationProduct> query = _repository
-                .GetAsQueryable()
-                .Where(x => x.MarketplaceName == request.MarketplaceName);
-
-            if (string.IsNullOrEmpty(request.Article) == false)
-            {
-                query = query.Where(x => x.FeedbackArticle == request.Article);
-            }
-
-            return query;
+            return await new RecommendationProductsQueryBuilder(_repository)
+                .SetMarketplace(request.MarketplaceName)
+                .SetArticle(request.Article)
+                .SetPagination(request.PageRequest)
+                .Build()
+                .ToListAsync();
         }
     }
 }
