@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Models;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get;
+using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Template;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,9 +22,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> GetAsync(int id)
         {
             GetCommand command = new GetCommand { TemplateId = id };
-            SettingsVm result = await _mediator.Send(command);
+            StandardAutoresponderTemplateSettings settings = await _mediator.Send(command);
 
-            return Ok(result);
+            SettingsVm viewSettings = _mapper.Map<SettingsVm>(settings);
+
+            return Ok(viewSettings);
         }
 
         [HttpPut]
