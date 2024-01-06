@@ -23,7 +23,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> CreateAsync([FromBody] ArticleCreateDto body, CancellationToken cancellationToken)
         {
             AddCommand command = _mapper.Map<AddCommand>(body);
-            StandardAutoresponderTemplateArticle article = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderTemplateArticleEntity article = await _mediator.Send(command, cancellationToken);
 
             ArticleVm viewArticle = _mapper.Map<ArticleVm>(article);
 
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            DefaultDeleteCommand<StandardAutoresponderTemplateArticle> command = new DefaultDeleteCommand<StandardAutoresponderTemplateArticle> { Id = id };
+            DefaultDeleteCommand<StandardAutoresponderTemplateArticleEntity> command = new DefaultDeleteCommand<StandardAutoresponderTemplateArticleEntity> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();

@@ -49,7 +49,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         {
             GetRangeQuery query = _mapper.Map<GetRangeQuery>(webQuery);
 
-            IEnumerable<StandardAutoresponderRecommendationProduct> entites = await _mediator.Send(query, cancellationToken);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entites = await _mediator.Send(query, cancellationToken);
 
             return _mapper.Map<IEnumerable<RecommendationProductVm>>(entites);
         }

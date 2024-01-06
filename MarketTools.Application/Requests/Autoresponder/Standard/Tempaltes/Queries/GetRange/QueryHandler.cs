@@ -12,10 +12,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries
 {
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderTemplate>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderTemplateEntity>>
     {
-        private readonly IRepository<StandardAutoresponderTemplate> _repository = _authUnitOfWork.StandardAutoresponderTemplates;
-        public async Task<IEnumerable<StandardAutoresponderTemplate>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplates;
+        public async Task<IEnumerable<StandardAutoresponderTemplateEntity>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync();
         }

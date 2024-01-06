@@ -21,7 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             IUnitOfWork unitOfWork) 
             : base(authUnitOfWork)
         {
-            IRepository<StandardAutoresponderTemplateArticle> repository = unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
+            IRepository<StandardAutoresponderTemplateArticleEntity> repository = unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
 
             RuleFor(x => x)
                 .MustAsync(async (value, ct) =>

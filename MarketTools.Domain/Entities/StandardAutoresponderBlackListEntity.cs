@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class StandardAutoresponderBlackList : BaseEntity
+    public class StandardAutoresponderBlackListEntity : BaseEntity
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
@@ -15,6 +15,6 @@ namespace MarketTools.Domain.Entities
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
-        public List<StandardAutoresponderBanWord> BanWords { get; set; } = new List<StandardAutoresponderBanWord>();
+        public List<StandardAutoresponderBanWordEntity> BanWords { get; set; } = new List<StandardAutoresponderBanWordEntity>();
     }
 }

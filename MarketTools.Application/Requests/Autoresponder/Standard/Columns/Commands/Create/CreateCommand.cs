@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create
 {
-    public class CreateCommand : IRequest<StandardAutoresponderColumn>
+    public class CreateCommand : IRequest<StandardAutoresponderColumnEntity>
     {
         public string Name { get; set; } = null!;
         public AutoresponderColumnType Type { get; set; }

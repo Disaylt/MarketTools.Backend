@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Commands.Add
 {
-    public class AddCommand : IRequest<StandardAutoresponderTemplate>
+    public class AddCommand : IRequest<StandardAutoresponderTemplateEntity>
     {
         public required string Name { get; set; }
     }

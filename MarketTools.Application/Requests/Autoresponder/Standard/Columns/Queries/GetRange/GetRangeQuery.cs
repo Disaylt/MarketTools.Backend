@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.GetRange
 {
-    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderColumn>>
+    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderColumnEntity>>
     {
         public AutoresponderColumnType Type { get; set; }
     }

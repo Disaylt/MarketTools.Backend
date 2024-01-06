@@ -22,13 +22,13 @@ namespace MarketTools.Infrastructure.Database
             _authReadHelper = authReadHelper;
         }
 
-        public IRepository<StandardAutoresponderColumn> StandardAutoresponderColumns 
-            => new AuthRepository<StandardAutoresponderColumn>(
+        public IRepository<StandardAutoresponderColumnEntity> StandardAutoresponderColumns 
+            => new AuthRepository<StandardAutoresponderColumnEntity>(
                 DbContext.StandardAutoresponderColumns,
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderRecommendationProduct> StandardAutoresponderRecommendationProducts
-            => new AuthRepository<StandardAutoresponderRecommendationProduct>(
+        public IRepository<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts
+            => new AuthRepository<StandardAutoresponderRecommendationProductEntity>(
                 DbContext.StandardAutoresponderRecommendationProducts, 
                 x => x.UserId == _authReadHelper.UserId);
 
@@ -37,58 +37,58 @@ namespace MarketTools.Infrastructure.Database
                 DbContext.StandardAutoresponderCells, 
                 x => x.Column.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderTemplate> StandardAutoresponderTemplates
-            => new AuthRepository<StandardAutoresponderTemplate>(
+        public IRepository<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates
+            => new AuthRepository<StandardAutoresponderTemplateEntity>(
                 DbContext.StandardAutoresponderTemplates, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderTemplateArticle> StandardAutoresponderTemplateArticles
-            => new AuthRepository<StandardAutoresponderTemplateArticle>(
+        public IRepository<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles
+            => new AuthRepository<StandardAutoresponderTemplateArticleEntity>(
                 DbContext.StandardAutoresponderTemplateArticles, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderColumnBindPosition> StandardAutoresponderColumnBindPositions
-            => new AuthRepository<StandardAutoresponderColumnBindPosition>(
+        public IRepository<StandardAutoresponderColumnBindPositionEntity> StandardAutoresponderColumnBindPositions
+            => new AuthRepository<StandardAutoresponderColumnBindPositionEntity>(
                 DbContext.StandardAutoresponderColumnBindPositions, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderConnection> StandardAutoresponderConnections
-            => new AuthRepository<StandardAutoresponderConnection>(
+        public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections
+            => new AuthRepository<StandardAutoresponderConnectionEntity>(
                 DbContext.StandardAutoresponderConnections, 
                 x => x.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderConnectionRating> StandardAutoresponderConnectionRatings
-             => new AuthRepository<StandardAutoresponderConnectionRating>(
+        public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings
+             => new AuthRepository<StandardAutoresponderConnectionRatingEntity>(
                  DbContext.StandardAutoresponderConnectionRatings, 
                  x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderTemplateSettings> StandardAutoresponderTemplateSettings
-            => new AuthRepository<StandardAutoresponderTemplateSettings>(
+        public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings
+            => new AuthRepository<StandardAutoresponderTemplateSettingsEntity>(
                 DbContext.StandardAutoresponderTemplateSettings, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IRepository<SellerConnection> SellerConnections
-            => new AuthRepository<SellerConnection>(
+        public IRepository<SellerConnectionEntity> SellerConnections
+            => new AuthRepository<SellerConnectionEntity>(
                 DbContext.SellerConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections
-            => new AuthRepository<OzonOpenApiSellerConnection>(
+        public IRepository<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections
+            => new AuthRepository<OzonOpenApiSellerConnectionEntity>(
                 DbContext.OzonOpenApiSellerConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections
-            => new AuthRepository<WbOpenApiSellerConnection>(
+        public IRepository<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections
+            => new AuthRepository<WbOpenApiSellerConnectionEntity>(
                 DbContext.WbOpenApiSellerConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderBlackList> StandardAutoresponderBlackLists
-            => new AuthRepository<StandardAutoresponderBlackList>(
+        public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists
+            => new AuthRepository<StandardAutoresponderBlackListEntity>(
                 DbContext.StandardAutoresponderBlackLists, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderBanWord> StandardAutoresponderBanWords
-            => new AuthRepository<StandardAutoresponderBanWord>(
+        public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords
+            => new AuthRepository<StandardAutoresponderBanWordEntity>(
                 DbContext.StandardAutoresponderBanWords, 
                 x => x.BlackList.UserId == _authReadHelper.UserId);
     }

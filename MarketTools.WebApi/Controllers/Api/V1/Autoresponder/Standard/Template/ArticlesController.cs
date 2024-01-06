@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> GetAsync(int templateId)
         {
             GetArticlesQuery query = new GetArticlesQuery { TemplateId = templateId };
-            IEnumerable<StandardAutoresponderTemplateArticle> articles = await _mediator.Send(query);
+            IEnumerable<StandardAutoresponderTemplateArticleEntity> articles = await _mediator.Send(query);
 
             IEnumerable<ArticleVm> viewArticles = _mapper.Map<IEnumerable<ArticleVm>>(articles);
 

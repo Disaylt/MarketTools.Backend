@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> GetAsync(int id)
         {
             GetCommand command = new GetCommand { TemplateId = id };
-            StandardAutoresponderTemplateSettings settings = await _mediator.Send(command);
+            StandardAutoresponderTemplateSettingsEntity settings = await _mediator.Send(command);
 
             SettingsVm viewSettings = _mapper.Map<SettingsVm>(settings);
 

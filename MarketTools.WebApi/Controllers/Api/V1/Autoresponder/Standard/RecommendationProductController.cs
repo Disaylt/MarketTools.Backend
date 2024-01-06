@@ -23,7 +23,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] RecommendationProductCreateDto body, CancellationToken cancellationToken)
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
-            StandardAutoresponderRecommendationProduct entiry = await _mediator.Send(command);
+            StandardAutoresponderRecommendationProductEntity entiry = await _mediator.Send(command);
 
             RecommendationProductVm result = _mapper.Map<RecommendationProductVm>(entiry);
 
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> command = new DefaultDeleteCommand<StandardAutoresponderRecommendationProduct> { Id = id };
+            DefaultDeleteCommand<StandardAutoresponderRecommendationProductEntity> command = new DefaultDeleteCommand<StandardAutoresponderRecommendationProductEntity> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();

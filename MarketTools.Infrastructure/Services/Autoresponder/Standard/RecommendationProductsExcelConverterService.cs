@@ -15,10 +15,10 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
 {
     internal class RecommendationProductsExcelConverterService
         : ExcelBase,
-        IExcelReader<StandardAutoresponderRecommendationProduct>,
-        IExcelWriter<StandardAutoresponderRecommendationProduct>
+        IExcelReader<StandardAutoresponderRecommendationProductEntity>,
+        IExcelWriter<StandardAutoresponderRecommendationProductEntity>
     {
-        public IEnumerable<StandardAutoresponderRecommendationProduct> Read(Stream stream)
+        public IEnumerable<StandardAutoresponderRecommendationProductEntity> Read(Stream stream)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
             }
         }
 
-        public Stream Write(IEnumerable<StandardAutoresponderRecommendationProduct> data)
+        public Stream Write(IEnumerable<StandardAutoresponderRecommendationProductEntity> data)
         {
             using IXLWorkbook workbook = new XLWorkbook();
 
@@ -53,7 +53,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
             return SaveAs(workbook);
         }
 
-        private void AddValues(IXLWorksheet xLWorksheet, IEnumerable<StandardAutoresponderRecommendationProduct> data)
+        private void AddValues(IXLWorksheet xLWorksheet, IEnumerable<StandardAutoresponderRecommendationProductEntity> data)
         {
             int rowPostion = 2;
             foreach (var item in data)
@@ -67,12 +67,12 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
             }
         }
 
-        private IEnumerable<StandardAutoresponderRecommendationProduct> ConvertFrom(IEnumerable<IXLRow> useRows)
+        private IEnumerable<StandardAutoresponderRecommendationProductEntity> ConvertFrom(IEnumerable<IXLRow> useRows)
         {
             return useRows.Select(x =>
             {
                 return 
-                new StandardAutoresponderRecommendationProduct
+                new StandardAutoresponderRecommendationProductEntity
                 {
                     FeedbackArticle = x.Cell((int)RecommendationProductsColumns.FeedbackArticle).GetText(),
                     FeedbackProductName = x.Cell((int)RecommendationProductsColumns.FeedbackProductName).GetText(),

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList
 {
-    public class GetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticle>>
+    public class GetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
 
     }

@@ -10,19 +10,19 @@ namespace MarketTools.Application.Interfaces.Database
 {
     public interface IAuthUnitOfWork : IUnitOfWork
     {
-        public IRepository<StandardAutoresponderColumn> StandardAutoresponderColumns { get; }
-        public IRepository<StandardAutoresponderRecommendationProduct> StandardAutoresponderRecommendationProducts { get; }
+        public IRepository<StandardAutoresponderColumnEntity> StandardAutoresponderColumns { get; }
+        public IRepository<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; }
         public IRepository<StandardAutoresponderCell> StandardAutoresponderCells { get; }
-        public IRepository<StandardAutoresponderTemplate> StandardAutoresponderTemplates { get; }
-        public IRepository<StandardAutoresponderTemplateArticle> StandardAutoresponderTemplateArticles { get; }
-        public IRepository<StandardAutoresponderColumnBindPosition> StandardAutoresponderColumnBindPositions { get; }
-        public IRepository<StandardAutoresponderConnection> StandardAutoresponderConnections { get; }
-        public IRepository<StandardAutoresponderConnectionRating> StandardAutoresponderConnectionRatings { get; }
-        public IRepository<StandardAutoresponderTemplateSettings> StandardAutoresponderTemplateSettings { get; }
-        public IRepository<SellerConnection> SellerConnections { get; }
-        public IRepository<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections { get; }
-        public IRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections { get; }
-        public IRepository<StandardAutoresponderBlackList> StandardAutoresponderBlackLists { get; }
-        public IRepository<StandardAutoresponderBanWord> StandardAutoresponderBanWords { get; }
+        public IRepository<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; }
+        public IRepository<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; }
+        public IRepository<StandardAutoresponderColumnBindPositionEntity> StandardAutoresponderColumnBindPositions { get; }
+        public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; }
+        public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; }
+        public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; }
+        public IRepository<SellerConnectionEntity> SellerConnections { get; }
+        public IRepository<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections { get; }
+        public IRepository<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections { get; }
+        public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; }
+        public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; }
     }
 }

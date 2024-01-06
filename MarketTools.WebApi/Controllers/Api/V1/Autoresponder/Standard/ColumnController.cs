@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body, CancellationToken cancellationToken)
         {
             CreateCommand command = _mapper.Map<CreateCommand>(body);
-            StandardAutoresponderColumn newColumn = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderColumnEntity newColumn = await _mediator.Send(command, cancellationToken);
 
             ColumnVm viewColumn = _mapper.Map<ColumnVm>(newColumn);
 
@@ -32,7 +32,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            DefaultDeleteCommand<StandardAutoresponderColumn> command = new DefaultDeleteCommand<StandardAutoresponderColumn> { Id = id };
+            DefaultDeleteCommand<StandardAutoresponderColumnEntity> command = new DefaultDeleteCommand<StandardAutoresponderColumnEntity> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();

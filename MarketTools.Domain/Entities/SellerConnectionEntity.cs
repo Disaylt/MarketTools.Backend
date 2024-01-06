@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class SellerConnection : BaseEntity
+    public class SellerConnectionEntity : BaseEntity
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
@@ -21,6 +21,6 @@ namespace MarketTools.Domain.Entities
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
-        public StandardAutoresponderConnection AutoresponderConnection { get; set; } = new StandardAutoresponderConnection();
+        public StandardAutoresponderConnectionEntity AutoresponderConnection { get; set; } = new StandardAutoresponderConnectionEntity();
     }
 }

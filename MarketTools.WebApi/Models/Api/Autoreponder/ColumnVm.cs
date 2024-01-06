@@ -11,7 +11,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<StandardAutoresponderColumn, ColumnVm>();
+            profile.CreateMap<StandardAutoresponderColumnEntity, ColumnVm>();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> GetRangeAsync(AutoresponderColumnType type, CancellationToken cancellationToken)
         {
             GetRangeQuery query = new GetRangeQuery { Type = type };
-            IEnumerable<StandardAutoresponderColumn> entities = await _mediator.Send(query, cancellationToken);
+            IEnumerable<StandardAutoresponderColumnEntity> entities = await _mediator.Send(query, cancellationToken);
 
             IEnumerable<ColumnVm> viewClumns = _mapper.Map<IEnumerable<ColumnVm>>(entities);
 

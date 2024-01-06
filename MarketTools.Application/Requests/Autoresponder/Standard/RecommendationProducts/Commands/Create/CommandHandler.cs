@@ -15,22 +15,22 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         (IMapper _mapper,
         IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<CreateCommand, StandardAutoresponderRecommendationProduct>
+        : IRequestHandler<CreateCommand, StandardAutoresponderRecommendationProductEntity>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProduct>();
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
-        public async Task<StandardAutoresponderRecommendationProduct> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderRecommendationProductEntity> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderRecommendationProduct entity = Build(request);
+            StandardAutoresponderRecommendationProductEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return entity;
         }
 
-        private StandardAutoresponderRecommendationProduct Build(CreateCommand request)
+        private StandardAutoresponderRecommendationProductEntity Build(CreateCommand request)
         {
-            StandardAutoresponderRecommendationProduct entity = _mapper.Map<StandardAutoresponderRecommendationProduct>(request);
+            StandardAutoresponderRecommendationProductEntity entity = _mapper.Map<StandardAutoresponderRecommendationProductEntity>(request);
             entity.UserId = _authReadHelper.UserId;
 
             return entity;

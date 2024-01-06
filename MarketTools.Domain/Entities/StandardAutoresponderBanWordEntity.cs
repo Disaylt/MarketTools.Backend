@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class StandardAutoresponderBanWord : BaseEntity
+    public class StandardAutoresponderBanWordEntity : BaseEntity
     {
         [MaxLength(100)]
         public string Value { get; set; } = null!;
 
         public int BlackListId { get; set; }
-        public StandardAutoresponderBlackList BlackList { get; set; } = null!;
+        public StandardAutoresponderBlackListEntity BlackList { get; set; } = null!;
     }
 }

@@ -13,6 +13,6 @@ namespace MarketTools.Domain.Entities
         public string Value { get; set; } = null!;
 
         public int ColumnId { get; set; }
-        public StandardAutoresponderColumn Column { get; set; } = null!;
+        public StandardAutoresponderColumnEntity Column { get; set; } = null!;
     }
 }

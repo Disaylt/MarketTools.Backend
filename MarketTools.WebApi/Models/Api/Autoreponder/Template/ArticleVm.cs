@@ -10,7 +10,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Template
         public required string Article { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<StandardAutoresponderTemplateArticle, ArticleVm>();
+            profile.CreateMap<StandardAutoresponderTemplateArticleEntity, ArticleVm>();
         }
     }
 }

@@ -18,11 +18,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
 {
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProduct>>
+        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
 
-        public async Task<IEnumerable<StandardAutoresponderRecommendationProduct>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
         {
             return await new RecommendationProductsQueryBuilder(_repository)
                 .SetMarketplace(request.MarketplaceName)

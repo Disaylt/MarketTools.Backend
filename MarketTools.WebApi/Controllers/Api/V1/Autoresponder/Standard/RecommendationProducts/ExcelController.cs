@@ -15,8 +15,8 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
     [Authorize]
     public class ExcelController(IMediator _mediator,
         IMapper _mapper,
-        IExcelReader<StandardAutoresponderRecommendationProduct> _excelReader,
-        IExcelWriter<StandardAutoresponderRecommendationProduct> _excelWriter)
+        IExcelReader<StandardAutoresponderRecommendationProductEntity> _excelReader,
+        IExcelWriter<StandardAutoresponderRecommendationProductEntity> _excelWriter)
         : ControllerBase
     {
         [HttpGet]
@@ -25,7 +25,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         {
             GetRangeQuery query = new GetRangeQuery{ MarketplaceName = marketplaceName };
 
-            IEnumerable<StandardAutoresponderRecommendationProduct> entites = await _mediator.Send(query, cancellationToken);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entites = await _mediator.Send(query, cancellationToken);
             Stream excelFile = _excelWriter.Write(entites);
 
             return File(excelFile, "application/octet-stream", "RecommendationTable.xlsx");

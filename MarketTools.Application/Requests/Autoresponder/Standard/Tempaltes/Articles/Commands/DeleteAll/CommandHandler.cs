@@ -15,7 +15,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<DeleteAllCommand>
     {
-        private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _authUnitOfWork.StandardAutoresponderTemplateArticles;
+        private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplateArticles;
         public async Task Handle(DeleteAllCommand request, CancellationToken cancellationToken)
         {
             await _repository.ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);

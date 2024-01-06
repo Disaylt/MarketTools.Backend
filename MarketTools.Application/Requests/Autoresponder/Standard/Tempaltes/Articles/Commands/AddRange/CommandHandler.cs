@@ -13,25 +13,25 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandHandler
         (IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticle>>
+        : IRequestHandler<AddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
-        private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
-        public async Task<IEnumerable<StandardAutoresponderTemplateArticle>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
+        public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
         {
-            IEnumerable<StandardAutoresponderTemplateArticle> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
+            IEnumerable<StandardAutoresponderTemplateArticleEntity> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
             await _repository.AddRangeAsync(newEntities, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return newEntities;
         }
 
-        private async Task<IEnumerable<StandardAutoresponderTemplateArticle>> BuildOnlyNewArticlesAsync(AddRangeCommand request, CancellationToken ct)
+        private async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> BuildOnlyNewArticlesAsync(AddRangeCommand request, CancellationToken ct)
         {
-            IEnumerable<StandardAutoresponderTemplateArticle> currentEntities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, ct);
+            IEnumerable<StandardAutoresponderTemplateArticleEntity> currentEntities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, ct);
 
             return request.Articles
                 .Where(article => currentEntities.Any(entity => entity.Article == article) == false)
-                .Select(x => new StandardAutoresponderTemplateArticle
+                .Select(x => new StandardAutoresponderTemplateArticleEntity
                 {
                     Article = x,
                     TemplateId = request.TemplateId,

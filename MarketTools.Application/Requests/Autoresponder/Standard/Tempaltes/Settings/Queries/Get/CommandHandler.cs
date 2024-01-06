@@ -12,11 +12,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Setting
 {
     internal class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetCommand, StandardAutoresponderTemplateSettings>
+        : IRequestHandler<GetCommand, StandardAutoresponderTemplateSettingsEntity>
     {
-        private readonly IRepository<StandardAutoresponderTemplateSettings> _repository = _authUnitOfWork.StandardAutoresponderTemplateSettings;
+        private readonly IRepository<StandardAutoresponderTemplateSettingsEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplateSettings;
 
-        public async Task<StandardAutoresponderTemplateSettings> Handle(GetCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderTemplateSettingsEntity> Handle(GetCommand request, CancellationToken cancellationToken)
         {
             return await _repository.FirstAsync(x => x.TemplateId == request.TemplateId);
         }

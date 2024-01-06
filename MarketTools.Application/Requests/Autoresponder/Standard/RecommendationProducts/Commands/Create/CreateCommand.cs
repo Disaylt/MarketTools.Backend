@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create
 {
-    public class CreateCommand : IRequest<StandardAutoresponderRecommendationProduct>, IHasMap
+    public class CreateCommand : IRequest<StandardAutoresponderRecommendationProductEntity>, IHasMap
     {
         public required string FeedbackArticle { get; set; }
         public string? FeedbackProductName { get; set; }
@@ -21,7 +21,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateCommand, StandardAutoresponderRecommendationProduct>();
+            profile.CreateMap<CreateCommand, StandardAutoresponderRecommendationProductEntity>();
         }
     }
 }

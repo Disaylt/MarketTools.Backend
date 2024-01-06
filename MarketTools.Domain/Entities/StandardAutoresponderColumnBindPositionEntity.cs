@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class StandardAutoresponderColumnBindPosition
+    public class StandardAutoresponderColumnBindPositionEntity
     {
         public int Position { get; set; }
         public int TemplateId { get; set; }
-        public StandardAutoresponderTemplate Template { get; set; } = null!;
+        public StandardAutoresponderTemplateEntity Template { get; set; } = null!;
 
         public int? ColumnId { get; set; }
-        public StandardAutoresponderColumn? Column { get; set; }
+        public StandardAutoresponderColumnEntity? Column { get; set; }
     }
 }

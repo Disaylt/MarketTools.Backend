@@ -12,12 +12,12 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Command
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderTemplate>>
+        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderTemplateEntity>>
     {
-        private readonly IRepository<StandardAutoresponderTemplate> _repository = _authUnitOfWork.StandardAutoresponderTemplates;
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderTemplate> request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplates;
+        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderTemplateEntity> request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderTemplate entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            StandardAutoresponderTemplateEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync();
         }

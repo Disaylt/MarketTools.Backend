@@ -13,10 +13,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class QueryHandler
         (IUnitOfWork _unitOfWork)
-        : IRequestHandler<GetArticlesQuery, IEnumerable<StandardAutoresponderTemplateArticle>>
+        : IRequestHandler<GetArticlesQuery, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
-        private readonly IRepository<StandardAutoresponderTemplateArticle> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticle>();
-        public async Task<IEnumerable<StandardAutoresponderTemplateArticle>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
+        public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, cancellationToken);
         }

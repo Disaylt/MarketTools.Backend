@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class StandardAutoresponderConnection
+    public class StandardAutoresponderConnectionEntity
     {
         public bool IsActive { get; set; }
 
         [Key]
         public int SellerConnectionId { get; set; }
-        public SellerConnection SellerConnection { get; set; } = null!;
+        public SellerConnectionEntity SellerConnection { get; set; } = null!;
 
-        public List<StandardAutoresponderConnectionRating> Ratings { get; set; } = new List<StandardAutoresponderConnectionRating>();
+        public List<StandardAutoresponderConnectionRatingEntity> Ratings { get; set; } = new List<StandardAutoresponderConnectionRatingEntity>();
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add
 {
-    public class AddCommand : TemplateBasicCommand, IRequest<StandardAutoresponderTemplateArticle>
+    public class AddCommand : TemplateBasicCommand, IRequest<StandardAutoresponderTemplateArticleEntity>
     {
         public required string Article { get; set; }
     }

@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries
 {
-    internal class RecommendationProductsQueryBuilder : BaseQueryBuilder<StandardAutoresponderRecommendationProduct>
+    internal class RecommendationProductsQueryBuilder : BaseQueryBuilder<StandardAutoresponderRecommendationProductEntity>
     {
-        public RecommendationProductsQueryBuilder(IRepository<StandardAutoresponderRecommendationProduct> repostitory)
+        public RecommendationProductsQueryBuilder(IRepository<StandardAutoresponderRecommendationProductEntity> repostitory)
             :base(repostitory.GetAsQueryable())
         {
         }
@@ -44,7 +44,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             return this;
         }
 
-        public IQueryable<StandardAutoresponderRecommendationProduct> Build()
+        public IQueryable<StandardAutoresponderRecommendationProductEntity> Build()
         {
             return Query;
         }
