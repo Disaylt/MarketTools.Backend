@@ -16,17 +16,17 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         (IMapper _mapper,
         IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<CreateCommand, RecommendationProductVm>
+        : IRequestHandler<CreateCommand, StandardAutoresponderRecommendationProduct>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProduct> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProduct>();
 
-        public async Task<RecommendationProductVm> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderRecommendationProduct> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProduct entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
-            return _mapper.Map<RecommendationProductVm>(entity);
+            return entity;
         }
 
         private StandardAutoresponderRecommendationProduct Build(CreateCommand request)

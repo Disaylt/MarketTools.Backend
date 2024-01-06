@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create
 {
-    public class CreateCommand : IRequest<RecommendationProductVm>, IHasMap
+    public class CreateCommand : IRequest<StandardAutoresponderRecommendationProduct>, IHasMap
     {
         public required string FeedbackArticle { get; set; }
         public string? FeedbackProductName { get; set; }
