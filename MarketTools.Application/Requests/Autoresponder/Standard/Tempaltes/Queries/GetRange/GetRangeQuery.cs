@@ -1,4 +1,5 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Models;
+﻿
+using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries.GetRange
 {
-    public class GetRangeQuery : IRequest<IEnumerable<TemplateVm>>
+    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderTemplate>>
     {
 
     }
