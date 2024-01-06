@@ -30,7 +30,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
 
                 return ConvertFrom(useRows);
             }
-            catch 
+            catch(Exception)
             {
                 throw new AppBadRequestException("Не удалось получить данные Excel");
             }
@@ -70,17 +70,15 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
         private IEnumerable<StandardAutoresponderRecommendationProductEntity> ConvertFrom(IEnumerable<IXLRow> useRows)
         {
             return useRows.Select(x =>
-            {
-                return 
                 new StandardAutoresponderRecommendationProductEntity
                 {
-                    FeedbackArticle = x.Cell((int)RecommendationProductsColumns.FeedbackArticle).GetText(),
-                    FeedbackProductName = x.Cell((int)RecommendationProductsColumns.FeedbackProductName).GetText(),
-                    RecommendationArticle = x.Cell((int)RecommendationProductsColumns.RecommendationArticle).GetText(),
-                    RecommendationProductName = x.Cell((int)RecommendationProductsColumns.RecommendationProductName).GetText()
-                };
-            });
-        }
+                    FeedbackArticle = x.Cell((int)RecommendationProductsColumns.FeedbackArticle).GetString(),
+                    FeedbackProductName = x.Cell((int)RecommendationProductsColumns.FeedbackProductName).GetString(),
+                    RecommendationArticle = x.Cell((int)RecommendationProductsColumns.RecommendationArticle).GetString(),
+                    RecommendationProductName = x.Cell((int)RecommendationProductsColumns.RecommendationProductName).GetString()
+                })
+                .ToList();
+            }
     }
 
     

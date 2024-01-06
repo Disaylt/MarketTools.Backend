@@ -20,7 +20,6 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         : ControllerBase
     {
         [HttpGet]
-        [Route("excel")]
         public async Task<IActionResult> GetExcelAsync(MarketplaceName marketplaceName, CancellationToken cancellationToken)
         {
             GetRangeQuery query = new GetRangeQuery{ MarketplaceName = marketplaceName };
@@ -29,6 +28,31 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
             Stream excelFile = _excelWriter.Write(entites);
 
             return File(excelFile, "application/octet-stream", "RecommendationTable.xlsx");
+        }
+
+        [HttpPost]
+        public IActionResult AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile formFile)
+        {
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(formFile);
+
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile formFile)
+        {
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(formFile);
+
+
+            return Ok();
+        }
+
+        private IEnumerable<StandardAutoresponderRecommendationProductEntity> GetFromExcel(IFormFile formFile)
+        {
+            Stream stream = formFile.OpenReadStream();
+
+            return _excelReader.Read(stream);
         }
     }
 }
