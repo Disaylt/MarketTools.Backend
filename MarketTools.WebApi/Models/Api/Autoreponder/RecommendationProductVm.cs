@@ -2,14 +2,8 @@
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Models
+namespace MarketTools.WebApi.Models.Api.Autoreponder
 {
     public class RecommendationProductVm : IHasMap
     {
