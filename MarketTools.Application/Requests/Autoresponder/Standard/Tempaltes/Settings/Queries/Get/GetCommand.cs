@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Models;
+﻿using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get
 {
-    public class GetCommand : IRequest<SettingsVm>
+    public class GetCommand : IRequest<StandardAutoresponderTemplateSettings>
     {
         public int TemplateId { get; set; }
     }

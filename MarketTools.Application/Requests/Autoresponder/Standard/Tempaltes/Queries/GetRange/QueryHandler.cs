@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries.GetRange
 {
     public class QueryHandler
-        (IMapper _mapper,
-        IAuthUnitOfWork _authUnitOfWork)
+        (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderTemplate>>
     {
         private readonly IRepository<StandardAutoresponderTemplate> _repository = _authUnitOfWork.StandardAutoresponderTemplates;

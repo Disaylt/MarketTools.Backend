@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.GetRange
 {
     public class QueryHandler
-        (IAuthUnitOfWork _authUnitOfWork,
-        IMapper _mapper)
+        (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderCell>>
     {
         private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
