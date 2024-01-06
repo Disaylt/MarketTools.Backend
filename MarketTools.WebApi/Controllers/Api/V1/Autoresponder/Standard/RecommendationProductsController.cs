@@ -36,19 +36,6 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
             return Ok(pageResult);
         }
 
-        [HttpGet]
-        [Route("excel")]
-        public async Task<IActionResult> GetExcelAsync(MarketplaceName marketplaceName, CancellationToken cancellationToken)
-        {
-            GetExcelQuery query = new GetExcelQuery
-            {
-                MarketplaceName = marketplaceName
-            };
-            Stream stream = await _mediator.Send(query, cancellationToken);
-
-            return File(stream, "application/octet-stream", "RecommendationTable.xlsx");
-        }
-
         private async Task<int> CountProductsAsync(RecommendationProductGetRangeDto webQuery, CancellationToken cancellationToken)
         {
             CountQuery query = new CountQuery
