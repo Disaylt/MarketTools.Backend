@@ -1,4 +1,7 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Builders;
+using MarketTools.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,13 +11,25 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange
 {
-    public class CommandHandler
+    public class CommandHandler(IAuthReadHelper _authReadHelper,
+        IUnitOfWork _unitOfWork)
         : IRequestHandler<ReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
-        public Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(ReplaceRangeCommand request, CancellationToken cancellationToken)
-        {
 
-            throw new NotImplementedException();
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
+
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(ReplaceRangeCommand request, CancellationToken cancellationToken)
+        {
+            await _repository.ExecuteDeleteAsync(x=> x.UserId == _authReadHelper.UserId);
+
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
+                .AddMainDetails(_authReadHelper.UserId)
+                .Build();
+
+            await _repository.AddRangeAsync(products, cancellationToken);
+            await _unitOfWork.CommintAsync(cancellationToken);
+
+            return products;
         }
     }
 }

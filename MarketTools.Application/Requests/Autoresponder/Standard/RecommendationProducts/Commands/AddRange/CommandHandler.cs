@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Builders;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MediatR;
@@ -19,16 +20,14 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
         {
-            foreach (StandardAutoresponderRecommendationProductEntity entity in request.Products)
-            {
-                entity.UserId = _authReadHelper.UserId;
-                entity.MarketplaceName = request.MarketplaceName;
-            }
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
+                .AddMainDetails(_authReadHelper.UserId)
+                .Build();
 
-            await _repository.AddRangeAsync(request.Products, cancellationToken);
+            await _repository.AddRangeAsync(products);
             await _unitOfWork.CommintAsync(cancellationToken);
 
-            return request.Products;
+            return products;
         }
     }
 }
