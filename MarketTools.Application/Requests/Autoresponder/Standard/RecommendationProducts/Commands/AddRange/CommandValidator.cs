@@ -23,7 +23,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
                     return totalRecommendationProducts + newProducts.Count() < limits.MaxRecommendationProducts;
                 })
                 .WithErrorCode("400")
-                .WithMessage("Превышен лимит шаблонов.");
+                .WithMessage("Превышен лимит товаров для рекомендации.");
         }
     }
 }

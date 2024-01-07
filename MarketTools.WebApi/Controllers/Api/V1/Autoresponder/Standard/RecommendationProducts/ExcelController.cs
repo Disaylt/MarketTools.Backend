@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Application.Interfaces.Excel;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.AddRange;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
+using MarketTools.WebApi.Models.Api.Autoreponder;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using MarketTools.WebApi.Extensions;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.RecommendationProducts
 {
@@ -31,28 +35,24 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         }
 
         [HttpPost]
-        public IActionResult AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
+        public async Task<IActionResult> AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
-            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(file);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = _excelReader.Read(file);
+            AddRangeCommand addRangeCommand = new AddRangeCommand { Products = entities, MarketplaceName = marketplaceName };
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> newEntities = await _mediator.Send(addRangeCommand);
 
+            IEnumerable<RecommendationProductVm> viewProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(newEntities);
 
-            return Ok();
+            return Ok(viewProducts);
         }
 
         [HttpPut]
         public IActionResult ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
-            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(file);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = _excelReader.Read(file);
 
 
             return Ok();
-        }
-
-        private IEnumerable<StandardAutoresponderRecommendationProductEntity> GetFromExcel(IFormFile formFile)
-        {
-            Stream stream = formFile.OpenReadStream();
-
-            return _excelReader.Read(stream);
         }
     }
 }
