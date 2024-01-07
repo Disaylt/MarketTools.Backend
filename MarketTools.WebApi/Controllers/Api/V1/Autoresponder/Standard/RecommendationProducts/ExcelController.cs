@@ -31,18 +31,18 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         }
 
         [HttpPost]
-        public IActionResult AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile formFile)
+        public IActionResult AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
-            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(formFile);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(file);
 
 
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile formFile)
+        public IActionResult ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
-            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(formFile);
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = GetFromExcel(file);
 
 
             return Ok();
