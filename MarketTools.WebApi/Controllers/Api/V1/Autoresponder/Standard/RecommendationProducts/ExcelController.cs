@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using MarketTools.WebApi.Extensions;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.RecommendationProducts
 {
@@ -47,12 +48,16 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         }
 
         [HttpPut]
-        public IActionResult ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
+        public async Task<IActionResult> ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = _excelReader.Read(file);
+            ReplaceRangeCommand addRangeCommand = new ReplaceRangeCommand { Products = entities, MarketplaceName = marketplaceName };
+            IEnumerable<StandardAutoresponderRecommendationProductEntity> newEntities = await _mediator.Send(addRangeCommand);
+
+            IEnumerable<RecommendationProductVm> viewProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(newEntities);
 
 
-            return Ok();
+            return Ok(viewProducts);
         }
     }
 }

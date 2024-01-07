@@ -22,7 +22,7 @@ namespace MarketTools.Application.Services
 
             ValidationContext context = new ValidationContext(data, null, null);
 
-            return Validator.TryValidateObject(data, context, errors);
+            return Validator.TryValidateObject(data, context, errors, true);
         }
 
         public void ThrowValidateError<T>(T data)

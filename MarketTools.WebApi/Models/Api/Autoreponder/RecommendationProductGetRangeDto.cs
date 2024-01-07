@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Application.Common.Mappings;
+using MarketTools.Domain.Common;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +15,8 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RecommendationProductGetRangeDto, GetRangeQuery>();
+            profile.CreateMap<RecommendationProductGetRangeDto, GetRangeQuery>()
+                .ForMember(result => result.PageRequest, request => request.MapFrom(model => new PageRequest { Skip = model.Skip, Take = model.Take}));
         }
     }
 }
