@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create
 {
     public class CommandHandler(IUnitOfWork _unitOfWork)
-        : IRequestHandler<CreateCommand, StandardAutoresponderCell>
+        : IRequestHandler<CellCreateCommand, StandardAutoresponderCell>
     {
         private readonly IRepository<StandardAutoresponderCell> _repository = _unitOfWork.GetRepository<StandardAutoresponderCell>();
 
-        public async Task<StandardAutoresponderCell> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderCell> Handle(CellCreateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderCell entity = Create(request);
 
@@ -26,7 +26,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
             return entity;
         }
 
-        private StandardAutoresponderCell Create(CreateCommand request)
+        private StandardAutoresponderCell Create(CellCreateCommand request)
         {
             return new StandardAutoresponderCell
             {

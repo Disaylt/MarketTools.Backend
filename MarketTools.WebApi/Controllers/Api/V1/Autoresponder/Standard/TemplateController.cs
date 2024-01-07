@@ -20,7 +20,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] TemplateCreateDto body, CancellationToken ct)
         {
-            AddCommand command = _mapper.Map<AddCommand>(body);
+            TemplateAddCommand command = _mapper.Map<TemplateAddCommand>(body);
             StandardAutoresponderTemplateEntity template = await _mediator.Send(command, ct);
 
             TemplateVm viewTemplate = _mapper.Map<TemplateVm>(template);

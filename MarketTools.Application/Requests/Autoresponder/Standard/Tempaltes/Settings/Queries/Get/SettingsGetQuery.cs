@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get
 {
-    public class GetCommand : IRequest<StandardAutoresponderTemplateSettingsEntity>
+    public class SettingsGetQuery : IRequest<StandardAutoresponderTemplateSettingsEntity>
     {
         public int TemplateId { get; set; }
     }

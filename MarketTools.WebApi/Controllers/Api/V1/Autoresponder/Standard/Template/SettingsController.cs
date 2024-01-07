@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         [HttpGet]
         public async Task<IActionResult> GetAsync(int id)
         {
-            GetCommand command = new GetCommand { TemplateId = id };
+            SettingsGetQuery command = new SettingsGetQuery { TemplateId = id };
             StandardAutoresponderTemplateSettingsEntity settings = await _mediator.Send(command);
 
             SettingsVm viewSettings = _mapper.Map<SettingsVm>(settings);
@@ -32,7 +32,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] SettingsUpdateDto body)
         {
-            UpdateCommand command = _mapper.Map<UpdateCommand>(body);
+            SettingsUpdateCommand command = _mapper.Map<SettingsUpdateCommand>(body);
             await _mediator.Send(command);
 
             return Ok();

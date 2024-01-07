@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create
 {
-    public class CommandValidator : AbstractValidator<CreateCommand>
+    public class CommandValidator : AbstractValidator<RecommendationProductCreateCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Commands.Add
 {
-    public class CommandValidator : AbstractValidator<AddCommand>
+    public class CommandValidator : AbstractValidator<TemplateAddCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {

@@ -20,7 +20,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpGet]
         public async Task<IActionResult> GetRangeAsync(AutoresponderColumnType type, CancellationToken cancellationToken)
         {
-            GetRangeQuery query = new GetRangeQuery { Type = type };
+            ColumnGetRangeQuery query = new ColumnGetRangeQuery { Type = type };
             IEnumerable<StandardAutoresponderColumnEntity> entities = await _mediator.Send(query, cancellationToken);
 
             IEnumerable<ColumnVm> viewClumns = _mapper.Map<IEnumerable<ColumnVm>>(entities);

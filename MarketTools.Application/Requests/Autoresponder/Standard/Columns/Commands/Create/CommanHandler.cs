@@ -13,11 +13,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
 {
     public class CommanHandler(IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<CreateCommand, StandardAutoresponderColumnEntity>
+        : IRequestHandler<ColumnCreateCommand, StandardAutoresponderColumnEntity>
     {
         private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderColumnEntity>();
 
-        public async Task<StandardAutoresponderColumnEntity> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderColumnEntity> Handle(ColumnCreateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderColumnEntity entity = Create(request);
 
@@ -27,7 +27,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
             return entity;
         }
 
-        private StandardAutoresponderColumnEntity Create(CreateCommand request)
+        private StandardAutoresponderColumnEntity Create(ColumnCreateCommand request)
         {
             return new StandardAutoresponderColumnEntity
             {

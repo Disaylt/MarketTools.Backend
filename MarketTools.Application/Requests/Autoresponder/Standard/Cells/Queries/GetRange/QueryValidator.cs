@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.GetRange
 {
-    public class QueryValidator : AbstractValidator<GetRangeQuery>
+    public class QueryValidator : AbstractValidator<CellGetRangeQuery>
     {
         public QueryValidator(IAuthUnitOfWork authUnitOfWork)
         {

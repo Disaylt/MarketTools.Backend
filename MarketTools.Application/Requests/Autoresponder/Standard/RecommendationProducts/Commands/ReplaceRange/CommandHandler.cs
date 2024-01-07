@@ -13,12 +13,12 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 {
     public class CommandHandler(IAuthReadHelper _authReadHelper,
         IUnitOfWork _unitOfWork)
-        : IRequestHandler<ReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
+        : IRequestHandler<RecommendationProductReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
 
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
-        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(ReplaceRangeCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductReplaceRangeCommand request, CancellationToken cancellationToken)
         {
             await _repository.ExecuteDeleteAsync(x=> x.UserId == _authReadHelper.UserId);
 

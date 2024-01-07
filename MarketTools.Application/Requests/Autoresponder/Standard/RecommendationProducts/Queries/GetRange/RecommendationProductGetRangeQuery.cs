@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange
 {
-    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderRecommendationProductEntity>>
+    public class RecommendationProductGetRangeQuery : IRequest<IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
         public PageRequest? PageRequest { get; set; }
         public string? Article { get; set; }

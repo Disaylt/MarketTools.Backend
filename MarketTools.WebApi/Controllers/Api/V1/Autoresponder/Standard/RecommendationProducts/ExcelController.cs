@@ -27,7 +27,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         [HttpGet]
         public async Task<IActionResult> GetExcelAsync(MarketplaceName marketplaceName, CancellationToken cancellationToken)
         {
-            GetRangeQuery query = new GetRangeQuery{ MarketplaceName = marketplaceName };
+            RecommendationProductGetRangeQuery query = new RecommendationProductGetRangeQuery{ MarketplaceName = marketplaceName };
 
             IEnumerable<StandardAutoresponderRecommendationProductEntity> entites = await _mediator.Send(query, cancellationToken);
             Stream excelFile = _excelWriter.Write(entites);
@@ -39,7 +39,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         public async Task<IActionResult> AddRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = _excelReader.Read(file);
-            AddRangeCommand addRangeCommand = new AddRangeCommand { Products = entities, MarketplaceName = marketplaceName };
+            RecommendationProductAddRangeCommand addRangeCommand = new RecommendationProductAddRangeCommand { Products = entities, MarketplaceName = marketplaceName };
             IEnumerable<StandardAutoresponderRecommendationProductEntity> newEntities = await _mediator.Send(addRangeCommand);
 
             IEnumerable<RecommendationProductVm> viewProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(newEntities);
@@ -51,7 +51,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Recommend
         public async Task<IActionResult> ReplaceRangeAsync([FromQuery] MarketplaceName marketplaceName, IFormFile file)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> entities = _excelReader.Read(file);
-            ReplaceRangeCommand addRangeCommand = new ReplaceRangeCommand { Products = entities, MarketplaceName = marketplaceName };
+            RecommendationProductReplaceRangeCommand addRangeCommand = new RecommendationProductReplaceRangeCommand { Products = entities, MarketplaceName = marketplaceName };
             IEnumerable<StandardAutoresponderRecommendationProductEntity> newEntities = await _mediator.Send(addRangeCommand);
 
             IEnumerable<RecommendationProductVm> viewProducts = _mapper.Map<IEnumerable<RecommendationProductVm>>(newEntities);

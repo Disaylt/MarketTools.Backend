@@ -14,11 +14,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 {
     public class CommandHandler(IAuthReadHelper _authReadHelper,
         IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
+        : IRequestHandler<RecommendationProductAddRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
-        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductAddRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
                 .AddMainDetails(_authReadHelper.UserId)

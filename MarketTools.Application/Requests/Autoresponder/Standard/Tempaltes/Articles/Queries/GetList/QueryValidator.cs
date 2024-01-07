@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList
 {
-    public class QueryValidator : TemplateInteractValidator<GetArticlesQuery>
+    public class QueryValidator : TemplateInteractValidator<ArticleGetArticlesQuery>
     {
         public QueryValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
         {

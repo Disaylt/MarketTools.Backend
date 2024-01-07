@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll
 {
-    public class DeleteAllCommand : IRequest
+    public class ArticleDeleteAllCommand : IRequest
     {
         public int TemplateId { get; set; }
     }

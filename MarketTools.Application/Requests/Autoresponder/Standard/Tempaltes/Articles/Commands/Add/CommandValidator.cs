@@ -14,7 +14,7 @@ using MarketTools.Domain.Interfaces.Limits;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add
 {
-    public class CommandValidator : TemplateInteractValidator<AddCommand>
+    public class CommandValidator : TemplateInteractValidator<ArticleAddCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork,
             ILimitsService<IStandarAutoresponderLimits> limitsService,

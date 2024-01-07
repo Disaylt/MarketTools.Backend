@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add
+namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList
 {
-    public class AddCommand : TemplateBasicCommand, IRequest<StandardAutoresponderTemplateArticleEntity>
+    public class ArticleGetArticlesQuery : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
-        public required string Article { get; set; }
+
     }
 }

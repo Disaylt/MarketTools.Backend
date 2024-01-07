@@ -19,7 +19,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
-            IEnumerable<StandardAutoresponderTemplateEntity> templates = await _mediator.Send(new GetRangeQuery(), cancellationToken);
+            IEnumerable<StandardAutoresponderTemplateEntity> templates = await _mediator.Send(new TemplateGetRangeQuery(), cancellationToken);
             IEnumerable<TemplateVm> viewTemplates = _mapper.Map<IEnumerable<TemplateVm>>(templates);
 
             return Ok(viewTemplates);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.GetRange
 {
-    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderCell>>
+    public class CellGetRangeQuery : IRequest<IEnumerable<StandardAutoresponderCell>>
     {
         public int CollumnId { get; set; }
     }

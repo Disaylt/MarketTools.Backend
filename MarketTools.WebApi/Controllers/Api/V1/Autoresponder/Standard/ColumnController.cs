@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] ColumnCreateDto body, CancellationToken cancellationToken)
         {
-            CreateCommand command = _mapper.Map<CreateCommand>(body);
+            ColumnCreateCommand command = _mapper.Map<ColumnCreateCommand>(body);
             StandardAutoresponderColumnEntity newColumn = await _mediator.Send(command, cancellationToken);
 
             ColumnVm viewColumn = _mapper.Map<ColumnVm>(newColumn);

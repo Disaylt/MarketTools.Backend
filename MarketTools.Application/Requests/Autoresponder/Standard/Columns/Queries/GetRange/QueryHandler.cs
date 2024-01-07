@@ -14,10 +14,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.G
 {
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderColumnEntity>>
+        : IRequestHandler<ColumnGetRangeQuery, IEnumerable<StandardAutoresponderColumnEntity>>
     {
         private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _authUnitOfWork.StandardAutoresponderColumns;
-        public async Task<IEnumerable<StandardAutoresponderColumnEntity>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderColumnEntity>> Handle(ColumnGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(x=> x.Type == request.Type);
         }

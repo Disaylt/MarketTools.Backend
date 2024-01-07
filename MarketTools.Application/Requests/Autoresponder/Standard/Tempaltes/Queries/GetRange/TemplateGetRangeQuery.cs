@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries.GetRange
 {
-    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderTemplateEntity>>
+    public class TemplateGetRangeQuery : IRequest<IEnumerable<StandardAutoresponderTemplateEntity>>
     {
 
     }

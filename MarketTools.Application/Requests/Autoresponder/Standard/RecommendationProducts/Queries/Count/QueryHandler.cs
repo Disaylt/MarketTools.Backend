@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries.Count
 {
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<CountQuery, int>
+        : IRequestHandler<RecommendationProductCountQuery, int>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
 
-        public async Task<int> Handle(CountQuery request, CancellationToken cancellationToken)
+        public async Task<int> Handle(RecommendationProductCountQuery request, CancellationToken cancellationToken)
         {
             return await new RecommendationProductsQueryBuilder(_repository)
                 .SetMarketplace(request.MarketplaceName)

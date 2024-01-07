@@ -13,10 +13,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandHandler
         (IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
+        : IRequestHandler<ArticleAddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
-        public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(ArticleAddRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderTemplateArticleEntity> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
             await _repository.AddRangeAsync(newEntities, cancellationToken);
@@ -25,7 +25,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             return newEntities;
         }
 
-        private async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> BuildOnlyNewArticlesAsync(AddRangeCommand request, CancellationToken ct)
+        private async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> BuildOnlyNewArticlesAsync(ArticleAddRangeCommand request, CancellationToken ct)
         {
             IEnumerable<StandardAutoresponderTemplateArticleEntity> currentEntities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, ct);
 

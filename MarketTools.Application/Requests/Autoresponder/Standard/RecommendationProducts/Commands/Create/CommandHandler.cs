@@ -15,11 +15,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         (IMapper _mapper,
         IUnitOfWork _unitOfWork,
         IAuthReadHelper _authReadHelper)
-        : IRequestHandler<CreateCommand, StandardAutoresponderRecommendationProductEntity>
+        : IRequestHandler<RecommendationProductCreateCommand, StandardAutoresponderRecommendationProductEntity>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
-        public async Task<StandardAutoresponderRecommendationProductEntity> Handle(CreateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderRecommendationProductEntity> Handle(RecommendationProductCreateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProductEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
@@ -28,7 +28,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
             return entity;
         }
 
-        private StandardAutoresponderRecommendationProductEntity Build(CreateCommand request)
+        private StandardAutoresponderRecommendationProductEntity Build(RecommendationProductCreateCommand request)
         {
             StandardAutoresponderRecommendationProductEntity entity = _mapper.Map<StandardAutoresponderRecommendationProductEntity>(request);
             entity.UserId = _authReadHelper.UserId;

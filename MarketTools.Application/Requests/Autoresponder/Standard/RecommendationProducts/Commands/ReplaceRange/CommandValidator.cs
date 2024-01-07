@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange
 {
-    public class CommandValidator : AbstractValidator<ReplaceRangeCommand>
+    public class CommandValidator : AbstractValidator<RecommendationProductReplaceRangeCommand>
     {
         public CommandValidator(ILimitsService<IStandarAutoresponderLimits> limitsService, IModelStateValidationService modelStateValidationService)
         {

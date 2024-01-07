@@ -11,7 +11,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder
 
         public virtual void Mapping(Profile profile)
         {
-            profile.CreateMap<CellCreateDto, CreateCommand>();
+            profile.CreateMap<CellCreateDto, CellCreateCommand>();
         }
     }
 }

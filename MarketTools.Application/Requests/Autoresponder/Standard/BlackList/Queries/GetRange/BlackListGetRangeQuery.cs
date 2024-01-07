@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Queries.GetRange
 {
-    public class GetRangeQuery
+    public class BlackListGetRangeQuery
         : IRequest<IEnumerable<StandardAutoresponderBlackListEntity>>
     {
         

@@ -36,7 +36,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 
         private async Task<int> CountProductsAsync(RecommendationProductGetRangeDto webQuery, CancellationToken cancellationToken)
         {
-            CountQuery query = new CountQuery
+            RecommendationProductCountQuery query = new RecommendationProductCountQuery
             {
                 Article = webQuery.Article,
                 MarketplaceName = webQuery.MarketplaceName
@@ -47,7 +47,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
 
         private async Task<IEnumerable<RecommendationProductVm>> GetProductsAsync(RecommendationProductGetRangeDto webQuery, CancellationToken cancellationToken)
         {
-            GetRangeQuery query = _mapper.Map<GetRangeQuery>(webQuery);
+            RecommendationProductGetRangeQuery query = _mapper.Map<RecommendationProductGetRangeQuery>(webQuery);
 
             IEnumerable<StandardAutoresponderRecommendationProductEntity> entites = await _mediator.Send(query, cancellationToken);
 

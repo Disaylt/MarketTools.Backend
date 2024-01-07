@@ -15,7 +15,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RecommendationProductGetRangeDto, GetRangeQuery>()
+            profile.CreateMap<RecommendationProductGetRangeDto, RecommendationProductGetRangeQuery>()
                 .ForMember(result => result.PageRequest, request => request.MapFrom(model => new PageRequest { Skip = model.Skip, Take = model.Take}));
         }
     }

@@ -22,7 +22,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] RecommendationProductCreateDto body, CancellationToken cancellationToken)
         {
-            CreateCommand command = _mapper.Map<CreateCommand>(body);
+            RecommendationProductCreateCommand command = _mapper.Map<RecommendationProductCreateCommand>(body);
             StandardAutoresponderRecommendationProductEntity entiry = await _mediator.Send(command);
 
             RecommendationProductVm result = _mapper.Map<RecommendationProductVm>(entiry);

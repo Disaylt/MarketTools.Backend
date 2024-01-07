@@ -13,7 +13,7 @@ using MarketTools.Domain.Interfaces.Limits;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.AddRange
 {
-    public class CommandValidator : TemplateInteractValidator<AddRangeCommand>
+    public class CommandValidator : TemplateInteractValidator<ArticleAddRangeCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork,
             ILimitsService<IStandarAutoresponderLimits> limitsService) 

@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         [HttpGet]
         public async Task<IActionResult> GetAsync(int templateId)
         {
-            GetArticlesQuery query = new GetArticlesQuery { TemplateId = templateId };
+            ArticleGetArticlesQuery query = new ArticleGetArticlesQuery { TemplateId = templateId };
             IEnumerable<StandardAutoresponderTemplateArticleEntity> articles = await _mediator.Send(query);
 
             IEnumerable<ArticleVm> viewArticles = _mapper.Map<IEnumerable<ArticleVm>>(articles);
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         [Route("all")]
         public async Task<IActionResult> DeleteAsync(int templateId)
         {
-            DeleteAllCommand command = new DeleteAllCommand { TemplateId = templateId };
+            ArticleDeleteAllCommand command = new ArticleDeleteAllCommand { TemplateId = templateId };
             await _mediator.Send(command);
 
             return Ok();

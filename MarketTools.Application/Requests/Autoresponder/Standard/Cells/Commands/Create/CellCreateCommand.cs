@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create
 {
-    public class CreateCommand : IRequest<StandardAutoresponderCell>
+    public class CellCreateCommand : IRequest<StandardAutoresponderCell>
     {
         public int ColumnId { get; set; }
         public required string Value { get; set; }

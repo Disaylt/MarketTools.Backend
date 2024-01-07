@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Queries.GetRange
 {
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery, IEnumerable<StandardAutoresponderBlackListEntity>>
+        : IRequestHandler<BlackListGetRangeQuery, IEnumerable<StandardAutoresponderBlackListEntity>>
     {
         private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.StandardAutoresponderBlackLists;
-        public async Task<IEnumerable<StandardAutoresponderBlackListEntity>> Handle(GetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderBlackListEntity>> Handle(BlackListGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(cancellationToken);
         }

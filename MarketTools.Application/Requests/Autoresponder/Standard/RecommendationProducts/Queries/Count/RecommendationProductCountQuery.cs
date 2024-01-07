@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries.Count
 {
-    public class CountQuery : IRequest<int>
+    public class RecommendationProductCountQuery : IRequest<int>
     {
         public string? Article { get; set; }
         public MarketplaceName? MarketplaceName { get; set; }

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.GetRange
+namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create
 {
-    public class GetRangeQuery : IRequest<IEnumerable<StandardAutoresponderColumnEntity>>
+    public class ColumnCreateCommand : IRequest<StandardAutoresponderColumnEntity>
     {
+        public string Name { get; set; } = null!;
         public AutoresponderColumnType Type { get; set; }
     }
 }

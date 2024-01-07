@@ -13,11 +13,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandHandler
         (IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddCommand, StandardAutoresponderTemplateArticleEntity>
+        : IRequestHandler<ArticleAddCommand, StandardAutoresponderTemplateArticleEntity>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
 
-        public async Task<StandardAutoresponderTemplateArticleEntity> Handle(AddCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderTemplateArticleEntity> Handle(ArticleAddCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateArticleEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
@@ -26,7 +26,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             return entity;
         }
 
-        private StandardAutoresponderTemplateArticleEntity Build(AddCommand request)
+        private StandardAutoresponderTemplateArticleEntity Build(ArticleAddCommand request)
         {
             return new StandardAutoresponderTemplateArticleEntity
             {
