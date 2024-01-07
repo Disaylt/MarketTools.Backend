@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Database\" />
-    <Folder Include="Requests\Autoresponder\Standard\BlackList\BanWords\Commands\" />
+    <Folder Include="Requests\Autoresponder\Standard\BlackList\BanWords\Commands\Delete\" />
   </ItemGroup>
 
 </Project>

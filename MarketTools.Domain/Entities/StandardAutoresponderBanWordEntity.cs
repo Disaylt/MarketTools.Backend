@@ -11,6 +11,7 @@ namespace MarketTools.Domain.Entities
     public class StandardAutoresponderBanWordEntity : BaseEntity
     {
         [MaxLength(100)]
+        [Required]
         public string Value { get; set; } = null!;
 
         public int BlackListId { get; set; }
