@@ -19,20 +19,16 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(AddRangeCommand request, CancellationToken cancellationToken)
         {
-            AddDetails(request);
-            await _repository.AddRangeAsync(request.Products, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
-
-            return request.Products;
-        }
-
-        private void AddDetails(AddRangeCommand request)
-        {
-            foreach(StandardAutoresponderRecommendationProductEntity entity in request.Products)
+            foreach (StandardAutoresponderRecommendationProductEntity entity in request.Products)
             {
                 entity.UserId = _authReadHelper.UserId;
                 entity.MarketplaceName = request.MarketplaceName;
             }
+
+            await _repository.AddRangeAsync(request.Products, cancellationToken);
+            await _unitOfWork.CommintAsync(cancellationToken);
+
+            return request.Products;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MediatR;
 using System;
@@ -9,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange
 {
-    public class ReplaceRangeCommand : IRequest<IEnumerable<StandardAutoresponderRecommendationProductEntity>>
+    public class ReplaceRangeCommand : RangeCommand, IRequest<IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
-        public required IEnumerable<StandardAutoresponderRecommendationProductEntity> Products { get; set; }
-        public MarketplaceName MarketplaceName { get; set; }
+        
     }
 }

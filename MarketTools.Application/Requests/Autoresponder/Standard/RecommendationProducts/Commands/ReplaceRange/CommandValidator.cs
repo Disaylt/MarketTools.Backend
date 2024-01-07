@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 {
     public class CommandValidator : AbstractValidator<ReplaceRangeCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
+        public CommandValidator(ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
             RuleFor(command => command.Products)
                 .MustAsync(async (newProducts, ct) =>
