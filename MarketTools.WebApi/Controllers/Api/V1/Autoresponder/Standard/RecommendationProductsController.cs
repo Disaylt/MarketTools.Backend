@@ -5,7 +5,7 @@ using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProd
 using MarketTools.Domain.Common;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
-using MarketTools.WebApi.Models.Api.Autoreponder;
+using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MarketTools.WebApi.Utilities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {
     public class CellCreateDto : CellDto, IHasMap
     {

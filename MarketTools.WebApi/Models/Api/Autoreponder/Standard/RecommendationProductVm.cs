@@ -3,7 +3,7 @@ using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {
     public class RecommendationProductVm : IHasMap
     {

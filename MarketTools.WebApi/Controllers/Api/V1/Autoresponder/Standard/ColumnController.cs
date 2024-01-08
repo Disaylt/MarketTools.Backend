@@ -2,7 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create;
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
-using MarketTools.WebApi.Models.Api.Autoreponder;
+using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

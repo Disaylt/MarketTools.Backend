@@ -1,7 +1,7 @@
 ﻿using MarketTools.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder.Template
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
 {
     public class SettingsVm
     {

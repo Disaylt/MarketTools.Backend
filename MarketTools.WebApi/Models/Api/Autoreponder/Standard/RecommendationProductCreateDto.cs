@@ -4,7 +4,7 @@ using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {
     public class RecommendationProductCreateDto : RecommendationProductDetails, IHasMap
     {

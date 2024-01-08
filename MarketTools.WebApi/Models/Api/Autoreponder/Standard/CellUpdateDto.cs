@@ -2,7 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
 using MarketTools.Application.Common.Mappings;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {
     public class CellUpdateDto : CellDto, IHasMap
     {

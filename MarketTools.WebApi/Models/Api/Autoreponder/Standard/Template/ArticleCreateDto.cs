@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Co
 using MarketTools.Application.Common.Mappings;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder.Template
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
 {
     public class ArticleCreateDto : IHasMap
     {

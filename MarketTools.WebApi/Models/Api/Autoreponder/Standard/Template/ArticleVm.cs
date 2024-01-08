@@ -2,7 +2,7 @@
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Entities;
 
-namespace MarketTools.WebApi.Models.Api.Autoreponder.Template
+namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
 {
     public class ArticleVm : IHasMap
     {

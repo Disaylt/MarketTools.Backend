@@ -2,7 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get;
 using MarketTools.Domain.Entities;
-using MarketTools.WebApi.Models.Api.Autoreponder.Template;
+using MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
