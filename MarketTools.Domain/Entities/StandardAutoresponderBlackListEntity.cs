@@ -10,6 +10,7 @@ namespace MarketTools.Domain.Entities
     public class StandardAutoresponderBlackListEntity : BaseEntity
     {
         [MaxLength(100)]
+        [Required]
         public string Name { get; set; } = null!;
 
         public string UserId { get; set; } = null!;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Queries.GetRange;
 using MarketTools.Domain.Entities;
+using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +20,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         {
             BlackListGetRangeQuery query = new BlackListGetRangeQuery { };
             IEnumerable<StandardAutoresponderBlackListEntity> entities = await _mediator.Send(query);
+            IEnumerable<BlackListVm> viewBlackLists = _mapper.Map<IEnumerable<BlackListVm>>(entities);
 
+            return Ok(viewBlackLists);
         }
     }
 }
