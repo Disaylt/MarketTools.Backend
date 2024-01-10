@@ -27,7 +27,6 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Setting
 
         private void Change(StandardAutoresponderTemplateSettingsEntity entity, SettingsUpdateCommand request)
         {
-            entity.AsMainTemplate = request.AsMainTemplate;
             entity.IsSkipWithTextFeedbacks = request.IsSkipWithTextFeedbacks;
             entity.IsSkipEmptyFeedbacks = request.IsSkipEmptyFeedbacks;
         }
