@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update
 {
-    public class SettingsUpdateCommand : IRequest
+    public class SettingsUpdateCommand : IRequest<StandardAutoresponderTemplateSettingsEntity>
     {
         public int TemplateId { get; set; }
         public bool IsSkipWithTextFeedbacks { get; set; }

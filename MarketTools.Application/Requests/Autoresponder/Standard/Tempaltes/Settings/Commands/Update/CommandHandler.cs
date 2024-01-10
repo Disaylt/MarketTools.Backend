@@ -11,10 +11,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Setting
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<SettingsUpdateCommand>
+        : IRequestHandler<SettingsUpdateCommand, StandardAutoresponderTemplateSettingsEntity>
     {
         private readonly IRepository<StandardAutoresponderTemplateSettingsEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplateSettings;
-        public async Task Handle(SettingsUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<StandardAutoresponderTemplateSettingsEntity> Handle(SettingsUpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateSettingsEntity entity = await _repository
                 .FirstAsync(x => x.TemplateId == request.TemplateId, cancellationToken);
@@ -23,6 +23,8 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Setting
 
             _repository.Update(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return entity;
         }
 
         private void Change(StandardAutoresponderTemplateSettingsEntity entity, SettingsUpdateCommand request)

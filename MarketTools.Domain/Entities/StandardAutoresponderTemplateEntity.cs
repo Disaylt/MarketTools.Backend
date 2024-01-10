@@ -15,6 +15,9 @@ namespace MarketTools.Domain.Entities
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
+        public int? BindAutoresponerBlackListId { get; set; }
+        public StandardAutoresponderBlackListEntity? BindAutoresponerBlackList { get; set; }
+
         public StandardAutoresponderTemplateSettingsEntity Settings { get; set; } = new StandardAutoresponderTemplateSettingsEntity();
 
         public List<StandardAutoresponderTemplateArticleEntity> Articles { get; set; } = new List<StandardAutoresponderTemplateArticleEntity>();

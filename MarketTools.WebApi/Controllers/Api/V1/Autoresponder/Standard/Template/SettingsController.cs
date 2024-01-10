@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get;
 using MarketTools.Domain.Entities;
@@ -33,9 +34,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
         public async Task<IActionResult> UpdateAsync([FromBody] SettingsUpdateDto body)
         {
             SettingsUpdateCommand command = _mapper.Map<SettingsUpdateCommand>(body);
-            await _mediator.Send(command);
+            StandardAutoresponderTemplateSettingsEntity settings = await _mediator.Send(command);
 
-            return Ok();
+            SettingsVm viewSettings = _mapper.Map<SettingsVm>(settings);
+
+            return Ok(viewSettings);
         }
     }
 }
