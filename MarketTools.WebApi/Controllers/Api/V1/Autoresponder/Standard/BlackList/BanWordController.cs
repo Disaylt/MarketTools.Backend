@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.BlackList
 {
-    [Route("api/v1/autoresponder/standard/black-list/ban-words")]
+    [Route("api/v1/autoresponder/standard/black-list/ban-word")]
     [ApiController]
     [Authorize]
     public class BanWordController(IMediator _mediator, IMapper _mapper)

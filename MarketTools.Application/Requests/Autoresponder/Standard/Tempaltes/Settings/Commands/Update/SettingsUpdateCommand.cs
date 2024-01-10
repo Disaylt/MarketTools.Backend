@@ -13,6 +13,5 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Setting
         public int TemplateId { get; set; }
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
-        public bool AsMainTemplate { get; set; }
     }
 }
