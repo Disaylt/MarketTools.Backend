@@ -1,6 +1,7 @@
 ﻿using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using System.Net;
 
 namespace MarketTools.WebApi.Services.Exceptions
@@ -11,7 +12,7 @@ namespace MarketTools.WebApi.Services.Exceptions
         {
             IEnumerable<string> errorMessagess = new List<string>() 
             {
-                "Объект не удовлетворяет условиям взаимодействия."
+                "Объект не удовлетворяет условиям обновления."
             };
 
             ErrorResultVm problemDetails = new ErrorResultVm
