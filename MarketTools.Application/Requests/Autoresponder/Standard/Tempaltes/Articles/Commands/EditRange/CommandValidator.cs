@@ -12,21 +12,10 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
 {
     public class CommandValidator : CommonValidator<ArticlesEditRangeCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService) : base(authUnitOfWork)
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
-            CanIntercatTemplate(RuleFor(x => x.TemplateId));
-
-            RuleFor(x => x)
-                .MustAsync(async (article, ct) =>
-                {
-                    IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalArticles = await authUnitOfWork.StandardAutoresponderTemplateArticles.CountAsync();
-                    int totalArticlesForAdd = article.Articles.Count();
-
-                    return totalArticles + totalArticlesForAdd < limits.MaxTemplateArticles;
-                })
-                .WithErrorCode("400")
-                .WithMessage("Превышен лимит артикулов.");
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
+            MustMaxQuantityTemplateArticles(RuleFor(x => x.Articles), authUnitOfWork, limitsService);
         }
     }
 }

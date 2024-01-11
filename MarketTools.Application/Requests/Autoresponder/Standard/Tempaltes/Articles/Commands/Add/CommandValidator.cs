@@ -18,12 +18,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork,
             ILimitsService<IStandarAutoresponderLimits> limitsService,
-            IUnitOfWork unitOfWork) 
-            : base(authUnitOfWork)
+            IUnitOfWork unitOfWork)
         {
             IRepository<StandardAutoresponderTemplateArticleEntity> repository = unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
 
-            CanIntercatTemplate(RuleFor(x => x.TemplateId));
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
 
             RuleFor(x => x)
                 .MustAsync(async (article, ct) =>
