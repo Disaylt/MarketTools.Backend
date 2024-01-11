@@ -2,6 +2,7 @@
 using MarketTools.Application.Models.Commands;
 using MarketTools.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,12 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
 
         public async Task Handle(DefaultDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderBlackListEntity entity = await _repository.FirstAsync(x=> x.Id == request.Id);
+            StandardAutoresponderBlackListEntity entity = await _repository
+                .GetAsQueryable()
+                .Include(x=> x.Templates)
+                .FirstAsync(x=> x.Id == request.Id);
+            entity.Templates.Clear();
+
             _repository.Remove(entity);
 
             await _authUnitOfWork.CommintAsync(cancellationToken);

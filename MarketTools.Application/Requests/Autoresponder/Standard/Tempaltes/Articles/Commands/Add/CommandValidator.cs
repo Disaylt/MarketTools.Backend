@@ -24,19 +24,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             IRepository<StandardAutoresponderTemplateArticleEntity> repository = unitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
 
             RuleFor(x => x)
-                .MustAsync(async (value, ct) =>
-                {
-                    bool isExists = await repository.AnyAsync(entity =>
-                        entity.Article == value.Article && entity.TemplateId == value.TemplateId);
-                    return !isExists;
-                })
-                .WithMessage("Такой арткул уже добавлен.");
-
-            RuleFor(x => x)
                 .MustAsync(async (article, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalArticles = await authUnitOfWork.StandardAutoresponderTemplateArticles.CountAsync();
+                    int totalArticles = await repository.CountAsync();
 
                     return totalArticles < limits.MaxTemplateArticles;
                 })

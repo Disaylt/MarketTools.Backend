@@ -3,7 +3,9 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.WebApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.Common;
 using System.Security.Claims;
 
 namespace MarketTools.WebApi.Middlewares
@@ -31,7 +33,11 @@ namespace MarketTools.WebApi.Middlewares
             catch(IdentityUnauthorizedException exception)
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
-            } 
+            }
+            catch(DbUpdateException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
         }
 
         private async Task RunExceptionHandlerAsync<T>(HttpContext context, IServiceProvider serviceProvider, T exception) where T : Exception
