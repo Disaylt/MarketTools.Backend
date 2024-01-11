@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Validatiors;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Interfaces.Limits;
@@ -11,10 +10,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands.EditRange
 {
-    public class CommandValidator : TemplateInteractValidator<ArticlesEditRangeCommand>
+    public class CommandValidator : CommonValidator<ArticlesEditRangeCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService) : base(authUnitOfWork)
         {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId));
+
             RuleFor(x => x)
                 .MustAsync(async (article, ct) =>
                 {
