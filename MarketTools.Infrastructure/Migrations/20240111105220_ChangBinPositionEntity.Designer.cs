@@ -3,6 +3,7 @@ using System;
 using MarketTools.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketTools.Infrastructure.Migrations
 {
     [DbContext(typeof(MainAppDbContext))]
-    partial class MainAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240111105220_ChangBinPositionEntity")]
+    partial class ChangBinPositionEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +249,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.HasIndex(new[] { "Position", "TemplateId", "ColumnId" }, "PosotionUniqueIndex")
+                    b.HasIndex(new[] { "Position", "TemplateId" }, "PosotionUniqueIndex")
                         .IsUnique();
 
                     b.ToTable("StandardAutoresponderColumnBindPositions");

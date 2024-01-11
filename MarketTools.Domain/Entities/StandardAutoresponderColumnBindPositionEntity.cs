@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
+    [Index(nameof(Position), nameof(TemplateId), nameof(ColumnId), Name = "PosotionUniqueIndex", IsUnique = true)]
     public class StandardAutoresponderColumnBindPositionEntity
     {
         public int Position { get; set; }
         public int TemplateId { get; set; }
         public StandardAutoresponderTemplateEntity Template { get; set; } = null!;
 
-        public int? ColumnId { get; set; }
-        public StandardAutoresponderColumnEntity? Column { get; set; }
+        public int ColumnId { get; set; }
+        public StandardAutoresponderColumnEntity Column { get; set; } = null!;
     }
 }
