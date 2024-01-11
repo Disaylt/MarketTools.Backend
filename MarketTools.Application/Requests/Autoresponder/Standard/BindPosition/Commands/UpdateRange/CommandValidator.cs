@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.Commands.UpdateRange
 {
-    public class CommandValidator : AbstractValidator<BindPositionUpdateRangeCommand>
+    public class CommandValidator : CommonValidator<BindPositionUpdateRangeCommand>
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork) 
         {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
+
             RuleFor(command => command)
                 .MustAsync(async (command, ct) =>
                 {
