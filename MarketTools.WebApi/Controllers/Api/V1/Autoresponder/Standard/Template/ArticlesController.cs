@@ -2,6 +2,7 @@
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList;
+using MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands.EditRange;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template;
 using MediatR;
@@ -25,6 +26,23 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
             IEnumerable<StandardAutoresponderTemplateArticleEntity> articles = await _mediator.Send(query);
 
             IEnumerable<ArticleVm> viewArticles = _mapper.Map<IEnumerable<ArticleVm>>(articles);
+
+            return Ok(viewArticles);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> UpdateAsync([FromBody] IEnumerable<string> articles, int templateId)
+        {
+            ArticlesEditRangeCommand command = new ArticlesEditRangeCommand
+            {
+                Articles = articles,
+                TemplateId = templateId
+            };
+
+            IEnumerable<StandardAutoresponderTemplateArticleEntity> entities = await _mediator.Send(command);
+
+            IEnumerable<ArticleVm> viewArticles = _mapper.Map<IEnumerable<ArticleVm>>(entities);
 
             return Ok(viewArticles);
         }

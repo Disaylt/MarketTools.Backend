@@ -32,7 +32,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
                     return totalArticles < limits.MaxTemplateArticles;
                 })
                 .WithErrorCode("400")
-                .WithMessage("Превышен лимит шаблонов.");
+                .WithMessage("Превышен лимит артикулов.");
 
         }
     }
