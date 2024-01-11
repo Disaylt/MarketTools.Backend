@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Requests.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Validatiors
 {
-    public class TemplateInteractValidator<T> : AbstractValidator<T> where T : TemplateBasicCommand
+    public class TemplateInteractValidator<T> : CommonValidator<T> where T : TemplateBasicCommand
     {
-        public TemplateInteractValidator(IAuthUnitOfWork authUnitOfWork)
+        public TemplateInteractValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
         {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId));
             RuleFor(x => x.TemplateId)
                 .MustAsync(async (templateId, ct) =>
                 {
