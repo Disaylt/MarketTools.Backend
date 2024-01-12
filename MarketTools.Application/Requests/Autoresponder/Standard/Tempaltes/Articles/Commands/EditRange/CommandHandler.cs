@@ -34,7 +34,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
         private void DeleteRange(ArticlesEditRangeCommand request, List<StandardAutoresponderTemplateArticleEntity> currentEntities)
         {
             List<StandardAutoresponderTemplateArticleEntity> entitiesForRemove = currentEntities
-                .Where(entity => request.Articles.Contains(entity.Article) == false)
+                .Where(entity => request.Articles.Contains(entity.Value) == false)
                 .ToList();
 
             _repository.RemoveRange(entitiesForRemove);
@@ -47,12 +47,12 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
 
         private async Task AddRange(ArticlesEditRangeCommand request, List<StandardAutoresponderTemplateArticleEntity> currentEntities, CancellationToken cancellationToken)
         {
-            List<string> currentArticles = currentEntities.Select(x => x.Article).ToList();
+            List<string> currentArticles = currentEntities.Select(x => x.Value).ToList();
             IEnumerable<StandardAutoresponderTemplateArticleEntity> entitiesForAdd = request.Articles
                 .Except(currentArticles)
                 .Select(article => new StandardAutoresponderTemplateArticleEntity
                 {
-                    Article = article,
+                    Value = article,
                     TemplateId = request.TemplateId
                 });
 

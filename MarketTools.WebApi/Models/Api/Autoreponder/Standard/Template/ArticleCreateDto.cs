@@ -11,7 +11,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
 
         [Required(ErrorMessage = "Введите артикул.")]
         [MaxLength(100, ErrorMessage = "Максимальная длинна 100 символов.")]
-        public required string Article { get; set; }
+        public required string Value { get; set; }
 
         public void Mapping(Profile profile)
         {

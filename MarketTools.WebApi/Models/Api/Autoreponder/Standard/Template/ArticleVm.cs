@@ -7,7 +7,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
     public class ArticleVm : IHasMap
     {
         public int Id { get; set; }
-        public required string Article { get; set; }
+        public required string Value { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StandardAutoresponderTemplateArticleEntity, ArticleVm>();

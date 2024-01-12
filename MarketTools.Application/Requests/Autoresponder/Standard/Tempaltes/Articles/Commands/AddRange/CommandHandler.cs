@@ -30,10 +30,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
             IEnumerable<StandardAutoresponderTemplateArticleEntity> currentEntities = await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId, ct);
 
             return request.Articles
-                .Where(article => currentEntities.Any(entity => entity.Article == article) == false)
+                .Where(article => currentEntities.Any(entity => entity.Value == article) == false)
                 .Select(x => new StandardAutoresponderTemplateArticleEntity
                 {
-                    Article = x,
+                    Value = x,
                     TemplateId = request.TemplateId,
                 });
         }

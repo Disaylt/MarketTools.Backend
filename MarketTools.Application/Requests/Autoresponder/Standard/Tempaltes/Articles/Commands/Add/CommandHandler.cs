@@ -30,7 +30,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
         {
             return new StandardAutoresponderTemplateArticleEntity
             {
-                Article = request.Article,
+                Value = request.Value,
                 TemplateId = request.TemplateId
             };
         }

@@ -11,6 +11,6 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class ArticleAddCommand : TemplateBasicCommand, IRequest<StandardAutoresponderTemplateArticleEntity>
     {
-        public required string Article { get; set; }
+        public required string Value { get; set; }
     }
 }

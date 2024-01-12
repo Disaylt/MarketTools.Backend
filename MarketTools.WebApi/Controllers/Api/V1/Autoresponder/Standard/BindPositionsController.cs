@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Commands.UpdateRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Queries.GetRange;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -29,6 +31,21 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
             IEnumerable<BindPostionVm> viewBindPosition = _mapper.Map<IEnumerable<BindPostionVm>>(bindPositions);
 
             return Ok(viewBindPosition);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRangeAsync([FromBody] IEnumerable<BindPositionDto> body, AutoresponderColumnType columnType, int templateId)
+        {
+            BindPositionUpdateRangeCommand command = new BindPositionUpdateRangeCommand
+            {
+                TemplateId = templateId,
+                BindPositions = body,
+                ColumnType = columnType
+            };
+
+            await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }
