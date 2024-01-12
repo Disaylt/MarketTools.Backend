@@ -1,5 +1,5 @@
-﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Validatiors;
-using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Requests.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Queries.GetList
 {
-    public class QueryValidator : TemplateInteractValidator<ArticleGetArticlesQuery>
+    public class QueryValidator : CommonValidator<ArticleGetArticlesQuery>
     {
-        public QueryValidator(IAuthUnitOfWork authUnitOfWork) : base(authUnitOfWork)
+        public QueryValidator(IAuthUnitOfWork authUnitOfWork)
         {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
         }
     }
 }
