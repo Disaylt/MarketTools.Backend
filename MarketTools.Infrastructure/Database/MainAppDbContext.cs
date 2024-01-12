@@ -19,7 +19,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderCell> StandardAutoresponderCells { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; set; } = null!;
-        public DbSet<StandardAutoresponderColumnBindPositionEntity> StandardAutoresponderColumnBindPositions { get; set; } = null!;
+        public DbSet<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions { get; set; } = null!;
         public DbSet<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; set; } = null!;
         public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
@@ -32,7 +32,7 @@ namespace MarketTools.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<StandardAutoresponderColumnBindPositionEntity>().HasKey(x => new { x.Position, x.TemplateId });
+            builder.Entity<StandardAutoresponderBindPositionEntity>().HasKey(x => new { x.Position, x.TemplateId });
             builder.Entity<StandardAutoresponderConnectionRatingEntity>().HasKey(x => new { x.Rating, x.ConnectionId });
         }
     }

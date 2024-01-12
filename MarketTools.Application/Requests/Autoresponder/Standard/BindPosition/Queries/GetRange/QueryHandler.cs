@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Queries.GetRange
 {
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<BindPositionGetRangeQuery, IEnumerable<StandardAutoresponderColumnBindPositionEntity>>
+        : IRequestHandler<BindPositionGetRangeQuery, IEnumerable<StandardAutoresponderBindPositionEntity>>
     {
-        private readonly IRepository<StandardAutoresponderColumnBindPositionEntity> _repository = _authUnitOfWork.StandardAutoresponderColumnBindPositions;
+        private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnitOfWork.StandardAutoresponderBindPositions;
 
-        public async Task<IEnumerable<StandardAutoresponderColumnBindPositionEntity>> Handle(BindPositionGetRangeQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<StandardAutoresponderBindPositionEntity>> Handle(BindPositionGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(x => 
                 x.TemplateId == request.TemplateId && x.Column.Type == request.ColumnType, 

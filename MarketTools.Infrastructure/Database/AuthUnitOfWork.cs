@@ -47,9 +47,9 @@ namespace MarketTools.Infrastructure.Database
                 DbContext.StandardAutoresponderTemplateArticles, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IRepository<StandardAutoresponderColumnBindPositionEntity> StandardAutoresponderColumnBindPositions
-            => new AuthRepository<StandardAutoresponderColumnBindPositionEntity>(
-                DbContext.StandardAutoresponderColumnBindPositions, 
+        public IRepository<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions
+            => new AuthRepository<StandardAutoresponderBindPositionEntity>(
+                DbContext.StandardAutoresponderBindPositions, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
         public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections

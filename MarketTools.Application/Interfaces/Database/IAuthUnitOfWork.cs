@@ -15,7 +15,7 @@ namespace MarketTools.Application.Interfaces.Database
         public IRepository<StandardAutoresponderCell> StandardAutoresponderCells { get; }
         public IRepository<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; }
         public IRepository<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; }
-        public IRepository<StandardAutoresponderColumnBindPositionEntity> StandardAutoresponderColumnBindPositions { get; }
+        public IRepository<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions { get; }
         public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; }
         public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; }
         public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; }

@@ -21,7 +21,7 @@ namespace MarketTools.Domain.Entities
         public StandardAutoresponderTemplateSettingsEntity Settings { get; set; } = new StandardAutoresponderTemplateSettingsEntity();
 
         public List<StandardAutoresponderTemplateArticleEntity> Articles { get; set; } = new List<StandardAutoresponderTemplateArticleEntity>();
-        public List<StandardAutoresponderColumnBindPositionEntity> BindPositions { get; set; } = new List<StandardAutoresponderColumnBindPositionEntity>();
+        public List<StandardAutoresponderBindPositionEntity> BindPositions { get; set; } = new List<StandardAutoresponderBindPositionEntity>();
         public List<StandardAutoresponderConnectionRatingEntity> Ratings { get; set; } = new List<StandardAutoresponderConnectionRatingEntity>();
     }
 }
