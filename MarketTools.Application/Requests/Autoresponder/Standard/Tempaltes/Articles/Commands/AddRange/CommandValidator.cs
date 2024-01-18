@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using MarketTools.Application.Interfaces.Autoresponder.Standard.Models;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using System;
 using System.Collections.Generic;
