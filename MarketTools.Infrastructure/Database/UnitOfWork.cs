@@ -18,7 +18,7 @@ namespace MarketTools.Infrastructure.Database
             DbContext = dbContext;
         }
 
-        public async Task CommintAsync()
+        public async Task CommintAsync(CancellationToken cancellationToken = default)
         {
             await DbContext.SaveChangesAsync();
         }
@@ -28,15 +28,9 @@ namespace MarketTools.Infrastructure.Database
             DbContext.SaveChanges();
         }
 
-        public DbSet<T> GetDbSet<T>() where T : class
-        {
-            return DbContext.Set<T>();
-        }
-
-        public IRepository<T> GetRepository<T>() where T : class
+        public virtual IRepository<T> GetRepository<T>() where T : class
         {
             DbSet<T> set = DbContext.Set<T>();
-
             return new GenericRepository<T>(set);
         }
 

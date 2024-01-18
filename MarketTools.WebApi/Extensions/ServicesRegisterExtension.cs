@@ -2,12 +2,15 @@
 using FluentValidation;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Common.Mappings;
+using MarketTools.Domain.Common.Configuration;
 using MarketTools.Domain.Entities;
 using MarketTools.Infrastructure.Database;
-using MarketTools.WebApi.Common.Exceptions;
+using MarketTools.WebApi.Common.Json;
 using MarketTools.WebApi.Interfaces;
+using MarketTools.WebApi.Services.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -19,28 +22,24 @@ namespace MarketTools.WebApi.Extensions
     {
         public static IServiceCollection AddCurrentApp(this IServiceCollection serviceDescriptors)
         {
-            serviceDescriptors.AddAutoMapper(config =>
-            {
-                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-            });
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultBadRequestException>, DefaultBadRequestExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DefaultNotFoundException>, DefaultNotFoundExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppBadRequestException>, DefaultBadRequestExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppNotFoundException>, DefaultNotFoundExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<DbUpdateException>, EntityFrameworkExceptionHandlerService>();
 
+            serviceDescriptors.AddControllers()
+                .AddJsonOptions(opt =>
+                {
+                    opt.JsonSerializerOptions.Converters.Add(new StringJsonConverter());
+                });
 
             return serviceDescriptors;
         }
 
-        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuth(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            IConfigurationSection jwtSeciton = configuration.GetRequiredSection("Sequre")
-                .GetRequiredSection("Jwt");
-
-            string? validAudience = jwtSeciton.GetValue<string>("ValidAudience");
-            string? validIssuer = jwtSeciton.GetValue<string>("ValidIssuer");
-            string secret = jwtSeciton.GetValue<string>("Secret") ?? throw new NullReferenceException("JWT secret is null");
-            byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
+            byte[] secretBytes = Encoding.UTF8.GetBytes(sequreSettings.Jwt.Secret);
 
             serviceDescriptors.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -53,8 +52,8 @@ namespace MarketTools.WebApi.Extensions
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
-                        ValidAudience = validAudience,
-                        ValidIssuer = validIssuer,
+                        ValidAudience = sequreSettings.Jwt.ValidAudience,
+                        ValidIssuer = sequreSettings.Jwt.ValidIssuer,
                         IssuerSigningKey = new SymmetricSecurityKey(secretBytes)
                     };
                 };

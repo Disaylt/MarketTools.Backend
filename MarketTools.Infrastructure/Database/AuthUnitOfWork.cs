@@ -1,7 +1,9 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
-using MarketTools.Infrastructure.Database.AuthRepositories;
+using MarketTools.Domain.Enums;
+using MarketTools.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,46 +22,74 @@ namespace MarketTools.Infrastructure.Database
             _authReadHelper = authReadHelper;
         }
 
-        public IAuthRepository<AutoresponderColumn> AutoresponderColumns 
-            => new GenericAuthRepository<AutoresponderColumn>(GetDbSet<AutoresponderColumn>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderColumnEntity> StandardAutoresponderColumns 
+            => new AuthRepository<StandardAutoresponderColumnEntity>(
+                DbContext.StandardAutoresponderColumns,
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts
-            => new GenericAuthRepository<AutoresponderRecommendationProduct>(GetDbSet<AutoresponderRecommendationProduct>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts
+            => new AuthRepository<StandardAutoresponderRecommendationProductEntity>(
+                DbContext.StandardAutoresponderRecommendationProducts, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderCell> AutoresponderCells
-            => new GenericAuthRepository<AutoresponderCell>(GetDbSet<AutoresponderCell>(), x => x.Column.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderCell> StandardAutoresponderCells
+            => new AuthRepository<StandardAutoresponderCell>(
+                DbContext.StandardAutoresponderCells, 
+                x => x.Column.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderTemplate> AutoresponderTemplates
-            => new GenericAuthRepository<AutoresponderTemplate>(GetDbSet<AutoresponderTemplate>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates
+            => new AuthRepository<StandardAutoresponderTemplateEntity>(
+                DbContext.StandardAutoresponderTemplates, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderTemplateArticle> AutoresponderTemplateArticles
-            => new GenericAuthRepository<AutoresponderTemplateArticle>(GetDbSet<AutoresponderTemplateArticle>(), x => x.Template.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles
+            => new AuthRepository<StandardAutoresponderTemplateArticleEntity>(
+                DbContext.StandardAutoresponderTemplateArticles, 
+                x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderColumnBindPosition> AutoresponderColumnBindPositions
-            => new GenericAuthRepository<AutoresponderColumnBindPosition>(GetDbSet<AutoresponderColumnBindPosition>(), x => x.Template.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions
+            => new AuthRepository<StandardAutoresponderBindPositionEntity>(
+                DbContext.StandardAutoresponderBindPositions, 
+                x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderConnection> AutoresponderConnections
-            => new GenericAuthRepository<AutoresponderConnection>(GetDbSet<AutoresponderConnection>(), x => x.SellerConnection.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections
+            => new AuthRepository<StandardAutoresponderConnectionEntity>(
+                DbContext.StandardAutoresponderConnections, 
+                x => x.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderConnectionRating> AutoresponderConnectionRatings
-             => new GenericAuthRepository<AutoresponderConnectionRating>(GetDbSet<AutoresponderConnectionRating>(), x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings
+             => new AuthRepository<StandardAutoresponderConnectionRatingEntity>(
+                 DbContext.StandardAutoresponderConnectionRatings, 
+                 x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderTemplateSettings> AutoresponderTemplateSettings
-            => new GenericAuthRepository<AutoresponderTemplateSettings>(GetDbSet<AutoresponderTemplateSettings>(), x => x.Template.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings
+            => new AuthRepository<StandardAutoresponderTemplateSettingsEntity>(
+                DbContext.StandardAutoresponderTemplateSettings, 
+                x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<SellerConnection> SellerConnections
-            => new GenericAuthRepository<SellerConnection>(GetDbSet<SellerConnection>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<SellerConnectionEntity> SellerConnections
+            => new AuthRepository<SellerConnectionEntity>(
+                DbContext.SellerConnections, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections
-            => new GenericAuthRepository<OzonOpenApiSellerConnection>(GetDbSet<OzonOpenApiSellerConnection>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections
+            => new AuthRepository<OzonOpenApiSellerConnectionEntity>(
+                DbContext.OzonOpenApiSellerConnections, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections
-            => new GenericAuthRepository<WbOpenApiSellerConnection>(GetDbSet<WbOpenApiSellerConnection>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections
+            => new AuthRepository<WbOpenApiSellerConnectionEntity>(
+                DbContext.WbOpenApiSellerConnections, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderBlackList> AutoresponderBlackLists
-            => new GenericAuthRepository<AutoresponderBlackList>(GetDbSet<AutoresponderBlackList>(), x => x.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists
+            => new AuthRepository<StandardAutoresponderBlackListEntity>(
+                DbContext.StandardAutoresponderBlackLists, 
+                x => x.UserId == _authReadHelper.UserId);
 
-        public IAuthRepository<AutoresponderBanWord> AutoresponderBanWords
-            => new GenericAuthRepository<AutoresponderBanWord>(GetDbSet<AutoresponderBanWord>(), x => x.BlackList.UserId == _authReadHelper.UserId);
+        public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords
+            => new AuthRepository<StandardAutoresponderBanWordEntity>(
+                DbContext.StandardAutoresponderBanWords, 
+                x => x.BlackList.UserId == _authReadHelper.UserId);
     }
 }
