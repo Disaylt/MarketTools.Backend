@@ -21,16 +21,16 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
             request.Articles = request.Articles
                 .Where(x => string.IsNullOrEmpty(x) == false);
 
-            List<StandardAutoresponderTemplateArticleEntity> currentEntities = await _repository.GetAsQueryable()
+            List<StandardAutoresponderTemplateArticleEntity> entitiesForUpdate = await _repository.GetAsQueryable()
                 .Where(x=> x.TemplateId == request.TemplateId)
                 .ToListAsync();
 
-            await AddRange(request, currentEntities, cancellationToken);
-            DeleteRange(request, currentEntities);
+            await AddRange(request, entitiesForUpdate, cancellationToken);
+            DeleteRange(request, entitiesForUpdate);
 
             await _authUnitOfWork.CommintAsync(cancellationToken);
 
-            return currentEntities;
+            return await _repository.GetRangeAsync(x=> x.TemplateId == request.TemplateId);
         }
 
         private void DeleteRange(ArticlesEditRangeCommand request, List<StandardAutoresponderTemplateArticleEntity> currentEntities)
@@ -40,11 +40,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
                 .ToList();
 
             _repository.RemoveRange(entitiesForRemove);
-
-            foreach(StandardAutoresponderTemplateArticleEntity entity in entitiesForRemove)
-            {
-                currentEntities.Remove(entity);
-            }
         }
 
         private async Task AddRange(ArticlesEditRangeCommand request, List<StandardAutoresponderTemplateArticleEntity> currentEntities, CancellationToken cancellationToken)
@@ -58,7 +53,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
                     TemplateId = request.TemplateId
                 });
 
-            currentEntities.AddRange(entitiesForAdd);
             await _repository.AddRangeAsync(entitiesForAdd);
         }
     }
