@@ -72,12 +72,12 @@ namespace MarketTools.Infrastructure.Database
                 DbContext.MarketplaceConnection, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<OzonSellerOpenApiConnectionEntity> OzonOpenApiSellerConnections
+        public IRepository<OzonSellerOpenApiConnectionEntity> OzonSellerOpenApiConnections
             => new AuthRepository<OzonSellerOpenApiConnectionEntity>(
                 DbContext.OzoSellernOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<WbSellerOpenApiConnectionEntity> WbOpenApiSellerConnections
+        public IRepository<WbSellerOpenApiConnectionEntity> WbSellerOpenApiConnections
             => new AuthRepository<WbSellerOpenApiConnectionEntity>(
                 DbContext.WbSellerOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
