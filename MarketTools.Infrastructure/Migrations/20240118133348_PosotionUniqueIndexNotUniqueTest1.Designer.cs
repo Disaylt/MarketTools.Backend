@@ -3,6 +3,7 @@ using System;
 using MarketTools.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketTools.Infrastructure.Migrations
 {
     [DbContext(typeof(MainAppDbContext))]
-    partial class MainAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240118133348_PosotionUniqueIndexNotUniqueTest1")]
+    partial class PosotionUniqueIndexNotUniqueTest1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,11 +184,13 @@ namespace MarketTools.Infrastructure.Migrations
                     b.Property<int>("ColumnId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Position", "TemplateId", "ColumnId");
+                    b.HasKey("Position", "TemplateId");
 
                     b.HasIndex("ColumnId");
 
                     b.HasIndex("TemplateId");
+
+                    b.HasIndex(new[] { "Position", "TemplateId", "ColumnId" }, "PosotionUniqueIndex");
 
                     b.ToTable("StandardAutoresponderBindPositions");
                 });

@@ -18,6 +18,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
 
         public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(ArticlesEditRangeCommand request, CancellationToken cancellationToken)
         {
+            request.Articles = request.Articles
+                .Where(x => string.IsNullOrEmpty(x) == false);
 
             List<StandardAutoresponderTemplateArticleEntity> currentEntities = await _repository.GetAsQueryable()
                 .Where(x=> x.TemplateId == request.TemplateId)

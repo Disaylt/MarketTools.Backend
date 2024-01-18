@@ -32,7 +32,6 @@ namespace MarketTools.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<StandardAutoresponderBindPositionEntity>().HasKey(x => new { x.Position, x.TemplateId });
             builder.Entity<StandardAutoresponderConnectionRatingEntity>().HasKey(x => new { x.Rating, x.ConnectionId });
         }
     }

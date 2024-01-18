@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Commands.UpdateRange;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections;
@@ -19,7 +20,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
 
         public async Task Handle(BindPositionUpdateRangeCommand request, CancellationToken cancellationToken)
         {
-            await RemoveCurrentBindsAsync(request.TemplateId, cancellationToken);
+            await RemoveCurrentBindsAsync(request.TemplateId, request.ColumnType, cancellationToken);
 
             IEnumerable<StandardAutoresponderBindPositionEntity> entities = CreateEntities(request);
 
@@ -38,10 +39,10 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
                 });
         }
 
-        private async Task RemoveCurrentBindsAsync(int templateId, CancellationToken cancellationToken)
+        private async Task RemoveCurrentBindsAsync(int templateId, AutoresponderColumnType columnType, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderBindPositionEntity> currentEntites = await _repository
-                .GetRangeAsync(x => x.TemplateId == templateId, cancellationToken);
+                .GetRangeAsync(x => x.TemplateId == templateId && x.Column.Type == columnType, cancellationToken);
 
             _repository.RemoveRange(currentEntites);
         }
