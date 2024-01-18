@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.Add;
+using MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.RefreshToken;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.MarketplaceConnections;
 using MarketTools.WebApi.Models.Api.WB.Connections.Seller;
@@ -26,6 +27,17 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Wb.Connections.Seller
             MarketplaceConnectionVm viewEntity = _mapper.Map<MarketplaceConnectionVm>(entitiy);
 
             return Ok(viewEntity);
+        }
+
+        [HttpPut]
+        [Route("refrsh-token")]
+        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenOpenApiBody body)
+        {
+            OpenApiRefreshTokenCommand command = _mapper.Map<OpenApiRefreshTokenCommand>(body);
+
+            await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }
