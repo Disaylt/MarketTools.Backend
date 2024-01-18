@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
-    public class GetRangeQueryFactory
+    public class MarketplaceConnectionsQueryFactory
     {
-        public GetRangeQuery<MarketplaceConnectionEntity> Create(MarketplaceConnectionType marketplaceConnectionType)
+        public GetRangeQuery<MarketplaceConnectionEntity> CreateGetRangeQuery(MarketplaceConnectionType marketplaceConnectionType)
         {
             switch (marketplaceConnectionType)
             {
