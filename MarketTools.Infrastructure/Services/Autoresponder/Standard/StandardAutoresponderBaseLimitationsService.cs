@@ -1,7 +1,6 @@
 ﻿using MarketTools.Application.Interfaces;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Interfaces.Autoresponder.Standard.Models;
 using MarketTools.Domain.Interfaces.Limits;
+using MarketTools.Infrastructure.Services.Autoresponder.Standard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
     {
         public Task<IStandarAutoresponderLimits> GetAsync()
         {
-            IStandarAutoresponderLimits value = new StandardAutoresponderLimitsDto();
+            IStandarAutoresponderLimits value = new StandardAutoresponderLimitsModel();
 
             return Task.FromResult(value);
         }
