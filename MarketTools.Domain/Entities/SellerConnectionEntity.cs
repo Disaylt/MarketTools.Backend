@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class SellerConnectionEntity : BaseEntity
+    public abstract class SellerConnectionEntity : BaseEntity
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
