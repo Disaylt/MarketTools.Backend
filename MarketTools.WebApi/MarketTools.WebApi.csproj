@@ -44,4 +44,8 @@
     <ProjectReference Include="..\MarketTools.Infrastructure\MarketTools.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Api\V1\Ozon\" />
+  </ItemGroup>
+
 </Project>
