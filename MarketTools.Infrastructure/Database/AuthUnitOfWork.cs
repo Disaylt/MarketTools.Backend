@@ -67,19 +67,19 @@ namespace MarketTools.Infrastructure.Database
                 DbContext.StandardAutoresponderTemplateSettings, 
                 x => x.Template.UserId == _authReadHelper.UserId);
 
-        public IRepository<SellerConnectionEntity> SellerConnections
-            => new AuthRepository<SellerConnectionEntity>(
-                DbContext.SellerConnections, 
+        public IRepository<MarketplaceConnectionEntity> SellerConnections
+            => new AuthRepository<MarketplaceConnectionEntity>(
+                DbContext.MarketplaceConnection, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections
-            => new AuthRepository<OzonOpenApiSellerConnectionEntity>(
-                DbContext.OzonOpenApiSellerConnections, 
+        public IRepository<OzonSellerOpenApiConnectionEntity> OzonOpenApiSellerConnections
+            => new AuthRepository<OzonSellerOpenApiConnectionEntity>(
+                DbContext.OzoSellernOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections
-            => new AuthRepository<WbOpenApiSellerConnectionEntity>(
-                DbContext.WbOpenApiSellerConnections, 
+        public IRepository<WbSellerOpenApiConnectionEntity> WbOpenApiSellerConnections
+            => new AuthRepository<WbSellerOpenApiConnectionEntity>(
+                DbContext.WbSellerOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
         public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists

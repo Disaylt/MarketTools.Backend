@@ -19,9 +19,9 @@ namespace MarketTools.Application.Interfaces.Database
         public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; }
         public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; }
         public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; }
-        public IRepository<SellerConnectionEntity> SellerConnections { get; }
-        public IRepository<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections { get; }
-        public IRepository<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections { get; }
+        public IRepository<MarketplaceConnectionEntity> SellerConnections { get; }
+        public IRepository<OzonSellerOpenApiConnectionEntity> OzonOpenApiSellerConnections { get; }
+        public IRepository<WbSellerOpenApiConnectionEntity> WbOpenApiSellerConnections { get; }
         public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; }
         public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; }
     }

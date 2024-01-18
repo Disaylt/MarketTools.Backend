@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.Add
 {
-    public class SellerOpenApiAddCommand : IRequest<SellerConnectionEntity>
+    public class SellerOpenApiAddCommand : IRequest<MarketplaceConnectionEntity>
     {
         public required string Name { get; set; }
         public string? Description { get; set; }

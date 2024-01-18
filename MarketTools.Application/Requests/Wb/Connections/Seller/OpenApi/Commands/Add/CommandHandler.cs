@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.Add
 {
     public class CommandHandler
-        : IRequestHandler<SellerOpenApiAddCommand, SellerConnectionEntity>
+        : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
-        public Task<SellerConnectionEntity> Handle(SellerOpenApiAddCommand request, CancellationToken cancellationToken)
+        public Task<MarketplaceConnectionEntity> Handle(SellerOpenApiAddCommand request, CancellationToken cancellationToken)
         {
             
             throw new NotImplementedException();

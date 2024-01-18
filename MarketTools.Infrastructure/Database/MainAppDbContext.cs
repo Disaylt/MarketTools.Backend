@@ -23,9 +23,9 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; set; } = null!;
         public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
-        public DbSet<SellerConnectionEntity> SellerConnections { get; set; } = null!;
-        public DbSet<OzonOpenApiSellerConnectionEntity> OzonOpenApiSellerConnections { get; set; } = null!;
-        public DbSet<WbOpenApiSellerConnectionEntity> WbOpenApiSellerConnections { get; set; } = null!;
+        public DbSet<MarketplaceConnectionEntity> MarketplaceConnection { get; set; } = null!;
+        public DbSet<OzonSellerOpenApiConnectionEntity> OzoSellernOpenApiConnections { get; set; } = null!;
+        public DbSet<WbSellerOpenApiConnectionEntity> WbSellerOpenApiConnections { get; set; } = null!;
         public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
 
