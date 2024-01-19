@@ -22,9 +22,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Wb.Connections.Seller
         {
             SellerOpenApiAddCommand command = _mapper.Map<SellerOpenApiAddCommand>(body);
 
-            MarketplaceConnectionEntity entitiy = await _mediator.Send(command);
+            MarketplaceConnectionEntity entity = await _mediator.Send(command);
 
-            MarketplaceConnectionVm viewEntity = _mapper.Map<MarketplaceConnectionVm>(entitiy);
+            MarketplaceConnectionVm viewEntity = _mapper.Map<MarketplaceConnectionVm>(entity);
 
             return Ok(viewEntity);
         }
@@ -35,9 +35,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Wb.Connections.Seller
         {
             OpenApiRefreshTokenCommand command = _mapper.Map<OpenApiRefreshTokenCommand>(body);
 
-            await _mediator.Send(command);
+            MarketplaceConnectionEntity entity = await _mediator.Send(command);
 
-            return Ok();
+            MarketplaceConnectionVm viewEntity = _mapper.Map<MarketplaceConnectionVm>(entity);
+
+            return Ok(viewEntity);
         }
     }
 }

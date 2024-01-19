@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MarketTools.Domain.Entities;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.RefreshToken
 {
-    public class OpenApiRefreshTokenCommand : IRequest
+    public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>
     {
         public int Id { get; set; }
         public required string Token { get; set; }
