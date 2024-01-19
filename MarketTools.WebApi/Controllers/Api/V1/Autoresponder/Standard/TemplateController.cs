@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Commands.Add;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
@@ -31,7 +31,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken ct)
         {
-            DefaultDeleteCommand<StandardAutoresponderTemplateEntity> command = new DefaultDeleteCommand<StandardAutoresponderTemplateEntity> { Id = id };
+            GenericDeleteCommand<StandardAutoresponderTemplateEntity> command = new GenericDeleteCommand<StandardAutoresponderTemplateEntity> { Id = id };
             await _mediator.Send(command, ct);
 
             return Ok();

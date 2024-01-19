@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Models.Commands;
+﻿using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +16,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            DefaultDeleteCommand<MarketplaceConnectionEntity> command = new DefaultDeleteCommand<MarketplaceConnectionEntity> { Id = id };
+            GenericDeleteCommand<MarketplaceConnectionEntity> command = new GenericDeleteCommand<MarketplaceConnectionEntity> { Id = id };
 
             await _mediator.Send(command);
 

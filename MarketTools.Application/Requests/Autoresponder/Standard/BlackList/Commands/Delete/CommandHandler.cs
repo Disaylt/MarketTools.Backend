@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Commands.Delete
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderBlackListEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBlackListEntity>>
     {
         private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.StandardAutoresponderBlackLists;
 
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
+        public async Task Handle(GenericDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderBlackListEntity entity = await _repository
                 .GetAsQueryable()

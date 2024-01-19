@@ -1,7 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +15,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderColumnEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderColumnEntity>>
     {
         private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _authUnitOfWork.StandardAutoresponderColumns;
 
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderColumnEntity> request, CancellationToken cancellationToken)
+        public async Task Handle(GenericDeleteCommand<StandardAutoresponderColumnEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderColumnEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
 

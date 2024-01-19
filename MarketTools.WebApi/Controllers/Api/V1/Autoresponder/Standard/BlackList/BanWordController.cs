@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Commands.Add;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard.BlackList;
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.BlackList
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            DefaultDeleteCommand<StandardAutoresponderBanWordEntity> command = new DefaultDeleteCommand<StandardAutoresponderBanWordEntity>
+            GenericDeleteCommand<StandardAutoresponderBanWordEntity> command = new GenericDeleteCommand<StandardAutoresponderBanWordEntity>
             {
                 Id = id
             };

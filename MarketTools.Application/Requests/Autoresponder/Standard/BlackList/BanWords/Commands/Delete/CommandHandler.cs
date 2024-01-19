@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Commands.Delete
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderBanWordEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBanWordEntity>>
     {
         private readonly IRepository<StandardAutoresponderBanWordEntity> _repository = _authUnitOfWork.StandardAutoresponderBanWords;
 
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderBanWordEntity> request, CancellationToken cancellationToken)
+        public async Task Handle(GenericDeleteCommand<StandardAutoresponderBanWordEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderBanWordEntity entity = await _repository.FirstAsync(x=> x.Id == request.Id, cancellationToken);
             _repository.Remove(entity);
