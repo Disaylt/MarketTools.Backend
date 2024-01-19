@@ -11,6 +11,7 @@ namespace MarketTools.Domain.Entities
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
+        public string? Discriminator { get; set; }
 
         [MaxLength(300)]
         public string? Description { get; set; }
