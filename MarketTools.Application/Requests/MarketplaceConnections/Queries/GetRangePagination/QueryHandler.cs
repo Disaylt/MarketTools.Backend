@@ -20,7 +20,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
 
             return await _authUnitOfWork.SellerConnections
                 .GetAsQueryable()
-                .Where(x => x.Description == discriminator)
+                .Where(x => x.Discriminator == discriminator)
                 .Skip(request.Skip)
                 .Take(request.Take)
                 .ToListAsync();
