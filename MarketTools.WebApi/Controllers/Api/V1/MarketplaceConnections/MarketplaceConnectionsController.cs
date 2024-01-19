@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Models.Queries;
+using MarketTools.Application.Interfaces.Requests;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -20,7 +20,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
         [HttpGet]
         public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangeEndpointQuery query)
         {
-            GetRangeQuery<MarketplaceConnectionEntity> mediatorQuery = CreateMediatorQuery(query);
+            IGetRangePaginationQuery<MarketplaceConnectionEntity> mediatorQuery = CreateMediatorQuery(query);
 
             IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(mediatorQuery);
 
@@ -29,9 +29,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
             return Ok(viewEntities);
         }
 
-        private GetRangeQuery<MarketplaceConnectionEntity> CreateMediatorQuery(GetRangeEndpointQuery query)
+        private IGetRangePaginationQuery<MarketplaceConnectionEntity> CreateMediatorQuery(GetRangeEndpointQuery query)
         {
-            GetRangeQuery<MarketplaceConnectionEntity> mediatorQuery = new MarketplaceConnectionsQueryFactory()
+            IGetRangePaginationQuery<MarketplaceConnectionEntity> mediatorQuery = new MarketplaceConnectionsQueryFactory()
                 .CreateGetRangeQuery(query.ConnectionType);
             mediatorQuery.Skip = query.Skip;
             mediatorQuery.Take = query.Take;

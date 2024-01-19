@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Queries;
+using MarketTools.Application.Interfaces.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Queries.GetRange
 {
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GetRangeQuery<WbSellerOpenApiConnectionEntity>, IEnumerable<WbSellerOpenApiConnectionEntity>>
+        : IRequestHandler<IGetRangePaginationQuery<WbSellerOpenApiConnectionEntity>, IEnumerable<WbSellerOpenApiConnectionEntity>>
     {
-        public async Task<IEnumerable<WbSellerOpenApiConnectionEntity>> Handle(GetRangeQuery<WbSellerOpenApiConnectionEntity> request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<WbSellerOpenApiConnectionEntity>> Handle(IGetRangePaginationQuery<WbSellerOpenApiConnectionEntity> request, CancellationToken cancellationToken)
         {
             return await _authUnitOfWork.WbSellerOpenApiConnections
                 .GetAsQueryable()
