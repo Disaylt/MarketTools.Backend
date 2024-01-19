@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Requests;
+using MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -20,23 +21,18 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
         [HttpGet]
         public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangeEndpointQuery query)
         {
-            IGetRangePaginationQuery<MarketplaceConnectionEntity> mediatorQuery = CreateMediatorQuery(query);
+            GetRangePaginationMarketplaceConnectionsQuery request = new GetRangePaginationMarketplaceConnectionsQuery
+            {
+                ConnectionType = query.ConnectionType,
+                Skip = query.Skip,
+                Take = query.Take
+            };
 
-            IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(mediatorQuery);
+            IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(request);
 
             IEnumerable<MarketplaceConnectionVm> viewEntities = _mapper.Map<IEnumerable<MarketplaceConnectionVm>>(entities);
 
             return Ok(viewEntities);
-        }
-
-        private IGetRangePaginationQuery<MarketplaceConnectionEntity> CreateMediatorQuery(GetRangeEndpointQuery query)
-        {
-            IGetRangePaginationQuery<MarketplaceConnectionEntity> mediatorQuery = new MarketplaceConnectionsQueryFactory()
-                .CreateGetRangeQuery(query.ConnectionType);
-            mediatorQuery.Skip = query.Skip;
-            mediatorQuery.Take = query.Take;
-
-            return mediatorQuery;
         }
     }
 }
