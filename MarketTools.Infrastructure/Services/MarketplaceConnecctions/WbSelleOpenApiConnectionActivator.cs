@@ -20,6 +20,10 @@ namespace MarketTools.Infrastructure.Services.MarketplaceConnecctions
             {
                 entity.IsActive = true;
             }
+            else
+            {
+                entity.IsActive = true;
+            }
 
             return Task.CompletedTask;
         }

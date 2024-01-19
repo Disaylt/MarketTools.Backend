@@ -30,7 +30,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Wb.Connections.Seller
         }
 
         [HttpPut]
-        [Route("refrsh-token")]
+        [Route("refresh-token")]
         public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenOpenApiBody body)
         {
             OpenApiRefreshTokenCommand command = _mapper.Map<OpenApiRefreshTokenCommand>(body);
