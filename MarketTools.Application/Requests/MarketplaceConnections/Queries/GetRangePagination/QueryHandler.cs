@@ -18,12 +18,11 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
         {
             string discriminator = new MarketplaceConnectionsDiscriminatorFactory().Get(request.ConnectionType);
 
-            return await _authUnitOfWork.SellerConnections
-                .GetAsQueryable()
-                .Where(x => x.Discriminator == discriminator)
-                .Skip(request.Skip)
-                .Take(request.Take)
-                .ToListAsync();
+            return await new MarketpalceConnectionQueryBuilder(_authUnitOfWork.SellerConnections)
+                    .SetPagination(request.PageRequest)
+                    .Build()
+                    .Where(x => x.Discriminator == discriminator)
+                    .ToListAsync();
         }
     }
 }

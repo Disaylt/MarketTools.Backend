@@ -18,7 +18,12 @@ namespace MarketTools.Application.Common.Builders
             Query = query;
         }
 
-        protected TBuilder SetPagination<TBuilder>(TBuilder builder, PageRequest? pageRequest)
+        public IQueryable<TEntity> Build()
+        {
+            return Query;
+        }
+
+        public virtual BaseQueryBuilder<TEntity> SetPagination(PageRequest? pageRequest)
         {
             if(pageRequest != null)
             {
@@ -28,7 +33,7 @@ namespace MarketTools.Application.Common.Builders
                     .Take(pageRequest.Take);
             }
 
-            return builder;
+            return this;
         }
     }
 }
