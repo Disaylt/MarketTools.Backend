@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Requests
 {
-    public class GetRangePaginationQuery<T> : IGetRangeQuery<T>
+    public class GetRangeQuery<T> : IGetRangeQuery<T>
     {
         public PageRequest? PageRequest { get; set; }
     }

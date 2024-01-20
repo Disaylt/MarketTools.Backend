@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination
 {
-    public class GetRangePaginationMarketplaceConnectionsQuery : GetRangePaginationQuery<MarketplaceConnectionEntity>
+    public class GetRangePaginationMarketplaceConnectionsQuery : GetRangeQuery<MarketplaceConnectionEntity>
     {
         public MarketplaceConnectionType ConnectionType { get; set; }
     }
