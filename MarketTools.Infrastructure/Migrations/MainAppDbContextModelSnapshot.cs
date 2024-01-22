@@ -134,7 +134,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MarketplaceConnection");
+                    b.ToTable("MarketplaceConnection", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("MarketplaceConnectionEntity");
 
@@ -167,7 +167,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("BlackListId");
 
-                    b.ToTable("StandardAutoresponderBanWords");
+                    b.ToTable("StandardAutoresponderBanWords", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBindPositionEntity", b =>
@@ -187,7 +187,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("StandardAutoresponderBindPositions");
+                    b.ToTable("StandardAutoresponderBindPositions", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBlackListEntity", b =>
@@ -217,7 +217,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderBlackLists");
+                    b.ToTable("StandardAutoresponderBlackLists", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCell", b =>
@@ -246,7 +246,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ColumnId");
 
-                    b.ToTable("StandardAutoresponderCells");
+                    b.ToTable("StandardAutoresponderCells", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderColumnEntity", b =>
@@ -279,7 +279,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderColumns");
+                    b.ToTable("StandardAutoresponderColumns", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", b =>
@@ -292,7 +292,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("SellerConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnections");
+                    b.ToTable("StandardAutoresponderConnections", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionRatingEntity", b =>
@@ -307,7 +307,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatings");
+                    b.ToTable("StandardAutoresponderConnectionRatings", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderRecommendationProductEntity", b =>
@@ -352,7 +352,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderRecommendationProducts");
+                    b.ToTable("StandardAutoresponderRecommendationProducts", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateArticleEntity", b =>
@@ -382,7 +382,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.HasIndex(new[] { "TemplateId", "Value" }, "UniqueArticlesIndex")
                         .IsUnique();
 
-                    b.ToTable("StandardAutoresponderTemplateArticles");
+                    b.ToTable("StandardAutoresponderTemplateArticles", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateEntity", b =>
@@ -417,7 +417,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderTemplates");
+                    b.ToTable("StandardAutoresponderTemplates", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateSettingsEntity", b =>
@@ -433,7 +433,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("TemplateId");
 
-                    b.ToTable("StandardAutoresponderTemplateSettings");
+                    b.ToTable("StandardAutoresponderTemplateSettings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -583,7 +583,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("RatingsRating", "RatingsConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~");
+                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.OzonSellerOpenApiConnectionEntity", b =>
@@ -607,7 +607,7 @@ namespace MarketTools.Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.ToTable("MarketplaceConnection", t =>
+                    b.ToTable("MarketplaceConnection", null, t =>
                         {
                             t.Property("Token")
                                 .HasColumnName("WbSellerOpenApiConnectionEntity_Token");
