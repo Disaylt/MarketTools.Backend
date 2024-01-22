@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
 {
-    public class UpdateConenctionStatusCommand : IRequest
+    public class UpdateConnenctionStatusCommand : IRequest
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }

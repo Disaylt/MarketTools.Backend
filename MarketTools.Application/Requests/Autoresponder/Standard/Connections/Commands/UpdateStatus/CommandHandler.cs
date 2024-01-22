@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<UpdateConenctionStatusCommand>
+        : IRequestHandler<UpdateConnenctionStatusCommand>
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _repository = _authUnitOfWork.StandardAutoresponderConnections;
 
-        public async Task Handle(UpdateConenctionStatusCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateConnenctionStatusCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionEntity entity = await _repository.FirstAsync(x => x.SellerConnectionId == request.Id, cancellationToken);
 
