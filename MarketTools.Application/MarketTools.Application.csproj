@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Interfaces\Autoresponder\Standard\Models\" />
     <Folder Include="Interfaces\Database\" />
-    <Folder Include="Requests\Autoresponder\Standard\ConnectionRating\Commands\DeleteTemplate\" />
     <Folder Include="Requests\Autoresponder\Standard\ConnectionRating\Queries\GetRange\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>
