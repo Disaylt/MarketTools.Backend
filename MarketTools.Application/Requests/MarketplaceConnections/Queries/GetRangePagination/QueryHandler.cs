@@ -22,6 +22,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
                     .SetPagination(request.PageRequest)
                     .Build()
                     .Where(x => x.Discriminator == discriminator)
+                    .Include(x=> x.AutoresponderConnection)
                     .ToListAsync();
         }
     }

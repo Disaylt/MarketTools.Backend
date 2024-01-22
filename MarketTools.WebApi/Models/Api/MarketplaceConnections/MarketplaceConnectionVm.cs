@@ -11,6 +11,7 @@ namespace MarketTools.WebApi.Models.Api.MarketplaceConnections
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
         public bool IsActive { get; set; }
+        public ServiceConnectionVm AutoresponderConnection { get; set; } = new ServiceConnectionVm();
 
         public void Mapping(Profile profile)
         {
