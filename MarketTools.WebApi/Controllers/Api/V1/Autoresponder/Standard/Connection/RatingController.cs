@@ -19,12 +19,12 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Connectio
         : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> AddAsync(int rating, int connectionId)
+        public async Task<IActionResult> AddAsync([FromQuery] AddRatingQuery httpQuery)
         {
             AddRatingCommand command = new AddRatingCommand
             {
-                ConnectionId = connectionId,
-                Rating = rating
+                ConnectionId = httpQuery.ConnectionId,
+                Rating = httpQuery.Rating
             };
 
             await _mediator.Send(command);
