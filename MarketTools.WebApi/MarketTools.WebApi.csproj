@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Api\V1\Autoresponder\Standard\Connection\" />
     <Folder Include="Controllers\Api\V1\Ozon\" />
   </ItemGroup>
 
