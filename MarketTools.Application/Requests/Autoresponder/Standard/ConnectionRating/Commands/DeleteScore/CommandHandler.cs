@@ -17,7 +17,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
         public async Task Handle(RatingDeleteScoreCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = await _repository
-                .FirstAsync(x=> x.ConnectionId == request.ConnectionId && x.Rating == x.Rating, cancellationToken);
+                .FirstAsync(x=> x.ConnectionId == request.ConnectionId && x.Rating == request.Rating, cancellationToken);
 
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);

@@ -21,7 +21,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
                 IsActive = isActive
             };
 
-            await _mediator.Publish(command);
+            await _mediator.Send(command);
 
             return Ok();
         }
