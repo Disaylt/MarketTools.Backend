@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
 using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            DefaultDeleteCommand<StandardAutoresponderCell> command = new DefaultDeleteCommand<StandardAutoresponderCell> { Id = id };
+            GenericDeleteCommand<StandardAutoresponderCell> command = new GenericDeleteCommand<StandardAutoresponderCell> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();

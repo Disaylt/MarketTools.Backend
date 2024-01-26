@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -12,10 +12,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderRecommendationProductEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderRecommendationProductEntity>>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderRecommendationProductEntity> request, CancellationToken cancellationToken)
+        public async Task Handle(GenericDeleteCommand<StandardAutoresponderRecommendationProductEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProductEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             _repository.Remove(entity);

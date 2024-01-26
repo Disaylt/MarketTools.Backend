@@ -14,7 +14,7 @@ namespace MarketTools.Domain.Entities
         public List<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; set; } = new List<StandardAutoresponderRecommendationProductEntity>();
         public List<StandardAutoresponderColumnEntity> StandardAutoreponderColumns { get; set; } = new List<StandardAutoresponderColumnEntity>();
         public List<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = new List<StandardAutoresponderTemplateEntity>();
-        public List<SellerConnectionEntity> SellerConnections { get; set;} = new List<SellerConnectionEntity>();
+        public List<MarketplaceConnectionEntity> MarketplaceConnections { get; set;} = new List<MarketplaceConnectionEntity>();
         public List<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set;} = new List<StandardAutoresponderBlackListEntity>();
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Models.Commands
+namespace MarketTools.Application.Models.Requests
 {
-    public class DefaultDeleteCommand<TEntity> : IRequest
+    public class GenericDeleteCommand<TEntity> : IRequest
     {
         public int Id { get; set; }
     }

@@ -19,9 +19,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         {
         }
 
-        public RecommendationProductsQueryBuilder SetPagination(PageRequest? pageRequest)
+        public override RecommendationProductsQueryBuilder SetPagination(PageRequest? pageRequest)
         {
-            return SetPagination(this, pageRequest);
+            base.SetPagination(pageRequest);
+
+            return this;
         }
 
         public RecommendationProductsQueryBuilder SetMarketplace(MarketplaceName? marketplaceName)
@@ -42,11 +44,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             }
 
             return this;
-        }
-
-        public IQueryable<StandardAutoresponderRecommendationProductEntity> Build()
-        {
-            return Query;
         }
     }
 }

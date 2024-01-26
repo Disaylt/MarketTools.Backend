@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Excel;
 using MarketTools.Application.Interfaces;
@@ -20,6 +19,8 @@ using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Common.Configuration;
+using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 
 namespace MarketTools.Infrastructure
 {
@@ -32,9 +33,12 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
             serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
+            serviceDescriptors.AddSingleton<ILimitsService<IMarketplaceConnectionLimits>, MarketplaceConnectionsLimitsService>();
 
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
+
+            serviceDescriptors.AddScoped<IConnectionActivator<WbSellerOpenApiConnectionEntity>, WbSelleOpenApiConnectionActivator>();
 
             AddSolutionMapping(serviceDescriptors);
 

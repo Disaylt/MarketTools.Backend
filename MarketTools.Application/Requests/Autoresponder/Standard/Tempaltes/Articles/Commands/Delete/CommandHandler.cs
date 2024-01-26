@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -12,11 +12,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<DefaultDeleteCommand<StandardAutoresponderTemplateArticleEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderTemplateArticleEntity>>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplateArticles;
 
-        public async Task Handle(DefaultDeleteCommand<StandardAutoresponderTemplateArticleEntity> request, CancellationToken cancellationToken)
+        public async Task Handle(GenericDeleteCommand<StandardAutoresponderTemplateArticleEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateArticleEntity entity = await _repository
                 .FirstAsync(x => x.Id == request.Id, cancellationToken);

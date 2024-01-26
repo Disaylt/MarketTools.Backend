@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Models.Commands;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Commands.Add;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
@@ -19,7 +19,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            DefaultDeleteCommand<StandardAutoresponderBlackListEntity> command = new DefaultDeleteCommand<StandardAutoresponderBlackListEntity> { Id = id };
+            GenericDeleteCommand<StandardAutoresponderBlackListEntity> command = new GenericDeleteCommand<StandardAutoresponderBlackListEntity> { Id = id };
             await _mediator.Send(command);
 
             return Ok();

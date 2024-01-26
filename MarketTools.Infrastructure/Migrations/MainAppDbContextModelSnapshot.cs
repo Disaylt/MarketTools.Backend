@@ -17,7 +17,7 @@ namespace MarketTools.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -89,7 +89,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.SellerConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,9 +134,9 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SellerConnections");
+                    b.ToTable("MarketplaceConnection", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("SellerConnectionEntity");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("MarketplaceConnectionEntity");
 
                     b.UseTphMappingStrategy();
                 });
@@ -167,7 +167,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("BlackListId");
 
-                    b.ToTable("StandardAutoresponderBanWords");
+                    b.ToTable("StandardAutoresponderBanWords", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBindPositionEntity", b =>
@@ -187,7 +187,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("StandardAutoresponderBindPositions");
+                    b.ToTable("StandardAutoresponderBindPositions", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBlackListEntity", b =>
@@ -217,7 +217,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderBlackLists");
+                    b.ToTable("StandardAutoresponderBlackLists", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCell", b =>
@@ -246,7 +246,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ColumnId");
 
-                    b.ToTable("StandardAutoresponderCells");
+                    b.ToTable("StandardAutoresponderCells", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderColumnEntity", b =>
@@ -279,7 +279,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderColumns");
+                    b.ToTable("StandardAutoresponderColumns", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", b =>
@@ -292,7 +292,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("SellerConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnections");
+                    b.ToTable("StandardAutoresponderConnections", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionRatingEntity", b =>
@@ -307,7 +307,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatings");
+                    b.ToTable("StandardAutoresponderConnectionRatings", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderRecommendationProductEntity", b =>
@@ -352,7 +352,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderRecommendationProducts");
+                    b.ToTable("StandardAutoresponderRecommendationProducts", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateArticleEntity", b =>
@@ -382,7 +382,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.HasIndex(new[] { "TemplateId", "Value" }, "UniqueArticlesIndex")
                         .IsUnique();
 
-                    b.ToTable("StandardAutoresponderTemplateArticles");
+                    b.ToTable("StandardAutoresponderTemplateArticles", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateEntity", b =>
@@ -417,7 +417,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderTemplates");
+                    b.ToTable("StandardAutoresponderTemplates", (string)null);
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateSettingsEntity", b =>
@@ -433,7 +433,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("TemplateId");
 
-                    b.ToTable("StandardAutoresponderTemplateSettings");
+                    b.ToTable("StandardAutoresponderTemplateSettings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -583,43 +583,43 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("RatingsRating", "RatingsConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~");
+                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~", (string)null);
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.OzonOpenApiSellerConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.OzonSellerOpenApiConnectionEntity", b =>
                 {
-                    b.HasBaseType("MarketTools.Domain.Entities.SellerConnectionEntity");
+                    b.HasBaseType("MarketTools.Domain.Entities.MarketplaceConnectionEntity");
 
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.HasDiscriminator().HasValue("OzonOpenApiSellerConnectionEntity");
+                    b.HasDiscriminator().HasValue("OzonSellerOpenApiConnectionEntity");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.WbOpenApiSellerConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.WbSellerOpenApiConnectionEntity", b =>
                 {
-                    b.HasBaseType("MarketTools.Domain.Entities.SellerConnectionEntity");
+                    b.HasBaseType("MarketTools.Domain.Entities.MarketplaceConnectionEntity");
 
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.ToTable("SellerConnections", t =>
+                    b.ToTable("MarketplaceConnection", null, t =>
                         {
                             t.Property("Token")
-                                .HasColumnName("WbOpenApiSellerConnectionEntity_Token");
+                                .HasColumnName("WbSellerOpenApiConnectionEntity_Token");
                         });
 
-                    b.HasDiscriminator().HasValue("WbOpenApiSellerConnectionEntity");
+                    b.HasDiscriminator().HasValue("WbSellerOpenApiConnectionEntity");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.SellerConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>
                 {
                     b.HasOne("MarketTools.Domain.Entities.AppIdentityUser", "User")
-                        .WithMany("SellerConnections")
+                        .WithMany("MarketplaceConnections")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -692,7 +692,7 @@ namespace MarketTools.Infrastructure.Migrations
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", b =>
                 {
-                    b.HasOne("MarketTools.Domain.Entities.SellerConnectionEntity", "SellerConnection")
+                    b.HasOne("MarketTools.Domain.Entities.MarketplaceConnectionEntity", "SellerConnection")
                         .WithOne("AutoresponderConnection")
                         .HasForeignKey("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", "SellerConnectionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -831,7 +831,7 @@ namespace MarketTools.Infrastructure.Migrations
 
             modelBuilder.Entity("MarketTools.Domain.Entities.AppIdentityUser", b =>
                 {
-                    b.Navigation("SellerConnections");
+                    b.Navigation("MarketplaceConnections");
 
                     b.Navigation("StandardAutoreponderColumns");
 
@@ -842,7 +842,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.Navigation("StandardAutoresponderTemplates");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.SellerConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>
                 {
                     b.Navigation("AutoresponderConnection")
                         .IsRequired();

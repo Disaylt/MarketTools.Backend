@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces.Autoresponder.Standard.Models
+namespace MarketTools.Infrastructure.Services.Autoresponder.Standard.Models
 {
-    public class StandardAutoresponderLimitsDto : IStandarAutoresponderLimits
+    internal class StandardAutoresponderLimitsModel : IStandarAutoresponderLimits
     {
         public int MaxBanWords { get; set; } = 100;
         public int MaxBlackList { get; set; } = 10;

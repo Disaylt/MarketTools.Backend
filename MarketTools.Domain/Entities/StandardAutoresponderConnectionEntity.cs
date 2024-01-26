@@ -13,7 +13,7 @@ namespace MarketTools.Domain.Entities
 
         [Key]
         public int SellerConnectionId { get; set; }
-        public SellerConnectionEntity SellerConnection { get; set; } = null!;
+        public MarketplaceConnectionEntity SellerConnection { get; set; } = null!;
 
         public List<StandardAutoresponderConnectionRatingEntity> Ratings { get; set; } = new List<StandardAutoresponderConnectionRatingEntity>();
     }
