@@ -10,6 +10,6 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderContextService<T> where T : MarketplaceConnectionEntity
     {
-        public AutoresponderContext GetContext(int connectionId);
+        public AutoresponderContext CreateContext(int connectionId);
     }
 }
