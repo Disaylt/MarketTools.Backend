@@ -12,6 +12,8 @@ namespace MarketTools.Domain.Entities
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
+
+        [Range(1, 999)]
         public AutoresponderColumnType Type { get; set; }
 
         public string UserId { get; set; } = null!;

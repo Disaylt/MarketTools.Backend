@@ -15,7 +15,7 @@ namespace MarketTools.Domain.Entities
         public string? Discriminator { get; set; }
 
         [Required]
-        [Range(0, 999)]
+        [Range(1, 999)]
         public MarketplaceName MarketplaceName { get; set; }
 
         [MaxLength(300)]
