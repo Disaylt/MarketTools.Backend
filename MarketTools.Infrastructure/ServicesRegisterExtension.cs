@@ -21,6 +21,7 @@ using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 
 namespace MarketTools.Infrastructure
 {

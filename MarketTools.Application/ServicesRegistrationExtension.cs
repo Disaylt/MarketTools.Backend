@@ -2,7 +2,9 @@
 using MarketTools.Application.Common.Behavoirs;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Services;
+using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Domain.Common.Configuration;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,8 @@ namespace MarketTools.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
+
+            services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
 
             return services;
         }
