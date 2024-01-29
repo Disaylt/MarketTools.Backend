@@ -5,6 +5,7 @@ using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
+using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Domain.Common.Configuration;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,7 @@ namespace MarketTools.Application
             services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
 
             services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
+            services.AddScoped<IAutoresponderContextFactory, AutoresponderContextFactory>();
 
             return services;
         }
