@@ -11,5 +11,7 @@ namespace MarketTools.Application.Models.Autoresponder.Standard
     {
         public IEnumerable<StandardAutoresponderRecommendationProductEntity> RecommendationProducts { get; set; } 
             = Enumerable.Empty<StandardAutoresponderRecommendationProductEntity>(); 
+
+        public StandardAutoresponderConnectionEntity Connection { get; set; } = new StandardAutoresponderConnectionEntity();
     }
 }
