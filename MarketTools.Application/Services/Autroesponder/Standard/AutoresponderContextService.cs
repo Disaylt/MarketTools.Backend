@@ -19,16 +19,19 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private readonly AutoresponderContext _context = new AutoresponderContext();
 
-        public async Task<AutoresponderContext> CreateContextAsync(int connectionId, MarketplaceName marketplaceName)
+        public async Task<AutoresponderContext> CreateAsync(int connectionId)
         {
+            MarketplaceConnectionEntity connection = await _authUnitOfWork.SellerConnections.FirstAsync(x=> x.Id == connectionId);
+
             _context.RecommendationProducts = await _authUnitOfWork.StandardAutoresponderRecommendationProducts
-                .GetRangeAsync(x => x.MarketplaceName == marketplaceName);
+                .GetRangeAsync(x => x.MarketplaceName == connection.MarketplaceName);
 
             _context.Connection = await _authUnitOfWork.StandardAutoresponderConnections
                 .FirstAsync(x=> x.SellerConnectionId == connectionId);
 
             await _authUnitOfWork.StandardAutoresponderConnectionRatings
                 .GetAsQueryable()
+                .Include(x=> x.Templates)
                 .Where(x=> x.ConnectionId == connectionId)
                 .LoadAsync();
 
@@ -39,6 +42,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .Include(x => x.BindPositions)
                 .ThenInclude(x=> x.Column)
                 .ThenInclude(x=> x.Cells)
+                .AsSplitQuery()
                 .LoadAsync();
 
             await _authUnitOfWork.StandardAutoresponderBlackLists

@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,8 @@ namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Command
                 Description = request.Description,
                 Name = request.Name,
                 Token = request.Token,
-                UserId = _authReadHelper.UserId
+                UserId = _authReadHelper.UserId,
+                MarketplaceName = MarketplaceName.WB
             };
         }
     }

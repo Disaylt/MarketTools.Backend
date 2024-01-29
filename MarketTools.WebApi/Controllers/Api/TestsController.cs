@@ -13,9 +13,9 @@ namespace MarketTools.WebApi.Controllers.Api
         : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> Get(int id, MarketplaceName marketplaceName)
+        public async Task<IActionResult> Get(int id)
         {
-            var test = await autoresponderContextService.CreateContextAsync(id, marketplaceName);
+            var test = await autoresponderContextService.CreateAsync(id);
 
             return Ok();
         }
