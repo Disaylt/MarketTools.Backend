@@ -16,7 +16,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 {
     internal class AutoresponderContextService
         (IAuthUnitOfWork _authUnitOfWork)
-        : IAutoresponderContextWriter, IAutoresponderContextReader
+        : IAutoresponderContextWriter, IAutoresponderContextReader, IAutoresponderContextService
     {
         private AutoresponderContext? _context;
 
@@ -33,16 +33,16 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             }
         }
 
-        public async Task Write(int connectionId)
+        public async Task<AutoresponderContext> Create(int connectionId)
         {
-            _context = new AutoresponderContext();
+            AutoresponderContext context = new AutoresponderContext();
 
             MarketplaceConnectionEntity connection = await _authUnitOfWork.SellerConnections.FirstAsync(x => x.Id == connectionId);
 
-            _context.RecommendationProducts = await _authUnitOfWork.StandardAutoresponderRecommendationProducts
+            context.RecommendationProducts = await _authUnitOfWork.StandardAutoresponderRecommendationProducts
                 .GetRangeAsync(x => x.MarketplaceName == connection.MarketplaceName);
 
-            _context.Connection = await _authUnitOfWork.StandardAutoresponderConnections
+            context.Connection = await _authUnitOfWork.StandardAutoresponderConnections
                 .FirstAsync(x => x.SellerConnectionId == connectionId);
 
             await _authUnitOfWork.StandardAutoresponderConnectionRatings
@@ -65,6 +65,18 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .GetAsQueryable()
                 .Include(x => x.BanWords)
                 .LoadAsync();
+
+            return context;
+        }
+
+        public void Write(AutoresponderContext context)
+        {
+            if(_context != null)
+            {
+                throw new AppBadRequestException("Контекст для автоответчика уже записан.");
+            }
+
+            _context = context;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketTools.Application.Models.Autoresponder.Standard;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderContextWriter
     {
-        public Task Write(int connectionId);
+        public void Write(AutoresponderContext context);
     }
 }

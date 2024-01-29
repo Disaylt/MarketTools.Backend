@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Models.Autoresponder;
+﻿using MarketTools.Application.Models.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
-    public interface IAutoresponderResponseBuilderService
+    public interface IAutoresponderContextService
     {
-        public Task<string> BuildAsync(AutoresponderRequestModel request);
+        public Task<AutoresponderContext> Create(int connectionId);
     }
 }
