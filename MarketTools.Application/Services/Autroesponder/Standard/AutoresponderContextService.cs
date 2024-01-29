@@ -1,4 +1,5 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Models.Autoresponder.Standard;
@@ -15,24 +16,39 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 {
     internal class AutoresponderContextService
         (IAuthUnitOfWork _authUnitOfWork)
-        : IAutoresponderContextService
+        : IAutoresponderContextWriter, IAutoresponderContextReader
     {
-        private readonly AutoresponderContext _context = new AutoresponderContext();
+        private AutoresponderContext? _context;
 
-        public async Task<AutoresponderContext> CreateAsync(int connectionId)
+        public AutoresponderContext Context
         {
-            MarketplaceConnectionEntity connection = await _authUnitOfWork.SellerConnections.FirstAsync(x=> x.Id == connectionId);
+            get
+            {
+                if( _context == null)
+                {
+                    throw new AppNotFoundException("Контекст с данными автоответчика не найден.");
+                }
+
+                return _context;
+            }
+        }
+
+        public async Task Write(int connectionId)
+        {
+            _context = new AutoresponderContext();
+
+            MarketplaceConnectionEntity connection = await _authUnitOfWork.SellerConnections.FirstAsync(x => x.Id == connectionId);
 
             _context.RecommendationProducts = await _authUnitOfWork.StandardAutoresponderRecommendationProducts
                 .GetRangeAsync(x => x.MarketplaceName == connection.MarketplaceName);
 
             _context.Connection = await _authUnitOfWork.StandardAutoresponderConnections
-                .FirstAsync(x=> x.SellerConnectionId == connectionId);
+                .FirstAsync(x => x.SellerConnectionId == connectionId);
 
             await _authUnitOfWork.StandardAutoresponderConnectionRatings
                 .GetAsQueryable()
-                .Include(x=> x.Templates)
-                .Where(x=> x.ConnectionId == connectionId)
+                .Include(x => x.Templates)
+                .Where(x => x.ConnectionId == connectionId)
                 .LoadAsync();
 
             await _authUnitOfWork.StandardAutoresponderTemplates
@@ -40,8 +56,8 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .Include(x => x.Settings)
                 .Include(x => x.Articles)
                 .Include(x => x.BindPositions)
-                .ThenInclude(x=> x.Column)
-                .ThenInclude(x=> x.Cells)
+                .ThenInclude(x => x.Column)
+                .ThenInclude(x => x.Cells)
                 .AsSplitQuery()
                 .LoadAsync();
 
@@ -49,10 +65,6 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .GetAsQueryable()
                 .Include(x => x.BanWords)
                 .LoadAsync();
-
-            return _context;
         }
-
-
     }
 }

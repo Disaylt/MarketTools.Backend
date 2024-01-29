@@ -9,15 +9,9 @@ namespace MarketTools.WebApi.Controllers.Api
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class TestsController(IAutoresponderContextService autoresponderContextService)
+    public class TestsController()
         : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> Get(int id)
-        {
-            var test = await autoresponderContextService.CreateAsync(id);
-
-            return Ok();
-        }
+      
     }
 }
