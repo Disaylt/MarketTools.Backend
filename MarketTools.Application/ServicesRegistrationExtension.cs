@@ -32,6 +32,7 @@ namespace MarketTools.Application
             services.AddScoped<AutoresponderContextService>();
             services.AddScoped<IAutoresponderContextWriter>(x=> x.GetRequiredService<AutoresponderContextService>());
             services.AddScoped<IAutoresponderContextReader>(x => x.GetRequiredService<AutoresponderContextService>());
+            services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
 
             return services;
         }
