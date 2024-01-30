@@ -2,6 +2,7 @@
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
+using MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -17,17 +18,16 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
         : IAutoresponderResponseService
     {
         private readonly static Random _random = new Random();
-        private readonly ResponseReportBuilder _reportBuilder = new ResponseReportBuilder();
+        private readonly StringBuilder _reportBuilder = new StringBuilder();
 
         public AutoresponderResponseModel Build(AutoresponderRequestModel request)
         {
             try
             {
-                StandardAutoresponderConnectionRatingEntity ratingEntity = SelectConnectionRating(request.Rating);
-                _reportBuilder.AddSelectRatingMessage(ratingEntity);
-
-                IEnumerable<StandardAutoresponderTemplateEntity> templates = SelectTemplates(request, ratingEntity);
-                _reportBuilder.AddSelectTemplatesMessage(templates);
+                AutoresponderResponseHandler<AutoresponderRequestModel, StandardAutoresponderConnectionRatingEntity> selectionRatingHandler
+                    = new SelectionRatingResponseHandler(_context, request, _reportBuilder);
+                AutoresponderResponseHandler<StandardAutoresponderConnectionRatingEntity, IEnumerable<StandardAutoresponderTemplateEntity>> selectionTemplatesHandler =
+                    new SelectionTemplatesResponseHandler(_context, request, _reportBuilder);
 
                 TemplateSelectionDetails templateSelectionDetails = SelectTemplate(templates, request);
                 _reportBuilder.AddSelectionTemplateMessage(templateSelectionDetails.Template);
@@ -41,7 +41,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             }
             catch(Exception ex)
             {
-                _reportBuilder.AddErrorMessage(ex);
+                AddErrorMessage(ex);
                 return Create(false);
             }
         }
@@ -101,19 +101,10 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             throw new Exception("Нет ни одного подходящего шаблона.");
         }
 
-        private IEnumerable<StandardAutoresponderTemplateEntity> SelectTemplates(AutoresponderRequestModel request, StandardAutoresponderConnectionRatingEntity ratingEntity)
+        private void AddErrorMessage(Exception ex)
         {
-            IEnumerable<StandardAutoresponderTemplateEntity> templates = ratingEntity.Templates
-                .Where(template => template.Articles.Count == 0 
-                    || template.Articles
-                        .Any(article => article.Value == request.Article));
-
-            if(templates.Any() == false)
-            {
-                throw new Exception("В списке шаблонов нет ни одного подходящего для ответа шаблона.");
-            }
-
-            return templates;
+            _reportBuilder.AppendLine("");
+            _reportBuilder.AppendLine($"Ошибка: ${ex.Message}");
         }
 
         private AutoresponderResponseModel Create(bool isSuccess, string responseMessage = "")
@@ -122,17 +113,8 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             {
                 IsSuccess = isSuccess,
                 Message = responseMessage,
-                Report = _reportBuilder.Build()
+                Report = _reportBuilder.ToString()
             };
-        }
-
-        private StandardAutoresponderConnectionRatingEntity SelectConnectionRating(int rating)
-        {
-            StandardAutoresponderConnectionRatingEntity? value = _context.Connection
-                .Ratings
-                .FirstOrDefault(x=> x.Rating == rating);
-
-            return value ?? throw new Exception($"Не удалось найти список шаблонов для оценки ${rating}");
         }
     }
 }

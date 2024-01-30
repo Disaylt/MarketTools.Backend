@@ -89,21 +89,5 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard
             _builder.AppendLine($"- Выбран шаблон '${tempalte.Name}'");
         }
 
-        public void AddErrorMessage(Exception ex)
-        {
-            _builder.AppendLine("");
-            _builder.AppendLine($"Ошибка: ${ex.Message}");
-        }
-
-        public void AddSelectTemplatesMessage(IEnumerable<StandardAutoresponderTemplateEntity> templates)
-        {
-            int numTemplates = templates.Count();
-            _builder.AppendLine($"- В списке найдено ${numTemplates} подходящих шаблонов для создания ответа.");
-        }
-
-        public void AddSelectRatingMessage(StandardAutoresponderConnectionRatingEntity ratingEntity)
-        {
-            _builder.AppendLine($"- Проверка на присутсвие списка шаблонов для оценки ${ratingEntity.Rating} успешно пройдена.");
-        }
     }
 }

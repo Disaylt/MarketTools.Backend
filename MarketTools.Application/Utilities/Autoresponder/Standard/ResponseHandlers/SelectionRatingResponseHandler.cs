@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
 {
-    internal class SelectRatingResponseHandler : AutoresponderResponseHandler<AutoresponderRequestModel, StandardAutoresponderConnectionRatingEntity>
+    internal class SelectionRatingResponseHandler : AutoresponderResponseHandler<AutoresponderRequestModel, StandardAutoresponderConnectionRatingEntity>
     {
-        public SelectRatingResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
+        public SelectionRatingResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
         {
         }
 
