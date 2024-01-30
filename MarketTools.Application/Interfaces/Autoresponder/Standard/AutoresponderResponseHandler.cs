@@ -19,6 +19,8 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
             Context = context;
             Request = request;
             ReportBuilder = reportBuilder;
+
+            ReportBuilder.AppendLine("");
         }
 
         public abstract TResponse Handle(TBody body);

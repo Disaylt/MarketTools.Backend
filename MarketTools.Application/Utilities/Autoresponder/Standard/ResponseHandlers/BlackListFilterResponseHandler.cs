@@ -23,7 +23,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
-            AddStartCheckMessage();
+            ReportBuilder.AppendLine("- Проверка черного списка для шаблонов.");
 
             IEnumerable<StandardAutoresponderTemplateEntity> filterTemplates = body
                 .Where(x =>
@@ -68,12 +68,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             badWord = banWordEntity.Value;
 
             return true;
-        }
-
-        private void AddStartCheckMessage()
-        {
-            ReportBuilder.AppendLine("");
-            ReportBuilder.AppendLine("- Проверка черного списка для шаблонов.");
         }
     }
 }

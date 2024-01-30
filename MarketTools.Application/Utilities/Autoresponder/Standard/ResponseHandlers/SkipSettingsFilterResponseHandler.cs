@@ -20,27 +20,10 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
-            AddStartCheckMessage();
+            ReportBuilder.AppendLine("- Проверка настроек шаблона.");
 
             IEnumerable<StandardAutoresponderTemplateEntity> filterTemplates = body
-                .Where(x =>
-                {
-                    if (x.Settings.IsSkipEmptyFeedbacks && string.IsNullOrEmpty(Request.Text))
-                    {
-                        ReportBuilder.AppendLine($"* ${x.Name} не подходит, включен пропуск пустых отзывов.");
-                        return false;
-                    }
-
-                    if (x.Settings.IsSkipWithTextFeedbacks && string.IsNullOrEmpty(Request.Text) == false)
-                    {
-                        ReportBuilder.AppendLine($"* ${x.Name} не подходит, включен пропуск отзывов с тексом.");
-                        return false;
-                    }
-
-                    ReportBuilder.AppendLine($"* ${x.Name} проходит проверку настроек.");
-
-                    return true;
-                });
+                .Where(IsSkip);
 
             if (filterTemplates.Any() == false)
             {
@@ -50,10 +33,23 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             return filterTemplates;
         }
 
-        private void AddStartCheckMessage()
+        private bool IsSkip(StandardAutoresponderTemplateEntity template)
         {
-            ReportBuilder.AppendLine("");
-            ReportBuilder.AppendLine("- Проверка настроек шаблона.");
+            if (template.Settings.IsSkipEmptyFeedbacks && string.IsNullOrEmpty(Request.Text))
+            {
+                ReportBuilder.AppendLine($"* ${template.Name} не подходит, включен пропуск пустых отзывов.");
+                return false;
+            }
+
+            if (template.Settings.IsSkipWithTextFeedbacks && string.IsNullOrEmpty(Request.Text) == false)
+            {
+                ReportBuilder.AppendLine($"* ${template.Name} не подходит, включен пропуск отзывов с тексом.");
+                return false;
+            }
+
+            ReportBuilder.AppendLine($"* ${template.Name} проходит проверку настроек.");
+
+            return true;
         }
     }
 }
