@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Autoresponder.Standard
 {
-    public class TemplateSelectionDetails
+    public class ResponseBuildDetails
     {
-        public required StandardAutoresponderTemplateEntity Template { get; set; }
+        public IEnumerable<StandardAutoresponderTemplateEntity> Templates { get; set; } = Enumerable.Empty<StandardAutoresponderTemplateEntity>();
         public AutoresponderColumnType ColumnType { get; set; }
     }
 }

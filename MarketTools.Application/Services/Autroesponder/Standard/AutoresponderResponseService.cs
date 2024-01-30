@@ -29,7 +29,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 IEnumerable<StandardAutoresponderTemplateEntity> templatesAfterCheckBlackList = new BlackListFilterResponseHandler(_context, request, _reportBuilder).Handle(suitableTamplates);
                 IEnumerable<StandardAutoresponderTemplateEntity> templatesAfterCheckSettings = new SkipSettingsFilterResponseHandler(_context, request, _reportBuilder).Handle(templatesAfterCheckBlackList);
 
-                TemplateSelectionDetails templateSelectionDetails = SelectTemplate(templates, request);
+                ResponseBuildDetails templateSelectionDetails = SelectTemplate(templates, request);
                 _reportBuilder.AddSelectionTemplateMessage(templateSelectionDetails.Template);
 
                 string message = CreateMessage(templateSelectionDetails);
@@ -46,7 +46,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             }
         }
 
-        private string ReplaceBindWords(string text, TemplateSelectionDetails templateSelectionDetails, AutoresponderRequestModel request)
+        private string ReplaceBindWords(string text, ResponseBuildDetails templateSelectionDetails, AutoresponderRequestModel request)
         {
             if (templateSelectionDetails.ColumnType == AutoresponderColumnType.Standard)
             {
@@ -65,7 +65,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 
         }
 
-        private string CreateMessage(TemplateSelectionDetails templateSelectionDetails)
+        private string CreateMessage(ResponseBuildDetails templateSelectionDetails)
         {
             StringBuilder messageBuilder = new StringBuilder();
 
@@ -85,14 +85,14 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .Trim();
         }
 
-        private TemplateSelectionDetails SelectTemplate(IEnumerable<StandardAutoresponderTemplateEntity> templates, AutoresponderRequestModel request)
+        private ResponseBuildDetails SelectTemplate(IEnumerable<StandardAutoresponderTemplateEntity> templates, AutoresponderRequestModel request)
         {
             TemplateSelectionDetailsUtility utility = new TemplateSelectionDetailsUtility(_context.RecommendationProducts,request,_reportBuilder);
             templates = templates.OrderByDescending(x => x.Articles.Count > 0);
 
             foreach(StandardAutoresponderTemplateEntity template in templates)
             {
-                if(utility.TrySelect(template, out TemplateSelectionDetails result))
+                if(utility.TrySelect(template, out ResponseBuildDetails result))
                 {
                     return result;
                 }
