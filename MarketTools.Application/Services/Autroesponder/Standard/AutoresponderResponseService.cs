@@ -17,7 +17,6 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
         (AutoresponderContext _context)
         : IAutoresponderResponseService
     {
-        private readonly static Random _random = new Random();
         private readonly StringBuilder _reportBuilder = new StringBuilder();
 
         public AutoresponderResponseModel Build(AutoresponderRequestModel request)
@@ -28,9 +27,9 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 IEnumerable<StandardAutoresponderTemplateEntity> templates = new SelectionTemplatesResponseHandler(_context, request, _reportBuilder).Handle(ratingEntity);
                 templates = new BlackListFilterResponseHandler(_context, request, _reportBuilder).Handle(templates);
                 templates = new SkipSettingsFilterResponseHandler(_context, request, _reportBuilder).Handle(templates);
-                ResponseBuildDetails responseBuildDetails = new SelectionColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templates);
-                responseBuildDetails = new FilterEmptyColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(responseBuildDetails);
-
+                IEnumerable<ResponseBuildDetails> responsesBuildDetails = new SelectionColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templates);
+                responsesBuildDetails = new FilterEmptyColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(responsesBuildDetails);
+                ResponseBuildDetails responseBuildDetails = new SelectionTemplateResponsseHandler(_context, request, _reportBuilder).Handle(responsesBuildDetails);
 
                 _reportBuilder.AddCreateResponseMessage(message);
 

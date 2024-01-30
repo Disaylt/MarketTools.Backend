@@ -10,7 +10,7 @@ namespace MarketTools.Application.Models.Autoresponder.Standard
 {
     public class ResponseBuildDetails
     {
-        public IEnumerable<StandardAutoresponderTemplateEntity> Templates { get; set; } = Enumerable.Empty<StandardAutoresponderTemplateEntity>();
+        public required StandardAutoresponderTemplateEntity Template { get; set; }
         public AutoresponderColumnType ColumnType { get; set; }
     }
 }

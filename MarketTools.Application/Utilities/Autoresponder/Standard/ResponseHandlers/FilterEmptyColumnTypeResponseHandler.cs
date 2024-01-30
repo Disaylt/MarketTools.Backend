@@ -12,40 +12,45 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
 {
     internal class FilterEmptyColumnTypeResponseHandler
-        : AutoresponderResponseHandler<ResponseBuildDetails, ResponseBuildDetails>
+        : AutoresponderResponseHandler<IEnumerable<ResponseBuildDetails>, IEnumerable<ResponseBuildDetails>>
     {
         public FilterEmptyColumnTypeResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
             : base(context, request, reportBuilder)
         {
         }
 
-        public override ResponseBuildDetails Handle(ResponseBuildDetails body)
+        public override IEnumerable<ResponseBuildDetails> Handle(IEnumerable<ResponseBuildDetails> body)
         {
             ReportBuilder.AppendLine($"- Проверка сущетсвования колонок выбранного типа ответов.");
 
-            body.Templates = body.Templates
+            body = body
                 .Where(x =>
                 {
-                    if(IsEmptyColumns(x, body.ColumnType))
+                    if(IsEmptyColumns(x))
                     {
-                        ReportBuilder.AppendLine($"* ${x.Name} не содержит колонок выбранного типа.");
+                        ReportBuilder.AppendLine($"* ${x.Template.Name} не содержит колонок выбранного типа.");
                         return false;
                     }
 
-                    ReportBuilder.AppendLine($"* ${x.Name} содержит колоноки выбранного типа.");
+                    ReportBuilder.AppendLine($"* ${x.Template.Name} содержит колоноки выбранного типа.");
 
                     return true;
                 });
 
+            if(body.Any() == false)
+            {
+                throw new Exception("После проверки колонок список доступных шаблонов пуст.");
+            }
+
             return body;
         }
 
-        private bool IsEmptyColumns(StandardAutoresponderTemplateEntity template, AutoresponderColumnType columnType)
+        private bool IsEmptyColumns(ResponseBuildDetails responseBuildDetails)
         {
-            return template
+            return responseBuildDetails.Template
                 .BindPositions
                 .Select(x => x.Column)
-                .Any(x => x.Type == columnType);
+                .Any(x => x.Type == responseBuildDetails.ColumnType);
         }
     }
 }
