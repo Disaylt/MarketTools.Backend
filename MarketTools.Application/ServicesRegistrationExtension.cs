@@ -33,7 +33,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderContextWriter>(x=> x.GetRequiredService<AutoresponderContextService>());
             services.AddScoped<IAutoresponderContextReader>(x => x.GetRequiredService<AutoresponderContextService>());
             services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
-
+            services.AddTransient<>
             return services;
         }
 

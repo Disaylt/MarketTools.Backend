@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
-    public interface IAutoresponderResponseBuilderService
+    public interface IAutoresponderResponseService
     {
-        public Task<string> BuildAsync(AutoresponderRequestModel request);
+        public AutoresponderResponseModel Build(AutoresponderRequestModel request);
     }
 }
