@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
 {
     internal class FilterEmptyColumnTypeResponseHandler
-        : AutoresponderResponseHandler<IEnumerable<ResponseBuildDetails>, IEnumerable<ResponseBuildDetails>>
+        : AutoresponderResponseHandler<IEnumerable<TemplateDetails>, IEnumerable<TemplateDetails>>
     {
         public FilterEmptyColumnTypeResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
             : base(context, request, reportBuilder)
         {
         }
 
-        public override IEnumerable<ResponseBuildDetails> Handle(IEnumerable<ResponseBuildDetails> body)
+        public override IEnumerable<TemplateDetails> Handle(IEnumerable<TemplateDetails> body)
         {
             ReportBuilder.AppendLine($"- Проверка сущетсвования колонок выбранного типа ответов.");
 
@@ -45,7 +45,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             return body;
         }
 
-        private bool IsEmptyColumns(ResponseBuildDetails responseBuildDetails)
+        private bool IsEmptyColumns(TemplateDetails responseBuildDetails)
         {
             return responseBuildDetails.Template
                 .BindPositions

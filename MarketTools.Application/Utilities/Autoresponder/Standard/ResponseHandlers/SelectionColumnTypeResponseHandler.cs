@@ -12,19 +12,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
 {
     internal class SelectionColumnTypeResponseHandler
-        : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<ResponseBuildDetails>>
+        : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<TemplateDetails>>
     {
         public SelectionColumnTypeResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
         {
         }
 
-        public override IEnumerable<ResponseBuildDetails> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
+        public override IEnumerable<TemplateDetails> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
             AutoresponderColumnType columnType = SelectColumnType();
             AddColumnTypeMessage(columnType);
 
             return body
-                .Select(x => new ResponseBuildDetails 
+                .Select(x => new TemplateDetails 
                 { 
                     Template = x,
                     ColumnType = columnType

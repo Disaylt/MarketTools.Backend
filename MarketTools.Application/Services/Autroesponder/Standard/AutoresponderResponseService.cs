@@ -19,7 +19,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private readonly StringBuilder _reportBuilder = new StringBuilder();
 
-        public AutoresponderResponseModel Build(AutoresponderRequestModel request)
+        public AutoresponderResultModel Build(AutoresponderRequestModel request)
         {
             try
             {
@@ -27,9 +27,10 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 IEnumerable<StandardAutoresponderTemplateEntity> templates = new SelectionTemplatesResponseHandler(_context, request, _reportBuilder).Handle(ratingEntity);
                 templates = new BlackListFilterResponseHandler(_context, request, _reportBuilder).Handle(templates);
                 templates = new SkipSettingsFilterResponseHandler(_context, request, _reportBuilder).Handle(templates);
-                IEnumerable<ResponseBuildDetails> responsesBuildDetails = new SelectionColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templates);
-                responsesBuildDetails = new FilterEmptyColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(responsesBuildDetails);
-                ResponseBuildDetails responseBuildDetails = new SelectionTemplateResponsseHandler(_context, request, _reportBuilder).Handle(responsesBuildDetails);
+                IEnumerable<TemplateDetails> templatesDetails = new SelectionColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templates);
+                templatesDetails = new FilterEmptyColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templatesDetails);
+                TemplateDetails templateDetails = new SelectionTemplateResponsseHandler(_context, request, _reportBuilder).Handle(templatesDetails);
+                ResponseDetails responseDetails = new ResponseTextBuildHandler(_context, request, _reportBuilder).Handle(templateDetails);
 
                 _reportBuilder.AddCreateResponseMessage(message);
 
@@ -44,7 +45,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             }
         }
 
-        private string ReplaceBindWords(string text, ResponseBuildDetails templateSelectionDetails, AutoresponderRequestModel request)
+        private string ReplaceBindWords(string text, TemplateDetails templateSelectionDetails, AutoresponderRequestModel request)
         {
             if (templateSelectionDetails.ColumnType == AutoresponderColumnType.Standard)
             {
@@ -63,7 +64,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 
         }
 
-        private string CreateMessage(ResponseBuildDetails templateSelectionDetails)
+        private string CreateMessage(TemplateDetails templateSelectionDetails)
         {
             StringBuilder messageBuilder = new StringBuilder();
 
@@ -83,14 +84,14 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .Trim();
         }
 
-        private ResponseBuildDetails SelectTemplate(IEnumerable<StandardAutoresponderTemplateEntity> templates, AutoresponderRequestModel request)
+        private TemplateDetails SelectTemplate(IEnumerable<StandardAutoresponderTemplateEntity> templates, AutoresponderRequestModel request)
         {
             TemplateSelectionDetailsUtility utility = new TemplateSelectionDetailsUtility(_context.RecommendationProducts,request,_reportBuilder);
             templates = templates.OrderByDescending(x => x.Articles.Count > 0);
 
             foreach(StandardAutoresponderTemplateEntity template in templates)
             {
-                if(utility.TrySelect(template, out ResponseBuildDetails result))
+                if(utility.TrySelect(template, out TemplateDetails result))
                 {
                     return result;
                 }
@@ -105,9 +106,9 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             _reportBuilder.AppendLine($"Ошибка: ${ex.Message}");
         }
 
-        private AutoresponderResponseModel Create(bool isSuccess, string responseMessage = "")
+        private AutoresponderResultModel Create(bool isSuccess, string responseMessage = "")
         {
-            return new AutoresponderResponseModel
+            return new AutoresponderResultModel
             {
                 IsSuccess = isSuccess,
                 Message = responseMessage,

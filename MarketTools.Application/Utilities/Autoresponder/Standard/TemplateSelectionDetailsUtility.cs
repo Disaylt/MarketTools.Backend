@@ -16,11 +16,11 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard
         ITemplateReportBuilder _templateReport)
     {
 
-        public bool TrySelect(StandardAutoresponderTemplateEntity tempalte, out ResponseBuildDetails templateSelectDetails)
+        public bool TrySelect(StandardAutoresponderTemplateEntity tempalte, out TemplateDetails templateSelectDetails)
         {
             _templateReport.AddCheckTemplateMessage(tempalte);
 
-            templateSelectDetails = new ResponseBuildDetails
+            templateSelectDetails = new TemplateDetails
             {
                 Template = tempalte
             };
@@ -37,7 +37,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard
             return true;
         }
 
-        private bool IsContainsTypeColumns(ResponseBuildDetails templateSelectDetails)
+        private bool IsContainsTypeColumns(TemplateDetails templateSelectDetails)
         {
             return templateSelectDetails.Template
                 .BindPositions

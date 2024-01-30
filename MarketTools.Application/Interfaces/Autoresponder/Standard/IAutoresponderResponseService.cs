@@ -9,6 +9,6 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderResponseService
     {
-        public AutoresponderResponseModel Build(AutoresponderRequestModel request);
+        public AutoresponderResultModel Build(AutoresponderRequestModel request);
     }
 }
