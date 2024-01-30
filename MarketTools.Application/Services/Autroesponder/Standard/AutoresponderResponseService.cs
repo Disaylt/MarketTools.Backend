@@ -27,6 +27,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 StandardAutoresponderConnectionRatingEntity ratingEntity = new SelectionRatingResponseHandler(_context, request, _reportBuilder).Handle(request);
                 IEnumerable<StandardAutoresponderTemplateEntity> suitableTamplates = new SelectionTemplatesResponseHandler(_context, request, _reportBuilder).Handle(ratingEntity);
                 IEnumerable<StandardAutoresponderTemplateEntity> templatesAfterCheckBlackList = new BlackListFilterResponseHandler(_context, request, _reportBuilder).Handle(suitableTamplates);
+                IEnumerable<StandardAutoresponderTemplateEntity> templatesAfterCheckSettings = new SkipSettingsFilterResponseHandler(_context, request, _reportBuilder).Handle(templatesAfterCheckBlackList);
 
                 TemplateSelectionDetails templateSelectionDetails = SelectTemplate(templates, request);
                 _reportBuilder.AddSelectionTemplateMessage(templateSelectionDetails.Template);

@@ -25,23 +25,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard
                 Template = tempalte
             };
 
-            if(tempalte.BlackList != null)
-            {
-                _templateReport.AddCheckBanWords(tempalte.BlackList);
-
-                if (TryFindBanWord(tempalte.BlackList, out string banWord))
-                {
-                    _templateReport.AddFindBanWordMessage(banWord);
-                    return false;
-                }
-            }
-
-            _templateReport.AddCheckSettingsMessage();
-            if (IsSkipAfterCheckSettings(tempalte.Settings))
-            {
-                _templateReport.AddBadCheckSettingMessage();
-                return false;
-            }
 
             templateSelectDetails.ColumnType = SelectColumnType();
             _templateReport.AddColumnTypeMessage(templateSelectDetails.ColumnType);
@@ -70,41 +53,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard
             }
 
             return AutoresponderColumnType.Standard;
-        }
-
-        private bool IsSkipAfterCheckSettings(StandardAutoresponderTemplateSettingsEntity settings)
-        {
-            if (settings.IsSkipEmptyFeedbacks && string.IsNullOrEmpty(_autoresponderRequest.Text))
-            {
-                return true;
-            }
-
-            if(settings.IsSkipWithTextFeedbacks && string.IsNullOrEmpty(_autoresponderRequest.Text) == false)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool TryFindBanWord(StandardAutoresponderBlackListEntity blackList, out string badWord)
-        {
-            badWord = string.Empty;
-
-            string lowerFeedback = _autoresponderRequest.Text.ToLower();
-
-            StandardAutoresponderBanWordEntity? banWordEntity = blackList
-                .BanWords
-                .FirstOrDefault(badWord => lowerFeedback.Contains(badWord.Value.ToLower()));
-
-            if (banWordEntity == null)
-            {
-                return false;
-            }
-
-            badWord = banWordEntity.Value;
-
-            return true;
         }
     }
 }

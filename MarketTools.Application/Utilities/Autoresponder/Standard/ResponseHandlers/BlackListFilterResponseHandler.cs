@@ -23,27 +23,28 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
-            List<StandardAutoresponderTemplateEntity> filterTemplates = new List<StandardAutoresponderTemplateEntity>();
-
             AddStartCheckMessage();
 
-            foreach (StandardAutoresponderTemplateEntity template in body)
-            {
-                if(template.BlackList == null)
+            IEnumerable<StandardAutoresponderTemplateEntity> filterTemplates = body
+                .Where(x =>
                 {
-                    ReportBuilder.AppendLine($"* ${template.Name} без черного списка.");
-                    filterTemplates.Add(template);
-                    continue;
-                }
+                    if (x.BlackList == null)
+                    {
+                        ReportBuilder.AppendLine($"* ${x.Name} без черного списка.");
+                        return true;
+                    }
 
-                if(TryFindBanWord(template.BlackList, out string badWord))
-                {
-                    ReportBuilder.AppendLine($"* В отзыве найдено '${badWord}'. Шаблон {template.Name} пропускается.");
-                }
+                    if (TryFindBanWord(x.BlackList, out string badWord))
+                    {
+                        ReportBuilder.AppendLine($"* В отзыве найдено '${badWord}'. Шаблон {x.Name} пропускается.");
+                        return false;
+                    }
 
-            }
+                    ReportBuilder.AppendLine($"* ${x.Name} прошел проверку.");
+                    return true;
+                });
 
-            if(filterTemplates.Count == 0)
+            if(filterTemplates.Any() == false)
             {
                 throw new Exception("Ни один шаблон не прошел проверку черного списка.");
             }
