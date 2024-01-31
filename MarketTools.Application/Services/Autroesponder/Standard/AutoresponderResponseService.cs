@@ -31,10 +31,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 templatesDetails = new FilterEmptyColumnTypeResponseHandler(_context, request, _reportBuilder).Handle(templatesDetails);
                 TemplateDetails templateDetails = new SelectionTemplateResponsseHandler(_context, request, _reportBuilder).Handle(templatesDetails);
                 ResponseDetails responseDetails = new ResponseTextBuildHandler(_context, request, _reportBuilder).Handle(templateDetails);
-
-                _reportBuilder.AddCreateResponseMessage(message);
-
-
+                responseDetails = new RecommendationReplacerResponseHandler(_context, request, _reportBuilder).Handle(responseDetails);
 
                 return Create(true);
             }
@@ -62,42 +59,6 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             }
 
 
-        }
-
-        private string CreateMessage(TemplateDetails templateSelectionDetails)
-        {
-            StringBuilder messageBuilder = new StringBuilder();
-
-            IEnumerable<string> partMessages = templateSelectionDetails
-                .Template
-                .BindPositions
-                .Where(x => x.Column.Type == templateSelectionDetails.ColumnType && x.Column.Cells.Count > 0)
-                .OrderBy(x => x.Position)
-                .Select(x =>
-                {
-                    int index = _random.Next(x.Column.Cells.Count);
-                    return x.Column.Cells[index].Value;
-                });
-
-            return messageBuilder.AppendJoin(' ', partMessages)
-                .ToString()
-                .Trim();
-        }
-
-        private TemplateDetails SelectTemplate(IEnumerable<StandardAutoresponderTemplateEntity> templates, AutoresponderRequestModel request)
-        {
-            TemplateSelectionDetailsUtility utility = new TemplateSelectionDetailsUtility(_context.RecommendationProducts,request,_reportBuilder);
-            templates = templates.OrderByDescending(x => x.Articles.Count > 0);
-
-            foreach(StandardAutoresponderTemplateEntity template in templates)
-            {
-                if(utility.TrySelect(template, out TemplateDetails result))
-                {
-                    return result;
-                }
-            }
-
-            throw new Exception("Нет ни одного подходящего шаблона.");
         }
 
         private void AddErrorMessage(Exception ex)
