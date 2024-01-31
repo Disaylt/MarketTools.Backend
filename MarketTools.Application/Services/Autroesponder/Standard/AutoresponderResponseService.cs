@@ -62,7 +62,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             return new AutoresponderResultModel
             {
                 IsSuccess = isSuccess,
-                Message = responseMessage,
+                Text = responseMessage,
                 Report = reportBuilder.ToString()
             };
         }
