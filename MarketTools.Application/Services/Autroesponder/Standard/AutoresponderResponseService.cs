@@ -32,33 +32,15 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 TemplateDetails templateDetails = new SelectionTemplateResponsseHandler(_context, request, _reportBuilder).Handle(templatesDetails);
                 ResponseDetails responseDetails = new ResponseTextBuildHandler(_context, request, _reportBuilder).Handle(templateDetails);
                 responseDetails = new RecommendationReplacerResponseHandler(_context, request, _reportBuilder).Handle(responseDetails);
+                string responseText = new ResponseTextValidationHandler(_context, request, _reportBuilder).Handle(responseDetails.Text);
 
-                return Create(true);
+                return Create(true, responseText);
             }
             catch(Exception ex)
             {
                 AddErrorMessage(ex);
                 return Create(false);
             }
-        }
-
-        private string ReplaceBindWords(string text, TemplateDetails templateSelectionDetails, AutoresponderRequestModel request)
-        {
-            if (templateSelectionDetails.ColumnType == AutoresponderColumnType.Standard)
-            {
-                return text;
-            }
-
-            List<StandardAutoresponderRecommendationProductEntity> articles = _context.RecommendationProducts
-                .Where(x => x.FeedbackArticle == request.Article)
-                .ToList();
-
-            if(articles.Count == 0)
-            {
-                throw new Exception("Не найдено ни одного ариткула из отзыва для рекомендации.");
-            }
-
-
         }
 
         private void AddErrorMessage(Exception ex)
