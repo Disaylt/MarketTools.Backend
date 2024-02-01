@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Services.MarketplaceConnecctions
 {
-    internal class WbSelleOpenApiConnectionActivator : IConnectionActivator<WbSellerOpenApiConnectionEntity>
+    internal class WbSelleOpenApiConnectionActivator : IConnectionActivator<MarketplaceConnectionOpenApiEntity>
     {
-        public Task ActivateAsync(WbSellerOpenApiConnectionEntity entity)
+        public Task ActivateAsync(MarketplaceConnectionOpenApiEntity entity)
         {
             if (string.IsNullOrEmpty(entity.Token))
             {

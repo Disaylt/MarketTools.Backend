@@ -77,8 +77,8 @@ namespace MarketTools.Infrastructure.Database
                 DbContext.OzoSellernOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 
-        public IRepository<WbSellerOpenApiConnectionEntity> WbSellerOpenApiConnections
-            => new AuthRepository<WbSellerOpenApiConnectionEntity>(
+        public IRepository<MarketplaceConnectionOpenApiEntity> WbSellerOpenApiConnections
+            => new AuthRepository<MarketplaceConnectionOpenApiEntity>(
                 DbContext.WbSellerOpenApiConnections, 
                 x => x.UserId == _authReadHelper.UserId);
 

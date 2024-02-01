@@ -14,14 +14,14 @@ namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Command
 {
     public class CommandHandler(IUnitOfWork _unitOfWork, 
         IAuthReadHelper _authReadHelper,
-        IConnectionActivator<WbSellerOpenApiConnectionEntity> _connectionActivator)
+        IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
-        private readonly IRepository<WbSellerOpenApiConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<WbSellerOpenApiConnectionEntity>();
+        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionOpenApiEntity>();
 
         public async Task<MarketplaceConnectionEntity> Handle(SellerOpenApiAddCommand request, CancellationToken cancellationToken)
         {
-            WbSellerOpenApiConnectionEntity newEntity = Create(request);
+            MarketplaceConnectionOpenApiEntity newEntity = Create(request);
 
             await _connectionActivator.ActivateAsync(newEntity);
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
@@ -30,9 +30,9 @@ namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Command
             return newEntity;
         }
 
-        private WbSellerOpenApiConnectionEntity Create(SellerOpenApiAddCommand request)
+        private MarketplaceConnectionOpenApiEntity Create(SellerOpenApiAddCommand request)
         {
-            return new WbSellerOpenApiConnectionEntity
+            return new MarketplaceConnectionOpenApiEntity
             {
                 Description = request.Description,
                 Name = request.Name,

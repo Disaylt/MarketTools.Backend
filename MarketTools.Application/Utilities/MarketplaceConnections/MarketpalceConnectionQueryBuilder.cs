@@ -12,7 +12,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
     internal class MarketpalceConnectionQueryBuilder : BaseQueryBuilder<MarketplaceConnectionEntity>
     {
-        public MarketpalceConnectionQueryBuilder(IRepository<MarketplaceConnectionEntity> repository) : base(repository.GetAsQueryable())
+        public MarketpalceConnectionQueryBuilder(IQueryable<MarketplaceConnectionEntity> query) : base(query)
         {
         }
 
@@ -20,6 +20,16 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
         {
             base.SetPagination(pageRequest);
 
+            return this;
+        }
+
+        public virtual MarketpalceConnectionQueryBuilder SetService()
+        {
+            return this;
+        }
+
+        public virtual MarketpalceConnectionQueryBuilder SetMarketplace()
+        {
             return this;
         }
     }

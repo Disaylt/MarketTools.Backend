@@ -23,6 +23,6 @@ namespace MarketTools.Application.Interfaces.Database
         public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; }
         public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; }
         public IRepository<OzonSellerOpenApiConnectionEntity> OzonSellerOpenApiConnections { get; }
-        public IRepository<WbSellerOpenApiConnectionEntity> WbSellerOpenApiConnections { get; }
+        public IRepository<MarketplaceConnectionOpenApiEntity> WbSellerOpenApiConnections { get; }
     }
 }

@@ -18,7 +18,11 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
         {
             string discriminator = new MarketplaceConnectionsDiscriminatorFactory().Get(request.ConnectionType);
 
-            return await new MarketpalceConnectionQueryBuilder(_authUnitOfWork.SellerConnections)
+            IQueryable<MarketplaceConnectionEntity> dbQuery = _authUnitOfWork
+                .SellerConnections
+                .GetAsQueryable();
+
+            return await new MarketpalceConnectionQueryBuilder(dbQuery)
                     .SetPagination(request.PageRequest)
                     .Build()
                     .Where(x => x.Discriminator == discriminator)

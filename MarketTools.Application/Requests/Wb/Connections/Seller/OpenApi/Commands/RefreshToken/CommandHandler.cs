@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.RefreshToken
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionActivator<WbSellerOpenApiConnectionEntity> _connectionActivator)
+    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
-        private readonly IRepository<WbSellerOpenApiConnectionEntity> _repository = _authUnitOfWork.WbSellerOpenApiConnections;
+        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _repository = _authUnitOfWork.WbSellerOpenApiConnections;
 
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            WbSellerOpenApiConnectionEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            MarketplaceConnectionOpenApiEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             entity.Token = request.Token;
             await _connectionActivator.ActivateAsync(entity);
 

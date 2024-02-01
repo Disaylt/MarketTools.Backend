@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class OzonSellerOpenApiConnectionEntity : MarketplaceConnectionEntity
+    public class MarketplaceConnectionOpenApiEntity : MarketplaceConnectionEntity
     {
         [MaxLength(1000)]
         public string Token { get; set; } = string.Empty;

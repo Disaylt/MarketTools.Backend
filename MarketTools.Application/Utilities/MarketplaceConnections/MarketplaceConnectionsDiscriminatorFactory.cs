@@ -13,7 +13,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
     {
         private static readonly Dictionary<MarketplaceConnectionType, string> _discriminators = new Dictionary<MarketplaceConnectionType, string>
         {
-            {MarketplaceConnectionType.WbSellerOpenApi, nameof(WbSellerOpenApiConnectionEntity)}
+            {MarketplaceConnectionType.WbSellerOpenApi, nameof(MarketplaceConnectionOpenApiEntity)}
         };
 
         public string Get(MarketplaceConnectionType connectionType)
