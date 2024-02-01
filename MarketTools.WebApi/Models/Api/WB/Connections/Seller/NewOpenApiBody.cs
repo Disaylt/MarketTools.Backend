@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.Add;
+using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.WebApi.Models.Api.WB.Connections.Seller
@@ -15,6 +16,7 @@ namespace MarketTools.WebApi.Models.Api.WB.Connections.Seller
 
         [MaxLength(1000, ErrorMessage = "Длинна токена не может превышать 1000 символов.")]
         public string Token { get; set; } = string.Empty;
+        public MarketplaceName MarketplaceName { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.Wb.Connections.Seller
+namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
 {
     [Route("api/v1/wb/connections/seller/[controller]")]
     [ApiController]
