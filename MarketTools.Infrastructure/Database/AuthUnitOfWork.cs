@@ -74,7 +74,7 @@ namespace MarketTools.Infrastructure.Database
 
         public IRepository<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionsOpenAPIs
             => new AuthRepository<MarketplaceConnectionOpenApiEntity>(
-                DbContext.WbSellerOpenApiConnections, 
+                DbContext.MarketplaceConnectionOpenAPIs, 
                 x => x.UserId == _authReadHelper.UserId);
 
         public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists

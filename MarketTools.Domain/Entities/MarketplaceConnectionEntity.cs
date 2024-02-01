@@ -16,7 +16,7 @@ namespace MarketTools.Domain.Entities
 
         [Required]
         [Range(1, 999)]
-        public MarketplaceName MarketplaceName { get; set; }
+        public MarketplaceName MarketplaceName { get; set; } = 0;
 
         [MaxLength(300)]
         public string? Description { get; set; }
