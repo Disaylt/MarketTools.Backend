@@ -14,7 +14,7 @@ namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Command
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
-        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _repository = _authUnitOfWork.WbSellerOpenApiConnections;
+        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _repository = _authUnitOfWork.MarketplaceConnectionsOpenAPIs;
 
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
