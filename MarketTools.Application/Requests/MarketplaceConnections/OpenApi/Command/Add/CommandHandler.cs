@@ -38,7 +38,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
                 Name = request.Name,
                 Token = request.Token,
                 UserId = _authReadHelper.UserId,
-                MarketplaceName = MarketplaceName.WB
+                MarketplaceName = request.MarketplaceName
             };
         }
     }
