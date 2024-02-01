@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.Add
+namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.Add
 {
     public class CommandValidator : AbstractValidator<SellerOpenApiAddCommand>
     {
-        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService) 
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService)
         {
             RuleFor(x => x)
                 .MustAsync(async (x, ct) =>

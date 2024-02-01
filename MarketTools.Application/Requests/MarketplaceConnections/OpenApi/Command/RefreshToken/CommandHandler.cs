@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.RefreshToken
+namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.RefreshToken
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>

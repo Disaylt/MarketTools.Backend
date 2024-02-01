@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Wb.Connections.Seller.OpenApi.Commands.Add
+namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.Add
 {
     public class SellerOpenApiAddCommand : IRequest<MarketplaceConnectionEntity>
     {
