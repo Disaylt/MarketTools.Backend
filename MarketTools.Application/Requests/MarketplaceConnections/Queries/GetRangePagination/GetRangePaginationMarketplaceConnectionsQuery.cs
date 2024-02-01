@@ -11,6 +11,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
 {
     public class GetRangePaginationMarketplaceConnectionsQuery : GetRangeQuery<MarketplaceConnectionEntity>
     {
-        public MarketplaceConnectionType ConnectionType { get; set; }
+        public MarketplaceConnectionType? ConnectionType { get; set; }
+        public MarketplaceName? MarketplaceName { get; set; }
+        public ProjectServices? ProjectService { get; set; }
     }
 }
