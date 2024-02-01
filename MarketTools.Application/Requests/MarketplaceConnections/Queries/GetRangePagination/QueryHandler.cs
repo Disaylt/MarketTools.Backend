@@ -16,13 +16,13 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
     {
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangePaginationMarketplaceConnectionsQuery request, CancellationToken cancellationToken)
         {
-            string discriminator = new MarketplaceConnectionsDiscriminatorFactory().Get(request.ConnectionType);
+            string discriminator = new ConnectionTypeFactory().Get(request.ConnectionType);
 
             IQueryable<MarketplaceConnectionEntity> dbQuery = _authUnitOfWork
                 .SellerConnections
                 .GetAsQueryable();
 
-            return await new MarketpalceConnectionQueryBuilder(dbQuery)
+            return await new MarketpalceConnectionQueryBuilder(dbQuery, null)
                     .SetPagination(request.PageRequest)
                     .Build()
                     .Where(x => x.Discriminator == discriminator)

@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
-    public class MarketplaceConnectionsDiscriminatorFactory
+    public class ConnectionTypeFactory : IConnectionTypeFactory
     {
         private static readonly Dictionary<MarketplaceConnectionType, string> _discriminators = new Dictionary<MarketplaceConnectionType, string>
         {
-            {MarketplaceConnectionType.WbSellerOpenApi, nameof(MarketplaceConnectionOpenApiEntity)}
+            {MarketplaceConnectionType.OpenApi, nameof(MarketplaceConnectionOpenApiEntity)}
         };
 
         public string Get(MarketplaceConnectionType connectionType)
