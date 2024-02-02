@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateConnenctionStatusCommand>
     {
-        private readonly IRepository<StandardAutoresponderConnectionEntity> _repository = _authUnitOfWork.StandardAutoresponderConnections;
+        private readonly IRepository<StandardAutoresponderConnectionEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
 
         public async Task Handle(UpdateConnenctionStatusCommand request, CancellationToken cancellationToken)
         {

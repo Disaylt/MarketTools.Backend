@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<RatingDeleteScoreCommand>
     {
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
         public async Task Handle(RatingDeleteScoreCommand request, CancellationToken cancellationToken)
         {

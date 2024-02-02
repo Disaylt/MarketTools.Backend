@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Update
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<MpConnectionUpdateDescriptionCommand>
     {
-        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.SellerConnections;
+        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
         public async Task Handle(MpConnectionUpdateDescriptionCommand request, CancellationToken cancellationToken)
         {

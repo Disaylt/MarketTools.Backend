@@ -17,7 +17,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangePaginationMarketplaceConnectionsQuery request, CancellationToken cancellationToken)
         {
             IQueryable<MarketplaceConnectionEntity> dbQuery = _authUnitOfWork
-                .SellerConnections
+                .GetRepository<MarketplaceConnectionEntity>()
                 .GetAsQueryable();
 
             return await new MarketpalceConnectionQueryBuilder(dbQuery, request.MarketplaceName)

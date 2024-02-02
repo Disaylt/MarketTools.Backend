@@ -17,11 +17,11 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
+            IRepository<StandardAutoresponderCellEntity> repository = authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    return await authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>()
-                        .AnyAsync(x => x.Id == columnId);
+                    return await repository.AnyAsync(x => x.Id == columnId);
                 })
                 .WithErrorCode("404")
                 .WithMessage("Колонка не найдена.");
@@ -30,7 +30,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
                 .MustAsync(async (columnId, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalCells = await authUnitOfWork.StandardAutoresponderCells.CountAsync(x=> x.ColumnId == columnId);
+                    int totalCells = await repository.CountAsync(x=> x.ColumnId == columnId);
 
                     return totalCells < limits.MaxCells;
                 })

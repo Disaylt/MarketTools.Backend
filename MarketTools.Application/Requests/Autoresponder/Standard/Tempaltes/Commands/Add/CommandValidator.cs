@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Command
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
+            IRepository<StandardAutoresponderTemplateEntity> repository = authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
+
             RuleFor(x => x)
                 .MustAsync(async (template, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalTemplates = await authUnitOfWork.StandardAutoresponderTemplates.CountAsync();
+                    int totalTemplates = await repository.CountAsync();
 
                     return totalTemplates < limits.MaxTemplates;
                 })

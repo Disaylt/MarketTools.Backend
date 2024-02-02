@@ -13,7 +13,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<RecommendationProductCountQuery, int>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
         public async Task<int> Handle(RecommendationProductCountQuery request, CancellationToken cancellationToken)
         {

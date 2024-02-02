@@ -14,7 +14,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBlackListEntity>>
     {
-        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.StandardAutoresponderBlackLists;
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
 
         public async Task Handle(GenericDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
         {

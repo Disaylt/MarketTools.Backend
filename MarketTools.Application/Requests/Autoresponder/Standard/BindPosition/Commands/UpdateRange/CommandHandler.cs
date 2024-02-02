@@ -16,7 +16,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
     public class CommandHandler(IAuthUnitOfWork _authUnintOfWork)
         : IRequestHandler<BindPositionUpdateRangeCommand>
     {
-        private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnintOfWork.StandardAutoresponderBindPositions;
+        private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnintOfWork.GetRepository<StandardAutoresponderBindPositionEntity>();
 
         public async Task Handle(BindPositionUpdateRangeCommand request, CancellationToken cancellationToken)
         {

@@ -15,7 +15,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
         : IRequestHandler<RatingDeleteTemplateCommand>
     {
 
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
         public async Task Handle(RatingDeleteTemplateCommand request, CancellationToken cancellationToken)
         {

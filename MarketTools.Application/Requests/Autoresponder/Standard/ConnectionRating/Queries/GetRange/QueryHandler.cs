@@ -15,7 +15,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
         : IRequestHandler<GetRangeRatingsQuery, IEnumerable<StandardAutoresponderConnectionRatingEntity>>
     {
 
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
         public async Task<IEnumerable<StandardAutoresponderConnectionRatingEntity>> Handle(GetRangeRatingsQuery request, CancellationToken cancellationToken)
         {

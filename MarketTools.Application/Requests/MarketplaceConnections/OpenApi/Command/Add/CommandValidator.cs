@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService)
         {
+            IRepository<MarketplaceConnectionEntity> repository = authUnitOfWork.GetRepository<MarketplaceConnectionEntity>(); 
+
             RuleFor(x => x)
                 .MustAsync(async (x, ct) =>
                 {
-                    int numConnections = await authUnitOfWork.SellerConnections.CountAsync();
+                    int numConnections = await repository.CountAsync();
                     IMarketplaceConnectionLimits limits = await limitsService.GetAsync();
 
                     return numConnections < limits.MaxConnections;

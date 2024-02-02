@@ -20,7 +20,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
                 .MustAsync(async (newProducts, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalRecommendationProducts = await authUnitOfWork.StandardAutoresponderRecommendationProducts.CountAsync();
+                    int totalRecommendationProducts = await authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>()
+                        .CountAsync();
 
                     return totalRecommendationProducts + newProducts.Count() < limits.MaxRecommendationProducts;
                 })

@@ -11,7 +11,7 @@ namespace MarketTools.WebApi.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController(IHttpConnectionContextReader httpConnectionContextReader, IHttpConnectionContextWriter httpConnectionContextWriter)
+    public class TestsController()
         : ControllerBase
     {
         

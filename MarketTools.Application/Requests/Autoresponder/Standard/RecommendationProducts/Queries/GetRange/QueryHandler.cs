@@ -20,7 +20,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<RecommendationProductGetRangeQuery, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
 
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductGetRangeQuery request, CancellationToken cancellationToken)
         {

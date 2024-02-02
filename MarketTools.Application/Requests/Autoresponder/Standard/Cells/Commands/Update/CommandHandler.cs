@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Up
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<CellUpdateCommand, StandardAutoresponderCellEntity>
     {
-        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.StandardAutoresponderCells;
+        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
         public async Task<StandardAutoresponderCellEntity> Handle(CellUpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderCellEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);

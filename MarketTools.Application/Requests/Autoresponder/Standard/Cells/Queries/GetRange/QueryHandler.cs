@@ -14,7 +14,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.Get
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<CellGetRangeQuery, IEnumerable<StandardAutoresponderCellEntity>>
     {
-        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.StandardAutoresponderCells;
+        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
         public async Task<IEnumerable<StandardAutoresponderCellEntity>> Handle(CellGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);

@@ -20,6 +20,13 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private AutoresponderContext? _context;
 
+        private readonly IRepository<MarketplaceConnectionEntity> _marketplaceConnectionRepository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
+        private readonly IRepository<StandardAutoresponderConnectionEntity> _autoresponderConnectionRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _recommendationProductsRepository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _autoresponderConnectionRatingRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
+
         public AutoresponderContext Context
         {
             get
@@ -37,21 +44,21 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
         {
             AutoresponderContext context = new AutoresponderContext();
 
-            MarketplaceConnectionEntity connection = await _authUnitOfWork.SellerConnections.FirstAsync(x => x.Id == connectionId);
+            MarketplaceConnectionEntity connection = await _marketplaceConnectionRepository.FirstAsync(x => x.Id == connectionId);
 
-            context.RecommendationProducts = await _authUnitOfWork.StandardAutoresponderRecommendationProducts
+            context.RecommendationProducts = await _recommendationProductsRepository
                 .GetRangeAsync(x => x.MarketplaceName == connection.MarketplaceName);
 
-            context.Connection = await _authUnitOfWork.StandardAutoresponderConnections
+            context.Connection = await _autoresponderConnectionRepository
                 .FirstAsync(x => x.SellerConnectionId == connectionId);
 
-            await _authUnitOfWork.StandardAutoresponderConnectionRatings
+            await _autoresponderConnectionRatingRepository
                 .GetAsQueryable()
                 .Include(x => x.Templates)
                 .Where(x => x.ConnectionId == connectionId)
                 .LoadAsync();
 
-            await _authUnitOfWork.StandardAutoresponderTemplates
+            await _templateRepository
                 .GetAsQueryable()
                 .Include(x => x.Settings)
                 .Include(x => x.Articles)
@@ -61,7 +68,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .AsSplitQuery()
                 .LoadAsync();
 
-            await _authUnitOfWork.StandardAutoresponderBlackLists
+            await _blackListRepository
                 .GetAsQueryable()
                 .Include(x => x.BanWords)
                 .LoadAsync();

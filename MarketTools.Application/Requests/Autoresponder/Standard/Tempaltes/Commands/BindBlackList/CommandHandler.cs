@@ -12,8 +12,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BindBlackListCommand>
     {
-        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.StandardAutoresponderTemplates;
-        private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.StandardAutoresponderBlackLists;
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
 
         public async Task Handle(BindBlackListCommand request, CancellationToken cancellationToken)
         {

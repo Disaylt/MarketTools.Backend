@@ -14,7 +14,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Delete
         : IRequestHandler<GenericDeleteCommand<MarketplaceConnectionEntity>>
     {
 
-        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.SellerConnections;
+        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
         public async Task Handle(GenericDeleteCommand<MarketplaceConnectionEntity> request, CancellationToken cancellationToken)
         {

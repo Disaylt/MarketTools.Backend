@@ -13,7 +13,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<UpdateCommand>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
         public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);

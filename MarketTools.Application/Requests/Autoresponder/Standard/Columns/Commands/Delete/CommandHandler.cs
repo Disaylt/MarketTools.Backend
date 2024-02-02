@@ -17,7 +17,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GenericDeleteCommand<StandardAutoresponderColumnEntity>>
     {
-        private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _authUnitOfWork.StandardAutoresponderColumns;
+        private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderColumnEntity>();
 
         public async Task Handle(GenericDeleteCommand<StandardAutoresponderColumnEntity> request, CancellationToken cancellationToken)
         {

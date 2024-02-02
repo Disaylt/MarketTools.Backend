@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,12 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
+            IRepository<StandardAutoresponderColumnEntity> repository = authUnitOfWork.GetRepository<StandardAutoresponderColumnEntity>();
             RuleFor(x => x)
                 .MustAsync(async (columnId, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalColumns = await authUnitOfWork.StandardAutoresponderColumns.CountAsync();
+                    int totalColumns = await repository.CountAsync();
 
                     return totalColumns < limits.MaxColumns;
                 })
