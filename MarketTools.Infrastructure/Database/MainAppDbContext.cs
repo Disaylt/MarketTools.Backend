@@ -16,7 +16,7 @@ namespace MarketTools.Infrastructure.Database
 
         public DbSet<StandardAutoresponderColumnEntity> StandardAutoresponderColumns { get; set; } = null!;
         public DbSet<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; set;} = null!;
-        public DbSet<StandardAutoresponderCell> StandardAutoresponderCells { get; set; } = null!;
+        public DbSet<StandardAutoresponderCellEntity> StandardAutoresponderCells { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; set; } = null!;
         public DbSet<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions { get; set; } = null!;

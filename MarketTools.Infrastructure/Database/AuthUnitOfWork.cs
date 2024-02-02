@@ -41,7 +41,7 @@ namespace MarketTools.Infrastructure.Database
             }
             else if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
             {
-                result = new AuthRepository<StandardAutoresponderCell>(
+                result = new AuthRepository<StandardAutoresponderCellEntity>(
                     DbContext.StandardAutoresponderCells,
                     x => x.Column.UserId == _authReadHelper.UserId) as IRepository<T>;
             }

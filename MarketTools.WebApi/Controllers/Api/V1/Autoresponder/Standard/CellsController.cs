@@ -18,7 +18,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> GetAsync(int columnId, CancellationToken cancellationToken)
         {
             CellGetRangeQuery query = new CellGetRangeQuery { CollumnId = columnId };
-            IEnumerable<StandardAutoresponderCell> entites = await _mediator.Send(query, cancellationToken);
+            IEnumerable<StandardAutoresponderCellEntity> entites = await _mediator.Send(query, cancellationToken);
 
             IEnumerable<CellVm> result = _mapper.Map<IEnumerable<CellVm>>(entites);
 

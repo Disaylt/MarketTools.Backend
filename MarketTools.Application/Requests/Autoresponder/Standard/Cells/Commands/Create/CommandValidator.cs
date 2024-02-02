@@ -20,7 +20,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Cr
             RuleFor(x => x.ColumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    return await authUnitOfWork.StandardAutoresponderColumns
+                    return await authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>()
                         .AnyAsync(x => x.Id == columnId);
                 })
                 .WithErrorCode("404")
