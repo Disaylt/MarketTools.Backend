@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http
 {
-    public interface IHttpConnectionFactory<out T>
+    public interface IHttpConnectionFactory<out T> where T : class
     {
         public T Create(MarketplaceConnectionEntity connection);
     }
