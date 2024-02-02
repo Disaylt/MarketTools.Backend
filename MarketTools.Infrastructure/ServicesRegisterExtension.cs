@@ -40,7 +40,6 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
 
             serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, WbSelleOpenApiConnectionActivator>();
-
             AddSolutionMapping(serviceDescriptors);
 
             return serviceDescriptors;
