@@ -19,7 +19,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
         public override StandardAutoresponderConnectionRatingEntity Handle(AutoresponderRequestModel body)
         {
             StandardAutoresponderConnectionRatingEntity response = Find(body);
-            ReportBuilder.AppendLine($"- Проверка на присутсвие списка шаблонов для оценки ${response.Rating} успешно пройдена.");
+            ReportBuilder.AppendLine($"- Проверка на присутсвие списка шаблонов для оценки '{response.Rating}' успешно пройдена.");
 
             return response;
         }
@@ -29,7 +29,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             return Context.Connection
                 .Ratings
                 .FirstOrDefault(x => x.Rating == body.Rating)
-                ?? throw new Exception($"Не удалось найти список шаблонов для оценки ${body.Rating}");
+                ?? throw new Exception($"Не удалось найти список шаблонов для оценки '{body.Rating}'");
         }
     }
 }

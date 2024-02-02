@@ -25,26 +25,28 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
         {
             ReportBuilder.AppendLine("- Проверка черного списка для шаблонов.");
 
-            IEnumerable<StandardAutoresponderTemplateEntity> filterTemplates = body
-                .Where(x =>
+            List<StandardAutoresponderTemplateEntity> filterTemplates = new List<StandardAutoresponderTemplateEntity>();
+
+            foreach(StandardAutoresponderTemplateEntity template in body)
+            {
+                if (template.BlackList == null)
                 {
-                    if (x.BlackList == null)
-                    {
-                        ReportBuilder.AppendLine($"* ${x.Name} без черного списка.");
-                        return true;
-                    }
+                    ReportBuilder.AppendLine($"* '{template.Name}' без черного списка, проверка не проводится.");
+                    filterTemplates.Add(template);
+                    continue;
+                }
 
-                    if (TryFindBanWord(x.BlackList, out string badWord))
-                    {
-                        ReportBuilder.AppendLine($"* В отзыве найдено '${badWord}'. Шаблон {x.Name} пропускается.");
-                        return false;
-                    }
+                if (TryFindBanWord(template.BlackList, out string badWord))
+                {
+                    ReportBuilder.AppendLine($"* В отзыве найдено '{badWord}'. Шаблон '{template.Name}' пропускается.");
+                    continue;
+                }
 
-                    ReportBuilder.AppendLine($"* ${x.Name} прошел проверку.");
-                    return true;
-                });
+                ReportBuilder.AppendLine($"* '{template.Name}' прошел проверку.");
+                filterTemplates.Add(template);
+            }
 
-            if(filterTemplates.Any() == false)
+            if(filterTemplates.Count == 0)
             {
                 throw new Exception("Ни один шаблон не прошел проверку черного списка.");
             }

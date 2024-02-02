@@ -23,21 +23,21 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
         {
             ReportBuilder.AppendLine($"- Проверка сущетсвования колонок выбранного типа ответов.");
 
-            body = body
-                .Where(x =>
+            List<TemplateDetails> filterTemplate = new List<TemplateDetails>();
+
+            foreach (TemplateDetails item in body)
+            {
+                if (ContainsTypeColumns(item))
                 {
-                    if(IsEmptyColumns(x))
-                    {
-                        ReportBuilder.AppendLine($"* ${x.Template.Name} не содержит колонок выбранного типа.");
-                        return false;
-                    }
+                    ReportBuilder.AppendLine($"* '{item.Template.Name}' содержит колоноки выбранного типа.");
+                    filterTemplate.Add(item);
+                    continue;
+                }
 
-                    ReportBuilder.AppendLine($"* ${x.Template.Name} содержит колоноки выбранного типа.");
+                ReportBuilder.AppendLine($"* '{item.Template.Name}' не содержит колонок выбранного типа.");
+            }
 
-                    return true;
-                });
-
-            if(body.Any() == false)
+            if(filterTemplate.Count == 0)
             {
                 throw new Exception("После проверки колонок список доступных шаблонов пуст.");
             }
@@ -45,7 +45,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             return body;
         }
 
-        private bool IsEmptyColumns(TemplateDetails responseBuildDetails)
+        private bool ContainsTypeColumns(TemplateDetails responseBuildDetails)
         {
             return responseBuildDetails.Template
                 .BindPositions

@@ -20,12 +20,12 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
         public override TemplateDetails Handle(IEnumerable<TemplateDetails> body)
         {
-            ReportBuilder.AppendLine($"- Выбираем случайный шааблон для ответов (Предочтительны шаблоны с артикулами)");
+            ReportBuilder.AppendLine($"- Выбираем случайный шаблон для ответов (Предочтительны шаблоны с артикулами)");
 
             TemplateDetails? selectionBuilderWithArticle = SelectRandomBuilder(body, true);
             if(selectionBuilderWithArticle != null)
             {
-                ReportBuilder.AppendLine($"* Выбран шаблон ${selectionBuilderWithArticle.Template.Name} с установленным артикулом.");
+                ReportBuilder.AppendLine($"* Выбран шаблон '{selectionBuilderWithArticle.Template.Name}' с установленным артикулом.");
 
                 return selectionBuilderWithArticle;
             }
@@ -33,7 +33,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             TemplateDetails? selectionBuilderWithoutArticle = SelectRandomBuilder(body, false);
             if (selectionBuilderWithoutArticle != null)
             {
-                ReportBuilder.AppendLine($"* Выбран шаблон ${selectionBuilderWithoutArticle.Template.Name} без установленных артикулов.");
+                ReportBuilder.AppendLine($"* Выбран шаблон '{selectionBuilderWithoutArticle.Template.Name}' без установленных артикулов.");
 
                 return selectionBuilderWithoutArticle;
             }

@@ -52,7 +52,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             int index = _random.Next(0, countProducts);
 
             return products.ElementAtOrDefault(index)
-                ?? throw new Exception($"Не удалось найти рекомендацию для артикула ${Request.Article}");
+                ?? throw new Exception($"Не удалось найти рекомендацию для артикула '{Request.Article}'");
         }
     }
 }

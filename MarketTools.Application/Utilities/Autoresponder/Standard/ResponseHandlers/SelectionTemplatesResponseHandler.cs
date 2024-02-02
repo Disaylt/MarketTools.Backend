@@ -27,7 +27,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 throw new Exception("В списке шаблонов нет ни одного подходящего для ответа шаблона.");
             }
 
-            ReportBuilder.AppendLine($"- В списке найдено ${templates.Count()} подходящих шаблонов для создания ответа.");
+            ReportBuilder.AppendLine($"- В списке найдено '{templates.Count()}' подходящих шаблонов для создания ответа.");
 
             return templates;
         }

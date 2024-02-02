@@ -54,7 +54,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
         private void AddErrorMessage(Exception ex, StringBuilder reportBuilder)
         {
             reportBuilder.AppendLine("");
-            reportBuilder.AppendLine($"Ошибка: ${ex.Message}");
+            reportBuilder.AppendLine($"Ошибка: {ex.Message}");
         }
 
         private AutoresponderResultModel Create(bool isSuccess, StringBuilder reportBuilder, string responseMessage = "")
@@ -62,8 +62,8 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
             return new AutoresponderResultModel
             {
                 IsSuccess = isSuccess,
-                Text = responseMessage,
-                Report = reportBuilder.ToString()
+                Text = responseMessage.Trim(),
+                Report = reportBuilder.ToString().Trim()
             };
         }
     }

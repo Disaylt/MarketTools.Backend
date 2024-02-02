@@ -22,10 +22,19 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
         {
             ReportBuilder.AppendLine("- Проверка настроек шаблона.");
 
-            IEnumerable<StandardAutoresponderTemplateEntity> filterTemplates = body
-                .Where(IsSkip);
+            List<StandardAutoresponderTemplateEntity> filterTemplates = new List<StandardAutoresponderTemplateEntity>();
 
-            if (filterTemplates.Any() == false)
+            foreach(StandardAutoresponderTemplateEntity template in body)
+            {
+                if (IsSkip(template))
+                {
+                    continue;
+                }
+
+                filterTemplates.Add(template);
+            }
+
+            if (filterTemplates.Count == 0)
             {
                 throw new Exception("Ни один шаблон не прошел проверку настроек.");
             }
@@ -37,19 +46,19 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
         {
             if (template.Settings.IsSkipEmptyFeedbacks && string.IsNullOrEmpty(Request.Text))
             {
-                ReportBuilder.AppendLine($"* ${template.Name} не подходит, включен пропуск пустых отзывов.");
-                return false;
+                ReportBuilder.AppendLine($"* '{template.Name}' не подходит, включен пропуск пустых отзывов.");
+                return true;
             }
 
             if (template.Settings.IsSkipWithTextFeedbacks && string.IsNullOrEmpty(Request.Text) == false)
             {
-                ReportBuilder.AppendLine($"* ${template.Name} не подходит, включен пропуск отзывов с тексом.");
-                return false;
+                ReportBuilder.AppendLine($"* '{template.Name}' не подходит, включен пропуск отзывов с тексом.");
+                return true;
             }
 
-            ReportBuilder.AppendLine($"* ${template.Name} проходит проверку настроек.");
+            ReportBuilder.AppendLine($"* '{template.Name}' проходит проверку настроек.");
 
-            return true;
+            return false;
         }
     }
 }
