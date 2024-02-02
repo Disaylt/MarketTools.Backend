@@ -22,6 +22,8 @@ using MarketTools.Domain.Common.Configuration;
 using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Infrastructure.Http;
+using MarketTools.Application.Interfaces.Http;
 
 namespace MarketTools.Infrastructure
 {
@@ -41,6 +43,10 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, WbSelleOpenApiConnectionActivator>();
             AddSolutionMapping(serviceDescriptors);
+
+            serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
+            serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped<IHttpConnectionContextWriter>(x => x.GetRequiredService<HttpConnectionContextHandler>());
 
             return serviceDescriptors;
         }
