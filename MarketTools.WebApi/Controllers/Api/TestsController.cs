@@ -14,6 +14,7 @@ namespace MarketTools.WebApi.Controllers.Api
     public class TestsController(IHttpConnectionContextReader httpConnectionContextReader, IHttpConnectionContextWriter httpConnectionContextWriter)
         : ControllerBase
     {
-       
+        
     }
+
 }

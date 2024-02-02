@@ -17,74 +17,96 @@ namespace MarketTools.Infrastructure.Database
     internal class AuthUnitOfWork : UnitOfWork, IAuthUnitOfWork
     {
         private readonly IAuthReadHelper _authReadHelper;
+
         public AuthUnitOfWork(MainAppDbContext dbContext, IAuthReadHelper authReadHelper) : base(dbContext)
         {
             _authReadHelper = authReadHelper;
         }
 
-        public IRepository<StandardAutoresponderColumnEntity> StandardAutoresponderColumns 
-            => new AuthRepository<StandardAutoresponderColumnEntity>(
-                DbContext.StandardAutoresponderColumns,
-                x => x.UserId == _authReadHelper.UserId);
+        public override IRepository<T> GetRepository<T>()
+        {
+            IRepository<T>? result = null;
 
-        public IRepository<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts
-            => new AuthRepository<StandardAutoresponderRecommendationProductEntity>(
-                DbContext.StandardAutoresponderRecommendationProducts, 
-                x => x.UserId == _authReadHelper.UserId);
+            if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderColumnEntity>(
+                    DbContext.StandardAutoresponderColumns,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderRecommendationProductEntity>(
+                    DbContext.StandardAutoresponderRecommendationProducts,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderCell>(
+                    DbContext.StandardAutoresponderCells,
+                    x => x.Column.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderTemplateEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderTemplateEntity>(
+                    DbContext.StandardAutoresponderTemplates,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderTemplateArticleEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderTemplateArticleEntity>(
+                    DbContext.StandardAutoresponderTemplateArticles,
+                    x => x.Template.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderBindPositionEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderBindPositionEntity>(
+                    DbContext.StandardAutoresponderBindPositions,
+                    x => x.Template.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderConnectionEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderConnectionEntity>(
+                    DbContext.StandardAutoresponderConnections,
+                    x => x.SellerConnection.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderConnectionRatingEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderConnectionRatingEntity>(
+                    DbContext.StandardAutoresponderConnectionRatings,
+                    x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderTemplateSettingsEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderTemplateSettingsEntity>(
+                    DbContext.StandardAutoresponderTemplateSettings,
+                    x => x.Template.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(MarketplaceConnectionEntity))
+            {
+                result = new AuthRepository<MarketplaceConnectionEntity>(
+                    DbContext.MarketplaceConnection,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(MarketplaceConnectionOpenApiEntity))
+            {
+                result = new AuthRepository<MarketplaceConnectionOpenApiEntity>(
+                    DbContext.MarketplaceConnectionOpenAPIs,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderBlackListEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderBlackListEntity>(
+                    DbContext.StandardAutoresponderBlackLists,
+                    x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
+            else if (typeof(T) == typeof(StandardAutoresponderBanWordEntity))
+            {
+                result = new AuthRepository<StandardAutoresponderBanWordEntity>(
+                    DbContext.StandardAutoresponderBanWords,
+                    x => x.BlackList.UserId == _authReadHelper.UserId) as IRepository<T>;
+            }
 
-        public IRepository<StandardAutoresponderCell> StandardAutoresponderCells
-            => new AuthRepository<StandardAutoresponderCell>(
-                DbContext.StandardAutoresponderCells, 
-                x => x.Column.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates
-            => new AuthRepository<StandardAutoresponderTemplateEntity>(
-                DbContext.StandardAutoresponderTemplates, 
-                x => x.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles
-            => new AuthRepository<StandardAutoresponderTemplateArticleEntity>(
-                DbContext.StandardAutoresponderTemplateArticles, 
-                x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions
-            => new AuthRepository<StandardAutoresponderBindPositionEntity>(
-                DbContext.StandardAutoresponderBindPositions, 
-                x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections
-            => new AuthRepository<StandardAutoresponderConnectionEntity>(
-                DbContext.StandardAutoresponderConnections, 
-                x => x.SellerConnection.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings
-             => new AuthRepository<StandardAutoresponderConnectionRatingEntity>(
-                 DbContext.StandardAutoresponderConnectionRatings, 
-                 x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings
-            => new AuthRepository<StandardAutoresponderTemplateSettingsEntity>(
-                DbContext.StandardAutoresponderTemplateSettings, 
-                x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IRepository<MarketplaceConnectionEntity> SellerConnections
-            => new AuthRepository<MarketplaceConnectionEntity>(
-                DbContext.MarketplaceConnection, 
-                x => x.UserId == _authReadHelper.UserId);
-
-        public IRepository<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionsOpenAPIs
-            => new AuthRepository<MarketplaceConnectionOpenApiEntity>(
-                DbContext.MarketplaceConnectionOpenAPIs, 
-                x => x.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists
-            => new AuthRepository<StandardAutoresponderBlackListEntity>(
-                DbContext.StandardAutoresponderBlackLists, 
-                x => x.UserId == _authReadHelper.UserId);
-
-        public IRepository<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords
-            => new AuthRepository<StandardAutoresponderBanWordEntity>(
-                DbContext.StandardAutoresponderBanWords, 
-                x => x.BlackList.UserId == _authReadHelper.UserId);
+            return result ?? throw new AppNotFoundException("Невозможно получить контекст данных.");
+        }
     }
 }

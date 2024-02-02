@@ -11,17 +11,31 @@ namespace MarketTools.Infrastructure.Http
 {
     internal class HttpConnectionContextHandler : IHttpConnectionContextReader, IHttpConnectionContextWriter
     {
-        private readonly List<MarketplaceConnectionEntity> _connections = new List<MarketplaceConnectionEntity>();
+        private readonly Dictionary<Type, MarketplaceConnectionEntity> _connections = new Dictionary<Type, MarketplaceConnectionEntity>();
 
         public T Read<T>() where T : MarketplaceConnectionEntity
         {
-            return _connections.FirstOrDefault(x => x.GetType() == typeof(T)) as T
+            if (_connections.ContainsKey(typeof(T)) == false)
+            {
+                throw new AppNotFoundException("Http клиент с таким типом не найден.");
+            }
+
+            return _connections[typeof(T)] as T
                 ?? throw new AppNotFoundException("Http клиент с таким типом не найден.");
         }
 
         public void Write<T>(T entity) where T : MarketplaceConnectionEntity
         {
-            _connections.Add(entity);
+            Type type = typeof(T);
+
+            if (_connections.ContainsKey(type))
+            {
+                _connections[type] = entity;
+            }
+            else
+            {
+                _connections.Add(type, entity);
+            }
         }
     }
 }
