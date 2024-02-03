@@ -1,4 +1,6 @@
 ﻿using MarketTools.Domain.Entities;
+using MarketTools.Domain.Http.WB.Seller.Api;
+using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace MarketTools.Application.Interfaces.Http.Wb.Seller.Api
 {
     public interface IFeedbacksHttpService
     {
-        public Task SendResponse(string text);
+        public Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query);
+        public Task SendResponseAsync(SendResponseBody body);
     }
 }
