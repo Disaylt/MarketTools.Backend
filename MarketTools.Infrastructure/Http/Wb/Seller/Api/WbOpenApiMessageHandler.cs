@@ -8,21 +8,18 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class WbOpenApiMessageHandler(IHttpConnectionContextReader _connectionContextReader)
-        : DelegatingHandler
+    internal class WbOpenApiMessageHandler
+        : BaseConnectionMessageHandler<MarketplaceConnectionOpenApiEntity>
     {
+        public WbOpenApiMessageHandler(IHttpConnectionContextReader connectionContextReader) : base(connectionContextReader) { }
+
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            MarketplaceConnectionOpenApiEntity connection = _connectionContextReader.Read<MarketplaceConnectionOpenApiEntity>();
+            MarketplaceConnectionOpenApiEntity connection = ConnectionContextReader.Read<MarketplaceConnectionOpenApiEntity>();
 
             request.Headers.Add("Authorization", connection.Token);
 
-            HttpResponseMessage httpResponseMessage = await base.SendAsync(request, cancellationToken);
-
-            if(httpResponseMessage != null)
-            {
-
-            }
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

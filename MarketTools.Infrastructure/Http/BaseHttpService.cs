@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
