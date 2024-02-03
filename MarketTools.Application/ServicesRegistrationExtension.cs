@@ -3,9 +3,11 @@ using MarketTools.Application.Common.Behavoirs;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Common.Configuration;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +38,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
+            services.AddSingleton<IMarketplaceConnectionFactory, MarketplaceConnectionFactory>();
 
             return services;
         }

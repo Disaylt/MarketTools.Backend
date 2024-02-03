@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -10,18 +11,17 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
-    internal class WbServiceConnectionFactory(IQueryable<MarketplaceConnectionEntity> _query, IConnectionTypeFactory _connectionTypeFactory)
+    public class WbServiceConnectionFactory() : IServiceConnectionFactory
     {
-        public IQueryable<MarketplaceConnectionEntity> Select(ProjectServices projectService)
+        public IConnectionSerivceDeterminant Select(ProjectServices projectService)
         {
-            switch(projectService)
+            switch (projectService)
             {
                 case ProjectServices.StandardAutoresponder:
-                    string discriminator = _connectionTypeFactory.Get(MarketplaceConnectionType.OpenApi);
-                    return _query.Where(x => x.Discriminator == discriminator);
-                default:
-                    throw new AppNotFoundException($"Для сервиса {projectService} не реализованно WB подключение.");
+                    return new ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>();
             }
+
+            throw new AppNotFoundException($"Для сервиса {projectService} не реализованно WB подключение.");
         }
     }
 }

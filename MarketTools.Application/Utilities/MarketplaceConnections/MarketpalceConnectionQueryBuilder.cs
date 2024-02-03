@@ -15,13 +15,11 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
     internal class MarketpalceConnectionQueryBuilder : BaseQueryBuilder<MarketplaceConnectionEntity>
     {
-        private readonly MarketplaceName? _marketplaceName;
-        private readonly IConnectionTypeFactory _connectionTypeFactory;
+        private MarketplaceName? _marketplaceName;
 
-        public MarketpalceConnectionQueryBuilder(IQueryable<MarketplaceConnectionEntity> query, MarketplaceName? marketplaceName) : base(query)
+        public MarketpalceConnectionQueryBuilder(IQueryable<MarketplaceConnectionEntity> query) : base(query)
         {
-            _marketplaceName = marketplaceName;
-            _connectionTypeFactory = new ConnectionTypeFactory();
+
         }
 
         public override MarketpalceConnectionQueryBuilder SetPagination(PageRequest? pageRequest)
@@ -31,17 +29,18 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetMarketplace()
+        public virtual MarketpalceConnectionQueryBuilder SetMarketplace(MarketplaceName? marketplaceName)
         {
-            if (_marketplaceName != null)
+            if (marketplaceName != null)
             {
-                Query = Query.Where(x=> x.MarketplaceName == _marketplaceName);
+                _marketplaceName = marketplaceName;
+                Query = Query.Where(x=> x.MarketplaceName == marketplaceName);
             }
 
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetByService(ProjectServices? projectService)
+        public virtual MarketpalceConnectionQueryBuilder SetByService(IMarketplaceConnectionFactory marketplaceConnectionFactory, ProjectServices? projectService)
         {
             if(projectService == null) 
             {
@@ -53,13 +52,11 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
                 throw new AppBadRequestException("Для выбора подключений по сервису необходимо указать название маркетплейса.");
             }
 
-            switch(_marketplaceName.Value)
-            {
-                case MarketplaceName.WB:
-                    Query = new WbServiceConnectionFactory(Query, _connectionTypeFactory)
-                        .Select(projectService.Value);
-                    break;
-            }
+            string discriminator = marketplaceConnectionFactory.Create(_marketplaceName.Value)
+                .Select(projectService.Value)
+                .Determinant();
+
+            Query = Query.Where(x=> x.Discriminator == discriminator);
 
             return this;
         }
@@ -71,7 +68,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
                 return this;
             }
 
-            string discriminator = _connectionTypeFactory.Get(type.Value);
+            string discriminator = new ConnectionTypeFactory().Get(type.Value);
             Query = Query.Where(x=> x.Discriminator == discriminator);
 
             return this;

@@ -33,13 +33,13 @@ namespace MarketTools.Infrastructure.Database
                     DbContext.StandardAutoresponderColumns,
                     x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
             }
-            else if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
+            else if (typeof(T) == typeof(StandardAutoresponderRecommendationProductEntity))
             {
                 result = new AuthRepository<StandardAutoresponderRecommendationProductEntity>(
                     DbContext.StandardAutoresponderRecommendationProducts,
                     x => x.UserId == _authReadHelper.UserId) as IRepository<T>;
             }
-            else if (typeof(T) == typeof(StandardAutoresponderColumnEntity))
+            else if (typeof(T) == typeof(StandardAutoresponderCellEntity))
             {
                 result = new AuthRepository<StandardAutoresponderCellEntity>(
                     DbContext.StandardAutoresponderCells,
@@ -106,7 +106,7 @@ namespace MarketTools.Infrastructure.Database
                     x => x.BlackList.UserId == _authReadHelper.UserId) as IRepository<T>;
             }
 
-            return result ?? throw new AppNotFoundException("Невозможно получить контекст данных.");
+            return result ?? throw new AppNotFoundException($"Невозможно получить контекст данных {typeof(T).Name}.");
         }
     }
 }
