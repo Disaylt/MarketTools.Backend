@@ -11,17 +11,19 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
-    public class WbServiceConnectionFactory() : IServiceConnectionFactory
+    public class WbServiceConnectionFactory : IServiceConnectionFactory
     {
-        public IConnectionSerivceDeterminant Select(ProjectServices projectService)
-        {
-            switch (projectService)
-            {
-                case ProjectServices.StandardAutoresponder:
-                    return new ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>();
-            }
+        private readonly Dictionary<ProjectServices, IConnectionSerivceDeterminant> _serviceDeteminants;
 
-            throw new AppNotFoundException($"Для сервиса {projectService} не реализованно WB подключение.");
+        public WbServiceConnectionFactory(Dictionary<ProjectServices, IConnectionSerivceDeterminant> serviceDeteminants)
+        {
+            _serviceDeteminants = serviceDeteminants;
+        }
+
+        public IConnectionSerivceDeterminant Create(ProjectServices projectService)
+        {
+            return _serviceDeteminants.GetValueOrDefault(projectService)  
+                ?? throw new AppNotFoundException($"Для сервиса {projectService} не реализованно WB подключение.");
         }
     }
 }

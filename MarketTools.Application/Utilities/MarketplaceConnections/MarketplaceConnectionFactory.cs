@@ -11,15 +11,17 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
     internal class MarketplaceConnectionFactory : IMarketplaceConnectionFactory
     {
+        private readonly Dictionary<MarketplaceName, IServiceConnectionFactory> _connectionFactories;
+
+        public MarketplaceConnectionFactory(Dictionary<MarketplaceName, IServiceConnectionFactory> connectionFactories)
+        {
+            _connectionFactories = connectionFactories;
+        }
+
         public IServiceConnectionFactory Create(MarketplaceName marketplaceName)
         {
-            switch(marketplaceName)
-            {
-                case MarketplaceName.WB:
-                    return new WbServiceConnectionFactory();
-            }
-
-            throw new AppNotFoundException($"Для магазина {marketplaceName} нет определителя подключений.");
+            return _connectionFactories.GetValueOrDefault(marketplaceName) 
+                ?? throw new AppNotFoundException($"Для магазина {marketplaceName} нет определителя подключений.");
         }
     }
 }

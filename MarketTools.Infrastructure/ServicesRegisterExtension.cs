@@ -24,6 +24,8 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
+using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -47,6 +49,14 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
             serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
             serviceDescriptors.AddScoped<IHttpConnectionContextWriter>(x => x.GetRequiredService<HttpConnectionContextHandler>());
+
+            return serviceDescriptors;
+        }
+
+        public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
+        {
+            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>()
+                .AddHttpMessageHandler<WbOpenApiMessageHandler>();
 
             return serviceDescriptors;
         }

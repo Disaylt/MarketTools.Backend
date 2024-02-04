@@ -9,6 +9,8 @@ using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Common.Configuration;
+using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +40,17 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
-            services.AddSingleton<IMarketplaceConnectionFactory, MarketplaceConnectionFactory>();
+
+            services.AddSingleton<IMarketplaceConnectionFactory>(x=> new MarketplaceConnectionFactory(
+                new Dictionary<MarketplaceName, IServiceConnectionFactory>
+                {
+                    { MarketplaceName.WB, new WbServiceConnectionFactory( new Dictionary<ProjectServices, IConnectionSerivceDeterminant>
+                        {
+                            { ProjectServices.StandardAutoresponder, new ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>() }
+                        }) 
+                    }
+                }
+                ));
 
             return services;
         }

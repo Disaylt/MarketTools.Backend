@@ -53,7 +53,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
             }
 
             string discriminator = marketplaceConnectionFactory.Create(_marketplaceName.Value)
-                .Select(projectService.Value)
+                .Create(projectService.Value)
                 .Determinant();
 
             Query = Query.Where(x=> x.Discriminator == discriminator);

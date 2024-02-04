@@ -1,4 +1,4 @@
-﻿using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IServiceConnectionFactory
+    public interface IServiceActivateValidator<TServiceConnection>
     {
-        public IConnectionSerivceDeterminant Create(ProjectServices projectService);
+        public Task UseAsync(MarketplaceConnectionEntity marketplaceConnectionEntity);
     }
 }
