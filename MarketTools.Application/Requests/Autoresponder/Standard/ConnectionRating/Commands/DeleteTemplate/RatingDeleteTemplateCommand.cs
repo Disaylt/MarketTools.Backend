@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteTemplate
 {
-    public class RatingDeleteTemplateCommand : IRequest
+    public class RatingDeleteTemplateCommand : IRequest<Unit>
     {
         public int ConnectionId { get; set; }
         public int Rating { get; set; }

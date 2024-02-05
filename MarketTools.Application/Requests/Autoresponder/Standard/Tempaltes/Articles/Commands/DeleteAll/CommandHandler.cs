@@ -13,12 +13,14 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Article
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<ArticleDeleteAllCommand>
+        : IRequestHandler<ArticleDeleteAllCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
-        public async Task Handle(ArticleDeleteAllCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ArticleDeleteAllCommand request, CancellationToken cancellationToken)
         {
             await _repository.ExecuteDeleteAsync(x => x.TemplateId == request.TemplateId);
+
+            return Unit.Value;
         }
     }
 }

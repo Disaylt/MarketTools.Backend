@@ -4,11 +4,6 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
 {
@@ -16,7 +11,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
     {
         public CommandValidator(IAuthUnitOfWork authUnitOfWork, IConnectionServiceFactory<IServiceValidator> connectionServiceFactory) 
         {
-            Console.WriteLine("asd");
             IRepository<MarketplaceConnectionEntity> connectionRepository = authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
             RuleFor(x => x)
                 .MustAsync(async (value, ct) =>
@@ -33,7 +27,9 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
                         .TryActivete(value.Id);
 
                     return true;
-                });
+                })
+                .WithErrorCode("400")
+                .WithMessage("Не удалось получить отзывы, проверьте токен или попробуйте позже.");
         }
     }
 }

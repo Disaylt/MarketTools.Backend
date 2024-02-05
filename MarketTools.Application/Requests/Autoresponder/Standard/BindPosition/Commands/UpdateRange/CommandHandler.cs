@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.Commands.UpdateRange
 {
     public class CommandHandler(IAuthUnitOfWork _authUnintOfWork)
-        : IRequestHandler<BindPositionUpdateRangeCommand>
+        : IRequestHandler<BindPositionUpdateRangeCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnintOfWork.GetRepository<StandardAutoresponderBindPositionEntity>();
 
-        public async Task Handle(BindPositionUpdateRangeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(BindPositionUpdateRangeCommand request, CancellationToken cancellationToken)
         {
             await RemoveCurrentBindsAsync(request.TemplateId, request.ColumnType, cancellationToken);
 
@@ -26,6 +26,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
 
             await _repository.AddRangeAsync(entities, cancellationToken);
             await _authUnintOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
 
         private IEnumerable<StandardAutoresponderBindPositionEntity> CreateEntities(BindPositionUpdateRangeCommand request)
