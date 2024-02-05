@@ -13,6 +13,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRan
     {
         public MarketplaceConnectionType? ConnectionType { get; set; }
         public MarketplaceName? MarketplaceName { get; set; }
-        public ProjectServices? ProjectService { get; set; }
+        public EnumProjectServices? ProjectService { get; set; }
     }
 }

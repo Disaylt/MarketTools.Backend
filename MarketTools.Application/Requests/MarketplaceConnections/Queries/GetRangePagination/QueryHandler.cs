@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IMarketplaceConnectionFactory _marketplaceConnectionFactory)
+    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionServiceFactory<IConnectionSerivceDeterminant> _marketplaceConnectionFactory)
         : IRequestHandler<GetRangePaginationMarketplaceConnectionsQuery, IEnumerable<MarketplaceConnectionEntity>>
     {
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangePaginationMarketplaceConnectionsQuery request, CancellationToken cancellationToken)

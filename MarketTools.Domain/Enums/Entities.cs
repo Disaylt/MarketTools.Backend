@@ -18,7 +18,7 @@ namespace MarketTools.Domain.Enums
         Recommendation
     }
 
-    public enum ProjectServices
+    public enum EnumProjectServices
     {
         StandardAutoresponder = 1
     }

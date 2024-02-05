@@ -4,10 +4,12 @@ using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
+using MarketTools.Application.Utilities.ProjectServices;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -41,16 +43,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
 
-            services.AddSingleton<IMarketplaceConnectionFactory>(x=> new MarketplaceConnectionFactory(
-                new Dictionary<MarketplaceName, IServiceConnectionFactory>
-                {
-                    { MarketplaceName.WB, new WbServiceConnectionFactory( new Dictionary<ProjectServices, IConnectionSerivceDeterminant>
-                        {
-                            { ProjectServices.StandardAutoresponder, new ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>() }
-                        }) 
-                    }
-                }
-                ));
+            AddConnectionDeterminant(services);
 
             return services;
         }
@@ -65,6 +58,25 @@ namespace MarketTools.Application
             builder.Services.Configure<SequreSettings>(builder.Configuration.GetSection("Sequre"));
 
             return builder;
+        }
+
+        private static void AddConnectionDeterminant(IServiceCollection services)
+        {
+            services.AddSingleton(typeof(ConnectionSerivceDeterminant<>));
+            services.AddTransient(serviceProvider => new WbProjectServiceProvider<IConnectionSerivceDeterminant>(
+                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionSerivceDeterminant>>
+                {
+                    { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
+                },
+                serviceProvider
+                ));
+            services.AddTransient<IConnectionServiceFactory<IConnectionSerivceDeterminant>>(serviceProvider => new ConnectionServiceFactory<IConnectionSerivceDeterminant>(
+                new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IConnectionSerivceDeterminant>>>
+                {
+                    {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionSerivceDeterminant>>() }
+                },
+                serviceProvider
+                ));
         }
     }
 }
