@@ -9,7 +9,7 @@ using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 
 namespace MarketTools.Application.Services.Autroesponder.Standard
 {
-    internal class WbAutoresponderValidator(IAuthUnitOfWork _authUnitOfWork,
+    internal class WbStandardAutoresponderValidator(IAuthUnitOfWork _authUnitOfWork,
         IHttpConnectionFactory<IFeedbacksHttpService> _httpConnectionFactory,
         IConnectionServiceFactory<IConnectionSerivceDeterminant> _connectionServiceFactory) 
         : IServiceValidator

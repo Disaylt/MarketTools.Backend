@@ -1,4 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.ProjectServices;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -23,5 +26,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
             _repository.Update(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
         }
+
+
     }
 }
