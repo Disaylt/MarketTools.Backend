@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update
 {
-    public class UpdateCommand : IRequest
+    public class UpdateCommand : IRequest<Unit>
     {
         public int Id { get; set; }
         public required string FeedbackArticle { get; set; }

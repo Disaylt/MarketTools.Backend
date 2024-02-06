@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MediatR;
@@ -11,17 +12,21 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionServiceFactory<IConnectionSerivceDeterminant> _marketplaceConnectionFactory)
         : IRequestHandler<GetRangePaginationMarketplaceConnectionsQuery, IEnumerable<MarketplaceConnectionEntity>>
     {
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangePaginationMarketplaceConnectionsQuery request, CancellationToken cancellationToken)
         {
-            string discriminator = new MarketplaceConnectionsDiscriminatorFactory().Get(request.ConnectionType);
+            IQueryable<MarketplaceConnectionEntity> dbQuery = _authUnitOfWork
+                .GetRepository<MarketplaceConnectionEntity>()
+                .GetAsQueryable();
 
-            return await new MarketpalceConnectionQueryBuilder(_authUnitOfWork.SellerConnections)
+            return await new MarketpalceConnectionQueryBuilder(dbQuery)
+                    .SetMarketplace(request.MarketplaceName)
                     .SetPagination(request.PageRequest)
+                    .SetByService(_marketplaceConnectionFactory, request.ProjectService)
+                    .SetByType(request.ConnectionType)
                     .Build()
-                    .Where(x => x.Discriminator == discriminator)
                     .Include(x=> x.AutoresponderConnection)
                     .ToListAsync();
         }

@@ -12,10 +12,10 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.Get
 {
     public class QueryHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<CellGetRangeQuery, IEnumerable<StandardAutoresponderCell>>
+        : IRequestHandler<CellGetRangeQuery, IEnumerable<StandardAutoresponderCellEntity>>
     {
-        private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
-        public async Task<IEnumerable<StandardAutoresponderCell>> Handle(CellGetRangeQuery request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
+        public async Task<IEnumerable<StandardAutoresponderCellEntity>> Handle(CellGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(x => x.ColumnId == request.CollumnId);
         }

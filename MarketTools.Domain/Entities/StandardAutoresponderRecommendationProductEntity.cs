@@ -22,6 +22,8 @@ namespace MarketTools.Domain.Entities
 
         [MaxLength(100, ErrorMessage = "Превышена максимальная длинна названия рекомендуеммого продукта")]
         public string? RecommendationProductName { get; set; }
+
+        [Range(1, 999)]
         public MarketplaceName MarketplaceName { get; set; }
 
         public string UserId { get; set; } = null!;

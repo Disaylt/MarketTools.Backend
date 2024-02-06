@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public class StandardAutoresponderCell : BaseEntity
+    public class StandardAutoresponderCellEntity : BaseEntity
     {
         [MaxLength(1000)]
         public string Value { get; set; } = null!;

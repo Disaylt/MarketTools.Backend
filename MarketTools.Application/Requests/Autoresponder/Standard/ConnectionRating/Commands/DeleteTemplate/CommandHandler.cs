@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteTemplate
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<RatingDeleteTemplateCommand>
+        : IRequestHandler<RatingDeleteTemplateCommand, Unit>
     {
 
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
-        public async Task Handle(RatingDeleteTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RatingDeleteTemplateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = await _repository
                .GetAsQueryable()
@@ -31,6 +31,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
 
             _repository.Update(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

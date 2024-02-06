@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Commands.UpdateRange
 {
-    public class BindPositionUpdateRangeCommand : IRequest
+    public class BindPositionUpdateRangeCommand : IRequest<Unit>
     {
         public required AutoresponderColumnType ColumnType { get; set; }
         public int TemplateId { get; set; }

@@ -11,15 +11,17 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<UpdateCommand>
+        : IRequestHandler<UpdateCommand, Unit>
     {
-        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.StandardAutoresponderRecommendationProducts;
-        public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
+        public async Task<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);
             Change(request, autoresponderRecommendationProduct);
             _repository.Update(autoresponderRecommendationProduct);
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
 
         private void Change(UpdateCommand request, StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct)

@@ -19,14 +19,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
         : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetRangeAsync(MarketplaceConnectionType connectionType)
+        public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangePaginationMarketplaceConnectionsQuery query)
         {
-            GetRangePaginationMarketplaceConnectionsQuery request = new GetRangePaginationMarketplaceConnectionsQuery
-            {
-                ConnectionType = connectionType
-            };
-
-            IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(request);
+            IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(query);
 
             IEnumerable<MarketplaceConnectionVm> viewEntities = _mapper.Map<IEnumerable<MarketplaceConnectionVm>>(entities);
 

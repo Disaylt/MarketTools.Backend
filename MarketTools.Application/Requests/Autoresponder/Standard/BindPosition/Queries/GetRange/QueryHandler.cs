@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosi
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BindPositionGetRangeQuery, IEnumerable<StandardAutoresponderBindPositionEntity>>
     {
-        private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnitOfWork.StandardAutoresponderBindPositions;
+        private readonly IRepository<StandardAutoresponderBindPositionEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBindPositionEntity>();
 
         public async Task<IEnumerable<StandardAutoresponderBindPositionEntity>> Handle(BindPositionGetRangeQuery request, CancellationToken cancellationToken)
         {

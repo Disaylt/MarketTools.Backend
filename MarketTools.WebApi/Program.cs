@@ -27,6 +27,8 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddJwtAuth(sequreConfiguration);
 builder.Services.AddInfrasrtuctureIdentity();
 
+builder.Services.AddHttpClients(sequreConfiguration);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

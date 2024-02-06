@@ -14,7 +14,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<ArticlesEditRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
-        private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _authUnitOfWork.StandardAutoresponderTemplateArticles;
+        private readonly IRepository<StandardAutoresponderTemplateArticleEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
 
         public async Task<IEnumerable<StandardAutoresponderTemplateArticleEntity>> Handle(ArticlesEditRangeCommand request, CancellationToken cancellationToken)
         {

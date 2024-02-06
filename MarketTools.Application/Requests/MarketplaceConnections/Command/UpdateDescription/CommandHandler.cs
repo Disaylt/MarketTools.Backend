@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.UpdateDescription
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<MpConnectionUpdateDescriptionCommand>
+        : IRequestHandler<MpConnectionUpdateDescriptionCommand, Unit>
     {
-        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.SellerConnections;
+        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
-        public async Task Handle(MpConnectionUpdateDescriptionCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(MpConnectionUpdateDescriptionCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity entity = await _repository.FirstAsync(x=> x.Id == request.Id, cancellationToken);
             entity.Description = request.Description;
@@ -22,6 +22,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Update
             _repository.Update(entity);
 
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanW
             RuleFor(x => x.BlackListId)
                 .MustAsync(async (blackListId, ct) =>
                 {
-                    StandardAutoresponderBlackListEntity? entity = await authUnitOfWork.StandardAutoresponderBlackLists
+                    StandardAutoresponderBlackListEntity? entity = await authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>()
                         .FirstOrDefaultAsync(x=> x.Id == blackListId);
 
                     return entity != null;

@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Commands.Delete
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBlackListEntity>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBlackListEntity>, Unit>
     {
-        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.StandardAutoresponderBlackLists;
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
 
-        public async Task Handle(GenericDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(GenericDeleteCommand<StandardAutoresponderBlackListEntity> request, CancellationToken cancellationToken)
         {
             StandardAutoresponderBlackListEntity entity = await _repository
                 .GetAsQueryable()
@@ -27,6 +27,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
             _repository.Remove(entity);
 
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

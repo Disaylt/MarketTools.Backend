@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard
 
         protected IRuleBuilderOptions<T, int> CanIntercatTemplate(IRuleBuilderInitial<T, int> ruleBuilderInitial, IAuthUnitOfWork authUnitOfWork)
         {
+            IRepository<StandardAutoresponderTemplateEntity> repository = authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
+
             return ruleBuilderInitial
                 .MustAsync(async (templateId, ct) =>
                 {
-                    return await authUnitOfWork.StandardAutoresponderTemplates.AnyAsync(x => x.Id == templateId);
+                    return await repository.AnyAsync(x => x.Id == templateId);
                 })
                 .WithErrorCode("404")
                 .WithMessage("Шаблон не найден.");
@@ -37,11 +40,13 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard
             IAuthUnitOfWork authUnitOfWork,
             ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
+            IRepository<StandardAutoresponderTemplateArticleEntity> repository = authUnitOfWork.GetRepository<StandardAutoresponderTemplateArticleEntity>();
+
             return ruleBuilderInitial
             .MustAsync(async (articles, ct) =>
             {
                 IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                int totalArticles = await authUnitOfWork.StandardAutoresponderTemplateArticles.CountAsync();
+                int totalArticles = await repository.CountAsync();
                 int totalArticlesForAdd = articles.Count();
 
                 return totalArticles + totalArticlesForAdd < limits.MaxTemplateArticles;

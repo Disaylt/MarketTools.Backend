@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
             RuleFor(x => x.ConnectionId)
                 .MustAsync(async (connectionId, ct) =>
                 {
-                    return await authUnitOfWork.SellerConnections
+                    return await authUnitOfWork.GetRepository<MarketplaceConnectionEntity>()
                         .AnyAsync(x => x.Id == connectionId, ct);
                 })
                 .WithErrorCode("404")

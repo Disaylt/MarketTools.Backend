@@ -16,7 +16,7 @@ namespace MarketTools.Infrastructure.Database
 
         public DbSet<StandardAutoresponderColumnEntity> StandardAutoresponderColumns { get; set; } = null!;
         public DbSet<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; set;} = null!;
-        public DbSet<StandardAutoresponderCell> StandardAutoresponderCells { get; set; } = null!;
+        public DbSet<StandardAutoresponderCellEntity> StandardAutoresponderCells { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; set; } = null!;
         public DbSet<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions { get; set; } = null!;
@@ -24,8 +24,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
         public DbSet<MarketplaceConnectionEntity> MarketplaceConnection { get; set; } = null!;
-        public DbSet<OzonSellerOpenApiConnectionEntity> OzoSellernOpenApiConnections { get; set; } = null!;
-        public DbSet<WbSellerOpenApiConnectionEntity> WbSellerOpenApiConnections { get; set; } = null!;
+        public DbSet<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionOpenAPIs { get; set; } = null!;
         public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
 

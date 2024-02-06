@@ -10,17 +10,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.Add
 {
     public class CommandHandler(IUnitOfWork _unitOfWork)
-        : IRequestHandler<AddRatingCommand>
+        : IRequestHandler<AddRatingCommand, Unit>
     {
 
         private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
-        public async Task Handle(AddRatingCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddRatingCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = Create(request);
 
             await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
 
         private StandardAutoresponderConnectionRatingEntity Create(AddRatingCommand request)

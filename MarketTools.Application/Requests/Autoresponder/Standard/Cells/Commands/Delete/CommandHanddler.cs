@@ -15,16 +15,18 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.De
 {
     public class CommandHanddler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderCell>>
+        : IRequestHandler<GenericDeleteCommand<StandardAutoresponderCellEntity>, Unit>
     {
-        private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
+        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
 
-        public async Task Handle(GenericDeleteCommand<StandardAutoresponderCell> request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(GenericDeleteCommand<StandardAutoresponderCellEntity> request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            StandardAutoresponderCellEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync();
+
+            return Unit.Value;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update
 {
-    public class CellUpdateCommand : IRequest<StandardAutoresponderCell>
+    public class CellUpdateCommand : IRequest<StandardAutoresponderCellEntity>
     {
         public int Id { get; set; }
         public required string Value { get; set; }

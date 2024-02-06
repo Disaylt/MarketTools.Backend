@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanW
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BanWordAddCommand, StandardAutoresponderBanWordEntity>
     {
-        private readonly IRepository<StandardAutoresponderBanWordEntity> _repository = _authUnitOfWork.StandardAutoresponderBanWords;
+        private readonly IRepository<StandardAutoresponderBanWordEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBanWordEntity>();
 
         public async Task<StandardAutoresponderBanWordEntity> Handle(BanWordAddCommand request, CancellationToken cancellationToken)
         {

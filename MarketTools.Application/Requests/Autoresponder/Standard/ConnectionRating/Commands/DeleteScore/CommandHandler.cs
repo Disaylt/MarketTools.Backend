@@ -10,17 +10,19 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteScore
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<RatingDeleteScoreCommand>
+        : IRequestHandler<RatingDeleteScoreCommand, Unit>
     {
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
-        public async Task Handle(RatingDeleteScoreCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RatingDeleteScoreCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = await _repository
                 .FirstAsync(x=> x.ConnectionId == request.ConnectionId && x.Rating == request.Rating, cancellationToken);
 
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

@@ -15,12 +15,12 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Up
 {
     public class CommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<CellUpdateCommand, StandardAutoresponderCell>
+        : IRequestHandler<CellUpdateCommand, StandardAutoresponderCellEntity>
     {
-        private readonly IRepository<StandardAutoresponderCell> _repository = _authUnitOfWork.StandardAutoresponderCells;
-        public async Task<StandardAutoresponderCell> Handle(CellUpdateCommand request, CancellationToken cancellationToken)
+        private readonly IRepository<StandardAutoresponderCellEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderCellEntity>();
+        public async Task<StandardAutoresponderCellEntity> Handle(CellUpdateCommand request, CancellationToken cancellationToken)
         {
-            StandardAutoresponderCell entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            StandardAutoresponderCellEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
             entity.Value = request.Value;
 

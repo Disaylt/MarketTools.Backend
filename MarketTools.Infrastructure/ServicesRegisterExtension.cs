@@ -21,6 +21,12 @@ using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Infrastructure.Http;
+using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
+using MarketTools.Infrastructure.Http.Wb.Seller.Api;
+using Microsoft.Extensions.Http;
 
 namespace MarketTools.Infrastructure
 {
@@ -38,9 +44,20 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
 
-            serviceDescriptors.AddScoped<IConnectionActivator<WbSellerOpenApiConnectionEntity>, WbSelleOpenApiConnectionActivator>();
-
+            serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, WbSelleOpenApiConnectionActivator>();
             AddSolutionMapping(serviceDescriptors);
+
+            serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
+            serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped<IHttpConnectionContextWriter>(x => x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped(typeof(IHttpConnectionFactory<>), typeof(HttpConnectionFactory<>));
+
+            return serviceDescriptors;
+        }
+
+        public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
+        {
+            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>();
 
             return serviceDescriptors;
         }

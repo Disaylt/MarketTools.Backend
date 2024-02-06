@@ -12,12 +12,14 @@ namespace MarketTools.Domain.Entities
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;
+
+        [Range(1, 999)]
         public AutoresponderColumnType Type { get; set; }
 
         public string UserId { get; set; } = null!;
         public AppIdentityUser User { get; set; } = null!;
 
-        public List<StandardAutoresponderCell> Cells { get; set; } = new List<StandardAutoresponderCell>();
+        public List<StandardAutoresponderCellEntity> Cells { get; set; } = new List<StandardAutoresponderCellEntity>();
         public List<StandardAutoresponderBindPositionEntity> BindPositions { get; set; } = new List<StandardAutoresponderBindPositionEntity>();
     }
 }

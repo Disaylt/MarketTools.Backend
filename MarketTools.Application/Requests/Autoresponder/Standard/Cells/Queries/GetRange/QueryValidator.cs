@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.Get
             RuleFor(x => x.CollumnId)
                 .MustAsync(async (columnId, ct) =>
                 {
-                    return await authUnitOfWork.StandardAutoresponderColumns
+                    return await authUnitOfWork.GetRepository<StandardAutoresponderColumnEntity>()
                         .AnyAsync(column => column.Id == columnId, ct);
                 })
                 .WithErrorCode("404")

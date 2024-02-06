@@ -23,7 +23,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> CreateAsync([FromBody] CellCreateDto body, CancellationToken cancellationToken)
         {
             CellCreateCommand command = _mapper.Map<CellCreateCommand>(body);
-            StandardAutoresponderCell newCell = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderCellEntity newCell = await _mediator.Send(command, cancellationToken);
 
             CellVm cellVm = _mapper.Map<CellVm>(newCell);
 
@@ -33,7 +33,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            GenericDeleteCommand<StandardAutoresponderCell> command = new GenericDeleteCommand<StandardAutoresponderCell> { Id = id };
+            GenericDeleteCommand<StandardAutoresponderCellEntity> command = new GenericDeleteCommand<StandardAutoresponderCellEntity> { Id = id };
             await _mediator.Send(command, cancellationToken);
 
             return Ok();
@@ -43,7 +43,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         public async Task<IActionResult> UpdateAsync([FromBody] CellUpdateDto body, CancellationToken cancellationToken)
         {
             CellUpdateCommand command = _mapper.Map<CellUpdateCommand>(body);
-            StandardAutoresponderCell newCell = await _mediator.Send(command, cancellationToken);
+            StandardAutoresponderCellEntity newCell = await _mediator.Send(command, cancellationToken);
 
             CellVm cellVm = _mapper.Map<CellVm>(newCell);
 

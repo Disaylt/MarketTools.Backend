@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Cases.User.Models;
 using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
 using MediatR;

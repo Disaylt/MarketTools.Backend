@@ -14,8 +14,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
         : IRequestHandler<AddTemplateToRatingCommand, StandardAutoresponderTemplateEntity>
     {
 
-        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _ratingRepository = _authUnitOfWork.StandardAutoresponderConnectionRatings;
-        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.StandardAutoresponderTemplates;
+        private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _ratingRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
 
         public async Task<StandardAutoresponderTemplateEntity> Handle(AddTemplateToRatingCommand request, CancellationToken cancellationToken)
         {

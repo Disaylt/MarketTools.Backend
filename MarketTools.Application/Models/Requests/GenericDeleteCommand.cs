@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Requests
 {
-    public class GenericDeleteCommand<TEntity> : IRequest
+    public class GenericDeleteCommand<TEntity> : IRequest<Unit>
     {
         public int Id { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
                 .MustAsync(async (x, ct) =>
                 {
                     IStandarAutoresponderLimits limits = await limitsService.GetAsync();
-                    int totalBlackLists = await authUnitOfWork.StandardAutoresponderBlackLists.CountAsync(ct);
+                    int totalBlackLists = await authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>()
+                        .CountAsync(ct);
 
                     return totalBlackLists < limits.MaxBlackList;
                 })

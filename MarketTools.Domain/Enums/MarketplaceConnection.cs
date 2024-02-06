@@ -8,6 +8,6 @@ namespace MarketTools.Domain.Enums
 {
     public enum MarketplaceConnectionType
     {
-        WbSellerOpenApi
+        OpenApi
     }
 }

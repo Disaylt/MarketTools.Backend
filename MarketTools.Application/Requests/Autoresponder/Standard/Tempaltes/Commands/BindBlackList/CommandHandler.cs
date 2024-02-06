@@ -10,18 +10,20 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Commands.BindBlackList
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<BindBlackListCommand>
+        : IRequestHandler<BindBlackListCommand, Unit>
     {
-        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.StandardAutoresponderTemplates;
-        private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.StandardAutoresponderBlackLists;
+        private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
 
-        public async Task Handle(BindBlackListCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(BindBlackListCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderTemplateEntity templateEntity = await _templateRepository.FirstAsync(x => x.Id == request.TemplateId, cancellationToken);
             await BindBlackListAsync(templateEntity, request.BlackListId, cancellationToken);
 
             _templateRepository.Update(templateEntity);
             await _authUnitOfWork.CommintAsync(cancellationToken);
+
+            return Unit.Value;
         }
 
         private async Task BindBlackListAsync(StandardAutoresponderTemplateEntity templateEntity, int blackListId, CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketTools.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace MarketTools.Domain.Entities
         [MaxLength(100)]
         public string Name { get; set; } = null!;
         public string? Discriminator { get; set; }
+
+        [Required]
+        [Range(1, 999)]
+        public MarketplaceName MarketplaceName { get; set; } = 0;
 
         [MaxLength(300)]
         public string? Description { get; set; }

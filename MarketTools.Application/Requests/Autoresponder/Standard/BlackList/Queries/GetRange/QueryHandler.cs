@@ -12,7 +12,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Quer
     public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BlackListGetRangeQuery, IEnumerable<StandardAutoresponderBlackListEntity>>
     {
-        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.StandardAutoresponderBlackLists;
+        private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
         public async Task<IEnumerable<StandardAutoresponderBlackListEntity>> Handle(BlackListGetRangeQuery request, CancellationToken cancellationToken)
         {
             return await _repository.GetRangeAsync(cancellationToken);

@@ -115,6 +115,9 @@ namespace MarketTools.Infrastructure.Migrations
                     b.Property<DateTime>("LastBadConnectDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("MarketplaceName")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -586,7 +589,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~", (string)null);
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.OzonSellerOpenApiConnectionEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionOpenApiEntity", b =>
                 {
                     b.HasBaseType("MarketTools.Domain.Entities.MarketplaceConnectionEntity");
 
@@ -595,25 +598,7 @@ namespace MarketTools.Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.HasDiscriminator().HasValue("OzonSellerOpenApiConnectionEntity");
-                });
-
-            modelBuilder.Entity("MarketTools.Domain.Entities.WbSellerOpenApiConnectionEntity", b =>
-                {
-                    b.HasBaseType("MarketTools.Domain.Entities.MarketplaceConnectionEntity");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.ToTable("MarketplaceConnection", null, t =>
-                        {
-                            t.Property("Token")
-                                .HasColumnName("WbSellerOpenApiConnectionEntity_Token");
-                        });
-
-                    b.HasDiscriminator().HasValue("WbSellerOpenApiConnectionEntity");
+                    b.HasDiscriminator().HasValue("MarketplaceConnectionOpenApiEntity");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>

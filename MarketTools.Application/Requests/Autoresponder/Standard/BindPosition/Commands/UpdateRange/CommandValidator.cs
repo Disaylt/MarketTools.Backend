@@ -25,7 +25,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
                         return true;
                     }
 
-                    IEnumerable<StandardAutoresponderColumnEntity> entities = await authUnitOfWork.StandardAutoresponderColumns
+                    IEnumerable<StandardAutoresponderColumnEntity> entities = await authUnitOfWork.GetRepository<StandardAutoresponderColumnEntity>()
                         .GetRangeAsync(x => x.Type == command.ColumnType, ct);
                     IEnumerable<int> columnsIds = entities.Select(x => x.Id);
 
