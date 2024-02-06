@@ -12,6 +12,7 @@ namespace MarketTools.Application.Common.Exceptions
     {
         public MarketplaceConnectionEntity MarketplaceConnection { get; }
         public HttpStatusCode HttpStatusCode { get; }
+
         public AppConnectionBadRequestException(MarketplaceConnectionEntity connection, HttpStatusCode statusCode) 
             : base("Не удалось отправить запрос на сторонний сервер.") 
         {

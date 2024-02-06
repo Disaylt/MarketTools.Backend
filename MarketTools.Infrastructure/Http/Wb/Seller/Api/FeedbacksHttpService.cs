@@ -1,5 +1,8 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
+using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
@@ -11,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class FeedbacksHttpService : BaseHttpService, IFeedbacksHttpService
+    internal class FeedbacksHttpService : WbOpenApiHttpConnectionService<MarketplaceConnectionOpenApiEntity>, IFeedbacksHttpService
     {
         private readonly HttpClient _httpClient; 
 
-        public FeedbacksHttpService(HttpClient httpClient)
+        public FeedbacksHttpService(HttpClient httpClient, IHttpConnectionContextReader httpConnectionContextReader) : base(httpConnectionContextReader, httpClient)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
@@ -26,9 +29,11 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             string path = CreatePathForGettingFeedbacks(query);
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
 
-            HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
+            HttpResponseMessage response = await SendAsync(requestMessage);
 
-            return await GetViewResultAsJson<WbApiResult<FeedbackResponseData>>(response);
+            return await response.Content
+                .ReadFromJsonAsync<WbApiResult<FeedbackResponseData>>()
+                ?? throw new AppBadRequestException("Не удалось прочитать json с отзывами WB");
         }
 
         public async Task SendResponseAsync(SendResponseBody body)
@@ -39,7 +44,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
             request.Content = content;
 
-            await _httpClient.SendAsync(request);
+            await SendAsync(request);
         }
 
         private string CreatePathForGettingFeedbacks(FeedbacksQuery query)

@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal class HttpConnectionContextHandler : IHttpConnectionContextReader, IHttpConnectionContextWriter
+    public class HttpConnectionContextHandler : IHttpConnectionContextReader, IHttpConnectionContextWriter
     {
-        private readonly Dictionary<Type, MarketplaceConnectionEntity> _connections = new Dictionary<Type, MarketplaceConnectionEntity>();
+        private Dictionary<Type, MarketplaceConnectionEntity> _connections;
+
+        public HttpConnectionContextHandler()
+        {
+            _connections = new Dictionary<Type, MarketplaceConnectionEntity>();
+        }
 
         public T Read<T>() where T : MarketplaceConnectionEntity
         {
@@ -26,7 +31,7 @@ namespace MarketTools.Infrastructure.Http
 
         public void Write<T>(T entity) where T : MarketplaceConnectionEntity
         {
-            Type type = typeof(T);
+            Type type = entity.GetType();
 
             if (_connections.ContainsKey(type))
             {

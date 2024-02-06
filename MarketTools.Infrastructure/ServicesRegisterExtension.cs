@@ -26,6 +26,7 @@ using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
+using Microsoft.Extensions.Http;
 
 namespace MarketTools.Infrastructure
 {
@@ -56,8 +57,7 @@ namespace MarketTools.Infrastructure
 
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>()
-                .AddHttpMessageHandler<WbOpenApiMessageHandler>();
+            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>();
 
             return serviceDescriptors;
         }
