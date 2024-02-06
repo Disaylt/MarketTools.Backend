@@ -1,4 +1,4 @@
-using WbStandardAutoresponder.WrokerService;
+using StandardAutoresponder.WorkerService;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();

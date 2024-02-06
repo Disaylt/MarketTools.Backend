@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "WbStandardAutoresponder.WrokerService": {
+    "StandardAutoresponder.WorkerService": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

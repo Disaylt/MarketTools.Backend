@@ -1,4 +1,4 @@
-namespace WbStandardAutoresponder.WrokerService
+namespace StandardAutoresponder.WorkerService
 {
     public class Worker : BackgroundService
     {

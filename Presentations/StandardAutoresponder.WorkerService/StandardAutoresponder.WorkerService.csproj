@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-WbStandardAutoresponder.WrokerService-1c3160f7-61ca-4405-8f59-9c4b97175bfa</UserSecretsId>
+    <UserSecretsId>dotnet-StandardAutoresponder.WorkerService-62bf3ee6-9739-44f1-bd67-bc3ff9a7ca1f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
