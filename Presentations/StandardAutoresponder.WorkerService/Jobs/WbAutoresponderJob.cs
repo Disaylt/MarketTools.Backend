@@ -1,4 +1,7 @@
-﻿using Quartz;
+﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +11,13 @@ using System.Threading.Tasks;
 namespace StandardAutoresponder.WorkerService.Jobs
 {
     [DisallowConcurrentExecution]
-    internal class WbAutoresponderJob : IJob
+    internal class WbAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService) : IJob
     {
-        public Task Execute(IJobExecutionContext context)
+        public async Task Execute(IJobExecutionContext context)
         {
+            IEnumerable<StandardAutoresponderConnectionEntity> activeConnections = await _autoresponderConnectionsService
+                .GetRangeForHandleAsync(MarketplaceName.WB, context.CancellationToken);
+
             throw new NotImplementedException();
         }
     }
