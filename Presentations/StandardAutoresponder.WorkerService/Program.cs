@@ -4,7 +4,8 @@ using StandardAutoresponder.WorkerService.Jobs;
 using StandardAutoresponder.WorkerService.Utilities;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddScoped<IWbAutoresponderHandler, WbAutoresponderHandler>();
+builder.Services.AddScoped<IWbAutoresponderService, WbAutoresponderService>();
+builder.Services.AddScoped<IContextLoader, ContextLoader>();
 
 builder.Services.AddQuartz(opt =>
 {

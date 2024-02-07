@@ -1,4 +1,9 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using Quartz;
@@ -39,10 +44,15 @@ namespace StandardAutoresponder.WorkerService.Jobs
             try
             {
                 using IServiceScope serviceScope = _serviceProvider.CreateScope();
-                IWbAutoresponderHandler wbAutoresponderHandler = serviceScope
+
+                await serviceScope.ServiceProvider
+                    .GetRequiredService<IContextLoader>()
+                    .Handle(MarketplaceName.WB, connectionId);
+
+                await serviceScope
                     .ServiceProvider
-                    .GetRequiredService<IWbAutoresponderHandler>();
-                await wbAutoresponderHandler.RunAsync(connectionId);
+                    .GetRequiredService<IWbAutoresponderService>()
+                    .RunAsync();
             }
             finally 
             {

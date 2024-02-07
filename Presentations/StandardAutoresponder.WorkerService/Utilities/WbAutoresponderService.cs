@@ -1,4 +1,5 @@
-﻿using StandardAutoresponder.WorkerService.Interfaces;
+﻿using MarketTools.Application.Interfaces.Http;
+using StandardAutoresponder.WorkerService.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace StandardAutoresponder.WorkerService.Utilities
 {
-    internal class WbAutoresponderHandler() : IWbAutoresponderHandler
+    internal class WbAutoresponderService : IWbAutoresponderService
     {
-        public async Task RunAsync(int connectionId)
+        public WbAutoresponderService() 
+        {
+
+        }
+        
+        public async Task RunAsync()
         {
             try
             {
 
-                Console.WriteLine(connectionId);
             }
             catch(Exception ex)
             {
