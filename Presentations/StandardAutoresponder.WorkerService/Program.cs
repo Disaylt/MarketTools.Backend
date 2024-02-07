@@ -1,10 +1,11 @@
 using Quartz;
 using StandardAutoresponder.WorkerService.Interfaces;
 using StandardAutoresponder.WorkerService.Jobs;
+using StandardAutoresponder.WorkerService.Services;
 using StandardAutoresponder.WorkerService.Utilities;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddScoped<IWbAutoresponderService, WbAutoresponderService>();
+builder.Services.AddScoped<IWbFeedbacksHandler, WbFeedbacksHandler>();
 builder.Services.AddScoped<IContextLoader, ContextLoader>();
 
 builder.Services.AddQuartz(opt =>
