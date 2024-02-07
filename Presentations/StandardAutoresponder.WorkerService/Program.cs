@@ -1,7 +1,8 @@
-using StandardAutoresponder.WorkerService;
+using Quartz;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var host = builder.Build();
 host.Run();
