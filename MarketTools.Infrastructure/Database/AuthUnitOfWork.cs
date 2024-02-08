@@ -50,7 +50,8 @@ namespace MarketTools.Infrastructure.Database
                 { typeof(StandardAutoresponderTemplateEntity), () => new AuthCondition<StandardAutoresponderTemplateEntity>(x=> x.UserId == userId)},
                 { typeof(StandardAutoresponderCellEntity), () => new AuthCondition<StandardAutoresponderCellEntity>(x=> x.Column.UserId == userId)},
                 { typeof(StandardAutoresponderRecommendationProductEntity), () => new AuthCondition<StandardAutoresponderRecommendationProductEntity>(x=> x.UserId == userId)},
-                { typeof(StandardAutoresponderColumnEntity), () => new AuthCondition<StandardAutoresponderColumnEntity>(x=> x.UserId == userId)}
+                { typeof(StandardAutoresponderColumnEntity), () => new AuthCondition<StandardAutoresponderColumnEntity>(x=> x.UserId == userId)},
+                { typeof(UserNotificationEntity), () => new AuthCondition<UserNotificationEntity>(x=> x.UserId == userId)}
             };
         }
 

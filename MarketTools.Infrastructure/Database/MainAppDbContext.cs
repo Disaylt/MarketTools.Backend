@@ -27,6 +27,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionOpenAPIs { get; set; } = null!;
         public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
+        public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
