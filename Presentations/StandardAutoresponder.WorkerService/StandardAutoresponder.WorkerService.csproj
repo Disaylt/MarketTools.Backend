@@ -19,5 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MarketTools.Application\MarketTools.Application.csproj" />
+    <ProjectReference Include="..\..\MarketTools.Domain\MarketTools.Domain.csproj" />
+    <ProjectReference Include="..\..\MarketTools.Infrastructure\MarketTools.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

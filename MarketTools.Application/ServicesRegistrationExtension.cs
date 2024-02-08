@@ -31,10 +31,6 @@ namespace MarketTools.Application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
             services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
 
             services.AddScoped<AutoresponderContextService>();
@@ -51,6 +47,14 @@ namespace MarketTools.Application
             return services;
         }
 
+        public static IServiceCollection AddMedatorRequests(this IServiceCollection services)
+        {
+            services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            return services;
+        }
 
         public static HostApplicationBuilder AddConfiguration(this HostApplicationBuilder builder)
         {

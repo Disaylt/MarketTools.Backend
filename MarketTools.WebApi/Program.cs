@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCurrentApp();
 builder.Services.AddApplicationLayer();
+builder.Services.AddMedatorRequests();
 builder.Services.AddBaererSwager();
 
 builder.Services.AddDatabases(sequreConfiguration);

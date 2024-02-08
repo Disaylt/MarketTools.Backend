@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace StandardAutoresponder.WorkerService.Services
 {
-    internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, IAutoresponderResponseService _autoresponderResponseService)
+    internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, IAutoresponderResponseService _autoresponderResponseService, ILogger<WbFeedbacksHandler> _logger)
         : IWbFeedbacksHandler
     {
         public async Task RunAsync()
@@ -47,7 +47,9 @@ namespace StandardAutoresponder.WorkerService.Services
                 Text = answer.Text
             };
 
-            await _feedbacksHttpService.SendResponseAsync(body);
+            await Task.Delay(100);
+            //await _feedbacksHttpService.SendResponseAsync(body);
+            _logger.LogInformation($"Send feedback {feedback.Id}");
 
             return true;
         }

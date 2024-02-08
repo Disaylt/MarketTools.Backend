@@ -1,10 +1,24 @@
+using MarketTools.Application;
+using MarketTools.Domain.Common.Configuration;
 using Quartz;
 using StandardAutoresponder.WorkerService.Interfaces;
 using StandardAutoresponder.WorkerService.Jobs;
 using StandardAutoresponder.WorkerService.Services;
 using StandardAutoresponder.WorkerService.Utilities;
+using MarketTools.Infrastructure;
+using MarketTools.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = Host.CreateApplicationBuilder(args);
+builder.AddConfiguration();
+SequreSettings sequreConfiguration = builder.Configuration.GetSection("Sequre").Get<SequreSettings>()
+    ?? throw new NullReferenceException();
+
+builder.Services.AddApplicationLayer();
+builder.Services.AddDatabases(sequreConfiguration);
+builder.Services.AddInfrastructureLayer(builder.Configuration);
+builder.Services.AddHttpClients(sequreConfiguration);
+
 builder.Services.AddScoped<IWbFeedbacksHandler, WbFeedbacksHandler>();
 builder.Services.AddScoped<IContextLoader, ContextLoader>();
 
@@ -18,7 +32,7 @@ builder.Services.AddQuartz(opt =>
         .WithIdentity($"{jobKey.Name}-t")
         .StartNow()
         .WithSimpleSchedule(scheduleOpt => scheduleOpt
-            .WithIntervalInSeconds(2)
+            .WithIntervalInMinutes(10)
             .RepeatForever()));
 });
 
