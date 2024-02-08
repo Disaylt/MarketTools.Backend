@@ -4,10 +4,12 @@ using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
+using MarketTools.Application.Services.Notifications;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Application.Utilities.ProjectServices;
@@ -40,6 +42,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
+            services.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
             AddConnectionDeterminant(services);
             AddServiceValidators(services);
