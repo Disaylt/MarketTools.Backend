@@ -17,16 +17,16 @@ namespace MarketTools.Infrastructure.Database
 {
     internal class AuthUnitOfWork : UnitOfWork, IAuthUnitOfWork
     {
-        private readonly IAuthReadHelper _authReadHelper;
+        private readonly Dictionary<Type, Func<object>> _conditions;
 
         public AuthUnitOfWork(MainAppDbContext dbContext, IAuthReadHelper authReadHelper) : base(dbContext)
         {
-            _authReadHelper = authReadHelper;
+            _conditions = UserConditionsList(authReadHelper.UserId);
         }
 
         public override IRepository<T> GetRepository<T>()
         {
-            AuthCondition<T> authCondition = UserConditionsList(_authReadHelper.UserId).GetValueOrDefault(typeof(T))?
+            AuthCondition<T> authCondition = _conditions.GetValueOrDefault(typeof(T))?
                 .Invoke()
                 as AuthCondition<T>
                 ?? throw new Exception($"Не найдено условие авторизации для таблицы {typeof(T).Name}");

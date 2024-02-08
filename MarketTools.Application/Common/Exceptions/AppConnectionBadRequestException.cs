@@ -1,4 +1,5 @@
 ﻿using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace MarketTools.Application.Common.Exceptions
     {
         public MarketplaceConnectionEntity MarketplaceConnection { get; }
         public HttpStatusCode HttpStatusCode { get; }
+        public EnumProjectServices? Service { get; }
 
-        public AppConnectionBadRequestException(MarketplaceConnectionEntity connection, HttpStatusCode statusCode) 
+        public AppConnectionBadRequestException(MarketplaceConnectionEntity connection, HttpStatusCode statusCode, EnumProjectServices? enumProjectServices = null) 
             : base("Не удалось отправить запрос на сторонний сервер.") 
         {
             MarketplaceConnection = connection;
             HttpStatusCode = statusCode;
+            Service = enumProjectServices;
         }
     }
 }
