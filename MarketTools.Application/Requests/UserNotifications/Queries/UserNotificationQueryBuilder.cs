@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.UserNotifications.Queries.GetRange
+namespace MarketTools.Application.Requests.UserNotifications.Queries
 {
     internal class UserNotificationQueryBuilder : BaseQueryBuilder<UserNotificationEntity>
     {
@@ -17,9 +17,9 @@ namespace MarketTools.Application.Requests.UserNotifications.Queries.GetRange
 
         public UserNotificationQueryBuilder SetReadStatus(bool? isRead)
         {
-            if(isRead.HasValue)
+            if (isRead.HasValue)
             {
-                Query = Query.Where(x=> x.IsRead == isRead.Value);
+                Query = Query.Where(x => x.IsRead == isRead.Value);
             }
 
             return this;
