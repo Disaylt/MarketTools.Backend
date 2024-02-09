@@ -42,7 +42,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
         private async Task AddNotification(UpdateConnenctionStatusCommand request)
         {
-            if(request)
+
         }
 
         private async Task CheckConnection(int id)
