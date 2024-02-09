@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
@@ -15,7 +16,8 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory)
+        IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
+        IUserNotificationsService _userNotificationsService)
         : IRequestHandler<UpdateConnenctionStatusCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
@@ -36,6 +38,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
             await _authUnitOfWork.CommintAsync(cancellationToken);
 
             return Unit.Value;
+        }
+
+        private async Task AddNotification(UpdateConnenctionStatusCommand request)
+        {
+            if(request)
         }
 
         private async Task CheckConnection(int id)
