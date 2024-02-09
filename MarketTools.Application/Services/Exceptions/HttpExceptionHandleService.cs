@@ -2,6 +2,8 @@
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Notifications;
+using MarketTools.Application.Utilities.MarketplaceConnections;
+using MarketTools.Application.Utilities.ProjectServices;
 using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -36,17 +38,17 @@ namespace MarketTools.Application.Services.Exceptions
             if(exeption.MarketplaceConnection.IsActive) return;
 
             MarketplaceConnectionEntity connection = exeption.MarketplaceConnection;
-
-            string message = $"Подключение '{connection.Name}' | id: {connection.Id} " +
-                $"не смогло подключиться к серверу после {connection.NumConnectionsAttempt} попыток. " +
-                $"Пожалуйста, обновите данные подключения для исправной работы сервиса. Маркетплейс: {connection.MarketplaceName}. ";
+            StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.AppendLine($"Подключение '{connection.Name}' | id: {connection.Id} не установило подключение к серверу после '{connection.NumConnectionsAttempt}' попыток. " +
+                $"Пожалуйста, обновите данные подключения для исправной работы сервиса.");
+            messageBuilder.AppendLine($"Маркетплейс: {MarketplaceNameConverter.Convert(connection.MarketplaceName)}.");
 
             if (exeption.Service.HasValue)
             {
-                message += $"Сервис: {exeption.Service.Value}";
+                messageBuilder.AppendLine($"Сервис: {ProjectServiceNameConverter.Convert(exeption.Service.Value)}");
             }
 
-            await _userNotificationsService.AddWithoutCommitAsync(message);
+            await _userNotificationsService.AddWithoutCommitAsync(messageBuilder.ToString());
         }
 
         private void UseAttemptCounter(MarketplaceConnectionEntity connection)

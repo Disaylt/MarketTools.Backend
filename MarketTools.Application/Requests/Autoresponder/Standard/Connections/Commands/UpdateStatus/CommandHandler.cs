@@ -25,33 +25,37 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
         public async Task<Unit> Handle(UpdateConnenctionStatusCommand request, CancellationToken cancellationToken)
         {
+            MarketplaceConnectionEntity marketplaceConnection = await _connectionRepository.FirstAsync(x => x.Id == request.Id);
+
             if (request.IsActive)
             {
-                await CheckConnection(request.Id);
+                await CheckConnection(marketplaceConnection);
             }
 
-            StandardAutoresponderConnectionEntity entity = await _repository.FirstAsync(x => x.SellerConnectionId == request.Id, cancellationToken);
+            StandardAutoresponderConnectionEntity serviceConnection = await _repository.FirstAsync(x => x.SellerConnectionId == request.Id, cancellationToken);
 
-            entity.IsActive = request.IsActive;
+            serviceConnection.IsActive = request.IsActive;
 
-            _repository.Update(entity);
+            _repository.Update(serviceConnection);
+            await AddNotificationAsync(marketplaceConnection, serviceConnection);
             await _authUnitOfWork.CommintAsync(cancellationToken);
 
             return Unit.Value;
         }
 
-        private async Task AddNotification(UpdateConnenctionStatusCommand request)
+        private async Task AddNotificationAsync(MarketplaceConnectionEntity marketplaceConnection, StandardAutoresponderConnectionEntity entity)
         {
+            string status = entity.IsActive ? "Активирован" : "Отключен";
+            string message = $"Стандартный автоответчик - {status}. Подключение: {marketplaceConnection.Name}. Маркетплейс: {MarketplaceNameConverter.Convert(marketplaceConnection.MarketplaceName)}";
 
+            await _userNotificationsService.AddWithoutCommitAsync(message);
         }
 
-        private async Task CheckConnection(int id)
+        private async Task CheckConnection(MarketplaceConnectionEntity entity)
         {
-            MarketplaceConnectionEntity entity = await _connectionRepository.FirstAsync(x => x.Id == id);
-
             await _connectionServiceFactory.Create(entity.MarketplaceName)
                 .Create(EnumProjectServices.StandardAutoresponder)
-                .TryActivete(id);
+                .TryActivete(entity.Id);
         }
     }
 }
