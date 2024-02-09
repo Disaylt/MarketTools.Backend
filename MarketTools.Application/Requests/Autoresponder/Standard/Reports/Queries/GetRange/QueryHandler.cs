@@ -18,10 +18,14 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Querie
 
         public async Task<IEnumerable<StandardAutoresponderNotificationEntity>> Handle(GetRangeReportsQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<StandardAutoresponderNotificationEntity> query = _repository.GetAsQueryable();
+            IQueryable<StandardAutoresponderNotificationEntity> query = _repository
+                .GetAsQueryable();
 
             return await new ReportsQueryBuilder(query)
                 .SetConnectionId(request.ConnectionId)
+                .SetArticle(request.Article)
+                .SetRating(request.Rating)
+                .SetSuccesStatus(request.IsSuccess)
                 .SetPagination(request.PageRequest)
                 .Build()
                 .ToListAsync();

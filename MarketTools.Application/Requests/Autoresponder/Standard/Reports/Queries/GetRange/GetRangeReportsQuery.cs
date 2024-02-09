@@ -12,5 +12,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Querie
     public class GetRangeReportsQuery : GetRangeQuery<StandardAutoresponderNotificationEntity>
     {
         public int? ConnectionId { get; set; }
+        public int? Rating { get; set; }
+        public bool? IsSuccess { get; set; }
+        public string? Article { get; set; }
     }
 }

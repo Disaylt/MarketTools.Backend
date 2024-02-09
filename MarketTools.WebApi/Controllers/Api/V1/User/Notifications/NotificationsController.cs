@@ -66,7 +66,8 @@ namespace MarketTools.WebApi.Controllers.Api.V1.User.Notifications
                 PageRequest = new PageRequest
                 {
                     Skip = queryHttp.Skip,
-                    Take = queryHttp.Take
+                    Take = queryHttp.Take,
+                    OrderType = Domain.Enums.OrderType.Desk
                 },
                 IsRead = queryHttp.IsRead,
                 IsSetReadStatus = true
