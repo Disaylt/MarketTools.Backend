@@ -15,7 +15,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.User.Notifications
     [Route("api/v1/user/[controller]")]
     [ApiController]
     [Authorize]
-    public class NotificationsController(IMediator _mediator, IMapper _mapper)
+    public class NotificationsController(IMediator _mediator)
         : ControllerBase
     {
         [HttpGet]

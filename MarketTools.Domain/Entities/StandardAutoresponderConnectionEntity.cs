@@ -16,5 +16,6 @@ namespace MarketTools.Domain.Entities
         public MarketplaceConnectionEntity SellerConnection { get; set; } = null!;
 
         public List<StandardAutoresponderConnectionRatingEntity> Ratings { get; set; } = new List<StandardAutoresponderConnectionRatingEntity>();
+        public List<StandardAutoresponderNotificationEntity> Notifications { get; set; } = new List<StandardAutoresponderNotificationEntity>();
     }
 }
