@@ -1,7 +1,11 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Models.Autoresponder;
+using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using StandardAutoresponder.WorkerService.Interfaces;
@@ -13,7 +17,13 @@ using System.Threading.Tasks;
 
 namespace StandardAutoresponder.WorkerService.Services
 {
-    internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, IAutoresponderResponseService _autoresponderResponseService, ILogger<WbFeedbacksHandler> _logger)
+    internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, 
+        IAutoresponderResponseService _autoresponderResponseService,
+        IAutoresponderReportsService _autoresponderReportsService,
+        IAutoresponderContextReader _autoresponderContextReader,
+        IUnitOfWork _unitOfWork,
+        ILogger<WbFeedbacksHandler> _logger,
+        IExceptionHandleService<AppConnectionBadRequestException> _exceptionHandleService)
         : IWbFeedbacksHandler
     {
         public async Task RunAsync()
@@ -26,12 +36,38 @@ namespace StandardAutoresponder.WorkerService.Services
                 {
                     AutoresponderResultModel answer = BuildResponse(feedback);
                     bool isSend = await TrySendAnswerAsync(answer, feedback);
+                    await AddReportAsync(feedback, answer);
                 }
+            }
+            catch(AppConnectionBadRequestException ex)
+            {
+                await _exceptionHandleService.Hadnle(ex);
             }
             catch (Exception ex)
             {
-
+                _logger.LogInformation(ex.Message);
             }
+            finally
+            {
+                await _unitOfWork.CommintAsync();
+            }
+        }
+
+        private async Task AddReportAsync(FeedbackDetails feedback, AutoresponderResultModel answer)
+        {
+            ReportCreateDto report = new ReportCreateDto
+            {
+                Article = feedback.ProductDetails.ImtId,
+                SupplierArticle = feedback.ProductDetails.SupplierArticle,
+                ConnectionId = _autoresponderContextReader.Context.Connection.SellerConnectionId,
+                IsSuccess = answer.IsSuccess,
+                Rating = feedback.ProductValuation,
+                Report = answer.Report,
+                Response = answer.Text ?? "-",
+                ReviewCreateDate = feedback.CreatedDate
+            };
+
+            await _autoresponderReportsService.AddWithoutCommitAsync(report);
         }
 
         private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)
@@ -49,7 +85,6 @@ namespace StandardAutoresponder.WorkerService.Services
 
             await Task.Delay(100);
             //await _feedbacksHttpService.SendResponseAsync(body);
-            _logger.LogInformation($"Send feedback {feedback.Id}");
 
             return true;
         }

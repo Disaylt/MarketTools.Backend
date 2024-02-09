@@ -17,9 +17,26 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public async Task<StandardAutoresponderNotificationEntity> AddWithoutAsyncAsync(ReportCreateDto model)
+        public async Task<StandardAutoresponderNotificationEntity> AddAsync(ReportCreateDto model)
         {
-            StandardAutoresponderNotificationEntity entity = new StandardAutoresponderNotificationEntity
+            StandardAutoresponderNotificationEntity entity = await AddWithoutCommitAsync(model);
+            await _unitOfWork.CommintAsync();
+            
+            return entity;
+        }
+
+        public async Task<StandardAutoresponderNotificationEntity> AddWithoutCommitAsync(ReportCreateDto model)
+        {
+            StandardAutoresponderNotificationEntity entity = Create(model);
+
+            await _repository.AddAsync(entity);
+
+            return entity;
+        }
+
+        private StandardAutoresponderNotificationEntity Create(ReportCreateDto model)
+        {
+            return new StandardAutoresponderNotificationEntity
             {
                 StandardAutoresponderConnectionId = model.ConnectionId,
                 IsSuccess = model.IsSuccess,
@@ -30,10 +47,6 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 Rating = model.Rating,
                 ReviewCreateDate = model.ReviewCreateDate
             };
-
-            await _repository.AddAsync(entity);
-
-            return entity;
         }
     }
 }

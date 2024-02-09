@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Common.Behavoirs;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
@@ -9,6 +10,7 @@ using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
+using MarketTools.Application.Services.Exceptions;
 using MarketTools.Application.Services.Notifications;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
@@ -44,6 +46,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
             services.AddScoped<IUserNotificationsService, UserNotificationsService>();
             services.AddScoped<IAutoresponderReportsService, AutoresponderReportsService>();
+            services.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             AddConnectionDeterminant(services);
             AddServiceValidators(services);

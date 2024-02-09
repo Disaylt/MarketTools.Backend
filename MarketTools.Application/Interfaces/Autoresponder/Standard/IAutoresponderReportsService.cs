@@ -11,6 +11,7 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderReportsService
     {
-        public Task<StandardAutoresponderNotificationEntity> AddWithoutAsyncAsync(ReportCreateDto model);
+        public Task<StandardAutoresponderNotificationEntity> AddWithoutCommitAsync(ReportCreateDto model);
+        public Task<StandardAutoresponderNotificationEntity> AddAsync(ReportCreateDto model);
     }
 }
