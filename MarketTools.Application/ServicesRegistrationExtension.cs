@@ -43,6 +43,7 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
             services.AddScoped<IUserNotificationsService, UserNotificationsService>();
+            services.AddScoped<IAutoresponderReportsService, AutoresponderReportsService>();
 
             AddConnectionDeterminant(services);
             AddServiceValidators(services);
