@@ -13,5 +13,6 @@ namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
         public string Text { get; set; } = string.Empty;
         public required ProductDetails ProductDetails { get; set; }
         public int ProductValuation { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

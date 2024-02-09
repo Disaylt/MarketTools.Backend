@@ -1,4 +1,6 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Domain.Entities;
+using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,6 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderReportsService
     {
-        public Task<StandardAutoresponderNotificationEntity> AddWithoutAsyncAsync(bool isSuccess, string report, string response, int connectionId);
+        public Task<StandardAutoresponderNotificationEntity> AddWithoutAsyncAsync(ReportCreateDto model);
     }
 }
