@@ -20,6 +20,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
         {
             MarketplaceConnectionOpenApiEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             entity.Token = request.Token;
+            entity.NumConnectionsAttempt = 0;
             await _connectionActivator.ActivateAsync(entity);
 
             _repository.Update(entity);

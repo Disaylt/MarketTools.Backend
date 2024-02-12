@@ -19,7 +19,6 @@ namespace StandardAutoresponder.WorkerService.Utilities
     internal class ContextLoader(IConnectionServiceFactory<IConnectionSerivceDeterminant> _connectionServiceFactory,
         IHttpConnectionContextWriter _httpConnectionContextWriter,
         IUnitOfWork _unitOfWork,
-        IAuthWriteHelper _authWriteHelper,
         IAutoresponderContextService _autoresponderContextService,
         IAutoresponderContextWriter _autoresponderContextWriter)
         : IContextLoader
@@ -32,7 +31,6 @@ namespace StandardAutoresponder.WorkerService.Utilities
                 .GetAsync(_unitOfWork, connectionId);
 
             _httpConnectionContextWriter.Write(connection);
-            _authWriteHelper.Set(connection.UserId);
 
             AutoresponderContext autoresponderContext = await _autoresponderContextService.Create(connectionId);
             _autoresponderContextWriter.Write(autoresponderContext);
