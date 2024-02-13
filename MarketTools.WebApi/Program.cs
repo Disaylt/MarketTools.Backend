@@ -42,7 +42,10 @@ app.UseSwaggerUI();
 
 app.UseCors(builder => builder
     .WithOrigins(
-        "http://localhost:4200"
+        "http://localhost:4200",
+        "http://mp-force.ru",
+        "https://localhost:4200",
+        "https://mp-force.ru"
     )
     .AllowAnyMethod()
     .AllowAnyHeader()
