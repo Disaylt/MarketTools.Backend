@@ -24,7 +24,7 @@ namespace MarketTools.WebApi.Middlewares
             }
             catch(AppBadRequestException exception)
             {
-                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+                await RunExceptionHandlerAsync<Exception>(context, serviceProvider, exception);
             }
             catch(AppNotFoundException exception)
             {
@@ -37,6 +37,10 @@ namespace MarketTools.WebApi.Middlewares
             catch(DbUpdateException exception)
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(AppConnectionBadRequestException exception)
+            {
+                await RunExceptionHandlerAsync<Exception>(context, serviceProvider, exception);
             }
         }
 

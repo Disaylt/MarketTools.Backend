@@ -23,7 +23,7 @@ namespace MarketTools.WebApi.Extensions
         public static IServiceCollection AddCurrentApp(this IServiceCollection serviceDescriptors)
         {
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppBadRequestException>, DefaultBadRequestExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<Exception>, DefaultBadRequestExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppNotFoundException>, DefaultNotFoundExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<DbUpdateException>, EntityFrameworkExceptionHandlerService>();

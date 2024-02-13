@@ -1,4 +1,5 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
@@ -23,15 +24,22 @@ namespace MarketTools.Infrastructure.Services.MarketplaceConnecctions
 
         private async Task CheckStandardAutoresponderAsync(MarketplaceConnectionEntity marketplaceConnection)
         {
-            StandardAutoresponderConnectionEntity connection = await _standardAutoresponderConnectionRepository
+            try
+            {
+                StandardAutoresponderConnectionEntity connection = await _standardAutoresponderConnectionRepository
                 .FirstAsync(x => x.SellerConnectionId == marketplaceConnection.Id);
 
-            if (connection.IsActive)
+                if (connection.IsActive)
+                {
+                    await _connectionServiceFactory
+                        .Create(marketplaceConnection.MarketplaceName)
+                        .Create(EnumProjectServices.StandardAutoresponder)
+                        .TryActivete(marketplaceConnection.Id);
+                }
+            }
+            catch (Exception ex)
             {
-                await _connectionServiceFactory
-                    .Create(marketplaceConnection.MarketplaceName)
-                    .Create(EnumProjectServices.StandardAutoresponder)
-                    .TryActivete(marketplaceConnection.Id);
+                throw new AppBadRequestException($"Ошибка при попытке подключения к стандартному автоответчику. Сообщение: {ex.Message}");
             }
         }
     }
