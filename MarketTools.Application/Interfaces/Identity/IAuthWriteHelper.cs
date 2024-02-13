@@ -9,5 +9,6 @@ namespace MarketTools.Application.Interfaces.Identity
     public interface IAuthWriteHelper
     {
         public void Set(string userId);
+        public Task SetByLoadConnectionAsync(int connectionId);
     }
 }

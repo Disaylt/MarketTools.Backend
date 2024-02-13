@@ -1,7 +1,10 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using DocumentFormat.OpenXml.Vml.Office;
+using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
-using MarketTools.Infrastructure.Database.AuthRepositories;
+using MarketTools.Domain.Enums;
+using MarketTools.Infrastructure.Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,52 +17,48 @@ namespace MarketTools.Infrastructure.Database
 {
     internal class AuthUnitOfWork : UnitOfWork, IAuthUnitOfWork
     {
-        private readonly IAuthReadHelper _authReadHelper;
+        private readonly Dictionary<Type, Func<object>> _conditions;
+
         public AuthUnitOfWork(MainAppDbContext dbContext, IAuthReadHelper authReadHelper) : base(dbContext)
         {
-            _authReadHelper = authReadHelper;
+            _conditions = UserConditionsList(authReadHelper.UserId);
         }
 
-        public IAuthRepository<AutoresponderColumn> AutoresponderColumns 
-            => new GenericAuthRepository<AutoresponderColumn>(GetDbSet<AutoresponderColumn>(), x => x.UserId == _authReadHelper.UserId);
+        public override IRepository<T> GetRepository<T>()
+        {
+            AuthCondition<T> authCondition = _conditions.GetValueOrDefault(typeof(T))?
+                .Invoke()
+                as AuthCondition<T>
+                ?? throw new Exception($"Не найдено условие авторизации для таблицы {typeof(T).Name}");
 
-        public IAuthRepository<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts
-            => new GenericAuthRepository<AutoresponderRecommendationProduct>(GetDbSet<AutoresponderRecommendationProduct>(), x => x.UserId == _authReadHelper.UserId);
+            return CreateAuthRepository(authCondition.Condition);
+        }
 
-        public IAuthRepository<AutoresponderCell> AutoresponderCells
-            => new GenericAuthRepository<AutoresponderCell>(GetDbSet<AutoresponderCell>(), x => x.Column.UserId == _authReadHelper.UserId);
+        private static Dictionary<Type, Func<object>> UserConditionsList(string userId)
+        {
+            return new Dictionary<Type, Func<object>>
+            {
+                { typeof(StandardAutoresponderBanWordEntity), () => new AuthCondition<StandardAutoresponderBanWordEntity>(x=> x.BlackList.UserId == userId)},
+                { typeof(StandardAutoresponderBlackListEntity), () => new AuthCondition<StandardAutoresponderBlackListEntity>(x=> x.UserId == userId)},
+                { typeof(MarketplaceConnectionOpenApiEntity), () => new AuthCondition<MarketplaceConnectionOpenApiEntity>(x=> x.UserId == userId)},
+                { typeof(MarketplaceConnectionEntity), () => new AuthCondition<MarketplaceConnectionEntity>(x=> x.UserId == userId)},
+                { typeof(StandardAutoresponderTemplateSettingsEntity), () => new AuthCondition<StandardAutoresponderTemplateSettingsEntity>(x=> x.Template.UserId == userId)},
+                { typeof(StandardAutoresponderConnectionRatingEntity), () => new AuthCondition<StandardAutoresponderConnectionRatingEntity>(x=> x.Connection.SellerConnection.UserId == userId)},
+                { typeof(StandardAutoresponderConnectionEntity), () => new AuthCondition<StandardAutoresponderConnectionEntity>(x=> x.SellerConnection.UserId == userId)},
+                { typeof(StandardAutoresponderBindPositionEntity), () => new AuthCondition<StandardAutoresponderBindPositionEntity>(x=> x.Template.UserId == userId)},
+                { typeof(StandardAutoresponderTemplateArticleEntity), () => new AuthCondition<StandardAutoresponderTemplateArticleEntity>(x=> x.Template.UserId == userId)},
+                { typeof(StandardAutoresponderTemplateEntity), () => new AuthCondition<StandardAutoresponderTemplateEntity>(x=> x.UserId == userId)},
+                { typeof(StandardAutoresponderCellEntity), () => new AuthCondition<StandardAutoresponderCellEntity>(x=> x.Column.UserId == userId)},
+                { typeof(StandardAutoresponderRecommendationProductEntity), () => new AuthCondition<StandardAutoresponderRecommendationProductEntity>(x=> x.UserId == userId)},
+                { typeof(StandardAutoresponderColumnEntity), () => new AuthCondition<StandardAutoresponderColumnEntity>(x=> x.UserId == userId)},
+                { typeof(UserNotificationEntity), () => new AuthCondition<UserNotificationEntity>(x=> x.UserId == userId)},
+                { typeof(StandardAutoresponderNotificationEntity), () => new AuthCondition<StandardAutoresponderNotificationEntity>(x=> x.StandardAutoresponderConnection.SellerConnection.UserId == userId)}
+            };
+        }
 
-        public IAuthRepository<AutoresponderTemplate> AutoresponderTemplates
-            => new GenericAuthRepository<AutoresponderTemplate>(GetDbSet<AutoresponderTemplate>(), x => x.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderTemplateArticle> AutoresponderTemplateArticles
-            => new GenericAuthRepository<AutoresponderTemplateArticle>(GetDbSet<AutoresponderTemplateArticle>(), x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderColumnBindPosition> AutoresponderColumnBindPositions
-            => new GenericAuthRepository<AutoresponderColumnBindPosition>(GetDbSet<AutoresponderColumnBindPosition>(), x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderConnection> AutoresponderConnections
-            => new GenericAuthRepository<AutoresponderConnection>(GetDbSet<AutoresponderConnection>(), x => x.SellerConnection.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderConnectionRating> AutoresponderConnectionRatings
-             => new GenericAuthRepository<AutoresponderConnectionRating>(GetDbSet<AutoresponderConnectionRating>(), x => x.Connection.SellerConnection.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderTemplateSettings> AutoresponderTemplateSettings
-            => new GenericAuthRepository<AutoresponderTemplateSettings>(GetDbSet<AutoresponderTemplateSettings>(), x => x.Template.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<SellerConnection> SellerConnections
-            => new GenericAuthRepository<SellerConnection>(GetDbSet<SellerConnection>(), x => x.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections
-            => new GenericAuthRepository<OzonOpenApiSellerConnection>(GetDbSet<OzonOpenApiSellerConnection>(), x => x.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<WbOpenApiSellerConnection> WbOpenApiSellerConnections
-            => new GenericAuthRepository<WbOpenApiSellerConnection>(GetDbSet<WbOpenApiSellerConnection>(), x => x.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderBlackList> AutoresponderBlackLists
-            => new GenericAuthRepository<AutoresponderBlackList>(GetDbSet<AutoresponderBlackList>(), x => x.UserId == _authReadHelper.UserId);
-
-        public IAuthRepository<AutoresponderBanWord> AutoresponderBanWords
-            => new GenericAuthRepository<AutoresponderBanWord>(GetDbSet<AutoresponderBanWord>(), x => x.BlackList.UserId == _authReadHelper.UserId);
+        private IRepository<T> CreateAuthRepository<T>(Expression<Func<T, bool>> userCondition) where T : class
+        {
+            return new AuthRepository<T>(DbContext.Set<T>(), userCondition);
+        }
     }
 }

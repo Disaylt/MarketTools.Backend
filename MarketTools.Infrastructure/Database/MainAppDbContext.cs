@@ -14,26 +14,25 @@ namespace MarketTools.Infrastructure.Database
     {
         public MainAppDbContext(DbContextOptions<MainAppDbContext> options) : base(options) { }
 
-        public DbSet<AutoresponderColumn> AutoresponderColumns { get; set; } = null!;
-        public DbSet<AutoresponderRecommendationProduct> AutoresponderRecommendationProducts { get; set;} = null!;
-        public DbSet<AutoresponderCell> AutoresponderCells { get; set; } = null!;
-        public DbSet<AutoresponderTemplate> AutoresponderTemplates { get; set; } = null!;
-        public DbSet<AutoresponderTemplateArticle> AutoresponderTemplateArticles { get; set; } = null!;
-        public DbSet<AutoresponderColumnBindPosition> AutoresponderColumnBindPositions { get; set; } = null!;
-        public DbSet<AutoresponderConnection> AutoresponderConnections { get; set; } = null!;
-        public DbSet<AutoresponderConnectionRating> AutoresponderConnectionRatings { get; set; } = null!;
-        public DbSet<AutoresponderTemplateSettings> AutoresponderTemplateSettings { get; set; } = null!;
-        public DbSet<SellerConnection> SellerConnections { get; set; } = null!;
-        public DbSet<OzonOpenApiSellerConnection> OzonOpenApiSellerConnections { get; set; } = null!;
-        public DbSet<WbOpenApiSellerConnection> WbOpenApiSellerConnections { get; set; } = null!;
-        public DbSet<AutoresponderBlackList> AutoresponderBlackLists { get; set; } = null!;
-        public DbSet<AutoresponderBanWord> AutoresponderBanWords { get; set; } = null!;
+        public DbSet<StandardAutoresponderColumnEntity> StandardAutoresponderColumns { get; set; } = null!;
+        public DbSet<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; set;} = null!;
+        public DbSet<StandardAutoresponderCellEntity> StandardAutoresponderCells { get; set; } = null!;
+        public DbSet<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = null!;
+        public DbSet<StandardAutoresponderTemplateArticleEntity> StandardAutoresponderTemplateArticles { get; set; } = null!;
+        public DbSet<StandardAutoresponderBindPositionEntity> StandardAutoresponderBindPositions { get; set; } = null!;
+        public DbSet<StandardAutoresponderConnectionEntity> StandardAutoresponderConnections { get; set; } = null!;
+        public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
+        public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
+        public DbSet<MarketplaceConnectionEntity> MarketplaceConnection { get; set; } = null!;
+        public DbSet<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionOpenAPIs { get; set; } = null!;
+        public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
+        public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
+        public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
+        public DbSet<StandardAutoresponderNotificationEntity> StandardAutoresponderNotifications { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<AutoresponderColumnBindPosition>().HasKey(x => new { x.Position, x.TemplateId });
-            builder.Entity<AutoresponderConnectionRating>().HasKey(x => new { x.Rating, x.ConnectionId });
         }
     }
 }

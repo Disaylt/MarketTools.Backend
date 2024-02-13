@@ -3,7 +3,7 @@ using MarketTools.Application.Cases.User.Command.Login;
 using MarketTools.Application.Cases.User.Command.Register;
 using MarketTools.Application.Cases.User.Models;
 using MarketTools.Application.Cases.User.Queries.GetUser;
-using MarketTools.WebApi.Models.Identity;
+using MarketTools.WebApi.Models.Api.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +34,6 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
             return Ok(response);
         }
-
 
         [HttpGet]
         [Route("is-auth")]

@@ -19,6 +19,27 @@ namespace MarketTools.Infrastructure.Database.Repositories
             DbSet = dbSet;
         }
 
+        public virtual IQueryable<T> GetAsQueryable()
+        {
+            return DbSet.AsQueryable();
+        }
+
+        public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet.CountAsync(cancellationToken);
+        }
+
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        {
+            return await DbSet.CountAsync(condition, cancellationToken);
+        }
+
+        public virtual async Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
+        {
+            await DbSet.Where(condition)
+                .ExecuteDeleteAsync(cancellationToken);
+        }
+
         public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.AnyAsync(condition, cancellationToken);
@@ -27,7 +48,7 @@ namespace MarketTools.Infrastructure.Database.Repositories
         public virtual async Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.FirstOrDefaultAsync(condition, cancellationToken)
-                ?? throw new DefaultNotFoundException();
+                ?? throw new AppNotFoundException();
         }
 
         public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)

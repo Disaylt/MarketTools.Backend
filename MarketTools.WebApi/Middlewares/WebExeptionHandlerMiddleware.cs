@@ -3,7 +3,9 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.WebApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.Common;
 using System.Security.Claims;
 
 namespace MarketTools.WebApi.Middlewares
@@ -16,25 +18,29 @@ namespace MarketTools.WebApi.Middlewares
             {
                 await _next(context);
             }
-            catch(Exception ex)
+            catch(ValidationException exception)
             {
-                switch (ex)
-                {
-                    case ValidationException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case DefaultBadRequestException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case DefaultNotFoundException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    case IdentityUnauthorizedException exception:
-                        await RunExceptionHandlerAsync(context, serviceProvider, exception);
-                        break;
-                    default:
-                        throw;
-                }
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(AppBadRequestException exception)
+            {
+                await RunExceptionHandlerAsync<Exception>(context, serviceProvider, exception);
+            }
+            catch(AppNotFoundException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(IdentityUnauthorizedException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(DbUpdateException exception)
+            {
+                await RunExceptionHandlerAsync(context, serviceProvider, exception);
+            }
+            catch(AppConnectionBadRequestException exception)
+            {
+                await RunExceptionHandlerAsync<Exception>(context, serviceProvider, exception);
             }
         }
 

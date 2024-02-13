@@ -8,13 +8,25 @@ namespace MarketTools.Domain.Enums
 {
     public enum MarketplaceName
     {
-        WB,
+        WB = 1,
         OZON
     }
 
     public enum AutoresponderColumnType
     {
-        Standard,
+        Standard = 1,
         Recommendation
+    }
+
+    public enum EnumProjectServices
+    {
+        StandardAutoresponder = 1
+    }
+
+    public enum OrderType
+    {
+        Ask,
+        Desk,
+        None
     }
 }

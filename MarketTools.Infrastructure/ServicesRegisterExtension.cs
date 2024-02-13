@@ -12,6 +12,21 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using MarketTools.Infrastructure.Services.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Excel;
+using MarketTools.Application.Interfaces;
+using MarketTools.Domain.Interfaces.Limits;
+using MarketTools.Application.Common.Mappings;
+using MarketTools.Domain.Common.Constants;
+using MarketTools.Domain.Common.Configuration;
+using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Infrastructure.Http;
+using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
+using MarketTools.Infrastructure.Http.Wb.Seller.Api;
+using Microsoft.Extensions.Http;
 
 namespace MarketTools.Infrastructure
 {
@@ -23,14 +38,33 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IAuthReadHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<IAuthWriteHelper>(provider => provider.GetRequiredService<AuthHelper>());
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
+            serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
+            serviceDescriptors.AddSingleton<ILimitsService<IMarketplaceConnectionLimits>, MarketplaceConnectionsLimitsService>();
+
+            serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
+            serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
+
+            serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivator>();
+            AddSolutionMapping(serviceDescriptors);
+
+            serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
+            serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped<IHttpConnectionContextWriter>(x => x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped(typeof(IHttpConnectionFactory<>), typeof(HttpConnectionFactory<>));
 
             return serviceDescriptors;
         }
 
-        public static IServiceCollection AddDatabases(this IServiceCollection serviceDescriptors, string connection)
+        public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddDbContext<MainAppDbContext>(options =>
-                options.UseNpgsql(connection));
+            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>();
+
+            return serviceDescriptors;
+        }
+
+        public static IServiceCollection AddDatabases(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
+        {
+            serviceDescriptors.AddNpgsql<MainAppDbContext>(sequreSettings.Database.MainConnectionString);
             serviceDescriptors.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceDescriptors.AddScoped<IAuthUnitOfWork, AuthUnitOfWork>();
 
@@ -52,6 +86,20 @@ namespace MarketTools.Infrastructure
             .AddDefaultTokenProviders();
 
             return serviceDescriptors;
+        }
+
+        private static void AddSolutionMapping(IServiceCollection serviceDescriptors)
+        {
+            IEnumerable<Assembly> solutionAsemblies = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(x => x.FullName != null && x.FullName.Contains(SolutionConstants.SolutionName));
+            foreach (Assembly assembly in solutionAsemblies)
+            {
+                serviceDescriptors.AddAutoMapper(config =>
+                {
+                    config.AddProfile(new AssemblyMappingProfile(assembly));
+                });
+            }
         }
     }
 }
