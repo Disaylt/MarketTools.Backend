@@ -9,11 +9,6 @@ using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using StandardAutoresponder.WorkerService.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StandardAutoresponder.WorkerService.Services
 {
@@ -45,7 +40,7 @@ namespace StandardAutoresponder.WorkerService.Services
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogError(ex.Message);
             }
             finally
             {
@@ -83,8 +78,7 @@ namespace StandardAutoresponder.WorkerService.Services
                 Text = answer.Text
             };
 
-            await Task.Delay(100);
-            //await _feedbacksHttpService.SendResponseAsync(body);
+            await _feedbacksHttpService.SendResponseAsync(body);
 
             return true;
         }
@@ -115,7 +109,7 @@ namespace StandardAutoresponder.WorkerService.Services
             WbApiResult<FeedbackResponseData> resultWithoutAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
             feedbacks.AddRange(resultWithoutAnswer.Data.Feedbacks);
 
-            query.IsAnswered = false;
+            query.IsAnswered = true;
 
             WbApiResult<FeedbackResponseData> resultWithAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
             feedbacks.AddRange(resultWithAnswer.Data.Feedbacks);

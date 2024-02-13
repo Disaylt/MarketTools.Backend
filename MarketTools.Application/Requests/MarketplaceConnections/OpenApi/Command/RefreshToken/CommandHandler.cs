@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.RefreshToken
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
+    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, 
+        IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
@@ -19,6 +21,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionOpenApiEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
+
             entity.Token = request.Token;
             entity.NumConnectionsAttempt = 0;
             await _connectionActivator.ActivateAsync(entity);
