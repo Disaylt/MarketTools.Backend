@@ -16,5 +16,6 @@ namespace MarketTools.Domain.Entities
         public List<StandardAutoresponderTemplateEntity> StandardAutoresponderTemplates { get; set; } = new List<StandardAutoresponderTemplateEntity>();
         public List<MarketplaceConnectionEntity> MarketplaceConnections { get; set;} = new List<MarketplaceConnectionEntity>();
         public List<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set;} = new List<StandardAutoresponderBlackListEntity>();
+        public List<UserNotificationEntity> Notifications { get; set; } = new List<UserNotificationEntity>();
     }
 }

@@ -21,7 +21,7 @@ namespace MarketTools.Application.Cases.User.Command.Register
             AppIdentityUser appIdentityUser = new AppIdentityUser
             {
                 Email = request.Email,
-                UserName = request.Email
+                UserName = request.UserName
             };
 
             await AddUserAsync(appIdentityUser, request.Password);

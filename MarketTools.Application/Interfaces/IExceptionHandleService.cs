@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces
 {
-    public interface IValidationService<TRequest, TData>
+    public interface IExceptionHandleService<T> where T : Exception
     {
-        public Task ThrowValidateError(TData value);
-        public Task<bool> TryValidateAsync(TData value);
+        public Task Hadnle(T exeption);
     }
 }

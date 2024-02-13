@@ -137,7 +137,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MarketplaceConnection", (string)null);
+                    b.ToTable("MarketplaceConnection");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("MarketplaceConnectionEntity");
 
@@ -170,7 +170,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("BlackListId");
 
-                    b.ToTable("StandardAutoresponderBanWords", (string)null);
+                    b.ToTable("StandardAutoresponderBanWords");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBindPositionEntity", b =>
@@ -190,7 +190,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("StandardAutoresponderBindPositions", (string)null);
+                    b.ToTable("StandardAutoresponderBindPositions");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBlackListEntity", b =>
@@ -220,10 +220,10 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderBlackLists", (string)null);
+                    b.ToTable("StandardAutoresponderBlackLists");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCell", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCellEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,7 +249,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ColumnId");
 
-                    b.ToTable("StandardAutoresponderCells", (string)null);
+                    b.ToTable("StandardAutoresponderCells");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderColumnEntity", b =>
@@ -282,7 +282,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderColumns", (string)null);
+                    b.ToTable("StandardAutoresponderColumns");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", b =>
@@ -295,7 +295,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("SellerConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnections", (string)null);
+                    b.ToTable("StandardAutoresponderConnections");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionRatingEntity", b =>
@@ -310,7 +310,55 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("ConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatings", (string)null);
+                    b.ToTable("StandardAutoresponderConnectionRatings");
+                });
+
+            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderNotificationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Article")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsSuccess")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Report")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Response")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ReviewCreateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("StandardAutoresponderConnectionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SupplierArticle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StandardAutoresponderConnectionId");
+
+                    b.ToTable("StandardAutoresponderNotifications");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderRecommendationProductEntity", b =>
@@ -355,7 +403,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderRecommendationProducts", (string)null);
+                    b.ToTable("StandardAutoresponderRecommendationProducts");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateArticleEntity", b =>
@@ -385,7 +433,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.HasIndex(new[] { "TemplateId", "Value" }, "UniqueArticlesIndex")
                         .IsUnique();
 
-                    b.ToTable("StandardAutoresponderTemplateArticles", (string)null);
+                    b.ToTable("StandardAutoresponderTemplateArticles");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateEntity", b =>
@@ -420,7 +468,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StandardAutoresponderTemplates", (string)null);
+                    b.ToTable("StandardAutoresponderTemplates");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderTemplateSettingsEntity", b =>
@@ -436,7 +484,39 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasKey("TemplateId");
 
-                    b.ToTable("StandardAutoresponderTemplateSettings", (string)null);
+                    b.ToTable("StandardAutoresponderTemplateSettings");
+                });
+
+            modelBuilder.Entity("MarketTools.Domain.Entities.UserNotificationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -586,7 +666,7 @@ namespace MarketTools.Infrastructure.Migrations
 
                     b.HasIndex("RatingsRating", "RatingsConnectionId");
 
-                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~", (string)null);
+                    b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionOpenApiEntity", b =>
@@ -653,7 +733,7 @@ namespace MarketTools.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCell", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderCellEntity", b =>
                 {
                     b.HasOne("MarketTools.Domain.Entities.StandardAutoresponderColumnEntity", "Column")
                         .WithMany("Cells")
@@ -695,6 +775,17 @@ namespace MarketTools.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Connection");
+                });
+
+            modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderNotificationEntity", b =>
+                {
+                    b.HasOne("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", "StandardAutoresponderConnection")
+                        .WithMany("Notifications")
+                        .HasForeignKey("StandardAutoresponderConnectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StandardAutoresponderConnection");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderRecommendationProductEntity", b =>
@@ -745,6 +836,17 @@ namespace MarketTools.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Template");
+                });
+
+            modelBuilder.Entity("MarketTools.Domain.Entities.UserNotificationEntity", b =>
+                {
+                    b.HasOne("MarketTools.Domain.Entities.AppIdentityUser", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -818,6 +920,8 @@ namespace MarketTools.Infrastructure.Migrations
                 {
                     b.Navigation("MarketplaceConnections");
 
+                    b.Navigation("Notifications");
+
                     b.Navigation("StandardAutoreponderColumns");
 
                     b.Navigation("StandardAutoresponderBlackLists");
@@ -849,6 +953,8 @@ namespace MarketTools.Infrastructure.Migrations
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderConnectionEntity", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("Ratings");
                 });
 

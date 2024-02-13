@@ -9,6 +9,6 @@ namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
     public class SendResponseBody
     {
         public required string Id { get; set; }
-        public required string WasViewed { get; set; }
+        public required string Text { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MarketTools.Domain.Common;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,24 @@ namespace MarketTools.Application.Common.Builders
 
         public virtual BaseQueryBuilder<TEntity> SetPagination(PageRequest? pageRequest)
         {
-            if(pageRequest != null)
+            if(pageRequest == null)
             {
-                Query = Query
-                    .OrderBy(x => x.Id)
-                    .Skip(pageRequest.Skip)
-                    .Take(pageRequest.Take);
+                return this;
             }
+
+            switch (pageRequest.OrderType)
+            {
+                case OrderType.Ask:
+                    Query = Query.OrderBy(x => x.Id);
+                    break;
+                case OrderType.Desk:
+                    Query = Query.OrderByDescending(x => x.Id);
+                    break;
+            }
+            
+            Query = Query
+                .Skip(pageRequest.Skip)
+                .Take(pageRequest.Take);
 
             return this;
         }

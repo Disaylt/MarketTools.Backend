@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
@@ -15,7 +16,8 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
 {
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory)
+        IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
+        IUserNotificationsService _userNotificationsService)
         : IRequestHandler<UpdateConnenctionStatusCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
@@ -23,28 +25,37 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
         public async Task<Unit> Handle(UpdateConnenctionStatusCommand request, CancellationToken cancellationToken)
         {
+            MarketplaceConnectionEntity marketplaceConnection = await _connectionRepository.FirstAsync(x => x.Id == request.Id);
+
             if (request.IsActive)
             {
-                await CheckConnection(request.Id);
+                await CheckConnection(marketplaceConnection);
             }
 
-            StandardAutoresponderConnectionEntity entity = await _repository.FirstAsync(x => x.SellerConnectionId == request.Id, cancellationToken);
+            StandardAutoresponderConnectionEntity serviceConnection = await _repository.FirstAsync(x => x.SellerConnectionId == request.Id, cancellationToken);
 
-            entity.IsActive = request.IsActive;
+            serviceConnection.IsActive = request.IsActive;
 
-            _repository.Update(entity);
+            _repository.Update(serviceConnection);
+            await AddNotificationAsync(marketplaceConnection, serviceConnection);
             await _authUnitOfWork.CommintAsync(cancellationToken);
 
             return Unit.Value;
         }
 
-        private async Task CheckConnection(int id)
+        private async Task AddNotificationAsync(MarketplaceConnectionEntity marketplaceConnection, StandardAutoresponderConnectionEntity entity)
         {
-            MarketplaceConnectionEntity entity = await _connectionRepository.FirstAsync(x => x.Id == id);
+            string status = entity.IsActive ? "Активирован" : "Отключен";
+            string message = $"Стандартный автоответчик - {status}. Подключение: {marketplaceConnection.Name}. Маркетплейс: {MarketplaceNameConverter.Convert(marketplaceConnection.MarketplaceName)}";
 
+            await _userNotificationsService.AddWithoutCommitAsync(message);
+        }
+
+        private async Task CheckConnection(MarketplaceConnectionEntity entity)
+        {
             await _connectionServiceFactory.Create(entity.MarketplaceName)
                 .Create(EnumProjectServices.StandardAutoresponder)
-                .TryActivete(id);
+                .TryActivete(entity.Id);
         }
     }
 }

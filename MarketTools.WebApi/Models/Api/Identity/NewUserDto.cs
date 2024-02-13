@@ -7,6 +7,9 @@ namespace MarketTools.WebApi.Models.Api.Identity
 {
     public class NewUserDto : IHasMap
     {
+        [Required(ErrorMessage = "Введите имя пользователя")]
+        public required string UserName { get; set; }
+
         [EmailAddress(ErrorMessage = "Введите почту")]
         public required string Email { get; set; }
 

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces.Autoresponder.Standard
+namespace StandardAutoresponder.WorkerService.Interfaces
 {
-    public interface IResponseReportBuilder : IMessageBuilder
+    internal interface IWbFeedbacksHandler
     {
-
+        public Task RunAsync();
     }
 }
