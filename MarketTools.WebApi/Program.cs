@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MarketTools.WebApi.Common.Json;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Application.Interfaces.Excel;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,18 +41,25 @@ app.UseWebExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor 
+                        | ForwardedHeaders.XForwardedProto
+});
+
 app.UseCors(builder => builder
-    .WithOrigins(
-        "http://localhost:4200",
-        "http://dashboard.mp-force.ru",
-        "https://localhost:4200",
-        "https://dashboard.mp-force.ru"
-    )
+    //.WithOrigins(
+    //    "http://localhost:4200",
+    //    "http://dashboard.mp-force.ru",
+    //    "https://localhost:4200",
+    //    "https://dashboard.mp-force.ru"
+    //)
+    .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader()
 );
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

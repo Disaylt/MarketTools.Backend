@@ -38,7 +38,7 @@
       },
       "publishAllPorts": true,
       "useSSL": true,
-      "DockerfileRunArguments": "-v D:\\Common\\Settings:/appfiles -e MpToolsSettingsPath=/appfiles/"
+      "DockerfileRunArguments": "-v D:\\Common\\Settings\\MpTools:/appfiles -e MpToolsSettingsPath=/appfiles/"
     },
     "WSL": {
       "commandName": "WSL2",
