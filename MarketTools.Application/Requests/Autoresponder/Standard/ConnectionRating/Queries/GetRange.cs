@@ -1,5 +1,4 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Models.Requests;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Queries.GetRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Queries
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class GetRangeRatingsQuery : IRequest<IEnumerable<StandardAutoresponderConnectionRatingEntity>>
+    {
+        public int ConnectionId { get; set; }
+    }
+
+    public class GetRangeQueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeRatingsQuery, IEnumerable<StandardAutoresponderConnectionRatingEntity>>
     {
 

@@ -8,9 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.AddTemplate
+namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class AddTemplateToRatingCommand : IRequest<StandardAutoresponderTemplateEntity>
+    {
+        public int Rating { get; set; }
+        public int TemplateId { get; set; }
+        public int ConnectionId { get; set; }
+    }
+
+    public class AddTemplateCommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<AddTemplateToRatingCommand, StandardAutoresponderTemplateEntity>
     {
 
@@ -33,8 +40,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
         {
             return await _ratingRepository
                 .GetAsQueryable()
-                .Include(x=> x.Templates)
-                .FirstAsync(x=> x.ConnectionId == connectionId && x.Rating == rating);
+                .Include(x => x.Templates)
+                .FirstAsync(x => x.ConnectionId == connectionId && x.Rating == rating);
         }
     }
 }

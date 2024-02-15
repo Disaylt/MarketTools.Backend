@@ -1,4 +1,5 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using FluentValidation;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -7,9 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.Add
+namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands
 {
-    public class CommandHandler(IUnitOfWork _unitOfWork)
+    public class AddRatingCommand : IRequest<Unit>
+    {
+        public int ConnectionId { get; set; }
+        public int Rating { get; set; }
+    }
+
+    public class AddCommandValidator : AbstractValidator<AddRatingCommand>
+    {
+        public AddCommandValidator(IAuthUnitOfWork authUnitOfWork)
+        {
+            RuleFor(x => x.ConnectionId)
+                .MustAsync(async (connectionId, ct) =>
+                {
+                    return await authUnitOfWork.GetRepository<MarketplaceConnectionEntity>()
+                        .AnyAsync(x => x.Id == connectionId, ct);
+                })
+                .WithErrorCode("404")
+                .WithMessage("Подключение не найдено.");
+        }
+    }
+
+    public class AddCommandHandler(IUnitOfWork _unitOfWork)
         : IRequestHandler<AddRatingCommand, Unit>
     {
 

@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.Add;
-using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.AddTemplate;
-using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteScore;
-using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteTemplate;
+using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
@@ -34,47 +31,27 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Connectio
 
         [HttpPost]
         [Route("template")]
-        public async Task<IActionResult> AddTemplateAsync(int rating, int connectionId, int templateId)
+        public async Task<IActionResult> AddTemplateAsync([FromQuery] AddTemplateToRatingCommand httpQuery)
         {
-            AddTemplateToRatingCommand command = new AddTemplateToRatingCommand
-            {
-                ConnectionId = connectionId,
-                Rating = rating,
-                TemplateId = templateId
-            };
-
-            StandardAutoresponderTemplateEntity template = await _mediator.Send(command);
+            StandardAutoresponderTemplateEntity template = await _mediator.Send(httpQuery);
             TemplateVm viewTemplate = _mapper.Map<TemplateVm>(template);
 
             return Ok(viewTemplate);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(int rating, int connectionId)
+        public async Task<IActionResult> DeleteAsync([FromQuery] RatingDeleteCommand httpQuery)
         {
-            RatingDeleteScoreCommand command = new RatingDeleteScoreCommand
-            {
-                ConnectionId = connectionId,
-                Rating = rating
-            };
-
-            await _mediator.Send(command);
+            await _mediator.Send(httpQuery);
 
             return Ok();
         }
 
         [HttpDelete]
         [Route("template")]
-        public async Task<IActionResult> DeleteTemplateAsync(int rating, int connectionId, int templateId)
+        public async Task<IActionResult> DeleteTemplateAsync([FromQuery] DeleteTemplateCommand httpQuery)
         {
-            RatingDeleteTemplateCommand command = new RatingDeleteTemplateCommand
-            {
-                ConnectionId = connectionId,
-                Rating = rating,
-                TemplateId = templateId
-            };
-
-            await _mediator.Send(command);
+            await _mediator.Send(httpQuery);
 
             return Ok();
         }

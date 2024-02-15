@@ -7,17 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteScore
+namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<RatingDeleteScoreCommand, Unit>
+    public class RatingDeleteCommand : IRequest<Unit>
+    {
+        public int Rating { get; set; }
+        public int ConnectionId { get; set; }
+    }
+
+    public class DeleteCommandHandler(IAuthUnitOfWork _authUnitOfWork)
+        : IRequestHandler<RatingDeleteCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
-        public async Task<Unit> Handle(RatingDeleteScoreCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RatingDeleteCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = await _repository
-                .FirstAsync(x=> x.ConnectionId == request.ConnectionId && x.Rating == request.Rating, cancellationToken);
+                .FirstAsync(x => x.ConnectionId == request.ConnectionId && x.Rating == request.Rating, cancellationToken);
 
             _repository.Remove(entity);
             await _authUnitOfWork.CommintAsync(cancellationToken);

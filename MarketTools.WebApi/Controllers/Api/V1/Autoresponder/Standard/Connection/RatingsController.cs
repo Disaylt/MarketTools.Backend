@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Queries.GetRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Queries;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
@@ -19,13 +19,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Connectio
     {
 
         [HttpGet]
-        public async Task<IActionResult> GetRangeAsync(int connectionId)
+        public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangeRatingsQuery httpQuery)
         {
-            GetRangeRatingsQuery query = new GetRangeRatingsQuery
-            {
-                ConnectionId = connectionId
-            };
-            IEnumerable<StandardAutoresponderConnectionRatingEntity> ratings = await _mediator.Send(query);
+            IEnumerable<StandardAutoresponderConnectionRatingEntity> ratings = await _mediator.Send(httpQuery);
             IEnumerable<RatingVm> viewRatings = _mapper.Map<IEnumerable<RatingVm>>(ratings);
 
             return Ok(viewRatings);

@@ -9,15 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands.DeleteTemplate
+namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRating.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<RatingDeleteTemplateCommand, Unit>
+    public class DeleteTemplateCommand : IRequest<Unit>
+    {
+        public int ConnectionId { get; set; }
+        public int Rating { get; set; }
+        public int TemplateId { get; set; }
+    }
+
+    public class DeleteTemplateCommandHandler(IAuthUnitOfWork _authUnitOfWork)
+        : IRequestHandler<DeleteTemplateCommand, Unit>
     {
 
         private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
 
-        public async Task<Unit> Handle(RatingDeleteTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTemplateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderConnectionRatingEntity entity = await _repository
                .GetAsQueryable()
