@@ -1,5 +1,4 @@
-﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
@@ -13,9 +12,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands.UpdateStatus
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
+    public class UpdateConnenctionStatusCommand : IRequest<Unit>
+    {
+        public int Id { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class UpdateStatusCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
         IUserNotificationsService _userNotificationsService)
         : IRequestHandler<UpdateConnenctionStatusCommand, Unit>
