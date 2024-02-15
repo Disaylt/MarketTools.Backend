@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DocumentFormat.OpenXml.Wordprocessing;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Commands.Update;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get;
+using MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Settings.Commands;
+using MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Settings.Queries;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template;
 using MediatR;

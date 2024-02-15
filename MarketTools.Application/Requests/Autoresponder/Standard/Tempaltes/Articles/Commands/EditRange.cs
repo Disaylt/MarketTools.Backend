@@ -1,16 +1,32 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
+using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands.EditRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands
 {
+    public class ArticlesEditRangeCommand : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticleEntity>>
+    {
+        public required IEnumerable<string> Articles { get; set; }
+    }
+
+    public class CommandValidator : CommonValidator<ArticlesEditRangeCommand>
+    {
+        public CommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
+        {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
+            MustMaxQuantityTemplateArticles(RuleFor(x => x.Articles), authUnitOfWork, limitsService);
+        }
+    }
+
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<ArticlesEditRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {
@@ -22,7 +38,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
                 .Where(x => string.IsNullOrEmpty(x) == false);
 
             List<StandardAutoresponderTemplateArticleEntity> entitiesForUpdate = await _repository.GetAsQueryable()
-                .Where(x=> x.TemplateId == request.TemplateId)
+                .Where(x => x.TemplateId == request.TemplateId)
                 .ToListAsync();
 
             await AddRange(request, entitiesForUpdate, cancellationToken);
@@ -30,7 +46,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
 
             await _authUnitOfWork.CommintAsync(cancellationToken);
 
-            return await _repository.GetRangeAsync(x=> x.TemplateId == request.TemplateId);
+            return await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId);
         }
 
         private void DeleteRange(ArticlesEditRangeCommand request, List<StandardAutoresponderTemplateArticleEntity> currentEntities)

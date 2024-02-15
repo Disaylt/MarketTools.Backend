@@ -1,17 +1,20 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.DeleteAll
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands
 {
-    public class CommandHandler
+    public class ArticleDeleteAllCommand : IRequest<Unit>
+    {
+        public int TemplateId { get; set; }
+    }
+
+    public class DeleteAllCommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<ArticleDeleteAllCommand, Unit>
     {

@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Commands.BindBlackList;
+﻿using MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,15 +13,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.Template
     {
         [HttpPut]
         [Route("bind")]
-        public async Task<IActionResult> BindBlackListAsync(int blackListId, int templateId)
+        public async Task<IActionResult> BindBlackListAsync([FromQuery] BindBlackListCommand httpQuery)
         {
-            BindBlackListCommand command = new BindBlackListCommand
-            {
-                BlackListId = blackListId,
-                TemplateId = templateId
-            };
-
-            await _mediator.Send(command);
+            await _mediator.Send(httpQuery);
 
             return Ok();
         }

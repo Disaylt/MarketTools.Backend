@@ -1,7 +1,8 @@
-﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
+﻿using MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Models;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.AddRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Articles.Commands
 {
-    public class CommandHandler
+    public class ArticleAddRangeCommand : TemplateBasicCommand, IRequest<IEnumerable<StandardAutoresponderTemplateArticleEntity>>
+    {
+        public required IEnumerable<string> Articles { get; set; }
+    }
+
+    public class AddRangeCommandValidator : CommonValidator<ArticleAddRangeCommand>
+    {
+        public AddRangeCommandValidator(IAuthUnitOfWork authUnitOfWork,
+            ILimitsService<IStandarAutoresponderLimits> limitsService)
+        {
+            CanIntercatTemplate(RuleFor(x => x.TemplateId), authUnitOfWork);
+            MustMaxQuantityTemplateArticlesAtOnce(RuleFor(x => x.Articles));
+            MustMaxQuantityTemplateArticles(RuleFor(x => x.Articles), authUnitOfWork, limitsService);
+        }
+    }
+
+    public class AddRangeCommandHandler
         (IUnitOfWork _unitOfWork)
         : IRequestHandler<ArticleAddRangeCommand, IEnumerable<StandardAutoresponderTemplateArticleEntity>>
     {

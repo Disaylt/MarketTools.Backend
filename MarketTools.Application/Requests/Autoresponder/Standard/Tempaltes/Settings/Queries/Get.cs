@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -8,9 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Settings.Queries.Get
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Settings.Queries
 {
-    internal class CommandHandler
+    public class SettingsGetQuery : IRequest<StandardAutoresponderTemplateSettingsEntity>
+    {
+        public int TemplateId { get; set; }
+    }
+
+    public class GetCommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<SettingsGetQuery, StandardAutoresponderTemplateSettingsEntity>
     {
