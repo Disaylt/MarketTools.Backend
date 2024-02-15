@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Utilities;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries.Count
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class CountReportsQuery : IRequest<int>
+    {
+        public int? ConnectionId { get; set; }
+        public int? Rating { get; set; }
+        public bool? IsSuccess { get; set; }
+        public string? Article { get; set; }
+    }
+
+    public class CountQueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<CountReportsQuery, int>
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();

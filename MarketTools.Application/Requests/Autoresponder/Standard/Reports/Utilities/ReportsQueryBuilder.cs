@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Utilities
 {
     internal class ReportsQueryBuilder : BaseQueryBuilder<StandardAutoresponderNotificationEntity>
     {
@@ -36,9 +36,9 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Querie
 
         public ReportsQueryBuilder SetSuccesStatus(bool? isSuccess)
         {
-            if(isSuccess.HasValue)
+            if (isSuccess.HasValue)
             {
-                Query = Query.Where(x=> x.IsSuccess == isSuccess.Value);
+                Query = Query.Where(x => x.IsSuccess == isSuccess.Value);
             }
 
             return this;
@@ -51,7 +51,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Querie
                 return this;
             }
 
-            if(int.TryParse(article, out var numArticle))
+            if (int.TryParse(article, out var numArticle))
             {
                 Query = Query.Where(x => x.Article == numArticle || x.SupplierArticle == article);
             }
