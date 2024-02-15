@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Delete
+namespace MarketTools.Application.Requests.MarketplaceConnections.Command
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class DeleteCommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GenericDeleteCommand<MarketplaceConnectionEntity>, Unit>
     {
 
