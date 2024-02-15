@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.UserNotifications.Queries
+namespace MarketTools.Application.Requests.User.Notifications.Utilities
 {
     internal class UserNotificationQueryBuilder : BaseQueryBuilder<UserNotificationEntity>
     {
