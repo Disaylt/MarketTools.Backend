@@ -2,6 +2,7 @@
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Common;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -11,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.MarketplaceConnections
+namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
 {
     internal class MarketpalceConnectionQueryBuilder : BaseQueryBuilder<MarketplaceConnectionEntity>
     {
@@ -22,19 +23,12 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
 
         }
 
-        public override MarketpalceConnectionQueryBuilder SetPagination(PageRequest? pageRequest)
-        {
-            base.SetPagination(pageRequest);
-
-            return this;
-        }
-
         public virtual MarketpalceConnectionQueryBuilder SetMarketplace(MarketplaceName? marketplaceName)
         {
             if (marketplaceName != null)
             {
                 _marketplaceName = marketplaceName;
-                Query = Query.Where(x=> x.MarketplaceName == marketplaceName);
+                Query = Query.Where(x => x.MarketplaceName == marketplaceName);
             }
 
             return this;
@@ -42,7 +36,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
 
         public virtual MarketpalceConnectionQueryBuilder SetByService(IConnectionServiceFactory<IConnectionSerivceDeterminant> marketplaceConnectionFactory, EnumProjectServices? projectService)
         {
-            if(projectService == null) 
+            if (projectService == null)
             {
                 return this;
             }
@@ -56,7 +50,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
                 .Create(projectService.Value)
                 .Determinant();
 
-            Query = Query.Where(x=> x.Discriminator == discriminator);
+            Query = Query.Where(x => x.Discriminator == discriminator);
 
             return this;
         }
@@ -69,7 +63,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
             }
 
             string discriminator = new ConnectionTypeFactory().Get(type.Value);
-            Query = Query.Where(x=> x.Discriminator == discriminator);
+            Query = Query.Where(x => x.Discriminator == discriminator);
 
             return this;
         }
