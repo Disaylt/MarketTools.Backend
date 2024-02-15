@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Application.Interfaces.Excel;
-using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.AddRange;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MediatR;
@@ -10,8 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using MarketTools.WebApi.Extensions;
-using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands;
 
 namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard.RecommendationProducts
 {

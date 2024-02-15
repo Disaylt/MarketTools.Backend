@@ -10,20 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries
+namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities
 {
     internal class RecommendationProductsQueryBuilder : BaseQueryBuilder<StandardAutoresponderRecommendationProductEntity>
     {
         public RecommendationProductsQueryBuilder(IRepository<StandardAutoresponderRecommendationProductEntity> repostitory)
-            :base(repostitory.GetAsQueryable())
+            : base(repostitory.GetAsQueryable())
         {
-        }
-
-        public override RecommendationProductsQueryBuilder SetPagination(PageRequest? pageRequest)
-        {
-            base.SetPagination(pageRequest);
-
-            return this;
         }
 
         public RecommendationProductsQueryBuilder SetMarketplace(MarketplaceName? marketplaceName)

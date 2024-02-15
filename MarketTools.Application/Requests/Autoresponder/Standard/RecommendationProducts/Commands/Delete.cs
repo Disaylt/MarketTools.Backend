@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Delete
+namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands
 {
-    public class CommandHandler
+    public class DeleteCommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GenericDeleteCommand<StandardAutoresponderRecommendationProductEntity>, Unit>
     {

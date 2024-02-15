@@ -7,14 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update
+namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands
 {
-    public class CommandHandler
+    public class RecommendationProductUpdateCommand : IRequest<Unit>
+    {
+        public int Id { get; set; }
+        public required string FeedbackArticle { get; set; }
+        public string? FeedbackProductName { get; set; }
+        public string? RecommendationArticle { get; set; }
+        public string? RecommendationProductName { get; set; }
+    }
+
+    public class UpdateCommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<UpdateCommand, Unit>
+        : IRequestHandler<RecommendationProductUpdateCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
-        public async Task<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RecommendationProductUpdateCommand request, CancellationToken cancellationToken)
         {
             StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);
             Change(request, autoresponderRecommendationProduct);
@@ -24,7 +33,7 @@ namespace MarketTools.Application.Cases.Autoresponder.Standard.RecommendationPro
             return Unit.Value;
         }
 
-        private void Change(UpdateCommand request, StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct)
+        private void Change(RecommendationProductUpdateCommand request, StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct)
         {
             autoresponderRecommendationProduct.FeedbackArticle = request.FeedbackArticle;
             autoresponderRecommendationProduct.RecommendationArticle = request.RecommendationArticle;

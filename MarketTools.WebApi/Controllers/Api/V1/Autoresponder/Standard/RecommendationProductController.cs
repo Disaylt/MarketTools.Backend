@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update;
 using MarketTools.Application.Models.Requests;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;
@@ -42,7 +41,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.Autoresponder.Standard
         [HttpPut]
         public async Task<IActionResult> UpdateAsync([FromBody] RecommendationProductUpdateDto body, CancellationToken cancellationToken)
         {
-            UpdateCommand command = _mapper.Map<UpdateCommand>(body);
+            RecommendationProductUpdateCommand command = _mapper.Map<RecommendationProductUpdateCommand>(body);
             await _mediator.Send(command);
 
             return Ok();

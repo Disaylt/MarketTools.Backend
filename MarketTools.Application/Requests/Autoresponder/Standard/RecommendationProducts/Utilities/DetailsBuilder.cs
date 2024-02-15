@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Builders
+namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities
 {
     public class DetailsBuilder
     {
@@ -19,7 +19,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
         public DetailsBuilder AddMainDetails(string userId)
         {
-            foreach(StandardAutoresponderRecommendationProductEntity product in _rangeCommand.Products)
+            foreach (StandardAutoresponderRecommendationProductEntity product in _rangeCommand.Products)
             {
                 product.MarketplaceName = _rangeCommand.MarketplaceName;
                 product.UserId = userId;
