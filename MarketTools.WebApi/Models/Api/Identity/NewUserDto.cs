@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.User.Command.Register;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
 using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.WebApi.Models.Api.Identity

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarketTools.Application.Interfaces.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;

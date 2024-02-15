@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Commands.Create;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 

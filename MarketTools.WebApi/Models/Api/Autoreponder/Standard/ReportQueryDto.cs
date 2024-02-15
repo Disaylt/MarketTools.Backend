@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
 using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries.Count;
 using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries.GetRange;
 using MarketTools.Domain.Common;

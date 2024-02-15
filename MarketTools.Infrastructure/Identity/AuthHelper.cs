@@ -20,7 +20,7 @@ namespace MarketTools.Infrastructure.Identity
             {
                 if(_userId == null)
                 {
-                    throw new IdentityUnauthorizedException("Не удалось получить ID пользователя.");
+                    throw new AppIdentityUnauthorizedException("Не удалось получить ID пользователя.");
                 }
 
                 return _userId;

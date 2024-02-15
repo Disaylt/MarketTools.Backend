@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
 using MarketTools.Domain.Entities;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.BlackList

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
 using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.RefreshToken;
 using System.ComponentModel.DataAnnotations;
 
