@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Models.Requests;
-using MarketTools.Application.Requests.MarketplaceConnections.Command.UpdateDescription;
+using MarketTools.Application.Requests.MarketplaceConnections.Command;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +26,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
 
         [HttpPut]
         [Route("description")]
-        public async Task<IActionResult> UpdateDescription([FromBody] MpConnectionUpdateDescriptionCommand body)
+        public async Task<IActionResult> UpdateDescription([FromBody] ConnectionUpdateDescriptionCommand body)
         {
             await _mediator.Send(body);
 

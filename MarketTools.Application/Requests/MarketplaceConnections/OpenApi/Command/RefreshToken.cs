@@ -1,8 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
-using MarketTools.Application.Interfaces.ProjectServices;
-using MarketTools.Application.Services.Notifications;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -11,9 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.RefreshToken
+namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork, 
+    public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>
+    {
+        public int Id { get; set; }
+        public required string Token { get; set; }
+    }
+
+    public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator,
         IUserNotificationsService _userNotificationsService)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
@@ -31,7 +35,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
 
             _repository.Update(entity);
 
-            await _userNotificationsService.AddWithoutCommitAsync($"Измение токена для API '{entity.Name}'. Маркетплейс: {entity.MarketplaceName}") ;
+            await _userNotificationsService.AddWithoutCommitAsync($"Измение токена для API '{entity.Name}'. Маркетплейс: {entity.MarketplaceName}");
 
             await _authUnitOfWork.CommintAsync(cancellationToken);
 

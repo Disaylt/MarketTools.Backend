@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.Add;
-using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.RefreshToken;
+using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.MarketplaceConnections;
 using MarketTools.WebApi.Models.Api.WB.Connections.Seller;
