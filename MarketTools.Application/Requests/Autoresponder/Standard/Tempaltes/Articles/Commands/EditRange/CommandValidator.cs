@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MarketTools.Application.Interfaces;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Interfaces.Limits;
 using System;

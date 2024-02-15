@@ -2,8 +2,8 @@
 using MarketTools.Application.Common.Behavoirs;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Common.Mappings;
-using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;

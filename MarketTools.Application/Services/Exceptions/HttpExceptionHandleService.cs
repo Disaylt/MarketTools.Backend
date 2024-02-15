@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Utilities.MarketplaceConnections;

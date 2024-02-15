@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces;
 using MarketTools.Domain.Interfaces.Limits;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MarketTools.Application.Services;
 using System.ComponentModel.DataAnnotations;
+using MarketTools.Application.Interfaces.Common;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands.ReplaceRange
 {

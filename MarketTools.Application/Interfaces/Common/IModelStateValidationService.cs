@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces
+namespace MarketTools.Application.Interfaces.Common
 {
     public interface IModelStateValidationService
     {

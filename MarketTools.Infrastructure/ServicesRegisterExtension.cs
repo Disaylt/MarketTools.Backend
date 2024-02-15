@@ -14,7 +14,6 @@ using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Excel;
-using MarketTools.Application.Interfaces;
 using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Common.Constants;
@@ -27,6 +26,7 @@ using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using Microsoft.Extensions.Http;
+using MarketTools.Application.Interfaces.Common;
 
 namespace MarketTools.Infrastructure
 {

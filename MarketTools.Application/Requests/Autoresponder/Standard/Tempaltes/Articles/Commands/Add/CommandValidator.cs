@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MarketTools.Application.Interfaces;
 using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Application.Requests.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 
 namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Articles.Commands.Add
 {

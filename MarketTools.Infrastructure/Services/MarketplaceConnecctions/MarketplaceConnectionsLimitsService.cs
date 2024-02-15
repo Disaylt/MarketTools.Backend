@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Interfaces;
+﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Infrastructure.Services.MarketplaceConnecctions.Models;
 using System;

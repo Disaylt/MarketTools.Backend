@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Interfaces;
+﻿using MarketTools.Application.Interfaces.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
