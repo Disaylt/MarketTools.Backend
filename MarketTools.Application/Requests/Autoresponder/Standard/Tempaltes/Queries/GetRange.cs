@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
 using System;
@@ -8,9 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Tempaltes.Queries.GetRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Queries
 {
-    public class QueryHandler
+    public class TemplateGetRangeQuery : IRequest<IEnumerable<StandardAutoresponderTemplateEntity>>
+    {
+
+    }
+
+    public class GetRangeQueryHandler
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<TemplateGetRangeQuery, IEnumerable<StandardAutoresponderTemplateEntity>>
     {

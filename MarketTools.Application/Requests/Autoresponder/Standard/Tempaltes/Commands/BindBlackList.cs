@@ -7,9 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Commands.BindBlackList
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class BindBlackListCommand : IRequest<Unit>
+    {
+        public int TemplateId { get; set; }
+        public int BlackListId { get; set; }
+    }
+
+    public class BindBlackListCommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BindBlackListCommand, Unit>
     {
         private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
@@ -35,7 +41,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
             }
             else
             {
-                StandardAutoresponderBlackListEntity blackList = await _blackListRepository.FirstAsync(x=> x.Id == blackListId, cancellationToken);
+                StandardAutoresponderBlackListEntity blackList = await _blackListRepository.FirstAsync(x => x.Id == blackListId, cancellationToken);
                 templateEntity.BlackListId = blackList.Id;
                 templateEntity.BlackList = blackList;
             }
