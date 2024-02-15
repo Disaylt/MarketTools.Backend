@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.UserNotifications.Models
+namespace MarketTools.Application.Requests.User.Notifications.Models
 {
     public class UserNotificationVm : IHasMap
     {

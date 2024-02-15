@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Requests.UserNotifications.Models;
+using MarketTools.Application.Requests.User.Notifications.Models;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

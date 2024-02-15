@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MarketTools.Application.Requests.User.Notifications.Models;
 using MarketTools.Application.Requests.UserNotifications.Commands.ReadAll;
-using MarketTools.Application.Requests.UserNotifications.Models;
 using MarketTools.Application.Requests.UserNotifications.Queries.Count;
 using MarketTools.Application.Requests.UserNotifications.Queries.GetRange;
 using MarketTools.Domain.Common;

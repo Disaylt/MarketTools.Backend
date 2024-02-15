@@ -7,17 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.UserNotifications.Commands.ReadAll
+namespace MarketTools.Application.Requests.User.Notifications.Command
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
-        : IRequestHandler<ReadAllNotificationCommand, Unit>
+    public class ReadAllNotificationCommand : IRequest<Unit>
     {
+
+    }
+
+    public class ReadAllNotificationsHandler(IAuthUnitOfWork _authUnitOfWork)
+        :IRequestHandler<ReadAllNotificationCommand, Unit>
+    {
+
         private readonly IRepository<UserNotificationEntity> _repository = _authUnitOfWork.GetRepository<UserNotificationEntity>();
 
         public async Task<Unit> Handle(ReadAllNotificationCommand request, CancellationToken cancellationToken)
         {
-            IEnumerable<UserNotificationEntity> notifications = await _repository.GetRangeAsync(x=> x.IsRead == false);
-            
+            IEnumerable<UserNotificationEntity> notifications = await _repository.GetRangeAsync(x => x.IsRead == false);
+
             foreach (var notification in notifications)
             {
                 notification.IsRead = true;

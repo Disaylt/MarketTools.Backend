@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Models.Requests;
 using MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination;
-using MarketTools.Application.Requests.UserNotifications.Models;
+using MarketTools.Application.Requests.User.Notifications.Models;
 using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;

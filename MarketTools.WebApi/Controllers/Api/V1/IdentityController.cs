@@ -12,7 +12,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
     [Route("api/v1/[controller]")]
     [ApiController]
     
-    public class IdentityController(IIdentityService _identityService, IMapper _mapper) : ControllerBase
+    public class IdentityController(IIdentityService _identityService) : ControllerBase
     {
         [HttpPost]
         [Route("register")]
