@@ -76,7 +76,10 @@ namespace MarketTools.Application
 
         private static void AddServiceValidators(IServiceCollection services)
         {
-            services.AddScoped<WbStandardAutoresponderValidator>();
+            services.AddScoped<IConnectionServiceFactory<IServiceValidator>>(serviceProvider => new ConnectionServiceFactory<IServiceValidator>(
+                new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IServiceValidator>>> {
+                    { MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IServiceValidator>>() }
+                }, serviceProvider));
 
             services.AddScoped(serviceProvider => new WbProjectServiceProvider<IServiceValidator>(
                 new Dictionary<EnumProjectServices, Func<IServiceProvider, IServiceValidator>>
@@ -84,27 +87,24 @@ namespace MarketTools.Application
                     { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<WbStandardAutoresponderValidator>() }
                 }, serviceProvider));
 
-            services.AddScoped<IConnectionServiceFactory<IServiceValidator>>(serviceProvider => new ConnectionServiceFactory<IServiceValidator>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IServiceValidator>>> {
-                    { MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IServiceValidator>>() }
-                }, serviceProvider));
+            services.AddScoped<WbStandardAutoresponderValidator>();
         }
 
         private static void AddConnectionDeterminant(IServiceCollection services)
         {
-            services.AddSingleton(typeof(ConnectionSerivceDeterminant<>));
-
-            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IConnectionSerivceDeterminant>(
-                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionSerivceDeterminant>>
-                {
-                    { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
-                },serviceProvider));
-
             services.AddScoped<IConnectionServiceFactory<IConnectionSerivceDeterminant>>(serviceProvider => new ConnectionServiceFactory<IConnectionSerivceDeterminant>(
                 new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IConnectionSerivceDeterminant>>>
                 {
                     {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionSerivceDeterminant>>() }
                 },serviceProvider));
+
+            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IConnectionSerivceDeterminant>(
+                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionSerivceDeterminant>>
+                {
+                    { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
+                }, serviceProvider));
+
+            services.AddSingleton(typeof(ConnectionSerivceDeterminant<>));
         }
     }
 }

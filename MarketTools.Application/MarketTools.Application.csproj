@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Database\" />
-    <Folder Include="Models\Http\" />
     <Folder Include="Requests\Autoresponder\Standard\Reports\Models\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>
