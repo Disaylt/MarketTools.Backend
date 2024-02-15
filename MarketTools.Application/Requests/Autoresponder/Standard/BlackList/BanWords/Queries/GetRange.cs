@@ -7,9 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Queries.GetRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Queries
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class BanWordGetRangeQuery : IRequest<IEnumerable<StandardAutoresponderBanWordEntity>>
+    {
+        public int BlackListId { get; set; }
+    }
+
+    public class GetRangeQueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BanWordGetRangeQuery, IEnumerable<StandardAutoresponderBanWordEntity>>
     {
         private readonly IRepository<StandardAutoresponderBanWordEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBanWordEntity>();
