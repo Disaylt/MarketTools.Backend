@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
+using MarketTools.Application.Services;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
@@ -22,7 +24,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
     public class AddRangeCommandValidator : AbstractValidator<RecommendationProductAddRangeCommand>
     {
-        public AddRangeCommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService, IModelStateValidationService modelStateValidationService)
+        public AddRangeCommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
             RuleFor(command => command.Products)
                 .MustAsync(async (newProducts, ct) =>
@@ -35,20 +37,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
                 })
                 .WithErrorCode("400")
                 .WithMessage("Превышен лимит товаров для рекомендации.");
-
-            RuleForEach(command => command.Products)
-                .Custom((product, context) =>
-                {
-                    if (modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
-                    {
-                        string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
-                        context.AddFailure($"{product.FeedbackArticle} - {errorMessage}");
-                    }
-                });
         }
     }
 
     public class AddRangeCommandHandler(IAuthReadHelper _authReadHelper,
+        IModelStateValidationService _modelStateValidationService,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductAddRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
@@ -57,13 +50,27 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductAddRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
-                .AddMainDetails(_authReadHelper.UserId)
+                .AddMainDetails(_authReadHelper.UserId, request.MarketplaceName)
                 .Build();
+
+            ValidateProductsDetails(products);
 
             await _repository.AddRangeAsync(products);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return products;
+        }
+
+        private void ValidateProductsDetails(IEnumerable<StandardAutoresponderRecommendationProductEntity> products)
+        {
+            foreach (var product in products)
+            {
+                if (_modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
+                {
+                    string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
+                    throw new AppBadRequestException($"{product.FeedbackArticle} - {errorMessage}");
+                }
+            }
         }
     }
 }

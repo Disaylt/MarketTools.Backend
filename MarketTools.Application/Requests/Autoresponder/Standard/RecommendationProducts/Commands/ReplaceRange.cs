@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
+using MarketTools.Application.Services;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
@@ -34,20 +36,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
                 })
                 .WithErrorCode("400")
                 .WithMessage("Превышен лимит товаров для рекомендации.");
-
-            RuleForEach(command => command.Products)
-               .Custom((product, context) =>
-               {
-                   if (modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
-                   {
-                       string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
-                       context.AddFailure($"{product.FeedbackArticle} - {errorMessage}");
-                   }
-               });
         }
     }
 
     public class ReplceRangeCommandHandler(IAuthReadHelper _authReadHelper,
+        IModelStateValidationService _modelStateValidationService,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
@@ -56,16 +49,30 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductReplaceRangeCommand request, CancellationToken cancellationToken)
         {
-            await _repository.ExecuteDeleteAsync(x => x.UserId == _authReadHelper.UserId);
-
             IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
-                .AddMainDetails(_authReadHelper.UserId)
-                .Build();
+                .AddMainDetails(_authReadHelper.UserId, request.MarketplaceName)
+            .Build();
+
+            ValidateProductsDetails(products);
+
+            await _repository.ExecuteDeleteAsync(x => x.UserId == _authReadHelper.UserId);
 
             await _repository.AddRangeAsync(products, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);
 
             return products;
+        }
+
+        private void ValidateProductsDetails(IEnumerable<StandardAutoresponderRecommendationProductEntity> products)
+        {
+            foreach (var product in products)
+            {
+                if (_modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
+                {
+                    string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
+                    throw new AppBadRequestException($"{product.FeedbackArticle} - {errorMessage}");
+                }
+            }
         }
     }
 }

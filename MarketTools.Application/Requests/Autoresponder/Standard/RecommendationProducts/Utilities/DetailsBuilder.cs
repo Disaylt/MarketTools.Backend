@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,11 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             _rangeCommand = rangeCommand;
         }
 
-        public DetailsBuilder AddMainDetails(string userId)
+        public DetailsBuilder AddMainDetails(string userId, MarketplaceName marketplaceName)
         {
             foreach (StandardAutoresponderRecommendationProductEntity product in _rangeCommand.Products)
             {
-                product.MarketplaceName = _rangeCommand.MarketplaceName;
+                product.MarketplaceName = marketplaceName;
                 product.UserId = userId;
             }
 
