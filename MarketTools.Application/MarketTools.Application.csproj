@@ -31,6 +31,7 @@
     <Folder Include="Interfaces\Database\" />
     <Folder Include="Requests\Autoresponder\Standard\Reports\Models\" />
     <Folder Include="Requests\Ozon\" />
+    <Folder Include="Requests\User\" />
   </ItemGroup>
 
 </Project>
