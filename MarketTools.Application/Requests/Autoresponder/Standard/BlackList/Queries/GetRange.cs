@@ -7,9 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Queries.GetRange
+namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Queries
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class BlackListGetRangeQuery
+        : IRequest<IEnumerable<StandardAutoresponderBlackListEntity>>
+    {
+
+    }
+
+    public class GetRangeQueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<BlackListGetRangeQuery, IEnumerable<StandardAutoresponderBlackListEntity>>
     {
         private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();

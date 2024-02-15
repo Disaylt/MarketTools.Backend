@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Commands.Delete
+namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Commands
 {
-    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class DeleteCommandHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GenericDeleteCommand<StandardAutoresponderBlackListEntity>, Unit>
     {
         private readonly IRepository<StandardAutoresponderBlackListEntity> _repository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
@@ -20,8 +20,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
         {
             StandardAutoresponderBlackListEntity entity = await _repository
                 .GetAsQueryable()
-                .Include(x=> x.Templates)
-                .FirstAsync(x=> x.Id == request.Id);
+                .Include(x => x.Templates)
+                .FirstAsync(x => x.Id == request.Id);
             entity.Templates.Clear();
 
             _repository.Remove(entity);
