@@ -1,6 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Requests.User.Notifications.Utilities;
-using MarketTools.Application.Requests.UserNotifications.Queries;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
