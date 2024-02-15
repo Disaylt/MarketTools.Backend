@@ -17,7 +17,7 @@ namespace MarketTools.Application.Requests.User.Notifications.Queries
         public bool? IsRead { get; set; }
     }
 
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
+    public class CountQueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<CountNotificationsQuery, int>
     {
 

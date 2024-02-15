@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Models.Requests;
 using MarketTools.Application.Requests.User.Notifications.Models;
+using MarketTools.Application.Requests.User.Notifications.Utilities;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.UserNotifications.Queries.GetRange
+namespace MarketTools.Application.Requests.User.Notifications.Queries
 {
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IMapper _mapper)
-        : IRequestHandler<GetRangeNotificationsQuery, IEnumerable<UserNotificationVm>>
+    public class GetRangeNotificationsQuery : GetRangeQuery<UserNotificationVm>
+    {
+        public bool? IsRead { get; set; }
+        public bool IsSetReadStatus { get; set; }
+    }
+
+    public class GetRangeQueryHandler(IAuthUnitOfWork _authUnitOfWork, IMapper _mapper)
+       : IRequestHandler<GetRangeNotificationsQuery, IEnumerable<UserNotificationVm>>
     {
         private readonly IRepository<UserNotificationEntity> _repository = _authUnitOfWork.GetRepository<UserNotificationEntity>();
         public async Task<IEnumerable<UserNotificationVm>> Handle(GetRangeNotificationsQuery request, CancellationToken cancellationToken)
@@ -38,14 +46,14 @@ namespace MarketTools.Application.Requests.UserNotifications.Queries.GetRange
 
             foreach (UserNotificationEntity entity in entities)
             {
-                if(entity.IsRead == false)
+                if (entity.IsRead == false)
                 {
                     entity.IsRead = true;
                     entitiesForUpdate.Add(entity);
                 }
             }
 
-            if(entitiesForUpdate.Count > 0)
+            if (entitiesForUpdate.Count > 0)
             {
                 _repository.UpdateRange(entitiesForUpdate);
             }
@@ -62,4 +70,5 @@ namespace MarketTools.Application.Requests.UserNotifications.Queries.GetRange
                 .ToListAsync();
         }
     }
+
 }
