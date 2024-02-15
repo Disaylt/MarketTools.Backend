@@ -1,19 +1,21 @@
-﻿using AutoMapper;
-using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
+﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands
 {
-    public class CommandHandler
+    public class CellUpdateCommand : IRequest<StandardAutoresponderCellEntity>
+    {
+        public int Id { get; set; }
+        public required string Value { get; set; }
+    }
+
+    public class UpdateCommandHandler
         (IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<CellUpdateCommand, StandardAutoresponderCellEntity>
     {

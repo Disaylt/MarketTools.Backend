@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
 using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {

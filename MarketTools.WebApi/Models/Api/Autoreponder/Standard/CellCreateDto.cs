@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
 using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands;
 using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
