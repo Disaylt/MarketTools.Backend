@@ -8,9 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Command.Create
+namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Command
 {
-    public class CommandHandler(IAutoresponderContextService _autoresponderContextService,
+    public class CreateResponseCommand : IRequest<AutoresponderResultModel>
+    {
+        public int ConnectionId { get; set; }
+        public required string Article { get; set; }
+        public required string Text { get; set; }
+        public int Rating { get; set; }
+    }
+
+    public class CreateCommandHandler(IAutoresponderContextService _autoresponderContextService,
         IAutoresponderResponseServiceFactory _autoresponderResponseServiceFactory)
         : IRequestHandler<CreateResponseCommand, AutoresponderResultModel>
     {

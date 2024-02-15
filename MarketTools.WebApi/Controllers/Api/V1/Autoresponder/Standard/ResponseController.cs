@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Models.Autoresponder;
-using MarketTools.Application.Requests.Autoresponder.Standard.Response.Command.Create;
+using MarketTools.Application.Requests.Autoresponder.Standard.Response.Command;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
