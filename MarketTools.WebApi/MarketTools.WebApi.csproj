@@ -46,7 +46,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Api\V1\Ozon\" />
-    <Folder Include="Services\Identity\" />
   </ItemGroup>
 
 </Project>
