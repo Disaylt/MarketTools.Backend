@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.User.Command.Login;
-using MarketTools.Application.Cases.User.Command.Register;
-using MarketTools.Application.Cases.User.Models;
-using MarketTools.Application.Cases.User.Queries.GetUser;
+using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Api.Identity;
+using MarketTools.WebApi.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +12,13 @@ namespace MarketTools.WebApi.Controllers.Api.V1
     [Route("api/v1/[controller]")]
     [ApiController]
     
-    public class IdentityController(IMediator _mediator, IMapper _mapper) : ControllerBase
+    public class IdentityController(IIdentityService _identityService, IMapper _mapper) : ControllerBase
     {
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] NewUserDto body)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel body)
         {
-            RegisterUserCommand command = _mapper.Map<RegisterUserCommand>(body);
-            TokenVm token = await _mediator.Send(command);
+            TokenVm token = await _identityService.RegisterAsync(body);
 
             return Ok(token);
         }
@@ -30,7 +27,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
         [Authorize]
         public async Task<IActionResult> GetAsync()
         {
-            UserVm response = await _mediator.Send(new GetUserQuery());
+            UserVm response = await _identityService.GetAuthUserAsync();
 
             return Ok(response);
         }
@@ -49,10 +46,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginDto body)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginModel body)
         {
-            LoginUserCommand command = _mapper.Map<LoginUserCommand>(body);
-            TokenVm token = await _mediator.Send(command);
+            TokenVm token = await _identityService.LoginAsync(body);
 
             return Ok(token);
         }
