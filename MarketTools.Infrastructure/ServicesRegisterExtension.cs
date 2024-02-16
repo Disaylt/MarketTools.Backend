@@ -27,6 +27,7 @@ using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using Microsoft.Extensions.Http;
 using MarketTools.Application.Interfaces.Common;
+using MarketTools.Infrastructure.Services.Common;
 
 namespace MarketTools.Infrastructure
 {
@@ -43,6 +44,8 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
+
+            serviceDescriptors.AddScoped(typeof(IContextService<>), typeof(ContextService<>));
 
             serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivator>();
             AddSolutionMapping(serviceDescriptors);
