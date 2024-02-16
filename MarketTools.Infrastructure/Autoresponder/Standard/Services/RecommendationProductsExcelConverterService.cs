@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Autoresponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class RecommendationProductsExcelConverterService
         : ExcelBase,

@@ -27,7 +27,7 @@ using Microsoft.Extensions.Http;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Infrastructure.Common;
 using MarketTools.Infrastructure.MarketplaceConnections;
-using MarketTools.Infrastructure.Autoresponder.Standard;
+using MarketTools.Infrastructure.Autoresponder.Standard.Services;
 
 namespace MarketTools.Infrastructure
 {
@@ -40,6 +40,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
             serviceDescriptors.AddSingleton<ILimitsService<IMarketplaceConnectionLimits>, MarketplaceConnectionsLimitsService>();
 
+            serviceDescriptors.AddScoped<IAutoresponderReportsService, AutoresponderReportsService>();
             serviceDescriptors.AddScoped<IAutoresponderContextLoadService, AutoresponderContextLoadService>();
             serviceDescriptors.AddSingleton<IExcelReader<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();

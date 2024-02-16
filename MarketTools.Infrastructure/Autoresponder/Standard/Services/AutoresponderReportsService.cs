@@ -1,8 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Models.Autoresponder;
-using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
@@ -11,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Services.Autroesponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class AutoresponderReportsService(IUnitOfWork _unitOfWork)
         : IAutoresponderReportsService
