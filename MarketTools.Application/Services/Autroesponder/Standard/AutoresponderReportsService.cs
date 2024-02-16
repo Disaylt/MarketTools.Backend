@@ -18,23 +18,27 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer)
+        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
         {
-            throw new NotImplementedException();
+            StandardAutoresponderNotificationEntity entity = Create(feedback, answer, connectionId);
+            await _repository.AddAsync(entity);
+            await _unitOfWork.UseCommit(isUseCommit);
+
+            return entity;
         }
 
-        private StandardAutoresponderNotificationEntity Create(ReportCreateDto model)
+        private StandardAutoresponderNotificationEntity Create(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId)
         {
             return new StandardAutoresponderNotificationEntity
             {
-                StandardAutoresponderConnectionId = model.ConnectionId,
-                IsSuccess = model.IsSuccess,
-                Report = model.Report,
-                Response = model.Response,
-                Article = model.Article,
-                SupplierArticle = model.SupplierArticle,
-                Rating = model.Rating,
-                ReviewCreateDate = model.ReviewCreateDate
+                Article = feedback.ProductDetails.ImtId,
+                SupplierArticle = feedback.ProductDetails.SupplierArticle,
+                StandardAutoresponderConnectionId = connectionId,
+                IsSuccess = answer.IsSuccess,
+                Rating = feedback.ProductValuation,
+                Report = answer.Report,
+                Response = answer.Text ?? "-",
+                ReviewCreateDate = feedback.CreatedDate
             };
         }
     }

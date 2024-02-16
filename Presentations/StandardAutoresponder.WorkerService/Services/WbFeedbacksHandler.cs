@@ -31,7 +31,7 @@ namespace StandardAutoresponder.WorkerService.Services
                 {
                     AutoresponderResultModel answer = BuildResponse(feedback);
                     bool isSend = await TrySendAnswerAsync(answer, feedback);
-                    await AddReportAsync(feedback, answer);
+                    await _autoresponderReportsService.AddAsync(feedback, answer, _autoresponderContext.Context.Connection.SellerConnectionId);
                 }
             }
             catch(AppConnectionBadRequestException ex)
@@ -46,23 +46,6 @@ namespace StandardAutoresponder.WorkerService.Services
             {
                 await _unitOfWork.CommitAsync();
             }
-        }
-
-        private async Task AddReportAsync(FeedbackDetails feedback, AutoresponderResultModel answer)
-        {
-            ReportCreateDto report = new ReportCreateDto
-            {
-                Article = feedback.ProductDetails.ImtId,
-                SupplierArticle = feedback.ProductDetails.SupplierArticle,
-                ConnectionId = _autoresponderContext.Context.Connection.SellerConnectionId,
-                IsSuccess = answer.IsSuccess,
-                Rating = feedback.ProductValuation,
-                Report = answer.Report,
-                Response = answer.Text ?? "-",
-                ReviewCreateDate = feedback.CreatedDate
-            };
-
-            await _autoresponderReportsService.AddWithoutCommitAsync(report);
         }
 
         private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)
