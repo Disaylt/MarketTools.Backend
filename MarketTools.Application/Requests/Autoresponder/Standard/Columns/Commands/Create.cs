@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.Domain.Interfaces.Limits;
@@ -39,7 +40,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Columns.Comman
     }
 
     public class CreateCommanHandler(IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper)
+        IContextService<IdentityContext> _identityContext)
         : IRequestHandler<ColumnCreateCommand, StandardAutoresponderColumnEntity>
     {
         private readonly IRepository<StandardAutoresponderColumnEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderColumnEntity>();
@@ -60,7 +61,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Columns.Comman
             {
                 Name = request.Name,
                 Type = request.Type,
-                UserId = _authReadHelper.UserId,
+                UserId = _identityContext.Context.UserId,
             };
         }
     }

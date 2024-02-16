@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Identity;
@@ -8,12 +10,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MarketTools.WebApi.Services.Identity
 {
-    public class IdentityService(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService, IMapper _mapper, IAuthReadHelper _authReadHelper)
+    public class IdentityService(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService, IMapper _mapper, IContextService<IdentityContext> _identityContext)
         : IIdentityService
     {
         public async Task<UserVm> GetAuthUserAsync()
         {
-            AppIdentityUser appIdentityUser = await _userManager.FindByIdAsync(_authReadHelper.UserId)
+            AppIdentityUser appIdentityUser = await _userManager.FindByIdAsync(_identityContext.Context.UserId)
                 ?? throw new AppNotFoundException();
 
             UserVm userVm = _mapper.Map<UserVm>(appIdentityUser);

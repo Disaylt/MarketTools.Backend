@@ -1,6 +1,5 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

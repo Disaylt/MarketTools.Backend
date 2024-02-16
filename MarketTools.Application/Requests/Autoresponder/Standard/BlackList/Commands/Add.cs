@@ -2,9 +2,11 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
         }
     }
 
-    public class AddCommandHandler(IAuthReadHelper _authReadHelper,
+    public class AddCommandHandler(IContextService<IdentityContext> _identityContext,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<BlackListAddCommand, StandardAutoresponderBlackListEntity>
     {
@@ -56,7 +58,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
         {
             return new StandardAutoresponderBlackListEntity
             {
-                UserId = _authReadHelper.UserId,
+                UserId = _identityContext.Context.UserId,
                 Name = request.Name
             };
         }

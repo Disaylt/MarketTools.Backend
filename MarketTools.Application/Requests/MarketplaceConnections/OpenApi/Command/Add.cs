@@ -3,6 +3,7 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.Domain.Interfaces.Limits;
@@ -41,7 +42,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
     }
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper,
+        IContextService<IdentityContext> _identityContext,
         IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
@@ -65,7 +66,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
                 Description = request.Description,
                 Name = request.Name,
                 Token = request.Token,
-                UserId = _authReadHelper.UserId,
+                UserId = _identityContext.Context.UserId,
                 MarketplaceName = request.MarketplaceName
             };
         }

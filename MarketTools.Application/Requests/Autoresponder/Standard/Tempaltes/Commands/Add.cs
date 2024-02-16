@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
@@ -39,7 +40,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
 
     public class AddCommandHandler
         (IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper)
+        IContextService<IdentityContext> _identityContext)
         : IRequestHandler<TemplateAddCommand, StandardAutoresponderTemplateEntity>
     {
         private readonly IRepository<StandardAutoresponderTemplateEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
@@ -58,7 +59,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
             return new StandardAutoresponderTemplateEntity
             {
                 Name = request.Name,
-                UserId = _authReadHelper.UserId
+                UserId = _identityContext.Context.UserId
             };
         }
     }

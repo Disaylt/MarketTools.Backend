@@ -3,6 +3,7 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
 using MarketTools.Application.Services;
@@ -39,7 +40,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         }
     }
 
-    public class ReplceRangeCommandHandler(IAuthReadHelper _authReadHelper,
+    public class ReplceRangeCommandHandler(IContextService<IdentityContext> _identityContext,
         IModelStateValidationService _modelStateValidationService,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
@@ -50,12 +51,12 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         public async Task<IEnumerable<StandardAutoresponderRecommendationProductEntity>> Handle(RecommendationProductReplaceRangeCommand request, CancellationToken cancellationToken)
         {
             IEnumerable<StandardAutoresponderRecommendationProductEntity> products = new DetailsBuilder(request)
-                .AddMainDetails(_authReadHelper.UserId, request.MarketplaceName)
+                .AddMainDetails(_identityContext.Context.UserId, request.MarketplaceName)
             .Build();
 
             ValidateProductsDetails(products);
 
-            await _repository.ExecuteDeleteAsync(x => x.UserId == _authReadHelper.UserId);
+            await _repository.ExecuteDeleteAsync(x => x.UserId == _identityContext.Context.UserId);
 
             await _repository.AddRangeAsync(products, cancellationToken);
             await _unitOfWork.CommintAsync(cancellationToken);

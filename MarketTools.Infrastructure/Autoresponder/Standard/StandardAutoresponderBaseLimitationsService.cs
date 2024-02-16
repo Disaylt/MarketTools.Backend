@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Domain.Interfaces.Limits;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard.Models;
+using MarketTools.Infrastructure.Autoresponder.Standard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

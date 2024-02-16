@@ -1,6 +1,8 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Interfaces.Notifications;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Services.Notifications
 {
-    internal class UserNotificationsService(IAuthReadHelper _authReadHelper, IUnitOfWork _unitOfWork)
+    internal class UserNotificationsService(IContextService<IdentityContext> _identityContext, IUnitOfWork _unitOfWork)
         : IUserNotificationsService
     {
 
@@ -21,7 +23,7 @@ namespace MarketTools.Application.Services.Notifications
             UserNotificationEntity entity = new UserNotificationEntity
             {
                 Text = text,
-                UserId = _authReadHelper.UserId
+                UserId = _identityContext.Context.UserId
             };
             await _repository.AddAsync(entity);
 

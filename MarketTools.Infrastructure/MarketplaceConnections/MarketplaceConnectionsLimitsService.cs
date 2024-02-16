@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Domain.Interfaces.Limits;
-using MarketTools.Infrastructure.Services.MarketplaceConnections.Models;
+using MarketTools.Infrastructure.MarketplaceConnections.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

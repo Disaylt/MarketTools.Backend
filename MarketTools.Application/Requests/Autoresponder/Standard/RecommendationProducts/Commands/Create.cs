@@ -4,6 +4,7 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.Domain.Interfaces.Limits;
@@ -51,7 +52,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
     public class CreateCommandHandler
         (IMapper _mapper,
         IUnitOfWork _unitOfWork,
-        IAuthReadHelper _authReadHelper)
+        IContextService<IdentityContext> _identityContext)
         : IRequestHandler<RecommendationProductCreateCommand, StandardAutoresponderRecommendationProductEntity>
     {
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
@@ -68,7 +69,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         private StandardAutoresponderRecommendationProductEntity Build(RecommendationProductCreateCommand request)
         {
             StandardAutoresponderRecommendationProductEntity entity = _mapper.Map<StandardAutoresponderRecommendationProductEntity>(request);
-            entity.UserId = _authReadHelper.UserId;
+            entity.UserId = _identityContext.Context.UserId;
 
             return entity;
         }
