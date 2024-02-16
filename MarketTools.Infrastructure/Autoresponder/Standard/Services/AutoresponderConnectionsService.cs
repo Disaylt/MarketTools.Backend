@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Services.Autroesponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class AutoresponderConnectionsService(IUnitOfWork _authUnitOfWork)
         : IAutoresponderConnectionsService

@@ -36,7 +36,6 @@ namespace MarketTools.Application
         {
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
-            services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
             services.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             AddConnectionDeterminant(services);
