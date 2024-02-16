@@ -8,10 +8,10 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Interfaces.Services;
-using MarketTools.Application.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Services.Exceptions;
 using MarketTools.Application.Services.Notifications;
+using MarketTools.Application.Utilities;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Application.Utilities.ProjectServices;
@@ -35,8 +35,6 @@ namespace MarketTools.Application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
-
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();

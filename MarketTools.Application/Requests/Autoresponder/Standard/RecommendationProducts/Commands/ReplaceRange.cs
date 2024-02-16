@@ -7,6 +7,7 @@ using MarketTools.Application.Models.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
 using MarketTools.Application.Services;
+using MarketTools.Application.Utilities;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
@@ -26,7 +27,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
     public class ReplaceCommandValidator : AbstractValidator<RecommendationProductReplaceRangeCommand>
     {
-        public ReplaceCommandValidator(ILimitsService<IStandarAutoresponderLimits> limitsService, IModelStateValidationService modelStateValidationService)
+        public ReplaceCommandValidator(ILimitsService<IStandarAutoresponderLimits> limitsService)
         {
             RuleFor(command => command.Products)
                 .MustAsync(async (newProducts, ct) =>
@@ -41,7 +42,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
     }
 
     public class ReplceRangeCommandHandler(IContextService<IdentityContext> _identityContext,
-        IModelStateValidationService _modelStateValidationService,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
@@ -68,11 +68,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         {
             foreach (var product in products)
             {
-                if (_modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
-                {
-                    string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
-                    throw new AppBadRequestException($"{product.FeedbackArticle} - {errorMessage}");
-                }
+                ModelStateValidationUtility.ThrowValidateError(product);
             }
         }
     }

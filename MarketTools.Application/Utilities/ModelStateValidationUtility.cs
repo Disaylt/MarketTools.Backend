@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Services
+namespace MarketTools.Application.Utilities
 {
-    internal class ModelStateValidationService : IModelStateValidationService
+    internal class ModelStateValidationUtility
     {
-        public bool IsValid<T>(T data, out List<ValidationResult> errors)
+        public static bool IsValid<T>(T data, out List<ValidationResult> errors)
         {
             errors = new List<ValidationResult>();
 
@@ -25,9 +25,9 @@ namespace MarketTools.Application.Services
             return Validator.TryValidateObject(data, context, errors, true);
         }
 
-        public void ThrowValidateError<T>(T data)
+        public static void ThrowValidateError<T>(T data)
         {
-            if(IsValid(data, out List<ValidationResult> errors) == false)
+            if (IsValid(data, out List<ValidationResult> errors) == false)
             {
                 ValidationResult validationResult = errors.FirstOrDefault()
                     ?? new ValidationResult("Неизвестная ошибка.");

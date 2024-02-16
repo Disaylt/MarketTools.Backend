@@ -7,6 +7,7 @@ using MarketTools.Application.Models.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
 using MarketTools.Application.Services;
+using MarketTools.Application.Utilities;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
@@ -42,7 +43,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
     }
 
     public class AddRangeCommandHandler(IContextService<IdentityContext> _identityContext,
-        IModelStateValidationService _modelStateValidationService,
         IUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductAddRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
@@ -66,11 +66,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         {
             foreach (var product in products)
             {
-                if (_modelStateValidationService.IsValid(product, out List<ValidationResult> errors) == false)
-                {
-                    string errorMessage = errors.FirstOrDefault()?.ErrorMessage ?? "Не прошел валидацию";
-                    throw new AppBadRequestException($"{product.FeedbackArticle} - {errorMessage}");
-                }
+                ModelStateValidationUtility.ThrowValidateError(product);
             }
         }
     }
