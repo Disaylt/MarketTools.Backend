@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
-    public interface IAutoresponderContextService
+    public interface IAutoresponderContextLoadService
     {
         public Task<AutoresponderContext> Create(int connectionId);
     }

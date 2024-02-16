@@ -18,7 +18,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Comma
         public int Rating { get; set; }
     }
 
-    public class CreateCommandHandler(IAutoresponderContextService _autoresponderContextService,
+    public class CreateCommandHandler(IAutoresponderContextLoadService _autoresponderContextService,
         IAutoresponderResponseServiceFactory _autoresponderResponseServiceFactory)
         : IRequestHandler<CreateResponseCommand, AutoresponderResultModel>
     {

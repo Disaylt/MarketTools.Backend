@@ -1,10 +1,7 @@
-﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
-using MarketTools.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Services.Autroesponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard
 {
-    internal class AutoresponderContextService
+    internal class AutoresponderContextLoadService
         (IAuthUnitOfWork _authUnitOfWork)
-        : IAutoresponderContextService
+        : IAutoresponderContextLoadService
     {
         private readonly IRepository<MarketplaceConnectionEntity> _marketplaceConnectionRepository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
         private readonly IRepository<StandardAutoresponderConnectionEntity> _autoresponderConnectionRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();

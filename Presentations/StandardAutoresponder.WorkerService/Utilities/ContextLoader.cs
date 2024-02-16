@@ -20,7 +20,7 @@ namespace StandardAutoresponder.WorkerService.Utilities
     internal class ContextLoader(IConnectionServiceFactory<IConnectionSerivceDeterminant> _connectionServiceFactory,
         IHttpConnectionContextWriter _httpConnectionContextWriter,
         IUnitOfWork _unitOfWork,
-        IAutoresponderContextService _autoresponderContextService,
+        IAutoresponderContextLoadService _autoresponderContextService,
         IContextService<AutoresponderContext> _autoresponderContext)
         : IContextLoader
     {

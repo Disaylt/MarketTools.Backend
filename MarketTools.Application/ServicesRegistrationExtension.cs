@@ -37,7 +37,6 @@ namespace MarketTools.Application
         {
             services.AddSingleton<IModelStateValidationService, ModelStateValidationService>();
 
-            services.AddScoped<IAutoresponderContextService, AutoresponderContextService>();
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
