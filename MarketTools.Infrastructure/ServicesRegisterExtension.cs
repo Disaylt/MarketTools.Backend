@@ -35,6 +35,7 @@ namespace MarketTools.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection serviceDescriptors, IConfiguration configuration)
         {
+            serviceDescriptors.AddScoped<IIdentityContextLoadService, IdentityContextLoadService>();
             serviceDescriptors.AddScoped<ITokenService, JwtTokenService>();
             serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
             serviceDescriptors.AddSingleton<ILimitsService<IMarketplaceConnectionLimits>, MarketplaceConnectionsLimitsService>();
@@ -43,6 +44,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
 
             serviceDescriptors.AddScoped(typeof(IContextService<>), typeof(ContextService<>));
+            
 
             serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivator>();
             AddSolutionMapping(serviceDescriptors);
