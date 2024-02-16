@@ -27,7 +27,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command
 
             _repository.Update(entity);
 
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

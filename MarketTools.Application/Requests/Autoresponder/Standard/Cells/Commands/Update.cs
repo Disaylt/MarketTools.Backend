@@ -27,7 +27,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands
             entity.Value = request.Value;
 
             _repository.Update(entity);
-            await _authUnitOfWork.CommintAsync();
+            await _authUnitOfWork.CommitAsync();
 
             return entity;
         }

@@ -22,7 +22,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command
 
             _repository.Remove(entity);
 
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

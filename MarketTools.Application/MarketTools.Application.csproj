@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Database\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>
 

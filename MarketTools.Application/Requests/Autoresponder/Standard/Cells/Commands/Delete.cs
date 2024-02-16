@@ -21,7 +21,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands
             StandardAutoresponderCellEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
 
             _repository.Remove(entity);
-            await _authUnitOfWork.CommintAsync();
+            await _authUnitOfWork.CommitAsync();
 
             return Unit.Value;
         }

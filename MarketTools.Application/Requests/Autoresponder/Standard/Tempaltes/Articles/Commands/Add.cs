@@ -52,7 +52,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
         {
             StandardAutoresponderTemplateArticleEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return entity;
         }

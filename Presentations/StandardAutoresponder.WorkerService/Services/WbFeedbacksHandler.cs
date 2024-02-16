@@ -44,7 +44,7 @@ namespace StandardAutoresponder.WorkerService.Services
             }
             finally
             {
-                await _unitOfWork.CommintAsync();
+                await _unitOfWork.CommitAsync();
             }
         }
 

@@ -30,7 +30,7 @@ namespace MarketTools.Application.Requests.User.Notifications.Command
             }
 
             _repository.UpdateRange(notifications);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

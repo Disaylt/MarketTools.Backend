@@ -31,7 +31,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
 
             ratingEntity.Templates.Add(templateEntity);
             _ratingRepository.Update(ratingEntity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return templateEntity;
         }

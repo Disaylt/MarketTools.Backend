@@ -37,7 +37,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
         {
             IEnumerable<StandardAutoresponderTemplateArticleEntity> newEntities = await BuildOnlyNewArticlesAsync(request, cancellationToken);
             await _repository.AddRangeAsync(newEntities, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return newEntities;
         }

@@ -43,7 +43,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanW
             StandardAutoresponderBanWordEntity entity = Create(request);
 
             await _repository.AddAsync(entity, cancellationToken);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return entity;
         }

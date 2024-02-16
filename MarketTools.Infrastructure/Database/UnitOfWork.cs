@@ -18,7 +18,7 @@ namespace MarketTools.Infrastructure.Database
             DbContext = dbContext;
         }
 
-        public async Task CommintAsync(CancellationToken cancellationToken = default)
+        public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             await DbContext.SaveChangesAsync();
         }
@@ -42,6 +42,14 @@ namespace MarketTools.Infrastructure.Database
         public async Task RollbackAsync()
         {
             await DbContext.DisposeAsync();
+        }
+
+        public async Task UseCommit(bool isUse, CancellationToken cancellationToken = default)
+        {
+            if(isUse)
+            {
+                await CommitAsync(cancellationToken);
+            }
         }
     }
 }

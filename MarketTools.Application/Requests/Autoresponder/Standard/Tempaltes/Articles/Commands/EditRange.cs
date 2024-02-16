@@ -44,7 +44,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Arti
             await AddRange(request, entitiesForUpdate, cancellationToken);
             DeleteRange(request, entitiesForUpdate);
 
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return await _repository.GetRangeAsync(x => x.TemplateId == request.TemplateId);
         }

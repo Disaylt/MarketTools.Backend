@@ -37,7 +37,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
             entity.Templates.Remove(template);
 
             _repository.Update(entity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

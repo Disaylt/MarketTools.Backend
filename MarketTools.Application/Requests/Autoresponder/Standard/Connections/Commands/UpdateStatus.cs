@@ -43,7 +43,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
             _repository.Update(serviceConnection);
             await AddNotificationAsync(marketplaceConnection, serviceConnection);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

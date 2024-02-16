@@ -19,7 +19,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         {
             StandardAutoresponderRecommendationProductEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             _repository.Remove(entity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

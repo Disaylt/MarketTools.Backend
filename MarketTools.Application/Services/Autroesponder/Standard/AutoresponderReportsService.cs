@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
@@ -17,21 +18,9 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public async Task<StandardAutoresponderNotificationEntity> AddAsync(ReportCreateDto model)
+        public Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer)
         {
-            StandardAutoresponderNotificationEntity entity = await AddWithoutCommitAsync(model);
-            await _unitOfWork.CommintAsync();
-            
-            return entity;
-        }
-
-        public async Task<StandardAutoresponderNotificationEntity> AddWithoutCommitAsync(ReportCreateDto model)
-        {
-            StandardAutoresponderNotificationEntity entity = Create(model);
-
-            await _repository.AddAsync(entity);
-
-            return entity;
+            throw new NotImplementedException();
         }
 
         private StandardAutoresponderNotificationEntity Create(ReportCreateDto model)

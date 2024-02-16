@@ -59,7 +59,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             await _repository.ExecuteDeleteAsync(x => x.UserId == _identityContext.Context.UserId);
 
             await _repository.AddRangeAsync(products, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return products;
         }

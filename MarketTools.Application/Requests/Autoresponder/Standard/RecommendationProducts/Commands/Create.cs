@@ -61,7 +61,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
         {
             StandardAutoresponderRecommendationProductEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return entity;
         }

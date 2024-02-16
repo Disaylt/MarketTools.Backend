@@ -55,7 +55,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands
             StandardAutoresponderCellEntity entity = Create(request);
 
             await _repository.AddAsync(entity);
-            await _unitOfWork.CommintAsync();
+            await _unitOfWork.CommitAsync();
 
             return entity;
         }

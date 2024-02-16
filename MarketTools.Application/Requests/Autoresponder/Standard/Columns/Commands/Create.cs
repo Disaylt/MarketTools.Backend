@@ -50,7 +50,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Columns.Comman
             StandardAutoresponderColumnEntity entity = Create(request);
 
             await _repository.AddAsync(entity);
-            await _unitOfWork.CommintAsync();
+            await _unitOfWork.CommitAsync();
 
             return entity;
         }

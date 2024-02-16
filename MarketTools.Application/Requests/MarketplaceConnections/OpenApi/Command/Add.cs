@@ -54,7 +54,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
 
             await _connectionActivator.ActivateAsync(newEntity);
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return newEntity;
         }

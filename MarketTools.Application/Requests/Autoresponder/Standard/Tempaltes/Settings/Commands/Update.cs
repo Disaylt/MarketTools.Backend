@@ -29,7 +29,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Sett
             Change(entity, request);
 
             _repository.Update(entity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return entity;
         }

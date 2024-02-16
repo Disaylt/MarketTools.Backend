@@ -30,7 +30,7 @@ namespace MarketTools.Application.Services.Exceptions
             await UseNotificationCreatorAsync(exeption);
 
             _repository.Update(exeption.MarketplaceConnection);
-            await _authUnitOfWork.CommintAsync();
+            await _authUnitOfWork.CommitAsync();
         }
 
         private async Task UseNotificationCreatorAsync(AppConnectionBadRequestException exeption)

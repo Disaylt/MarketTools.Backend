@@ -49,7 +49,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BlackList.Comm
         {
             StandardAutoresponderBlackListEntity entity = Create(request);
             await _repsitory.AddAsync(entity, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return entity;
         }

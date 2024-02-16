@@ -57,7 +57,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             ValidateProductsDetails(products);
 
             await _repository.AddRangeAsync(products);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return products;
         }

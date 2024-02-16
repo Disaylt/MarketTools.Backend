@@ -27,7 +27,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
             await BindBlackListAsync(templateEntity, request.BlackListId, cancellationToken);
 
             _templateRepository.Update(templateEntity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

@@ -49,7 +49,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Comm
         {
             StandardAutoresponderTemplateEntity entity = Build(request);
             await _repository.AddAsync(entity, cancellationToken);
-            await _unitOfWork.CommintAsync();
+            await _unitOfWork.CommitAsync();
 
             return entity;
         }

@@ -42,7 +42,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
             StandardAutoresponderConnectionRatingEntity entity = Create(request);
 
             await _repository.AddAsync(entity, cancellationToken);
-            await _unitOfWork.CommintAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

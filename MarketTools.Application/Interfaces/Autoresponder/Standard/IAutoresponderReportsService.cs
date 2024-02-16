@@ -1,4 +1,5 @@
-﻿using MarketTools.Application.Models.Autoresponder.Standard;
+﻿using MarketTools.Application.Models.Autoresponder;
+using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
@@ -11,7 +12,6 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public interface IAutoresponderReportsService
     {
-        public Task<StandardAutoresponderNotificationEntity> AddWithoutCommitAsync(ReportCreateDto model);
-        public Task<StandardAutoresponderNotificationEntity> AddAsync(ReportCreateDto model);
+        public Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer);
     }
 }

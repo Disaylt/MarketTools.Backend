@@ -35,7 +35,7 @@ namespace MarketTools.Application.Requests.User.Notifications.Queries
                 SetReadStatus(entities);
             }
 
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return viewNotifications;
         }

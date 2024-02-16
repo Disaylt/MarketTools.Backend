@@ -28,7 +28,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
             StandardAutoresponderRecommendationProductEntity autoresponderRecommendationProduct = await _repository.FirstAsync(x => x.Id == request.Id);
             Change(request, autoresponderRecommendationProduct);
             _repository.Update(autoresponderRecommendationProduct);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

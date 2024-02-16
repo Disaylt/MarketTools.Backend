@@ -55,7 +55,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.C
             IEnumerable<StandardAutoresponderBindPositionEntity> entities = CreateEntities(request);
 
             await _repository.AddRangeAsync(entities, cancellationToken);
-            await _authUnintOfWork.CommintAsync(cancellationToken);
+            await _authUnintOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

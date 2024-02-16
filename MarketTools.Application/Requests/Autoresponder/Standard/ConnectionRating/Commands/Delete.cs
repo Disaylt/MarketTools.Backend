@@ -26,7 +26,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.ConnectionRati
                 .FirstAsync(x => x.ConnectionId == request.ConnectionId && x.Rating == request.Rating, cancellationToken);
 
             _repository.Remove(entity);
-            await _authUnitOfWork.CommintAsync(cancellationToken);
+            await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }
