@@ -53,7 +53,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
             string status = entity.IsActive ? "Активирован" : "Отключен";
             string message = $"Стандартный автоответчик - {status}. Подключение: {marketplaceConnection.Name}. Маркетплейс: {MarketplaceNameConverter.Convert(marketplaceConnection.MarketplaceName)}";
 
-            await _userNotificationsService.AddWithoutCommitAsync(message);
+            await _userNotificationsService.AddAsync(message);
         }
 
         private async Task CheckConnection(MarketplaceConnectionEntity entity)

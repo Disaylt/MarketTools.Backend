@@ -9,6 +9,6 @@ namespace MarketTools.Application.Interfaces.Notifications
 {
     public interface IUserNotificationsService
     {
-        public Task<UserNotificationEntity> AddWithoutCommitAsync(string text);
+        public Task<UserNotificationEntity> AddAsync(string text, bool isUseCommit = false);
     }
 }

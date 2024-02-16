@@ -28,6 +28,8 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Infrastructure.Common;
 using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Infrastructure.Autoresponder.Standard.Services;
+using MarketTools.Application.Interfaces.Notifications;
+using MarketTools.Infrastructure.User.Notifications;
 
 namespace MarketTools.Infrastructure
 {
@@ -46,7 +48,8 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
 
             serviceDescriptors.AddScoped(typeof(IContextService<>), typeof(ContextService<>));
-            
+
+            serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
             serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivator>();
             AddSolutionMapping(serviceDescriptors);

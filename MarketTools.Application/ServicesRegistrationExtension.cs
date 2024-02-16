@@ -10,7 +10,6 @@ using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Services.Exceptions;
-using MarketTools.Application.Services.Notifications;
 using MarketTools.Application.Utilities;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
@@ -38,7 +37,6 @@ namespace MarketTools.Application
             services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
-            services.AddScoped<IUserNotificationsService, UserNotificationsService>();
             services.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             AddConnectionDeterminant(services);

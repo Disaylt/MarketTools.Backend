@@ -48,7 +48,7 @@ namespace MarketTools.Application.Services.Exceptions
                 messageBuilder.AppendLine($"Сервис: {ProjectServiceNameConverter.Convert(exeption.Service.Value)}");
             }
 
-            await _userNotificationsService.AddWithoutCommitAsync(messageBuilder.ToString());
+            await _userNotificationsService.AddAsync(messageBuilder.ToString());
         }
 
         private void UseAttemptCounter(MarketplaceConnectionEntity connection)
