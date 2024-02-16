@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.Common
-{ 
+namespace MarketTools.Infrastructure.Common
+{
     internal class ContextService<T> : IContextService<T> where T : IContext
     {
         private T? _context;
@@ -16,7 +16,7 @@ namespace MarketTools.Infrastructure.Services.Common
         {
             get
             {
-                if( _context == null)
+                if (_context == null)
                 {
                     throw new AppNotFoundException($"Контекст данных '{typeof(T).Name}' не установлен.");
                 }

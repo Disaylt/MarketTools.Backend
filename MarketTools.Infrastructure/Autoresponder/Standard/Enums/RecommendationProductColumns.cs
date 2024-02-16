@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.Autoresponder.Standard.Enums
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Enums
 {
     internal enum RecommendationProductsColumns
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.MarketplaceConnecctions.Models
+namespace MarketTools.Infrastructure.MarketplaceConnections.Models
 {
     internal class MarketplaceConnectionLimits : IMarketplaceConnectionLimits
     {

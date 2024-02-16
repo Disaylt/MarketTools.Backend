@@ -12,13 +12,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Excel;
 using MarketTools.Domain.Interfaces.Limits;
 using MarketTools.Application.Common.Mappings;
 using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Common.Configuration;
-using MarketTools.Infrastructure.Services.MarketplaceConnecctions;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Infrastructure.Http;
@@ -27,7 +25,9 @@ using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using Microsoft.Extensions.Http;
 using MarketTools.Application.Interfaces.Common;
-using MarketTools.Infrastructure.Services.Common;
+using MarketTools.Infrastructure.Common;
+using MarketTools.Infrastructure.MarketplaceConnections;
+using MarketTools.Infrastructure.Autoresponder.Standard;
 
 namespace MarketTools.Infrastructure
 {

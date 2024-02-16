@@ -10,13 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.MarketplaceConnecctions
+namespace MarketTools.Infrastructure.MarketplaceConnections
 {
     internal abstract class ConnectionActivator(IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
         IUnitOfWork _unitOfWork)
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _standardAutoresponderConnectionRepository = _unitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
-        
+
         protected async Task CheckServicesAsync(MarketplaceConnectionEntity marketplaceConnection)
         {
             await CheckStandardAutoresponderAsync(marketplaceConnection);

@@ -1,16 +1,16 @@
-﻿using MarketTools.Infrastructure.Excel;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard.Enums;
+﻿using MarketTools.Infrastructure.Autoresponder.Standard.Enums;
+using MarketTools.Infrastructure.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.Autoresponder.Standard.Constants
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Constants
 {
     internal class RecommendationProductsTableConstant
     {
-        public  static IEnumerable<ColumnDetailsDto> Value => _value;
+        public static IEnumerable<ColumnDetailsDto> Value => _value;
 
         private static readonly IEnumerable<ColumnDetailsDto> _value = new List<ColumnDetailsDto>
         {

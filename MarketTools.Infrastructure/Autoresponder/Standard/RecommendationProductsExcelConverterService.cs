@@ -2,16 +2,16 @@
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Excel;
 using MarketTools.Domain.Entities;
+using MarketTools.Infrastructure.Autoresponder.Standard.Constants;
+using MarketTools.Infrastructure.Autoresponder.Standard.Enums;
 using MarketTools.Infrastructure.Excel;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard.Constants;
-using MarketTools.Infrastructure.Services.Autoresponder.Standard.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard
 {
     internal class RecommendationProductsExcelConverterService
         : ExcelBase,
@@ -30,7 +30,7 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
 
                 return ConvertFrom(useRows);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new AppBadRequestException("Не удалось получить данные Excel");
             }
@@ -78,8 +78,8 @@ namespace MarketTools.Infrastructure.Services.Autoresponder.Standard
                     RecommendationProductName = x.Cell((int)RecommendationProductsColumns.RecommendationProductName).GetString()
                 })
                 .ToList();
-            }
+        }
     }
 
-    
+
 }
