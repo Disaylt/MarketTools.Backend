@@ -16,29 +16,14 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 {
     internal class AutoresponderContextService
         (IAuthUnitOfWork _authUnitOfWork)
-        : IAutoresponderContextWriter, IAutoresponderContextReader, IAutoresponderContextService
+        : IAutoresponderContextService
     {
-        private AutoresponderContext? _context;
-
         private readonly IRepository<MarketplaceConnectionEntity> _marketplaceConnectionRepository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
         private readonly IRepository<StandardAutoresponderConnectionEntity> _autoresponderConnectionRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
         private readonly IRepository<StandardAutoresponderRecommendationProductEntity> _recommendationProductsRepository = _authUnitOfWork.GetRepository<StandardAutoresponderRecommendationProductEntity>();
         private readonly IRepository<StandardAutoresponderConnectionRatingEntity> _autoresponderConnectionRatingRepository = _authUnitOfWork.GetRepository<StandardAutoresponderConnectionRatingEntity>();
         private readonly IRepository<StandardAutoresponderTemplateEntity> _templateRepository = _authUnitOfWork.GetRepository<StandardAutoresponderTemplateEntity>();
         private readonly IRepository<StandardAutoresponderBlackListEntity> _blackListRepository = _authUnitOfWork.GetRepository<StandardAutoresponderBlackListEntity>();
-
-        public AutoresponderContext Context
-        {
-            get
-            {
-                if( _context == null)
-                {
-                    throw new AppNotFoundException("Контекст с данными автоответчика не найден.");
-                }
-
-                return _context;
-            }
-        }
 
         public async Task<AutoresponderContext> Create(int connectionId)
         {
@@ -74,16 +59,6 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
                 .LoadAsync();
 
             return context;
-        }
-
-        public void Write(AutoresponderContext context)
-        {
-            if(_context != null)
-            {
-                throw new AppBadRequestException("Контекст для автоответчика уже записан.");
-            }
-
-            _context = context;
         }
     }
 }

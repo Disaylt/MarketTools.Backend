@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Identity;
@@ -20,7 +21,7 @@ namespace StandardAutoresponder.WorkerService.Utilities
         IHttpConnectionContextWriter _httpConnectionContextWriter,
         IUnitOfWork _unitOfWork,
         IAutoresponderContextService _autoresponderContextService,
-        IAutoresponderContextWriter _autoresponderContextWriter)
+        IContextService<AutoresponderContext> _autoresponderContext)
         : IContextLoader
     {
         public async Task Handle(MarketplaceName marketplaceName, int connectionId)
@@ -33,7 +34,7 @@ namespace StandardAutoresponder.WorkerService.Utilities
             _httpConnectionContextWriter.Write(connection);
 
             AutoresponderContext autoresponderContext = await _autoresponderContextService.Create(connectionId);
-            _autoresponderContextWriter.Write(autoresponderContext);
+            _autoresponderContext.Context = autoresponderContext;
         }
     }
 }

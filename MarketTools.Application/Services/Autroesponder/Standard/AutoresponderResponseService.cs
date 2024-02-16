@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
@@ -14,20 +15,13 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Services.Autroesponder.Standard
 {
-    internal class AutoresponderResponseService
+    internal class AutoresponderResponseService(IContextService<AutoresponderContext> _autoresponderContext)
         : IAutoresponderResponseService
     {
-        private readonly IAutoresponderContextReader _contextReader;
-
-        public AutoresponderResponseService(IAutoresponderContextReader contextReader)
-        {
-            _contextReader = contextReader;
-        }
-
         public AutoresponderResultModel Build(AutoresponderRequestModel request)
         {
             StringBuilder reportBuilder = new StringBuilder();
-            AutoresponderContext context = _contextReader.Context;
+            AutoresponderContext context = _autoresponderContext.Context;
 
             try
             {

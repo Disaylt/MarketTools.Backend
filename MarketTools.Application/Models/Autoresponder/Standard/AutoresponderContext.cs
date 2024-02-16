@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Domain.Common;
+using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Autoresponder.Standard
 {
-    public class AutoresponderContext
+    public class AutoresponderContext : IContext
     {
         public IEnumerable<StandardAutoresponderRecommendationProductEntity> RecommendationProducts { get; set; } 
             = Enumerable.Empty<StandardAutoresponderRecommendationProductEntity>(); 

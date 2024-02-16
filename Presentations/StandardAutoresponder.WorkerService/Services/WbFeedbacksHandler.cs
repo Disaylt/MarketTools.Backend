@@ -15,7 +15,7 @@ namespace StandardAutoresponder.WorkerService.Services
     internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, 
         IAutoresponderResponseService _autoresponderResponseService,
         IAutoresponderReportsService _autoresponderReportsService,
-        IAutoresponderContextReader _autoresponderContextReader,
+        IContextService<AutoresponderContext> _autoresponderContext,
         IUnitOfWork _unitOfWork,
         ILogger<WbFeedbacksHandler> _logger,
         IExceptionHandleService<AppConnectionBadRequestException> _exceptionHandleService)
@@ -54,7 +54,7 @@ namespace StandardAutoresponder.WorkerService.Services
             {
                 Article = feedback.ProductDetails.ImtId,
                 SupplierArticle = feedback.ProductDetails.SupplierArticle,
-                ConnectionId = _autoresponderContextReader.Context.Connection.SellerConnectionId,
+                ConnectionId = _autoresponderContext.Context.Connection.SellerConnectionId,
                 IsSuccess = answer.IsSuccess,
                 Rating = feedback.ProductValuation,
                 Report = answer.Report,
