@@ -10,9 +10,9 @@ namespace MarketTools.Application.Interfaces.Autoresponder.Standard
 {
     public abstract class AutoresponderResponseHandler<TBody, TResponse>
     {
-        protected AutoresponderContext Context { get; }
-        protected AutoresponderRequestModel Request { get; }
-        protected StringBuilder ReportBuilder { get; }
+        public AutoresponderContext Context { get; set; }
+        public AutoresponderRequestModel Request { get; set; }
+        public StringBuilder ReportBuilder { get; set; }
 
         public AutoresponderResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder)
         {

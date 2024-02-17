@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Common.Builders;
+﻿using MarketTools.Application.Common.Builders.Requests;
 using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;

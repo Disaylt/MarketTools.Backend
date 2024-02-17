@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Common.Builders
+namespace MarketTools.Application.Common.Builders.Requests
 {
-    internal class BaseQueryBuilder<TEntity> 
+    internal class BaseQueryBuilder<TEntity>
         where TEntity : BaseEntity
     {
         protected IQueryable<TEntity> Query { get; set; }
-         
+
         public BaseQueryBuilder(IQueryable<TEntity> query)
         {
             Query = query;
@@ -26,7 +26,7 @@ namespace MarketTools.Application.Common.Builders
 
         public virtual BaseQueryBuilder<TEntity> SetPagination(PageRequest? pageRequest)
         {
-            if(pageRequest == null)
+            if (pageRequest == null)
             {
                 return this;
             }
@@ -40,7 +40,7 @@ namespace MarketTools.Application.Common.Builders
                     Query = Query.OrderByDescending(x => x.Id);
                     break;
             }
-            
+
             Query = Query
                 .Skip(pageRequest.Skip)
                 .Take(pageRequest.Take);
