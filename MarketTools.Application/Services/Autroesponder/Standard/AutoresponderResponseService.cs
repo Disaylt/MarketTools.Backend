@@ -25,16 +25,18 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 
             try
             {
-                StandardAutoresponderConnectionRatingEntity ratingEntity = new SelectionRatingResponseHandler(context, request, reportBuilder).Handle(request);
-                IEnumerable<StandardAutoresponderTemplateEntity> templates = new SelectionTemplatesResponseHandler(context, request, reportBuilder).Handle(ratingEntity);
-                templates = new BlackListFilterResponseHandler(context, request, reportBuilder).Handle(templates);
-                templates = new SkipSettingsFilterResponseHandler(context, request, reportBuilder).Handle(templates);
-                IEnumerable<TemplateDetails> templatesDetails = new SelectionColumnTypeResponseHandler(context, request, reportBuilder).Handle(templates);
-                templatesDetails = new FilterEmptyColumnTypeResponseHandler(context, request, reportBuilder).Handle(templatesDetails);
-                TemplateDetails templateDetails = new SelectionTemplateResponsseHandler(context, request, reportBuilder).Handle(templatesDetails);
-                ResponseDetails responseDetails = new ResponseTextBuildHandler(context, request, reportBuilder).Handle(templateDetails);
-                responseDetails = new RecommendationReplacerResponseHandler(context, request, reportBuilder).Handle(responseDetails);
-                string responseText = new ResponseTextValidationHandler(context, request, reportBuilder).Handle(responseDetails.Text);
+                string responseText = new AutoresponderResponseChainBuilder<AutoresponderRequestModel>(context, request, reportBuilder, request)
+                    .Use(new SelectionRatingResponseHandler())
+                    .Use(new SelectionTemplatesResponseHandler())
+                    .Use(new BlackListFilterResponseHandler())
+                    .Use(new SkipSettingsFilterResponseHandler())
+                    .Use(new SelectionColumnTypeResponseHandler())
+                    .Use(new FilterEmptyColumnTypeResponseHandler())
+                    .Use(new SelectionTemplateResponsseHandler())
+                    .Use(new ResponseTextBuildHandler())
+                    .Use(new RecommendationReplacerResponseHandler())
+                    .Use(new ResponseTextValidationHandler())
+                    .Get();
 
                 return Create(true, reportBuilder, responseText);
             }

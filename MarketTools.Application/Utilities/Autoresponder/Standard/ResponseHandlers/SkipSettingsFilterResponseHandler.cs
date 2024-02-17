@@ -13,11 +13,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     internal class SkipSettingsFilterResponseHandler
         : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<StandardAutoresponderTemplateEntity>>
     {
-        public SkipSettingsFilterResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
-            : base(context, request, reportBuilder)
-        {
-        }
-
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
             ReportBuilder.AppendLine("- Проверка настроек шаблона.");

@@ -16,10 +16,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     {
         private static Random _random = new Random();
 
-        public RecommendationReplacerResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
-        {
-        }
-
         public override ResponseDetails Handle(ResponseDetails body)
         {
             if(body.ColumnType != AutoresponderColumnType.Recommendation)

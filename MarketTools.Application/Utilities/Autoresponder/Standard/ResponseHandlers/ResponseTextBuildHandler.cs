@@ -14,10 +14,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     {
         private static Random _random = new Random();
 
-        public ResponseTextBuildHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
-        {
-        }
-
         public override ResponseDetails Handle(TemplateDetails body)
         {
             IEnumerable<string> partMessages = GetColumnsText(body);

@@ -14,10 +14,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     internal class SelectionColumnTypeResponseHandler
         : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<TemplateDetails>>
     {
-        public SelectionColumnTypeResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
-        {
-        }
-
         public override IEnumerable<TemplateDetails> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
             AutoresponderColumnType columnType = SelectColumnType();

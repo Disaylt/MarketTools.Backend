@@ -13,11 +13,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 {
     public class SelectionTemplatesResponseHandler : AutoresponderResponseHandler<StandardAutoresponderConnectionRatingEntity, IEnumerable<StandardAutoresponderTemplateEntity>>
     {
-        public SelectionTemplatesResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
-            : base(context, request, reportBuilder)
-        {
-        }
-
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(StandardAutoresponderConnectionRatingEntity body)
         {
             IEnumerable<StandardAutoresponderTemplateEntity> templates = FindTemplates(body);

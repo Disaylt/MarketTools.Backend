@@ -14,11 +14,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     internal class FilterEmptyColumnTypeResponseHandler
         : AutoresponderResponseHandler<IEnumerable<TemplateDetails>, IEnumerable<TemplateDetails>>
     {
-        public FilterEmptyColumnTypeResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
-            : base(context, request, reportBuilder)
-        {
-        }
-
         public override IEnumerable<TemplateDetails> Handle(IEnumerable<TemplateDetails> body)
         {
             ReportBuilder.AppendLine($"- Проверка сущетсвования колонок выбранного типа ответов.");

@@ -14,10 +14,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     {
         private readonly static Random _random = new Random();
 
-        public SelectionTemplateResponsseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
-        {
-        }
-
         public override TemplateDetails Handle(IEnumerable<TemplateDetails> body)
         {
             ReportBuilder.AppendLine($"- Выбираем случайный шаблон для ответов (Предочтительны шаблоны с артикулами)");

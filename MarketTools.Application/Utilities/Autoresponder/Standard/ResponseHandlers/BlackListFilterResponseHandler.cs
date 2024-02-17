@@ -2,6 +2,7 @@
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,13 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
     internal class BlackListFilterResponseHandler
         : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<StandardAutoresponderTemplateEntity>>
     {
-        private readonly string _lowerText;
-
-        public BlackListFilterResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) 
-            : base(context, request, reportBuilder)
-        {
-            _lowerText = request.Text.ToLower();
-        }
+        private string _lowerText = null!;
 
         public override IEnumerable<StandardAutoresponderTemplateEntity> Handle(IEnumerable<StandardAutoresponderTemplateEntity> body)
         {
             ReportBuilder.AppendLine("- Проверка черного списка для шаблонов.");
 
+            _lowerText = Request.Text.ToLower();
             List<StandardAutoresponderTemplateEntity> filterTemplates = new List<StandardAutoresponderTemplateEntity>();
 
             foreach(StandardAutoresponderTemplateEntity template in body)

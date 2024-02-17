@@ -12,10 +12,6 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 {
     internal class SelectionRatingResponseHandler : AutoresponderResponseHandler<AutoresponderRequestModel, StandardAutoresponderConnectionRatingEntity>
     {
-        public SelectionRatingResponseHandler(AutoresponderContext context, AutoresponderRequestModel request, StringBuilder reportBuilder) : base(context, request, reportBuilder)
-        {
-        }
-
         public override StandardAutoresponderConnectionRatingEntity Handle(AutoresponderRequestModel body)
         {
             StandardAutoresponderConnectionRatingEntity response = Find(body);
