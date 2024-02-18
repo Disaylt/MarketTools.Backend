@@ -31,9 +31,6 @@ namespace MarketTools.Application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            AddConnectionDeterminant(services);
-            AddServiceValidators(services);
-
             return services;
         }
 
@@ -55,22 +52,6 @@ namespace MarketTools.Application
             builder.Services.Configure<SequreSettings>(builder.Configuration.GetSection("Sequre"));
 
             return builder;
-        }
-
-        private static void AddConnectionDeterminant(IServiceCollection services)
-        {
-            services.AddScoped<IProjectServiceFactory<IConnectionDeterminantService>>(serviceProvider => new ConnectionServiceFactory<IConnectionDeterminantService>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IConnectionDeterminantService>>>
-                {
-                    {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionDeterminantService>>() }
-                },serviceProvider));
-
-            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IConnectionDeterminantService>(
-                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionDeterminantService>>
-                {
-                    { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
-                }, serviceProvider));
-
         }
     }
 }
