@@ -13,20 +13,16 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
 {
-    internal class WbServiceValidatorProvider(IServiceProvider _serviceProvider) : IMarketplaceProvider<IServiceValidator>
+    internal class WbServiceValidatorProvider: AvstractServiceProvider<IServiceValidator>, IMarketplaceProvider<IServiceValidator>
     {
-        private static Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>> _projectServices =
+        private static Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>> _providers =
             new Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>
             {
                 { MarketplaceName.WB, x=> x.GetRequiredService<WbStandardAutoresponderValidator>() }
             };
 
-        public IServiceValidator Create(MarketplaceName marketplaceName)
+        public WbServiceValidatorProvider(IServiceProvider serviceProvider) : base(serviceProvider, _providers)
         {
-            Func<IServiceProvider, IServiceValidator> func = _projectServices.GetValueOrDefault(marketplaceName)
-                ?? throw new AppNotFoundException($"Для сервиса {marketplaceName} нет реализации.");
-
-            return func.Invoke(_serviceProvider);
         }
     }
 }

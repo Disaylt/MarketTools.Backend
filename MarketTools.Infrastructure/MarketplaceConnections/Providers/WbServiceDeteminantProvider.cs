@@ -15,20 +15,16 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
 {
-    internal class WbServiceDeteminantProvider(IServiceProvider _serviceProvider) : IMarketplaceProvider<IConnectionDeterminantService>
+    internal class WbServiceDeteminantProvider : AvstractServiceProvider<IConnectionDeterminantService>, IMarketplaceProvider<IConnectionDeterminantService>
     {
-        private static Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDeterminantService>> _projectServices =
+        private static Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDeterminantService>> _providers =
             new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDeterminantService>>
             {
                 { MarketplaceName.WB, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>() }
             };
 
-        public IConnectionDeterminantService Create(MarketplaceName marketplaceName)
+        public WbServiceDeteminantProvider(IServiceProvider serviceProvider) : base(serviceProvider, _providers)
         {
-            Func<IServiceProvider, IConnectionDeterminantService> func = _projectServices.GetValueOrDefault(marketplaceName)
-                ?? throw new AppNotFoundException($"Для сервиса {marketplaceName} нет реализации.");
-
-            return func.Invoke(_serviceProvider);
         }
     }
 }
