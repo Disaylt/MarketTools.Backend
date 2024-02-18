@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
 {
-    internal class ServiceValidatorFactory(IServiceProvider _serviceProvider) : IProjectServiceFactory<IServiceValidator>
+    internal class ServiceValidatorFactory : AbstractServiceFactory<IServiceValidator>, IProjectServiceFactory<IServiceValidator>
     {
         private static Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>> _projectServices =
             new Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>>
@@ -22,12 +22,8 @@ namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
                 { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<WbServiceValidatorProvider>() }
             };
 
-        public IMarketplaceProvider<IServiceValidator> Create(EnumProjectServices projectService)
+        public ServiceValidatorFactory(IServiceProvider serviceProvider) : base(serviceProvider, _projectServices)
         {
-            Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>> func = _projectServices.GetValueOrDefault(projectService)
-                ?? throw new AppNotFoundException($"Для сервиса {projectService} нет реализации.");
-
-            return func.Invoke(_serviceProvider);
         }
     }
 }

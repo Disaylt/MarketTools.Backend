@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
 {
-    internal class ServiceDeterminantFactory(IServiceProvider _serviceProvider) : IProjectServiceFactory<IConnectionDeterminantService>
+    internal class ServiceDeterminantFactory : AbstractServiceFactory<IConnectionDeterminantService>, IProjectServiceFactory<IConnectionDeterminantService>
     {
         private static Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IConnectionDeterminantService>>> _projectServices =
             new Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IConnectionDeterminantService>>>
@@ -22,12 +22,8 @@ namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
                 {EnumProjectServices.StandardAutoresponder, x => x.GetRequiredService<WbServiceDeteminantProvider>()}
             };
 
-        public IMarketplaceProvider<IConnectionDeterminantService> Create(EnumProjectServices projectService)
+        public ServiceDeterminantFactory(IServiceProvider serviceProvider) : base(serviceProvider, _projectServices)
         {
-            Func<IServiceProvider, IMarketplaceProvider<IConnectionDeterminantService>> func = _projectServices.GetValueOrDefault(projectService)
-                ?? throw new AppNotFoundException($"Для сервиса {projectService} нет реализации.");
-
-            return func.Invoke(_serviceProvider);
         }
     }
 }
