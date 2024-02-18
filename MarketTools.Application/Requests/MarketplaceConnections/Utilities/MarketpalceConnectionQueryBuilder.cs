@@ -46,8 +46,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
                 throw new AppBadRequestException("Для выбора подключений по сервису необходимо указать название маркетплейса.");
             }
 
-            string discriminator = marketplaceConnectionFactory.Create(_marketplaceName.Value)
-                .Create(projectService.Value)
+            string discriminator = marketplaceConnectionFactory.Create(projectService.Value)
+                .Create(_marketplaceName.Value)
                 .Determinant();
 
             Query = Query.Where(x => x.Discriminator == discriminator);

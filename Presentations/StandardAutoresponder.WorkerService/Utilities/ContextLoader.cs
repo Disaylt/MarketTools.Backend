@@ -27,8 +27,8 @@ namespace StandardAutoresponder.WorkerService.Utilities
         public async Task Handle(MarketplaceName marketplaceName, int connectionId)
         {
             MarketplaceConnectionEntity connection = await _connectionServiceFactory
-                .Create(MarketplaceName.WB)
                 .Create(EnumProjectServices.StandardAutoresponder)
+                .Create(MarketplaceName.WB)
                 .GetAsync(_unitOfWork, connectionId);
 
             _httpConnectionContextWriter.Write(connection);
