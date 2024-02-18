@@ -7,7 +7,6 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
-using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Utilities;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
@@ -58,22 +57,6 @@ namespace MarketTools.Application
             return builder;
         }
 
-        private static void AddServiceValidators(IServiceCollection services)
-        {
-            services.AddScoped<IProjectServiceFactory<IServiceValidator>>(serviceProvider => new ConnectionServiceFactory<IServiceValidator>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>> {
-                    { MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IServiceValidator>>() }
-                }, serviceProvider));
-
-            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IServiceValidator>(
-                new Dictionary<EnumProjectServices, Func<IServiceProvider, IServiceValidator>>
-                {
-                    { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<WbStandardAutoresponderValidator>() }
-                }, serviceProvider));
-
-            services.AddScoped<WbStandardAutoresponderValidator>();
-        }
-
         private static void AddConnectionDeterminant(IServiceCollection services)
         {
             services.AddScoped<IProjectServiceFactory<IConnectionDeterminantService>>(serviceProvider => new ConnectionServiceFactory<IConnectionDeterminantService>(
@@ -88,7 +71,6 @@ namespace MarketTools.Application
                     { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
                 }, serviceProvider));
 
-            services.AddSingleton(typeof(ConnectionSerivceDeterminant<>));
         }
     }
 }

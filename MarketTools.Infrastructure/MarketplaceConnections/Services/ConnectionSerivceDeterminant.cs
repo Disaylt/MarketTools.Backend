@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.MarketplaceConnections
+namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
     internal class ConnectionSerivceDeterminant<T>()
         : IConnectionDeterminantService where T : MarketplaceConnectionEntity

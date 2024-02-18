@@ -34,6 +34,8 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
 using MarketTools.Infrastructure.MarketplaceConnections.Providers;
+using MarketTools.Application.Interfaces.ProjectServices;
+using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 
 namespace MarketTools.Infrastructure
 {
@@ -61,6 +63,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
+            AddServiceValidators(serviceDescriptors);
 
             serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
             serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
@@ -105,6 +108,7 @@ namespace MarketTools.Infrastructure
 
         private static void AddServiceValidators(IServiceCollection services)
         {
+            services.AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>();
 
             services.AddScoped<WbServiceValidatorProvider>();
 
