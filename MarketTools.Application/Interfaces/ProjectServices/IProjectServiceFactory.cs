@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionServiceFactory<T> where T : IProjectService
+    public interface IProjectServiceFactory<T> where T : IProjectService
     {
-        public IProjectServiceProvider<T> Create(MarketplaceName marketplaceName);
+        public IMarketplaceProvider<T> Create(MarketplaceName marketplaceName);
     }
 }

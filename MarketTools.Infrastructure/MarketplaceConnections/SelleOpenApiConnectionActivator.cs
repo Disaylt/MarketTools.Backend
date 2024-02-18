@@ -15,7 +15,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections
         : ConnectionActivator, IConnectionActivator<MarketplaceConnectionOpenApiEntity>
     {
 
-        public SelleOpenApiConnectionActivator(IConnectionServiceFactory<IServiceValidator> connectionServiceFactory, IUnitOfWork unitOfWork)
+        public SelleOpenApiConnectionActivator(IProjectServiceFactory<IServiceValidator> connectionServiceFactory, IUnitOfWork unitOfWork)
             : base(connectionServiceFactory, unitOfWork)
         {
 

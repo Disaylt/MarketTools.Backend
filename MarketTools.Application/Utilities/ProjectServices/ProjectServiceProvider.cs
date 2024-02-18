@@ -1,5 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces.Services;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.ProjectServices
 {
-    internal class ProjectServiceProvider<T> : IProjectServiceProvider<T>
+    internal class ProjectServiceProvider<T> : IMarketplaceProvider<T>
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<EnumProjectServices, Func<IServiceProvider,T>> _projectServices;

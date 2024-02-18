@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces.Services
+namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IProjectServiceProvider<T>
+    public interface IMarketplaceProvider<T>
     {
         public T Create(EnumProjectServices projectServices);
     }

@@ -7,7 +7,6 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
-using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
 using MarketTools.Application.Utilities;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
@@ -61,8 +60,8 @@ namespace MarketTools.Application
 
         private static void AddServiceValidators(IServiceCollection services)
         {
-            services.AddScoped<IConnectionServiceFactory<IServiceValidator>>(serviceProvider => new ConnectionServiceFactory<IServiceValidator>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IServiceValidator>>> {
+            services.AddScoped<IProjectServiceFactory<IServiceValidator>>(serviceProvider => new ConnectionServiceFactory<IServiceValidator>(
+                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>> {
                     { MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IServiceValidator>>() }
                 }, serviceProvider));
 
@@ -77,8 +76,8 @@ namespace MarketTools.Application
 
         private static void AddConnectionDeterminant(IServiceCollection services)
         {
-            services.AddScoped<IConnectionServiceFactory<IConnectionSerivceDeterminant>>(serviceProvider => new ConnectionServiceFactory<IConnectionSerivceDeterminant>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IProjectServiceProvider<IConnectionSerivceDeterminant>>>
+            services.AddScoped<IProjectServiceFactory<IConnectionSerivceDeterminant>>(serviceProvider => new ConnectionServiceFactory<IConnectionSerivceDeterminant>(
+                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IConnectionSerivceDeterminant>>>
                 {
                     {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionSerivceDeterminant>>() }
                 },serviceProvider));

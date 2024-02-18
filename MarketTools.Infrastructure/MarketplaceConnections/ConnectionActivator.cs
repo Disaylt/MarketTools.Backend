@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections
 {
-    internal abstract class ConnectionActivator(IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
+    internal abstract class ConnectionActivator(IProjectServiceFactory<IServiceValidator> _connectionServiceFactory,
         IUnitOfWork _unitOfWork)
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _standardAutoresponderConnectionRepository = _unitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();

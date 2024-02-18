@@ -11,7 +11,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 {
     internal class WbStandardAutoresponderValidator(IAuthUnitOfWork _authUnitOfWork,
         IHttpConnectionFactory<IFeedbacksHttpService> _httpConnectionFactory,
-        IConnectionServiceFactory<IConnectionSerivceDeterminant> _connectionServiceFactory) 
+        IProjectServiceFactory<IConnectionSerivceDeterminant> _connectionServiceFactory) 
         : IServiceValidator
     {
         public async Task TryActivete(int connectionId)

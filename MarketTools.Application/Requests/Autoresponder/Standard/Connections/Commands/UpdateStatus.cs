@@ -21,7 +21,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
     }
 
     public class UpdateStatusCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionServiceFactory<IServiceValidator> _connectionServiceFactory,
+        IProjectServiceFactory<IServiceValidator> _connectionServiceFactory,
         IUserNotificationsService _userNotificationsService)
         : IRequestHandler<UpdateConnenctionStatusCommand, Unit>
     {
