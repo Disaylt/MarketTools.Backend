@@ -35,7 +35,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
 
             _repository.Update(entity);
 
-            await _userNotificationsService.AddWithoutCommitAsync($"Измение токена для API '{entity.Name}'. Маркетплейс: {entity.MarketplaceName}");
+            await _userNotificationsService.AddAsync($"Измение токена для API '{entity.Name}'. Маркетплейс: {entity.MarketplaceName}");
 
             await _authUnitOfWork.CommitAsync(cancellationToken);
 

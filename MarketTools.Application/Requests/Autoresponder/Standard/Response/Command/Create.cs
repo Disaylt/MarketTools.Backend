@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MediatR;
@@ -19,16 +20,16 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Comma
     }
 
     public class CreateCommandHandler(IAutoresponderContextLoadService _autoresponderContextService,
-        IAutoresponderResponseServiceFactory _autoresponderResponseServiceFactory)
+        IAutoresponderResponseService _autoresponderResponseService,
+        IContextService<AutoresponderContext> _autoresponderContext)
         : IRequestHandler<CreateResponseCommand, AutoresponderResultModel>
     {
         public async Task<AutoresponderResultModel> Handle(CreateResponseCommand command, CancellationToken cancellationToken)
         {
             AutoresponderRequestModel buildRequest = CreateRequest(command);
-            AutoresponderContext context = await _autoresponderContextService.Create(command.ConnectionId);
+            _autoresponderContext.Context = await _autoresponderContextService.Create(command.ConnectionId);
 
-            return _autoresponderResponseServiceFactory.Create(context)
-                .Build(buildRequest);
+            return _autoresponderResponseService.Build(buildRequest);
         }
 
         private AutoresponderRequestModel CreateRequest(CreateResponseCommand request)
