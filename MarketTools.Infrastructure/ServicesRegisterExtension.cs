@@ -64,6 +64,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
             AddServiceValidators(serviceDescriptors);
+            AddServiceDeteminant(serviceDescriptors);
 
             serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
             serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
@@ -104,6 +105,15 @@ namespace MarketTools.Infrastructure
             .AddDefaultTokenProviders();
 
             return serviceDescriptors;
+        }
+
+        private static void AddServiceDeteminant(IServiceCollection services)
+        {
+            services.AddScoped<IProjectServiceFactory<IConnectionDeterminantService>, ServiceDeterminantFactory>();
+
+            services.AddScoped<WbServiceDeteminantProvider>();
+
+            services.AddScoped(typeof(ConnectionSerivceDeterminant<>));
         }
 
         private static void AddServiceValidators(IServiceCollection services)
