@@ -1,5 +1,4 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class ResponseTextBuildHandler
         : AutoresponderResponseHandler<TemplateDetails, ResponseDetails>
@@ -25,8 +24,8 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
             ReportBuilder.AppendLine($"- Создание текста ответа.");
 
-            return new ResponseDetails 
-            { 
+            return new ResponseDetails
+            {
                 Text = text,
                 ColumnType = body.ColumnType
             };

@@ -34,7 +34,6 @@ namespace MarketTools.Application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
-            services.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
             services.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 

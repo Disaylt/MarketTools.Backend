@@ -1,5 +1,4 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class SelectionTemplateResponsseHandler
         : AutoresponderResponseHandler<IEnumerable<TemplateDetails>, TemplateDetails>
@@ -19,7 +18,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             ReportBuilder.AppendLine($"- Выбираем случайный шаблон для ответов (Предочтительны шаблоны с артикулами)");
 
             TemplateDetails? selectionBuilderWithArticle = SelectRandomBuilder(body, true);
-            if(selectionBuilderWithArticle != null)
+            if (selectionBuilderWithArticle != null)
             {
                 ReportBuilder.AppendLine($"* Выбран шаблон '{selectionBuilderWithArticle.Template.Name}' с установленным артикулом.");
 

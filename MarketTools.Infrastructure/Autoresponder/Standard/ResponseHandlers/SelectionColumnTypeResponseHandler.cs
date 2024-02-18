@@ -1,5 +1,5 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
+﻿using DocumentFormat.OpenXml.InkML;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class SelectionColumnTypeResponseHandler
         : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<TemplateDetails>>
@@ -20,8 +20,8 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             AddColumnTypeMessage(columnType);
 
             return body
-                .Select(x => new TemplateDetails 
-                { 
+                .Select(x => new TemplateDetails
+                {
                     Template = x,
                     ColumnType = columnType
                 });

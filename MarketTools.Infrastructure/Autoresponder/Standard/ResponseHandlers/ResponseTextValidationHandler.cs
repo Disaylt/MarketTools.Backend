@@ -1,13 +1,13 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Application.Utilities.Autoresponder.Standard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class ResponseTextValidationHandler
         : AutoresponderResponseHandler<ResponseDetails, string>
@@ -21,7 +21,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 throw new Exception("Собран пустой ответ");
             }
 
-            if(responseText.Contains(StandardAutoresponderBindKeys.BuyName)
+            if (responseText.Contains(StandardAutoresponderBindKeys.BuyName)
                 || responseText.Contains(StandardAutoresponderBindKeys.BuyArticle)
                 || responseText.Contains(StandardAutoresponderBindKeys.RecommendationArticle)
                 || responseText.Contains(StandardAutoresponderBindKeys.RecommendationName))
@@ -29,7 +29,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 throw new Exception("В ответе присутствуют ключи для замены на рекомендации");
             }
 
-            if(responseText.Length >= 1000)
+            if (responseText.Length >= 1000)
             {
                 throw new Exception("Ответ не может превышать 1000 символов");
             }

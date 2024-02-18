@@ -42,6 +42,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<ILimitsService<IStandarAutoresponderLimits>, StandardAutoresponderBaseLimitationsService>();
             serviceDescriptors.AddSingleton<ILimitsService<IMarketplaceConnectionLimits>, MarketplaceConnectionsLimitsService>();
 
+            serviceDescriptors.AddScoped<IAutoresponderResponseService, AutoresponderResponseService>();
             serviceDescriptors.AddScoped<IAutoresponderConnectionsService, AutoresponderConnectionsService>();
             serviceDescriptors.AddScoped<IAutoresponderReportsService, AutoresponderReportsService>();
             serviceDescriptors.AddScoped<IAutoresponderContextLoadService, AutoresponderContextLoadService>();

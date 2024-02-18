@@ -1,6 +1,6 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using DocumentFormat.OpenXml.InkML;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Models.Autoresponder;
-using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class SelectionRatingResponseHandler : AutoresponderResponseHandler<AutoresponderRequestModel, StandardAutoresponderConnectionRatingEntity>
     {

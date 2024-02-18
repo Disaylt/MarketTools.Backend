@@ -1,6 +1,7 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
+﻿using DocumentFormat.OpenXml.InkML;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class RecommendationReplacerResponseHandler
         : AutoresponderResponseHandler<ResponseDetails, ResponseDetails>
@@ -18,7 +19,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
 
         public override ResponseDetails Handle(ResponseDetails body)
         {
-            if(body.ColumnType != AutoresponderColumnType.Recommendation)
+            if (body.ColumnType != AutoresponderColumnType.Recommendation)
             {
                 return body;
             }
@@ -37,7 +38,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 .Replace(StandardAutoresponderBindKeys.RecommendationName, recommendation.RecommendationProductName)
                 .Replace(StandardAutoresponderBindKeys.BuyArticle, recommendation.FeedbackArticle)
                 .Replace(StandardAutoresponderBindKeys.BuyName, recommendation.FeedbackProductName);
-        } 
+        }
 
         private StandardAutoresponderRecommendationProductEntity SelectRandomRecommendation()
         {

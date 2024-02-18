@@ -1,15 +1,12 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
-using MarketTools.Domain.Entities;
-using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class FilterEmptyColumnTypeResponseHandler
         : AutoresponderResponseHandler<IEnumerable<TemplateDetails>, IEnumerable<TemplateDetails>>
@@ -32,7 +29,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 ReportBuilder.AppendLine($"* '{item.Template.Name}' не содержит колонок выбранного типа.");
             }
 
-            if(filterTemplate.Count == 0)
+            if (filterTemplate.Count == 0)
             {
                 throw new Exception("После проверки колонок список доступных шаблонов пуст.");
             }

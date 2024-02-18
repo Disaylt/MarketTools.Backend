@@ -1,15 +1,12 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Models.Autoresponder;
-using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers
+namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 {
     internal class BlackListFilterResponseHandler
         : AutoresponderResponseHandler<IEnumerable<StandardAutoresponderTemplateEntity>, IEnumerable<StandardAutoresponderTemplateEntity>>
@@ -23,7 +20,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
             _lowerText = Request.Text.ToLower();
             List<StandardAutoresponderTemplateEntity> filterTemplates = new List<StandardAutoresponderTemplateEntity>();
 
-            foreach(StandardAutoresponderTemplateEntity template in body)
+            foreach (StandardAutoresponderTemplateEntity template in body)
             {
                 if (template.BlackList == null)
                 {
@@ -42,7 +39,7 @@ namespace MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandl
                 filterTemplates.Add(template);
             }
 
-            if(filterTemplates.Count == 0)
+            if (filterTemplates.Count == 0)
             {
                 throw new Exception("Ни один шаблон не прошел проверку черного списка.");
             }

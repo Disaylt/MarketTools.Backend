@@ -1,19 +1,16 @@
-﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Common;
-using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
-using MarketTools.Application.Utilities.Autoresponder.Standard.ResponseHandlers;
-using MarketTools.Domain.Entities;
-using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers;
 
-namespace MarketTools.Application.Services.Autroesponder.Standard
+namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class AutoresponderResponseService(IContextService<AutoresponderContext> _autoresponderContext)
         : IAutoresponderResponseService
@@ -40,7 +37,7 @@ namespace MarketTools.Application.Services.Autroesponder.Standard
 
                 return Create(true, reportBuilder, responseText);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 AddErrorMessage(ex, reportBuilder);
                 return Create(false, reportBuilder);
