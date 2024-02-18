@@ -26,13 +26,14 @@ using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using Microsoft.Extensions.Http;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Infrastructure.Common;
-using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Infrastructure.Autoresponder.Standard.Services;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Infrastructure.User.Notifications;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Infrastructure.Exceptions;
+using MarketTools.Infrastructure.MarketplaceConnections.Services;
+using MarketTools.Infrastructure.MarketplaceConnections.Providers;
 
 namespace MarketTools.Infrastructure
 {
@@ -58,7 +59,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
-            serviceDescriptors.AddScoped<IConnectionActivator<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivator>();
+            serviceDescriptors.AddScoped<IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
 
             serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
@@ -100,6 +101,14 @@ namespace MarketTools.Infrastructure
             .AddDefaultTokenProviders();
 
             return serviceDescriptors;
+        }
+
+        private static void AddServiceValidators(IServiceCollection services)
+        {
+
+            services.AddScoped<WbServiceValidatorProvider>();
+
+            services.AddScoped<WbStandardAutoresponderValidator>();
         }
 
         private static void AddSolutionMapping(IServiceCollection serviceDescriptors)

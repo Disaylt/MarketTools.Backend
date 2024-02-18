@@ -76,14 +76,14 @@ namespace MarketTools.Application
 
         private static void AddConnectionDeterminant(IServiceCollection services)
         {
-            services.AddScoped<IProjectServiceFactory<IConnectionSerivceDeterminant>>(serviceProvider => new ConnectionServiceFactory<IConnectionSerivceDeterminant>(
-                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IConnectionSerivceDeterminant>>>
+            services.AddScoped<IProjectServiceFactory<IConnectionDeterminantService>>(serviceProvider => new ConnectionServiceFactory<IConnectionDeterminantService>(
+                new Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<IConnectionDeterminantService>>>
                 {
-                    {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionSerivceDeterminant>>() }
+                    {MarketplaceName.WB, x=> x.GetRequiredService<WbProjectServiceProvider<IConnectionDeterminantService>>() }
                 },serviceProvider));
 
-            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IConnectionSerivceDeterminant>(
-                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionSerivceDeterminant>>
+            services.AddScoped(serviceProvider => new WbProjectServiceProvider<IConnectionDeterminantService>(
+                new Dictionary<EnumProjectServices, Func<IServiceProvider, IConnectionDeterminantService>>
                 {
                     { EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<ConnectionSerivceDeterminant<MarketplaceConnectionOpenApiEntity>>()}
                 }, serviceProvider));

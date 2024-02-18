@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.MarketplaceConnections
+namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
-    internal class SelleOpenApiConnectionActivator
-        : ConnectionActivator, IConnectionActivator<MarketplaceConnectionOpenApiEntity>
+    internal class SelleOpenApiConnectionActivatorService
+        : ConnectionAbstractActivator, IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>
     {
 
-        public SelleOpenApiConnectionActivator(IProjectServiceFactory<IServiceValidator> connectionServiceFactory, IUnitOfWork unitOfWork)
+        public SelleOpenApiConnectionActivatorService(IProjectServiceFactory<IServiceValidator> connectionServiceFactory, IUnitOfWork unitOfWork)
             : base(connectionServiceFactory, unitOfWork)
         {
 

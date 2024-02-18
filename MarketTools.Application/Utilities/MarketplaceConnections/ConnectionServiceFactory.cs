@@ -13,6 +13,7 @@ namespace MarketTools.Application.Utilities.MarketplaceConnections
     internal class ConnectionServiceFactory<T> : IProjectServiceFactory<T> where T : IProjectService
     {
         private readonly IServiceProvider _serviceProvider;
+
         private readonly Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<T>>> _projectServiceProvider;
 
         public ConnectionServiceFactory(Dictionary<MarketplaceName, Func<IServiceProvider, IMarketplaceProvider<T>>> projectServiceProvider, IServiceProvider serviceProvider)

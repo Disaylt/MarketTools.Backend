@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Application.Utilities.MarketplaceConnections
 {
     internal class ConnectionSerivceDeterminant<T>()
-        : IConnectionSerivceDeterminant where T : MarketplaceConnectionEntity
+        : IConnectionDeterminantService where T : MarketplaceConnectionEntity
     {
         public string Determinant()
         {

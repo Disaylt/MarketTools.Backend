@@ -10,6 +10,6 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
     public interface IProjectServiceFactory<T> where T : IProjectService
     {
-        public IMarketplaceProvider<T> Create(MarketplaceName marketplaceName);
+        public IMarketplaceProvider<T> Create(EnumProjectServices projectService);
     }
 }

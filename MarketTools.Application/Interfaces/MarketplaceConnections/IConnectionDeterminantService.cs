@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionSerivceDeterminant : IProjectService
+    public interface IConnectionDeterminantService : IProjectService
     {
         public Task<MarketplaceConnectionEntity> GetAsync(IUnitOfWork unitOfWork, int id);
         public string Determinant();

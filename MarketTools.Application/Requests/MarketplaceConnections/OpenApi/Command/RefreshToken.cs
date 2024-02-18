@@ -18,7 +18,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
     }
 
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator,
+        IConnectionActivatorService<MarketplaceConnectionOpenApiEntity> _connectionActivator,
         IUserNotificationsService _userNotificationsService)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {

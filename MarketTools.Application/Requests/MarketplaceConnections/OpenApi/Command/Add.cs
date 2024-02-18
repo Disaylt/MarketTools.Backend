@@ -43,7 +43,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
-        IConnectionActivator<MarketplaceConnectionOpenApiEntity> _connectionActivator)
+        IConnectionActivatorService<MarketplaceConnectionOpenApiEntity> _connectionActivator)
         : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionOpenApiEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionOpenApiEntity>();

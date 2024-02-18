@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionActivator<T> where T : MarketplaceConnectionEntity
+    public interface IConnectionActivatorService<T> where T : MarketplaceConnectionEntity
     {
         public Task ActivateAsync(T entity);
     }

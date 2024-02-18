@@ -9,6 +9,6 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
     public interface IMarketplaceProvider<T>
     {
-        public T Create(EnumProjectServices projectServices);
+        public T Create(MarketplaceName marketplaceName);
     }
 }

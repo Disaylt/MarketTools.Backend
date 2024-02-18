@@ -6,7 +6,6 @@ using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Models.Identity;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Models;
 using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Utilities;
-using MarketTools.Application.Services;
 using MarketTools.Application.Utilities;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Limits;

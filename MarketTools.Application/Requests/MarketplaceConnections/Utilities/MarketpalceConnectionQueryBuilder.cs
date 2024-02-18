@@ -34,7 +34,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetByService(IProjectServiceFactory<IConnectionSerivceDeterminant> marketplaceConnectionFactory, EnumProjectServices? projectService)
+        public virtual MarketpalceConnectionQueryBuilder SetByService(IProjectServiceFactory<IConnectionDeterminantService> marketplaceConnectionFactory, EnumProjectServices? projectService)
         {
             if (projectService == null)
             {

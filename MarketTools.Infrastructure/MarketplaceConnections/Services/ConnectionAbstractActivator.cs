@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.MarketplaceConnections
+namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
-    internal abstract class ConnectionActivator(IProjectServiceFactory<IServiceValidator> _connectionServiceFactory,
+    internal abstract class ConnectionAbstractActivator(IProjectServiceFactory<IServiceValidator> _connectionServiceFactory,
         IUnitOfWork _unitOfWork)
     {
         private readonly IRepository<StandardAutoresponderConnectionEntity> _standardAutoresponderConnectionRepository = _unitOfWork.GetRepository<StandardAutoresponderConnectionEntity>();
