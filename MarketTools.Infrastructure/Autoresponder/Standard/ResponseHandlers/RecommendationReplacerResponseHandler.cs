@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
+using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;

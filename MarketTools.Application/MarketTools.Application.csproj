@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Requests\Ozon\" />
-    <Folder Include="Utilities\Autoresponder\Standard\ResponseHandlers\" />
   </ItemGroup>
 
 </Project>

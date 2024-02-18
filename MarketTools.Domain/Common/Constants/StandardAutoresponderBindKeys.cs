@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.Autoresponder.Standard
+namespace MarketTools.Domain.Common.Constants
 {
     public static class StandardAutoresponderBindKeys
     {

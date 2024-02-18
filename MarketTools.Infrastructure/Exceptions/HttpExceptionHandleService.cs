@@ -11,9 +11,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace MarketTools.Application.Services.Exceptions
+namespace MarketTools.Infrastructure.Exceptions
 {
     internal class HttpExceptionHandleService(IUserNotificationsService _userNotificationsService, IAuthUnitOfWork _authUnitOfWork)
         : IExceptionHandleService<AppConnectionBadRequestException>
@@ -35,7 +34,7 @@ namespace MarketTools.Application.Services.Exceptions
 
         private async Task UseNotificationCreatorAsync(AppConnectionBadRequestException exeption)
         {
-            if(exeption.MarketplaceConnection.IsActive) return;
+            if (exeption.MarketplaceConnection.IsActive) return;
 
             MarketplaceConnectionEntity connection = exeption.MarketplaceConnection;
             StringBuilder messageBuilder = new StringBuilder();
@@ -64,7 +63,7 @@ namespace MarketTools.Application.Services.Exceptions
 
         private void UseActivateStatusHandler(AppConnectionBadRequestException exeption)
         {
-            if(exeption.MarketplaceConnection.NumConnectionsAttempt > _maxNumErrors
+            if (exeption.MarketplaceConnection.NumConnectionsAttempt > _maxNumErrors
                 || exeption.HttpStatusCode == HttpStatusCode.Unauthorized
                 || exeption.HttpStatusCode == HttpStatusCode.Forbidden)
             {

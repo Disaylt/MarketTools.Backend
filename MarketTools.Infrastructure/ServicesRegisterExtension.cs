@@ -30,6 +30,9 @@ using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Infrastructure.Autoresponder.Standard.Services;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Infrastructure.User.Notifications;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using MarketTools.Application.Common.Exceptions;
+using MarketTools.Infrastructure.Exceptions;
 
 namespace MarketTools.Infrastructure
 {
@@ -50,6 +53,8 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IExcelWriter<StandardAutoresponderRecommendationProductEntity>, RecommendationProductsExcelConverterService>();
 
             serviceDescriptors.AddScoped(typeof(IContextService<>), typeof(ContextService<>));
+
+            serviceDescriptors.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 

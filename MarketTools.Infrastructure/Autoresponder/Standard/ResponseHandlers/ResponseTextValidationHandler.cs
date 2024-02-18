@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
+using MarketTools.Domain.Common.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -9,7 +9,6 @@ using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Application.Interfaces.Services;
 using MarketTools.Application.Services.Autroesponder.Standard;
-using MarketTools.Application.Services.Exceptions;
 using MarketTools.Application.Utilities;
 using MarketTools.Application.Utilities.Autoresponder.Standard;
 using MarketTools.Application.Utilities.MarketplaceConnections;
@@ -35,7 +34,6 @@ namespace MarketTools.Application
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
             services.AddScoped<IAutoresponderResponseServiceFactory, AutoresponderResponseServiceFactory>();
-            services.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             AddConnectionDeterminant(services);
             AddServiceValidators(services);
