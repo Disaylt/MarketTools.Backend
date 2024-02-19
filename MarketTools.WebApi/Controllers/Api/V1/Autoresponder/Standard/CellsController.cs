@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Queries.GetRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.Cells.Queries;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Update;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands;
 
 namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 {
@@ -10,7 +10,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RecommendationProductUpdateDto, UpdateCommand>();
+            profile.CreateMap<RecommendationProductUpdateDto, RecommendationProductUpdateCommand>();
         }
     }
 }

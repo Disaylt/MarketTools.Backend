@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Commands.UpdateRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.Commands;
+using MarketTools.Application.Requests.Autoresponder.Standard.BindPosition.Queries;
 using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Models;
-using MarketTools.Application.Requests.Autoresponder.Standard.ColumnBindPosition.Queries.GetRange;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;

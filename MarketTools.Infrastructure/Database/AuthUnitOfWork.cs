@@ -1,7 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Vml.Office;
 using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
+using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.Database.Repositories;
@@ -19,9 +21,9 @@ namespace MarketTools.Infrastructure.Database
     {
         private readonly Dictionary<Type, Func<object>> _conditions;
 
-        public AuthUnitOfWork(MainAppDbContext dbContext, IAuthReadHelper authReadHelper) : base(dbContext)
+        public AuthUnitOfWork(MainAppDbContext dbContext, IContextService<IdentityContext> identityContext) : base(dbContext)
         {
-            _conditions = UserConditionsList(authReadHelper.UserId);
+            _conditions = UserConditionsList(identityContext.Context.UserId);
         }
 
         public override IRepository<T> GetRepository<T>()

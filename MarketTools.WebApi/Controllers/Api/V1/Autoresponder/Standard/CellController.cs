@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using DocumentFormat.OpenXml.Spreadsheet;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Create;
-using MarketTools.Application.Cases.Autoresponder.Standard.Cells.Commands.Update;
 using MarketTools.Application.Models.Requests;
+using MarketTools.Application.Requests.Autoresponder.Standard.Cells.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;
 using MediatR;

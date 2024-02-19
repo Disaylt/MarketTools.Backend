@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Common.Mappings;
-using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries.Count;
-using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries.GetRange;
+using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Queries;
 using MarketTools.Domain.Common;
 using MarketTools.Domain.Enums;
 

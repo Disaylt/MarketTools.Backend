@@ -22,11 +22,4 @@ namespace MarketTools.Domain.Enums
     {
         StandardAutoresponder = 1
     }
-
-    public enum OrderType
-    {
-        Ask,
-        Desk,
-        None
-    }
 }

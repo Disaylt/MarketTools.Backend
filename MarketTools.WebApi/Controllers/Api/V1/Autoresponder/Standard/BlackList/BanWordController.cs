@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Models.Requests;
-using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Commands.Add;
+using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Commands;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard.BlackList;
 using MediatR;

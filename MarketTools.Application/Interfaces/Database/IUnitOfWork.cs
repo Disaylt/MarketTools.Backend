@@ -12,7 +12,8 @@ namespace MarketTools.Application.Interfaces.Database
         public IRepository<T> GetRepository<T>() where T : class;
         public void Commit();
         public void Rollback();
-        public Task CommintAsync(CancellationToken cancellationToken = default);
+        public Task CommitAsync(CancellationToken cancellationToken = default);
         public Task RollbackAsync();
+        public Task UseCommit(bool isUse, CancellationToken cancellationToken = default);
     }
 }

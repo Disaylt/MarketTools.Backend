@@ -46,8 +46,8 @@ namespace StandardAutoresponder.WorkerService.Jobs
                 using IServiceScope serviceScope = _serviceProvider.CreateScope();
 
                 await serviceScope.ServiceProvider
-                    .GetRequiredService<IAuthWriteHelper>()
-                    .SetByLoadConnectionAsync(connectionId);
+                    .GetRequiredService<IIdentityContextLoadService>()
+                    .LoadByConnection(connectionId);
 
                 await serviceScope.ServiceProvider
                     .GetRequiredService<IContextLoader>()

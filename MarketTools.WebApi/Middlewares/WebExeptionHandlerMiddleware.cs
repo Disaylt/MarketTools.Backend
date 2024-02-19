@@ -30,7 +30,7 @@ namespace MarketTools.WebApi.Middlewares
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }
-            catch(IdentityUnauthorizedException exception)
+            catch(AppIdentityUnauthorizedException exception)
             {
                 await RunExceptionHandlerAsync(context, serviceProvider, exception);
             }

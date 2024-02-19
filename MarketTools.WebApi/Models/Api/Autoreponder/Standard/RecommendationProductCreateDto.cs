@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Commands.Create;
-using MarketTools.Application.Common.Mappings;
+using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Commands;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 

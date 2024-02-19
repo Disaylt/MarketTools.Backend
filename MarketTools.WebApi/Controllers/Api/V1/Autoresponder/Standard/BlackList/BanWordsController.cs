@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Queries.GetRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.BlackList.BanWords.Queries;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard.BlackList;
 using MediatR;

@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Interfaces;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
@@ -15,7 +15,7 @@ namespace StandardAutoresponder.WorkerService.Services
     internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, 
         IAutoresponderResponseService _autoresponderResponseService,
         IAutoresponderReportsService _autoresponderReportsService,
-        IAutoresponderContextReader _autoresponderContextReader,
+        IContextService<AutoresponderContext> _autoresponderContext,
         IUnitOfWork _unitOfWork,
         ILogger<WbFeedbacksHandler> _logger,
         IExceptionHandleService<AppConnectionBadRequestException> _exceptionHandleService)
@@ -31,7 +31,7 @@ namespace StandardAutoresponder.WorkerService.Services
                 {
                     AutoresponderResultModel answer = BuildResponse(feedback);
                     bool isSend = await TrySendAnswerAsync(answer, feedback);
-                    await AddReportAsync(feedback, answer);
+                    await _autoresponderReportsService.AddAsync(feedback, answer, _autoresponderContext.Context.Connection.SellerConnectionId);
                 }
             }
             catch(AppConnectionBadRequestException ex)
@@ -44,25 +44,8 @@ namespace StandardAutoresponder.WorkerService.Services
             }
             finally
             {
-                await _unitOfWork.CommintAsync();
+                await _unitOfWork.CommitAsync();
             }
-        }
-
-        private async Task AddReportAsync(FeedbackDetails feedback, AutoresponderResultModel answer)
-        {
-            ReportCreateDto report = new ReportCreateDto
-            {
-                Article = feedback.ProductDetails.ImtId,
-                SupplierArticle = feedback.ProductDetails.SupplierArticle,
-                ConnectionId = _autoresponderContextReader.Context.Connection.SellerConnectionId,
-                IsSuccess = answer.IsSuccess,
-                Rating = feedback.ProductValuation,
-                Report = answer.Report,
-                Response = answer.Text ?? "-",
-                ReviewCreateDate = feedback.CreatedDate
-            };
-
-            await _autoresponderReportsService.AddWithoutCommitAsync(report);
         }
 
         private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)

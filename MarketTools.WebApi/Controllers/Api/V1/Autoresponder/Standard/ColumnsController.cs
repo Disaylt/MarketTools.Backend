@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.Columns.Queries.GetRange;
+using MarketTools.Application.Requests.Autoresponder.Standard.Columns.Queries;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.WebApi.Models.Api.Autoreponder.Standard;

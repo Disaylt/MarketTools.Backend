@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Common.Mappings;
-using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command.Add;
+using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command;
 using MarketTools.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 

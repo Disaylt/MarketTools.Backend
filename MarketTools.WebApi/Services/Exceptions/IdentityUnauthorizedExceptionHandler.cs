@@ -5,9 +5,9 @@ using System.Net;
 
 namespace MarketTools.WebApi.Services.Exceptions
 {
-    public class IdentityUnauthorizedExceptionHandler : IWebExceptionHandlerService<IdentityUnauthorizedException>
+    public class IdentityUnauthorizedExceptionHandler : IWebExceptionHandlerService<AppIdentityUnauthorizedException>
     {
-        public async Task HandleAsync(HttpContext context, IdentityUnauthorizedException exception)
+        public async Task HandleAsync(HttpContext context, AppIdentityUnauthorizedException exception)
         {
             IEnumerable<string> errorMessagess = new List<string>() { exception.Message };
 

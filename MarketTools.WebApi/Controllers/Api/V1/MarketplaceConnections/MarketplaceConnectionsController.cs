@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Requests;
-using MarketTools.Application.Requests.MarketplaceConnections.Queries.GetRangePagination;
+using MarketTools.Application.Requests.MarketplaceConnections.Queries;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -19,7 +19,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
         : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangePaginationMarketplaceConnectionsQuery query)
+        public async Task<IActionResult> GetRangeAsync([FromQuery] GetRangeMarketplaceConnectionsQuery query)
         {
             IEnumerable<MarketplaceConnectionEntity> entities = await _mediator.Send(query);
 

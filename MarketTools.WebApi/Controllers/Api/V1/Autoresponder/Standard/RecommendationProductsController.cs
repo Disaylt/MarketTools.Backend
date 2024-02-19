@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using MarketTools.Application.Cases.Autoresponder.Standard.RecommendationProducts.Queries.GetRange;
 using MarketTools.Application.Interfaces.Excel;
-using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries.Count;
+using MarketTools.Application.Requests.Autoresponder.Standard.RecommendationProducts.Queries;
 using MarketTools.Domain.Common;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;

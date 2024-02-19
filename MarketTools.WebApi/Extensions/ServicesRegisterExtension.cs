@@ -8,6 +8,7 @@ using MarketTools.Infrastructure.Database;
 using MarketTools.WebApi.Common.Json;
 using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Services.Exceptions;
+using MarketTools.WebApi.Services.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,9 @@ namespace MarketTools.WebApi.Extensions
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<ValidationException>, ValidationExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<Exception>, DefaultBadRequestExceptionHandlerService>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppNotFoundException>, DefaultNotFoundExceptionHandlerService>();
-            serviceDescriptors.AddScoped<IWebExceptionHandlerService<IdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
+            serviceDescriptors.AddScoped<IWebExceptionHandlerService<AppIdentityUnauthorizedException>, IdentityUnauthorizedExceptionHandler>();
             serviceDescriptors.AddScoped<IWebExceptionHandlerService<DbUpdateException>, EntityFrameworkExceptionHandlerService>();
+            serviceDescriptors.AddScoped<IIdentityService, IdentityService>();
 
             serviceDescriptors.AddControllers()
                 .AddJsonOptions(opt =>
