@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal abstract class BaseHttpConnectionService<TConnection> where TConnection : MarketplaceConnectionEntity
+    internal abstract class BaseHttpConnectionSender<TConnection> where TConnection : MarketplaceConnectionEntity
     {
         protected IHttpConnectionContextService ConnectionContextReader { get; }
         protected HttpClient HttpClient { get; }
 
-        public BaseHttpConnectionService(IHttpConnectionContextService connectionContextReader, HttpClient httpClient)
+        public BaseHttpConnectionSender(IHttpConnectionContextService connectionContextReader, HttpClient httpClient)
         {
             ConnectionContextReader = connectionContextReader;
             HttpClient = httpClient;

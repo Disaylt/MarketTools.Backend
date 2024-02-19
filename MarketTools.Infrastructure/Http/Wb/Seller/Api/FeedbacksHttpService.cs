@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class FeedbacksHttpService : WbOpenApiHttpConnectionService<MarketplaceConnectionOpenApiEntity>, IFeedbacksHttpService
+    internal class FeedbacksHttpService : WbOpenApiHttpConnectionSender, IFeedbacksHttpService
     {
         private readonly HttpClient _httpClient; 
 

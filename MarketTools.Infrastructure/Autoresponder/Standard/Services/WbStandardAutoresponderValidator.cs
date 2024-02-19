@@ -15,18 +15,17 @@ using System.Threading.Tasks;
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class WbStandardAutoresponderValidator(IAuthUnitOfWork _authUnitOfWork,
-        IHttpConnectionFactory<IFeedbacksHttpService> _httpConnectionFactory,
+        IFeedbacksHttpService _feedbacksHttpService,
+        IHttpConnectionContextService _httpConnectionContextService,
         IProjectServiceFactory<IConnectionDeterminantService> _connectionServiceFactory)
         : IServiceValidator
     {
         public async Task TryActivete(int connectionId)
         {
-            MarketplaceConnectionEntity entity = await GetConnection(connectionId);
+            await SetHttpConnectionContextAsync(connectionId);
 
             FeedbacksQuery feedbacksQuery = CreateFeedbackQuery();
-
-            await _httpConnectionFactory.Create(entity)
-                .GetFeedbacksAsync(feedbacksQuery);
+            await _feedbacksHttpService.GetFeedbacksAsync(feedbacksQuery);
         }
 
         private FeedbacksQuery CreateFeedbackQuery()
@@ -39,12 +38,14 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
             };
         }
 
-        private async Task<MarketplaceConnectionEntity> GetConnection(int connectionId)
+        private async Task SetHttpConnectionContextAsync(int connectionId)
         {
-            return await _connectionServiceFactory
+            MarketplaceConnectionEntity entity = await _connectionServiceFactory
                 .Create(EnumProjectServices.StandardAutoresponder)
                 .Create(MarketplaceName.WB)
-                .GetAsync(_authUnitOfWork, connectionId); ;
+                .GetAsync(_authUnitOfWork, connectionId);
+
+            _httpConnectionContextService.Write(entity);
         }
     }
 }

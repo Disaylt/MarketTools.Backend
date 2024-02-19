@@ -68,7 +68,6 @@ namespace MarketTools.Infrastructure
                 .AddScoped(typeof(ConnectionSerivceDeterminant<>));
 
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
-            serviceDescriptors.AddScoped(typeof(IHttpConnectionFactory<>), typeof(HttpConnectionFactory<>));
 
             return serviceDescriptors;
         }

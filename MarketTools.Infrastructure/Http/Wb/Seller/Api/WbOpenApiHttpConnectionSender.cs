@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class WbOpenApiHttpConnectionService<TConnection> : BaseHttpConnectionService<TConnection>
-        where TConnection : MarketplaceConnectionOpenApiEntity
+    internal class WbOpenApiHttpConnectionSender: BaseHttpConnectionSender<MarketplaceConnectionOpenApiEntity>
     {
-        public WbOpenApiHttpConnectionService(IHttpConnectionContextService connectionContextReader, HttpClient httpClient) : base(connectionContextReader, httpClient)
+        public WbOpenApiHttpConnectionSender(IHttpConnectionContextService connectionContextReader, HttpClient httpClient) : base(connectionContextReader, httpClient)
         {
 
         }
