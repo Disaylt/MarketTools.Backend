@@ -33,8 +33,7 @@ namespace StandardAutoresponder.WorkerService.Utilities
 
             _httpConnectionContextWriter.Write(connection);
 
-            AutoresponderContext autoresponderContext = await _autoresponderContextService.Create(connectionId);
-            _autoresponderContext.Context = autoresponderContext;
+            _autoresponderContext.Context = await _autoresponderContextService.Create(connectionId);
         }
     }
 }

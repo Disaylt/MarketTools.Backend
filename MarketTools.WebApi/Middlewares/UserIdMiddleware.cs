@@ -15,7 +15,7 @@ namespace MarketTools.WebApi.Middlewares
 
             if (userId != null)
             {
-                _identityContext.Context.UserId = userId;
+                _identityContext.Context = new IdentityContext { UserId = userId };
             }
 
             await _next(context);

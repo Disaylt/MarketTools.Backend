@@ -1,15 +1,10 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MediatR;
 using System.Reflection;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Infrastructure.Identity;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using MarketTools.Application.Interfaces.Excel;
@@ -23,13 +18,11 @@ using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
-using Microsoft.Extensions.Http;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Infrastructure.Common;
 using MarketTools.Infrastructure.Autoresponder.Standard.Services;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Infrastructure.User.Notifications;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
@@ -63,8 +56,16 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
-            AddServiceValidators(serviceDescriptors);
-            AddServiceDeteminant(serviceDescriptors);
+
+            serviceDescriptors
+                .AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>()
+                    .AddScoped<WbServiceValidatorProvider>()
+                        .AddScoped<WbStandardAutoresponderValidator>();
+
+            serviceDescriptors
+                .AddScoped<IProjectServiceFactory<IConnectionDeterminantService>, ServiceDeterminantFactory>()
+                    .AddScoped<WbServiceDeteminantProvider>()
+                .AddScoped(typeof(ConnectionSerivceDeterminant<>));
 
             serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
             serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
@@ -105,24 +106,6 @@ namespace MarketTools.Infrastructure
             .AddDefaultTokenProviders();
 
             return serviceDescriptors;
-        }
-
-        private static void AddServiceDeteminant(IServiceCollection services)
-        {
-            services.AddScoped<IProjectServiceFactory<IConnectionDeterminantService>, ServiceDeterminantFactory>();
-
-            services.AddScoped<WbServiceDeteminantProvider>();
-
-            services.AddScoped(typeof(ConnectionSerivceDeterminant<>));
-        }
-
-        private static void AddServiceValidators(IServiceCollection services)
-        {
-            services.AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>();
-
-            services.AddScoped<WbServiceValidatorProvider>();
-
-            services.AddScoped<WbStandardAutoresponderValidator>();
         }
 
         private static void AddSolutionMapping(IServiceCollection serviceDescriptors)

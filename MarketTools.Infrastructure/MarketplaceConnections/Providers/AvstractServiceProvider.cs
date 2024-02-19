@@ -23,7 +23,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
             _providers = providers;
         }
 
-        public T Create(MarketplaceName marketplaceName)
+        public virtual T Create(MarketplaceName marketplaceName)
         {
             Func<IServiceProvider, T> func = _providers.GetValueOrDefault(marketplaceName)
                 ?? throw new AppNotFoundException($"Для сервиса {marketplaceName} нет реализации.");

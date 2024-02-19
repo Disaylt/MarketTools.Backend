@@ -1,29 +1,11 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Common.Behavoirs;
-using MarketTools.Application.Common.Exceptions;
-using MarketTools.Application.Common.Mappings;
-using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Application.Interfaces.Common;
-using MarketTools.Application.Interfaces.MarketplaceConnections;
-using MarketTools.Application.Interfaces.Notifications;
-using MarketTools.Application.Interfaces.ProjectServices;
-using MarketTools.Application.Utilities;
-using MarketTools.Application.Utilities.Autoresponder.Standard;
-using MarketTools.Application.Utilities.MarketplaceConnections;
-using MarketTools.Application.Utilities.ProjectServices;
 using MarketTools.Domain.Common.Configuration;
-using MarketTools.Domain.Entities;
-using MarketTools.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketTools.Application
 {
