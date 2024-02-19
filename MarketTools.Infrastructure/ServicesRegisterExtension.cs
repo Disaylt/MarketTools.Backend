@@ -14,10 +14,8 @@ using MarketTools.Domain.Common.Constants;
 using MarketTools.Domain.Common.Configuration;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Autoresponder.Standard;
-using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
-using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Infrastructure.Common;
 using MarketTools.Infrastructure.Autoresponder.Standard.Services;
@@ -29,6 +27,8 @@ using MarketTools.Infrastructure.MarketplaceConnections.Services;
 using MarketTools.Infrastructure.MarketplaceConnections.Providers;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
+using MarketTools.Infrastructure.Http.Services;
+using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -74,7 +74,9 @@ namespace MarketTools.Infrastructure
 
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddHttpClient<IFeedbacksHttpService, FeedbacksHttpService>();
+            serviceDescriptors.AddHttpClient<IHttpConnectionClient<MarketplaceConnectionOpenApiEntity>, WbOpenApiHttpConnectionSender>();
+
+            serviceDescriptors.AddTransient<IFeedbacksHttpService, FeedbacksHttpService>();
 
             return serviceDescriptors;
         }

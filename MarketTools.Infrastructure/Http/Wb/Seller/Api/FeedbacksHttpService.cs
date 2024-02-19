@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class FeedbacksHttpService : WbOpenApiHttpConnectionSender, IFeedbacksHttpService
+    internal class FeedbacksHttpService : IFeedbacksHttpService
     {
-        private readonly HttpClient _httpClient; 
+        private readonly IHttpConnectionClient<MarketplaceConnectionOpenApiEntity> _connectionClient;
 
-        public FeedbacksHttpService(HttpClient httpClient, IHttpConnectionContextService httpConnectionContextReader) : base(httpConnectionContextReader, httpClient)
+        public FeedbacksHttpService(IHttpConnectionClient<MarketplaceConnectionOpenApiEntity> connectionClient)
         {
-            _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
+            connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
+            _connectionClient = connectionClient;
         }
 
         public async Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query)
@@ -29,7 +29,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             string path = CreatePathForGettingFeedbacks(query);
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
 
-            HttpResponseMessage response = await SendAsync(requestMessage);
+            HttpResponseMessage response = await _connectionClient.SendAsync(requestMessage);
 
             return await response.Content
                 .ReadFromJsonAsync<WbApiResult<FeedbackResponseData>>()
@@ -44,7 +44,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
             request.Content = content;
 
-            await SendAsync(request);
+            await _connectionClient.SendAsync(request);
         }
 
         private string CreatePathForGettingFeedbacks(FeedbacksQuery query)
@@ -59,13 +59,13 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
                 { $"skip={query.Skip}" },
                 { $"order={query.Order}" }
             };
-            
-            if(query.NmId != null)
+
+            if (query.NmId != null)
             {
                 requestParams.Add($"nmId={query.NmId.Value}");
             }
 
-            if(query.DateFrom != null)
+            if (query.DateFrom != null)
             {
                 requestParams.Add($"dateFrom={query.DateFrom.Value}");
             }

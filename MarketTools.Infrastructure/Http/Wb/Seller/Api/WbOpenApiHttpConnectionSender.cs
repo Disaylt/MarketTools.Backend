@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
-    internal class WbOpenApiHttpConnectionSender: BaseHttpConnectionSender<MarketplaceConnectionOpenApiEntity>
+    internal class WbOpenApiHttpConnectionSender : BaseHttpConnectionSender<MarketplaceConnectionOpenApiEntity>
     {
         public WbOpenApiHttpConnectionSender(IHttpConnectionContextService connectionContextReader, HttpClient httpClient) : base(connectionContextReader, httpClient)
         {
 
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
+        public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
             MarketplaceConnectionOpenApiEntity connection = ConnectionContextReader.Read<MarketplaceConnectionOpenApiEntity>();
 

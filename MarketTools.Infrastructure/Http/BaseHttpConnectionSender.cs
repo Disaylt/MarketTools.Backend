@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal abstract class BaseHttpConnectionSender<TConnection> where TConnection : MarketplaceConnectionEntity
+    internal abstract class BaseHttpConnectionSender<TConnection> : IHttpConnectionClient<TConnection>
+        where TConnection : MarketplaceConnectionEntity
     {
         protected IHttpConnectionContextService ConnectionContextReader { get; }
-        protected HttpClient HttpClient { get; }
+        public HttpClient HttpClient { get; }
 
         public BaseHttpConnectionSender(IHttpConnectionContextService connectionContextReader, HttpClient httpClient)
         {
@@ -21,7 +22,7 @@ namespace MarketTools.Infrastructure.Http
             HttpClient = httpClient;
         }
 
-        protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
+        public virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
             HttpResponseMessage httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http
+namespace MarketTools.Infrastructure.Http.Services
 {
     public class HttpConnectionContextService : IHttpConnectionContextService
     {
