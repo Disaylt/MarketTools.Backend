@@ -18,7 +18,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
     {
         private readonly HttpClient _httpClient; 
 
-        public FeedbacksHttpService(HttpClient httpClient, IHttpConnectionContextReader httpConnectionContextReader) : base(httpConnectionContextReader, httpClient)
+        public FeedbacksHttpService(HttpClient httpClient, IHttpConnectionContextService httpConnectionContextReader) : base(httpConnectionContextReader, httpClient)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");

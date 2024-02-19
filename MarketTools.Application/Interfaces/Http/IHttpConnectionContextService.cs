@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http
 {
-    public interface IHttpConnectionContextReader
+    public interface IHttpConnectionContextService
     {
+        void Write<T>(T entity) where T : MarketplaceConnectionEntity;
         public T Read<T>() where T : MarketplaceConnectionEntity;
     }
 }

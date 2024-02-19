@@ -12,7 +12,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
     internal class WbOpenApiHttpConnectionService<TConnection> : BaseHttpConnectionService<TConnection>
         where TConnection : MarketplaceConnectionOpenApiEntity
     {
-        public WbOpenApiHttpConnectionService(IHttpConnectionContextReader connectionContextReader, HttpClient httpClient) : base(connectionContextReader, httpClient)
+        public WbOpenApiHttpConnectionService(IHttpConnectionContextService connectionContextReader, HttpClient httpClient) : base(connectionContextReader, httpClient)
         {
 
         }

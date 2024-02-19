@@ -67,9 +67,7 @@ namespace MarketTools.Infrastructure
                     .AddScoped<WbServiceDeteminantProvider>()
                 .AddScoped(typeof(ConnectionSerivceDeterminant<>));
 
-            serviceDescriptors.AddScoped<HttpConnectionContextHandler>();
-            serviceDescriptors.AddScoped<IHttpConnectionContextReader>(x=> x.GetRequiredService<HttpConnectionContextHandler>());
-            serviceDescriptors.AddScoped<IHttpConnectionContextWriter>(x => x.GetRequiredService<HttpConnectionContextHandler>());
+            serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
             serviceDescriptors.AddScoped(typeof(IHttpConnectionFactory<>), typeof(HttpConnectionFactory<>));
 
             return serviceDescriptors;

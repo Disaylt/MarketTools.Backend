@@ -12,10 +12,10 @@ namespace MarketTools.Infrastructure.Http
 {
     internal abstract class BaseHttpConnectionService<TConnection> where TConnection : MarketplaceConnectionEntity
     {
-        protected IHttpConnectionContextReader ConnectionContextReader { get; }
+        protected IHttpConnectionContextService ConnectionContextReader { get; }
         protected HttpClient HttpClient { get; }
 
-        public BaseHttpConnectionService(IHttpConnectionContextReader connectionContextReader, HttpClient httpClient)
+        public BaseHttpConnectionService(IHttpConnectionContextService connectionContextReader, HttpClient httpClient)
         {
             ConnectionContextReader = connectionContextReader;
             HttpClient = httpClient;

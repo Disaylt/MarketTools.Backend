@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal class HttpConnectionFactory<T>(IHttpConnectionContextWriter _httpConnectionContextWriter, IServiceProvider _serviceProvider)
+    internal class HttpConnectionFactory<T>(IHttpConnectionContextService _httpConnectionContextWriter, IServiceProvider _serviceProvider)
         : IHttpConnectionFactory<T> where T : class
     {
         public T Create(MarketplaceConnectionEntity connection)

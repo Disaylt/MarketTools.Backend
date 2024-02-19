@@ -18,7 +18,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 namespace StandardAutoresponder.WorkerService.Utilities
 {
     internal class ContextLoader(IProjectServiceFactory<IConnectionDeterminantService> _connectionServiceFactory,
-        IHttpConnectionContextWriter _httpConnectionContextWriter,
+        IHttpConnectionContextService _httpConnectionContextWriter,
         IUnitOfWork _unitOfWork,
         IAutoresponderContextLoadService _autoresponderContextService,
         IContextService<AutoresponderContext> _autoresponderContext)

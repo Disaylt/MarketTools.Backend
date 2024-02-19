@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    public class HttpConnectionContextHandler : IHttpConnectionContextReader, IHttpConnectionContextWriter
+    public class HttpConnectionContextService : IHttpConnectionContextService
     {
         private Dictionary<Type, MarketplaceConnectionEntity> _connections;
 
-        public HttpConnectionContextHandler()
+        public HttpConnectionContextService()
         {
             _connections = new Dictionary<Type, MarketplaceConnectionEntity>();
         }
