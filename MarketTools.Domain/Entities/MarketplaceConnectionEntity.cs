@@ -1,6 +1,7 @@
 ﻿using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace MarketTools.Domain.Entities
         [Required]
         [Range(1, 999)]
         public MarketplaceName MarketplaceName { get; set; } = 0;
+
+        [Required]
+        [Range(1, 999)]
+        [DefaultValue(1)]
+        public MarketplaceConnectionType ConnectionType { get; set; } = 0;
 
         [MaxLength(300)]
         public string? Description { get; set; }
