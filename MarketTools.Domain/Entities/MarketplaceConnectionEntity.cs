@@ -36,5 +36,6 @@ namespace MarketTools.Domain.Entities
         public StandardAutoresponderConnectionEntity AutoresponderConnection { get; set; } = new StandardAutoresponderConnectionEntity();
 
         public List<MarketplaceConnectionHeaderEntity> Headers { get; set; } = new List<MarketplaceConnectionHeaderEntity>();
+        public List<MarketplaceConnectionCookieEntity> Cookies { get; set; } = new List<MarketplaceConnectionCookieEntity>();
     }
 }

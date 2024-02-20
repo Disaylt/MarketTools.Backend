@@ -30,6 +30,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
         public DbSet<StandardAutoresponderNotificationEntity> StandardAutoresponderNotifications { get; set; } = null!;
         public DbSet<MarketplaceConnectionHeaderEntity> MarketplaceConnectionHeaders { get; set; } = null!;
+        public DbSet<MarketplaceConnectionCookieEntity> MarketplaceConnectionCookies { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
