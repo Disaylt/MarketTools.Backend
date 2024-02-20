@@ -29,6 +29,7 @@ using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.Http.Services;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
+using MarketTools.Domain.Http.Connections;
 
 namespace MarketTools.Infrastructure
 {
@@ -56,6 +57,8 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IConnectionActivatorService, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
+
+            serviceDescriptors.AddSingleton<IConnectionConverter<ApiConnectionDto>, ApiConnectionConverter>();
 
             serviceDescriptors
                 .AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>()
