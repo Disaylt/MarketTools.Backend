@@ -54,7 +54,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
-            serviceDescriptors.AddScoped<IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>, SelleOpenApiConnectionActivatorService>();
+            serviceDescriptors.AddScoped<IConnectionActivatorService, SelleOpenApiConnectionActivatorService>();
             AddSolutionMapping(serviceDescriptors);
 
             serviceDescriptors

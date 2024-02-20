@@ -10,9 +10,11 @@ namespace MarketTools.Domain.Entities
     public class HeaderEntity : BaseEntity
     {
         [Required]
+        [MaxLength(200)]
         public string Name { get; set; } = null!;
 
         [Required]
+        [MaxLength(2000)]
         public string Value { get; set; } = null!;
     }
 }

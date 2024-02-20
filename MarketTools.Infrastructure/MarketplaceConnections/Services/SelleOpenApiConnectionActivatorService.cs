@@ -11,31 +11,28 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
-    internal class SelleOpenApiConnectionActivatorService
-        : ConnectionAbstractActivator, IConnectionActivatorService<MarketplaceConnectionOpenApiEntity>
+    internal class SelleOpenApiConnectionActivatorService : IConnectionActivatorService
     {
 
-        public SelleOpenApiConnectionActivatorService(IProjectServiceFactory<IServiceValidator> connectionServiceFactory, IUnitOfWork unitOfWork)
-            : base(connectionServiceFactory, unitOfWork)
+        public SelleOpenApiConnectionActivatorService()
         {
 
         }
 
-        public async Task ActivateAsync(MarketplaceConnectionOpenApiEntity entity)
+        public async Task ActivateAsync(MarketplaceConnectionEntity entity)
         {
-            if (string.IsNullOrEmpty(entity.Token))
-            {
-                entity.IsActive = false;
-            }
-            else if (entity.Id == 0)
-            {
-                entity.IsActive = true;
-            }
-            else
-            {
-                await CheckServicesAsync(entity);
-                entity.IsActive = true;
-            }
+            //if (string.IsNullOrEmpty(entity.Token))
+            //{
+            //    entity.IsActive = false;
+            //}
+            //else if (entity.Id == 0)
+            //{
+            //    entity.IsActive = true;
+            //}
+            //else
+            //{
+            //    entity.IsActive = true;
+            //}
 
             return;
         }

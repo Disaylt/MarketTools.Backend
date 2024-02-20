@@ -42,7 +42,6 @@ namespace MarketTools.Infrastructure.Database
             {
                 { typeof(StandardAutoresponderBanWordEntity), () => new AuthCondition<StandardAutoresponderBanWordEntity>(x=> x.BlackList.UserId == userId)},
                 { typeof(StandardAutoresponderBlackListEntity), () => new AuthCondition<StandardAutoresponderBlackListEntity>(x=> x.UserId == userId)},
-                { typeof(MarketplaceConnectionOpenApiEntity), () => new AuthCondition<MarketplaceConnectionOpenApiEntity>(x=> x.UserId == userId)},
                 { typeof(MarketplaceConnectionEntity), () => new AuthCondition<MarketplaceConnectionEntity>(x=> x.UserId == userId)},
                 { typeof(StandardAutoresponderTemplateSettingsEntity), () => new AuthCondition<StandardAutoresponderTemplateSettingsEntity>(x=> x.Template.UserId == userId)},
                 { typeof(StandardAutoresponderConnectionRatingEntity), () => new AuthCondition<StandardAutoresponderConnectionRatingEntity>(x=> x.Connection.SellerConnection.UserId == userId)},

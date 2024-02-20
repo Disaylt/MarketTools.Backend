@@ -1,4 +1,5 @@
 ﻿using MarketTools.Domain.Entities;
+using MarketTools.Domain.Http.Connections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionActivatorService
+    public interface IConnectionConverter<T> where T : AbstractConnection
     {
-        public Task ActivateAsync(MarketplaceConnectionEntity entity);
+        public T Convert(MarketplaceConnectionEntity connection);
     }
 }

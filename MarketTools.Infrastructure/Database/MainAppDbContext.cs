@@ -24,7 +24,6 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
         public DbSet<MarketplaceConnectionEntity> MarketplaceConnection { get; set; } = null!;
-        public DbSet<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionOpenAPIs { get; set; } = null!;
         public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
         public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
