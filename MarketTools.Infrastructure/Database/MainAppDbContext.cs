@@ -29,6 +29,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
         public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
         public DbSet<StandardAutoresponderNotificationEntity> StandardAutoresponderNotifications { get; set; } = null!;
+        public DbSet<CookieEntity> Cookies { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
