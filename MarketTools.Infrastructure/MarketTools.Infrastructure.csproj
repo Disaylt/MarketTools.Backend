@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Http\Ozon\Seller\Cabinet\" />
+    <Folder Include="Http\Services\" />
   </ItemGroup>
 
 </Project>

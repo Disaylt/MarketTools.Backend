@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Common;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public abstract class MarketplaceConnectionEntity : BaseEntity
+    public abstract class MarketplaceConnectionEntity : BaseEntity, IContext
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;

@@ -27,7 +27,6 @@ using MarketTools.Infrastructure.MarketplaceConnections.Services;
 using MarketTools.Infrastructure.MarketplaceConnections.Providers;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
-using MarketTools.Infrastructure.Http.Services;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Domain.Http.Connections;
 
@@ -56,6 +55,8 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
             serviceDescriptors.AddScoped<IConnectionActivatorService, SelleOpenApiConnectionActivatorService>();
+            serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
+
             AddSolutionMapping(serviceDescriptors);
 
             serviceDescriptors.AddSingleton<IConnectionConverter<ApiConnectionDto>, ApiConnectionConverter>();
@@ -69,8 +70,6 @@ namespace MarketTools.Infrastructure
                 .AddScoped<IProjectServiceFactory<IConnectionDeterminantService>, ServiceDeterminantFactory>()
                     .AddScoped<WbServiceDeteminantProvider>()
                 .AddScoped(typeof(ConnectionSerivceDeterminant<>));
-
-            serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
             return serviceDescriptors;
         }
