@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
 {
-    internal class WbServiceValidatorProvider: AvstractServiceProvider<IServiceValidator>, IMarketplaceProvider<IServiceValidator>
+    internal class WbServiceValidatorProvider: AbstractServiceProvider<IServiceValidator>, IMarketplaceProvider<IServiceValidator>
     {
         private static Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>> _providers =
             new Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>

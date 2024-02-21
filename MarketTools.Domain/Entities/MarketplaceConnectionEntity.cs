@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    public abstract class MarketplaceConnectionEntity : BaseEntity, IContext
+    public class MarketplaceConnectionEntity : BaseEntity, IContext
     {
         [MaxLength(100)]
         public string Name { get; set; } = null!;

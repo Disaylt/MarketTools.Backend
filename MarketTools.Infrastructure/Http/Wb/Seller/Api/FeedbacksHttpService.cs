@@ -16,12 +16,14 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
     internal class FeedbacksHttpService : IFeedbacksHttpService
     {
-        private readonly IHttpConnectionClient<MarketplaceConnectionOpenApiEntity> _connectionClient;
+        private readonly IHttpConnectionClient _connectionClient;
 
-        public FeedbacksHttpService(IHttpConnectionClient<MarketplaceConnectionOpenApiEntity> connectionClient)
+        public FeedbacksHttpService(IHttpConnectionClientFactory connectionClientFactory)
         {
-            connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
-            _connectionClient = connectionClient;
+            _connectionClient = connectionClientFactory
+                .Create(Domain.Enums.MarketplaceConnectionType.OpenApi)
+                .Create(Domain.Enums.MarketplaceName.WB);
+            _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
         }
 
         public async Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query)

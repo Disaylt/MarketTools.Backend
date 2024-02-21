@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http
 {
-    public interface IHttpConnectionClient<T> where T : MarketplaceConnectionEntity
+    public interface IHttpConnectionClient
     {
         public HttpClient HttpClient { get; }
         public Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage);

@@ -22,7 +22,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries
         public EnumProjectServices? ProjectService { get; set; }
     }
 
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IProjectServiceFactory<IConnectionDeterminantService> _marketplaceConnectionFactory)
+    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<GetRangeMarketplaceConnectionsQuery, IEnumerable<MarketplaceConnectionEntity>>
     {
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangeMarketplaceConnectionsQuery request, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries
 
             return await new MarketpalceConnectionQueryBuilder(dbQuery)
                     .SetMarketplace(request.MarketplaceName)
-                    .SetByService(_marketplaceConnectionFactory, request.ProjectService)
+                    .SetByService(request.ProjectService)
                     .SetByType(request.ConnectionType)
                     .SetPagination(request.PageRequest)
                     .Build()

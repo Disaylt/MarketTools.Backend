@@ -15,17 +15,14 @@ using MarketTools.Application.Interfaces.Common;
 
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
-    internal class WbStandardAutoresponderValidator(IAuthUnitOfWork _authUnitOfWork,
+    internal class WbStandardAutoresponderValidator(IMarketplaceConnectionService _marketplaceConnectionService,
         IFeedbacksHttpService _feedbacksHttpService,
-        IContextService<MarketplaceConnectionEntity> _contextService,
-        IProjectServiceFactory<IConnectionDeterminantService> _connectionServiceFactory)
+        IContextService<MarketplaceConnectionEntity> _contextService)
         : IServiceValidator
     {
-        private readonly IRepository<MarketplaceConnectionEntity> _connectionEntityRepository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
-
         public async Task TryActivete(int connectionId)
         {
-            await SetHttpConnectionContextAsync(connectionId);
+            _contextService.Context = await _marketplaceConnectionService.GetWithDetailsAsync(connectionId);
 
             FeedbacksQuery feedbacksQuery = CreateFeedbackQuery();
             await _feedbacksHttpService.GetFeedbacksAsync(feedbacksQuery);
@@ -39,14 +36,6 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
                 Skip = 0,
                 Take = 1
             };
-        }
-
-        private async Task SetHttpConnectionContextAsync(int connectionId)
-        {
-            MarketplaceConnectionEntity entity = await _connectionEntityRepository
-                .FirstAsync(x=> x.i)
-
-            _httpConnectionContextService.Write(entity);
         }
     }
 }

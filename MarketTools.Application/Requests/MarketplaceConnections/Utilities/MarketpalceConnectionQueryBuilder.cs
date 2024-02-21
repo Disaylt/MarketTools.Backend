@@ -34,24 +34,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetByService(IProjectServiceFactory<IConnectionDeterminantService> marketplaceConnectionFactory, EnumProjectServices? projectService)
+        public virtual MarketpalceConnectionQueryBuilder SetByService(EnumProjectServices? projectService)
         {
-            if (projectService == null)
-            {
-                return this;
-            }
-
-            if (_marketplaceName == null)
-            {
-                throw new AppBadRequestException("Для выбора подключений по сервису необходимо указать название маркетплейса.");
-            }
-
-            string discriminator = marketplaceConnectionFactory.Create(projectService.Value)
-                .Create(_marketplaceName.Value)
-                .Determinant();
-
-            Query = Query.Where(x => x.Discriminator == discriminator);
-
             return this;
         }
 
@@ -62,8 +46,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
                 return this;
             }
 
-            string discriminator = new ConnectionTypeFactory().Get(type.Value);
-            Query = Query.Where(x => x.Discriminator == discriminator);
+            Query = Query.Where(x => x.ConnectionType == type.Value);
 
             return this;
         }

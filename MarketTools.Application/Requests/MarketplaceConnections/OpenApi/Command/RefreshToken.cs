@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Http.Connections;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,20 +19,20 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
     }
 
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionActivatorService<MarketplaceConnectionOpenApiEntity> _connectionActivator,
-        IUserNotificationsService _userNotificationsService)
+        IUserNotificationsService _userNotificationsService,
+        IConnectionConverter<ApiConnectionDto> _connectionConverter)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
-        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionOpenApiEntity>();
+        private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            MarketplaceConnectionOpenApiEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            MarketplaceConnectionEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
+            ApiConnectionDto apiConnection = Create(entity, request);
+            _connectionConverter.SetDetails(entity, apiConnection);
 
-            entity.Token = request.Token;
             entity.NumConnectionsAttempt = 0;
-            await _connectionActivator.ActivateAsync(entity);
 
             _repository.Update(entity);
 
@@ -40,6 +41,15 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
             await _authUnitOfWork.CommitAsync(cancellationToken);
 
             return entity;
+        }
+
+        private ApiConnectionDto Create(MarketplaceConnectionEntity entity, OpenApiRefreshTokenCommand request)
+        {
+            return new ApiConnectionDto
+            {
+                ConnectionEntity = entity,
+                Token = request.Token
+            };
         }
     }
 }

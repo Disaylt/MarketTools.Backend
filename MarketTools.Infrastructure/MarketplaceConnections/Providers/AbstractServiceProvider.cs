@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
 {
-    internal class AvstractServiceProvider<T> : IMarketplaceProvider<T>
+    internal class AbstractServiceProvider<T> : IMarketplaceProvider<T>
     {
         protected IServiceProvider ServiceProvider { get; }
         private readonly Dictionary<MarketplaceName, Func<IServiceProvider, T>> _providers;
 
-        public AvstractServiceProvider(IServiceProvider serviceProvider, Dictionary<MarketplaceName, Func<IServiceProvider, T>> providers)
+        public AbstractServiceProvider(IServiceProvider serviceProvider, Dictionary<MarketplaceName, Func<IServiceProvider, T>> providers)
         {
             ServiceProvider = serviceProvider;
             _providers = providers;

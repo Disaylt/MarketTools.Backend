@@ -66,17 +66,13 @@ namespace MarketTools.Infrastructure
                     .AddScoped<WbServiceValidatorProvider>()
                         .AddScoped<WbStandardAutoresponderValidator>();
 
-            serviceDescriptors
-                .AddScoped<IProjectServiceFactory<IConnectionDeterminantService>, ServiceDeterminantFactory>()
-                    .AddScoped<WbServiceDeteminantProvider>()
-                .AddScoped(typeof(ConnectionSerivceDeterminant<>));
-
             return serviceDescriptors;
         }
 
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddHttpClient<IHttpConnectionClient<MarketplaceConnectionOpenApiEntity>, WbOpenApiHttpConnectionSender>();
+
+            serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionSender>();
 
             serviceDescriptors.AddTransient<IFeedbacksHttpService, FeedbacksHttpService>();
 

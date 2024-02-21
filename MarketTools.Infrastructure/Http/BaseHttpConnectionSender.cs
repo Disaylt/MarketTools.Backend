@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Domain.Entities;
 using System;
@@ -10,15 +11,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal abstract class BaseHttpConnectionSender<TConnection> : IHttpConnectionClient<TConnection>
-        where TConnection : MarketplaceConnectionEntity
+    internal abstract class BaseHttpConnectionSender : IHttpConnectionClient
     {
-        protected IHttpConnectionContextService ConnectionContextReader { get; }
+        protected MarketplaceConnectionEntity Connection { get; }
         public HttpClient HttpClient { get; }
 
-        public BaseHttpConnectionSender(IHttpConnectionContextService connectionContextReader, HttpClient httpClient)
+        public BaseHttpConnectionSender(IContextService<MarketplaceConnectionEntity> connectionContextReader, HttpClient httpClient)
         {
-            ConnectionContextReader = connectionContextReader;
+            Connection = connectionContextReader.Context;
             HttpClient = httpClient;
         }
 
@@ -28,7 +28,7 @@ namespace MarketTools.Infrastructure.Http
 
             if ((int)httpResponseMessage.StatusCode >= 400)
             {
-                throw new AppConnectionBadRequestException(ConnectionContextReader.Read<TConnection>(), httpResponseMessage.StatusCode);
+                throw new AppConnectionBadRequestException(Connection, httpResponseMessage.StatusCode);
             }
 
             return httpResponseMessage;

@@ -6,6 +6,7 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Identity;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
+using MarketTools.Domain.Http.Connections;
 using MarketTools.Domain.Interfaces.Limits;
 using MediatR;
 using System;
@@ -43,29 +44,38 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
-        IConnectionActivatorService<MarketplaceConnectionOpenApiEntity> _connectionActivator)
+        IConnectionConverter<ApiConnectionDto> _connectionConverter)
         : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
-        private readonly IRepository<MarketplaceConnectionOpenApiEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionOpenApiEntity>();
+        private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
         public async Task<MarketplaceConnectionEntity> Handle(SellerOpenApiAddCommand request, CancellationToken cancellationToken)
         {
-            MarketplaceConnectionOpenApiEntity newEntity = Create(request);
+            MarketplaceConnectionEntity newEntity = Create(request);
+            ApiConnectionDto apiConnection = Create(request, newEntity);
+            _connectionConverter.SetDetails(newEntity, apiConnection);
 
-            await _connectionActivator.ActivateAsync(newEntity);
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return newEntity;
         }
 
-        private MarketplaceConnectionOpenApiEntity Create(SellerOpenApiAddCommand request)
+        private ApiConnectionDto Create(SellerOpenApiAddCommand request, MarketplaceConnectionEntity entity)
         {
-            return new MarketplaceConnectionOpenApiEntity
+            return new ApiConnectionDto
+            {
+                ConnectionEntity = entity,
+                Token = request.Token
+            };
+        }
+
+        private MarketplaceConnectionEntity Create(SellerOpenApiAddCommand request)
+        {
+            return new MarketplaceConnectionEntity
             {
                 Description = request.Description,
                 Name = request.Name,
-                Token = request.Token,
                 UserId = _identityContext.Context.UserId,
                 MarketplaceName = request.MarketplaceName
             };
