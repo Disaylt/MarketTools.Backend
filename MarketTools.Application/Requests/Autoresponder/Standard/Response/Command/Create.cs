@@ -19,17 +19,16 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Comma
         public int Rating { get; set; }
     }
 
-    public class CreateCommandHandler(IAutoresponderContextLoadService _autoresponderContextService,
-        IAutoresponderResponseService _autoresponderResponseService,
-        IContextService<AutoresponderContext> _autoresponderContext)
+    public class CreateCommandHandler(IAutoresponderResponseService _autoresponderResponseService)
         : IRequestHandler<CreateResponseCommand, AutoresponderResultModel>
     {
-        public async Task<AutoresponderResultModel> Handle(CreateResponseCommand command, CancellationToken cancellationToken)
+        public Task<AutoresponderResultModel> Handle(CreateResponseCommand command, CancellationToken cancellationToken)
         {
             AutoresponderRequestModel buildRequest = CreateRequest(command);
-            _autoresponderContext.Context = await _autoresponderContextService.Create(command.ConnectionId);
 
-            return _autoresponderResponseService.Build(buildRequest);
+            AutoresponderResultModel autoresponderResult = _autoresponderResponseService.Build(buildRequest);
+
+            return Task.FromResult(autoresponderResult);
         }
 
         private AutoresponderRequestModel CreateRequest(CreateResponseCommand request)

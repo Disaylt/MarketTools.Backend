@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Interfaces.Requests
 {
-    public interface IAutoresponderContextCall
+    public interface IStandardAutoresponderContextCall
     {
         public int ConnectionId { get; set; }
     }

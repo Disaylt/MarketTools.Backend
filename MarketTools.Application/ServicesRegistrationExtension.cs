@@ -21,7 +21,7 @@ namespace MarketTools.Application
             services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConnectionContextLoadBehavoir<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConnectionContextBehavoir<,>));
 
             return services;
         }

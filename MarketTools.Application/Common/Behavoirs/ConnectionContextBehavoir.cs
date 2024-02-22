@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Common.Behavoirs
 {
-    public class ConnectionContextLoadBehavoir<TRequest, TResponse>
+    public class ConnectionContextBehavoir<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse> where TRequest : IConnectionContextCall
     {
         public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
