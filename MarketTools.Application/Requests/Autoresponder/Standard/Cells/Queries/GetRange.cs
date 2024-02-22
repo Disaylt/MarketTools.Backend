@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;

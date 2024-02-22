@@ -1,5 +1,5 @@
-﻿using MarketTools.Domain.Common;
-using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Enums;
+using MarketTools.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

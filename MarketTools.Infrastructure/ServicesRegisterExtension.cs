@@ -72,7 +72,8 @@ namespace MarketTools.Infrastructure
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
 
-            serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionSender>();
+            serviceDescriptors.AddHttpClient<IHttpConnectionClient, WbOpenApiHttpConnectionSender>();
+            serviceDescriptors.AddHttpClient<IHttpConnectionClientFactory, IHttpConnectionClientFactory>();
 
             serviceDescriptors.AddTransient<IFeedbacksHttpService, FeedbacksHttpService>();
 

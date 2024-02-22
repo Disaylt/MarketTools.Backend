@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
-using MarketTools.Domain.Common;
+using MarketTools.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

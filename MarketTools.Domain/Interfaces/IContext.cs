@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Common
+namespace MarketTools.Domain.Interfaces
 {
     public interface IContext
     {
