@@ -22,6 +22,7 @@ namespace MarketTools.Application
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConnectionContextBehavoir<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(StandardAutoresponderContextBehavoir<,>));
 
             return services;
         }
