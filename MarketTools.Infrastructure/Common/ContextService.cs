@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Common
 {
-    internal class ContextService<T> : IContextService<T> where T : IContext
+    internal class ContextService<T> : IContextService<T>
     {
         private T? _context;
         public T Context
