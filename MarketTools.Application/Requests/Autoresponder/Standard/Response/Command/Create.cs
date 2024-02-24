@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Command
 {
-    public class CreateResponseCommand : IRequest<AutoresponderResultModel>
+    public class CreateResponseCommand : IRequest<AutoresponderResultModel>, IStandardAutoresponderContextCall
     {
         public int ConnectionId { get; set; }
         public required string Article { get; set; }

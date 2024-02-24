@@ -27,5 +27,10 @@ namespace MarketTools.Infrastructure.Common
                 _context = value;
             }
         }
+
+        public bool IsExists()
+        {
+            return _context != null;
+        }
     }
 }

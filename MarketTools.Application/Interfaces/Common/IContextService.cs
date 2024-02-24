@@ -10,5 +10,6 @@ namespace MarketTools.Application.Interfaces.Common
     public interface IContextService<T>
     {
         public T Context { get; set; }
+        public bool IsExists();
     }
 }

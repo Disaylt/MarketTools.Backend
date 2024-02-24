@@ -29,6 +29,7 @@ using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Domain.Http.Connections;
+using MarketTools.Infrastructure.Http.Services;
 
 namespace MarketTools.Infrastructure
 {
@@ -71,6 +72,7 @@ namespace MarketTools.Infrastructure
 
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
+            serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
             serviceDescriptors.AddHttpClient<IHttpConnectionClient, WbOpenApiHttpConnectionSender>();
             serviceDescriptors.AddHttpClient<IHttpConnectionClientFactory, IHttpConnectionClientFactory>();
