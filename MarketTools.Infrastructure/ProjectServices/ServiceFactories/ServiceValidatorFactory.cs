@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
 {
-    internal class ServiceValidatorFactory : AbstractServiceFactory<IServiceValidator>, IProjectServiceFactory<IServiceValidator>
+    internal class ServiceValidatorFactory : AbstractServiceFactory<IServiceValidator>
     {
         private static Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>> _projectServices =
             new Dictionary<EnumProjectServices, Func<IServiceProvider, IMarketplaceProvider<IServiceValidator>>>
