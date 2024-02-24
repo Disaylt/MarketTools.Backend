@@ -30,6 +30,7 @@ using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Domain.Http.Connections;
 using MarketTools.Infrastructure.Http.Services;
+using MarketTools.Infrastructure.MarketplaceConnections.Services.ConnectionDefinitions;
 
 namespace MarketTools.Infrastructure
 {
@@ -66,6 +67,11 @@ namespace MarketTools.Infrastructure
                 .AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>()
                     .AddScoped<WbServiceValidatorProvider>()
                         .AddScoped<WbStandardAutoresponderValidator>();
+
+            serviceDescriptors
+                .AddScoped<IProjectServiceFactory<IConnectionDefinitionService>, ConnectionDefinitionFactory>()
+                    .AddScoped<WbConnectionDefinitionProvider>()
+                        .AddScoped<WbStandardAutoresponderConnectionDifinitionService>();
 
             return serviceDescriptors;
         }

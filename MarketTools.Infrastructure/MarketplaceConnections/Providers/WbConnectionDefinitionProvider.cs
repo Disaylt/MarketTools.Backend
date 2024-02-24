@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
 {
-    internal class WbConnectionDifinitionProvider : AbstractServiceProvider<IConnectionDefinitionService>
+    internal class WbConnectionDefinitionProvider : AbstractServiceProvider<IConnectionDefinitionService>
     {
         private static Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>> _providers =
             new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>
@@ -20,7 +20,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Providers
                 { MarketplaceName.WB, x=> x.GetRequiredService<WbStandardAutoresponderConnectionDifinitionService>() }
             };
 
-        public WbConnectionDifinitionProvider(IServiceProvider serviceProvider) 
+        public WbConnectionDefinitionProvider(IServiceProvider serviceProvider) 
             : base(serviceProvider, _providers)
         {
         }
