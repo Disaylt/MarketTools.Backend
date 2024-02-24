@@ -21,9 +21,10 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
             };
         }
 
-        public MarketplaceConnectionEntity SetDetails(MarketplaceConnectionEntity entity, ApiConnectionDto apiConnection)
+        public void SetDetails(ApiConnectionDto apiConnection)
         {
-            MarketplaceConnectionHeaderEntity? tokenHeader = entity
+            MarketplaceConnectionHeaderEntity? tokenHeader = apiConnection
+                .ConnectionEntity
                 .Headers
                 .FirstOrDefault(x => x.Name == nameof(ApiConnectionDto.Token));
 
@@ -34,14 +35,12 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                     Name = nameof(ApiConnectionDto.Token),
                     Value = apiConnection.Token
                 };
-                entity.Headers.Add(newTokenHeader);
+                apiConnection.ConnectionEntity.Headers.Add(newTokenHeader);
             }
             else
             {
                 tokenHeader.Value = apiConnection.Token;
             }
-
-            return entity;
         }
 
         private MarketplaceConnectionHeaderEntity GetTokenHeader(IEnumerable<MarketplaceConnectionHeaderEntity> headers)

@@ -16,8 +16,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
 {
     internal class MarketpalceConnectionQueryBuilder : BaseQueryBuilder<MarketplaceConnectionEntity>
     {
-        private MarketplaceName? _marketplaceName;
-
         public MarketpalceConnectionQueryBuilder(IQueryable<MarketplaceConnectionEntity> query) : base(query)
         {
 
@@ -27,26 +25,35 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
         {
             if (marketplaceName != null)
             {
-                _marketplaceName = marketplaceName;
                 Query = Query.Where(x => x.MarketplaceName == marketplaceName);
             }
 
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetByService(EnumProjectServices? projectService)
+        public virtual MarketpalceConnectionQueryBuilder SetByService(EnumProjectServices? projectService, 
+            MarketplaceName? marketplaceName, 
+            IProjectServiceFactory<IConnectionDefinitionService> connectionDefinitionService)
         {
+            if(projectService.HasValue && marketplaceName.HasValue)
+            {
+                MarketplaceConnectionType type = connectionDefinitionService
+                    .Create(projectService.Value)
+                    .Create(marketplaceName.Value)
+                    .Get();
+
+                Query = Query.Where(x => x.ConnectionType == type);
+            }
+
             return this;
         }
 
         public virtual MarketpalceConnectionQueryBuilder SetByType(MarketplaceConnectionType? type)
         {
-            if (type == null)
+            if (type.HasValue)
             {
-                return this;
+                Query = Query.Where(x => x.ConnectionType == type.Value);
             }
-
-            Query = Query.Where(x => x.ConnectionType == type.Value);
 
             return this;
         }

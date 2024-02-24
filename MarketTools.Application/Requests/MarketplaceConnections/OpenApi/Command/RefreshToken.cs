@@ -30,7 +30,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
         {
             MarketplaceConnectionEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
             ApiConnectionDto apiConnection = Create(entity, request);
-            _connectionConverter.SetDetails(entity, apiConnection);
+            _connectionConverter.SetDetails(apiConnection);
 
             entity.NumConnectionsAttempt = 0;
 

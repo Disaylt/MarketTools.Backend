@@ -53,7 +53,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
         {
             MarketplaceConnectionEntity newEntity = Create(request);
             ApiConnectionDto apiConnection = Create(request, newEntity);
-            _connectionConverter.SetDetails(newEntity, apiConnection);
+            _connectionConverter.SetDetails(apiConnection);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
@@ -77,7 +77,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
                 Description = request.Description,
                 Name = request.Name,
                 UserId = _identityContext.Context.UserId,
-                MarketplaceName = request.MarketplaceName
+                MarketplaceName = request.MarketplaceName,
+                ConnectionType = MarketplaceConnectionType.OpenApi
             };
         }
     }

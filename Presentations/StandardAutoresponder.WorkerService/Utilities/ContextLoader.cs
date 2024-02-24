@@ -17,10 +17,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StandardAutoresponder.WorkerService.Utilities
 {
-    internal class ContextLoader(IUnitOfWork _unitOfWork,
-        IAutoresponderContextLoadService _autoresponderContextService,
-        IContextService<AutoresponderContext> _autoresponderContext,
-        IContextService<MarketplaceConnectionEntity> _connectionContextService)
+    internal class ContextLoader(IAutoresponderContextLoadService _autoresponderContextService,
+        IContextService<AutoresponderContext> _autoresponderContext)
         : IContextLoader
     {
         public async Task Handle(MarketplaceName marketplaceName, int connectionId)
