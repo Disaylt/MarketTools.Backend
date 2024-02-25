@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.Connections;
 using MediatR;
@@ -19,8 +20,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
     }
 
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IUserNotificationsService _userNotificationsService,
-        IConnectionConverter<ApiConnectionDto> _connectionConverter)
+        IUserNotificationsService _userNotificationsService)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
@@ -29,8 +29,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
-            ApiConnectionDto apiConnection = Create(entity, request);
-            _connectionConverter.SetDetails(apiConnection);
+            RefreshToken(entity, request);
 
             entity.NumConnectionsAttempt = 0;
 
@@ -43,13 +42,12 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Comman
             return entity;
         }
 
-        private ApiConnectionDto Create(MarketplaceConnectionEntity entity, OpenApiRefreshTokenCommand request)
+        private void RefreshToken(MarketplaceConnectionEntity newEntity, OpenApiRefreshTokenCommand request)
         {
-            return new ApiConnectionDto
-            {
-                ConnectionEntity = entity,
-                Token = request.Token
-            };
+            ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
+            new MarketplaceConnectionConverterFactory()
+                .Create<ApiConnectionDto>(newEntity)
+                .SetDetails(apiConnection);
         }
     }
 }

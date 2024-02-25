@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.Connections;
 using System;
@@ -16,11 +17,13 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
     {
         private readonly ApiConnectionDto _apiConnection;
         public WbOpenApiHttpConnectionSender(IContextService<MarketplaceConnectionEntity> connectionContextReader, 
-            HttpClient httpClient,
-            IConnectionConverter<ApiConnectionDto> connectionConverter) 
+            HttpClient httpClient) 
             : base(connectionContextReader, httpClient)
         {
-            _apiConnection = connectionConverter.Convert(Connection);
+
+            _apiConnection = new MarketplaceConnectionConverterFactory()
+                .Create<ApiConnectionDto>(Connection)
+                .Convert();
         }
 
         public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)

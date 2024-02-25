@@ -9,6 +9,5 @@ namespace MarketTools.Domain.Http.Connections
 {
     public abstract class AbstractConnection
     {
-        public required MarketplaceConnectionEntity ConnectionEntity { get; set; }
     }
 }

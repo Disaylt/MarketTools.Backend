@@ -8,23 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.MarketplaceConnections.Services
+namespace MarketTools.Application.Utilities.MarketplaceConnections.Converters
 {
-    internal class ApiConnectionConverter : IConnectionConverter<ApiConnectionDto>
+    internal class ApiConnectionConverter(MarketplaceConnectionEntity _connection)
+        : IConnectionConverter<ApiConnectionDto>
     {
-        public ApiConnectionDto Convert(MarketplaceConnectionEntity connection)
+
+        public ApiConnectionDto Convert()
         {
-            return new ApiConnectionDto 
-            { 
-                ConnectionEntity = connection,
-                Token = GetTokenHeader(connection.Headers).Value
+            return new ApiConnectionDto
+            {
+                Token = GetTokenHeader(_connection.Headers).Value
             };
         }
 
         public void SetDetails(ApiConnectionDto apiConnection)
         {
-            MarketplaceConnectionHeaderEntity? tokenHeader = apiConnection
-                .ConnectionEntity
+            MarketplaceConnectionHeaderEntity? tokenHeader = _connection
                 .Headers
                 .FirstOrDefault(x => x.Name == nameof(ApiConnectionDto.Token));
 
@@ -35,7 +35,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                     Name = nameof(ApiConnectionDto.Token),
                     Value = apiConnection.Token
                 };
-                apiConnection.ConnectionEntity.Headers.Add(newTokenHeader);
+                _connection.Headers.Add(newTokenHeader);
             }
             else
             {

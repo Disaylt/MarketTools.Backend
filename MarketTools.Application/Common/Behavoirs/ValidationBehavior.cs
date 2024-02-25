@@ -10,14 +10,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Common.Behavoirs
 {
-    public class ValidationBehavior<TRequest, TResponse>
+    public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> _validators)
         : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
-        private readonly IEnumerable<IValidator<TRequest>> _validators;
-
-        public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators) =>
-            _validators = validators;
-
         public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var context = new ValidationContext<TRequest>(request);

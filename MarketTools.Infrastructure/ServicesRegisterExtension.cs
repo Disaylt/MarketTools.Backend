@@ -61,8 +61,6 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
-            serviceDescriptors.AddSingleton<IConnectionConverter<ApiConnectionDto>, ApiConnectionConverter>();
-
             serviceDescriptors
                 .AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>()
                     .AddScoped<WbServiceValidatorProvider>()
