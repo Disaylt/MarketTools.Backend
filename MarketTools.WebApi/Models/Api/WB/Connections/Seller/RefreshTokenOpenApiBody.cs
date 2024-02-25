@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Mapping;
-using MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command;
+using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
 using System.ComponentModel.DataAnnotations;
 
 namespace MarketTools.WebApi.Models.Api.WB.Connections.Seller

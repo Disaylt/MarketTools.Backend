@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.OpenApi.Command
+namespace MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi
 {
     public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>
     {
