@@ -10,6 +10,6 @@ namespace MarketTools.Application.Interfaces.ProjectServices
 {
     public interface IServiceValidator : IProjectService
     {
-        public Task TryActivete(int connectionId);
+        public Task TryActivete();
     }
 }

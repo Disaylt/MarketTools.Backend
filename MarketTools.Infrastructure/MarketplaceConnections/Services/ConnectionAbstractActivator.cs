@@ -32,9 +32,8 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                 if (connection.IsActive)
                 {
                     await _connectionServiceFactory
-                        .Create(EnumProjectServices.StandardAutoresponder)
-                        .Create(marketplaceConnection.MarketplaceName)
-                        .TryActivete(marketplaceConnection.Id);
+                        .Create(EnumProjectServices.StandardAutoresponder, marketplaceConnection.MarketplaceName)
+                        .TryActivete();
                 }
             }
             catch (Exception ex)

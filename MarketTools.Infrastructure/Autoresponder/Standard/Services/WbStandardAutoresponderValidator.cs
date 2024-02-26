@@ -15,15 +15,13 @@ using MarketTools.Application.Interfaces.Common;
 
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
-    internal class WbStandardAutoresponderValidator(IMarketplaceConnectionService _marketplaceConnectionService,
-        IFeedbacksHttpService _feedbacksHttpService,
+    internal class WbStandardAutoresponderValidator(IFeedbacksHttpService _feedbacksHttpService,
+        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory,
         IContextService<MarketplaceConnectionEntity> _contextService)
         : IServiceValidator
     {
-        public async Task TryActivete(int connectionId)
+        public async Task TryActivete()
         {
-            _contextService.Context = await _marketplaceConnectionService.GetWithDetailsAsync(connectionId);
-
             FeedbacksQuery feedbacksQuery = CreateFeedbackQuery();
             await _feedbacksHttpService.GetFeedbacksAsync(feedbacksQuery);
         }

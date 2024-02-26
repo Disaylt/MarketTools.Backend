@@ -24,13 +24,13 @@ using MarketTools.Infrastructure.User.Notifications;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
-using MarketTools.Infrastructure.MarketplaceConnections.Providers;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Domain.Http.Connections;
 using MarketTools.Infrastructure.Http.Services;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.ConnectionDefinitions;
+using MarketTools.Domain.Enums;
 
 namespace MarketTools.Infrastructure
 {
@@ -61,15 +61,26 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
-            serviceDescriptors
-                .AddScoped<IProjectServiceFactory<IServiceValidator>, ServiceValidatorFactory>()
-                    .AddScoped<WbServiceValidatorProvider>()
-                        .AddScoped<WbStandardAutoresponderValidator>();
+            serviceDescriptors.AddScoped(typeof(IProjectServiceFactory<>), typeof(ProjectServiceFactory<>));
 
-            serviceDescriptors
-                .AddScoped<IProjectServiceFactory<IConnectionDefinitionService>, ConnectionDefinitionFactory>()
-                    .AddScoped<WbConnectionDefinitionProvider>()
-                        .AddScoped<WbStandardAutoresponderConnectionDifinitionService>();
+            serviceDescriptors.AddScoped<WbStandardAutoresponderValidator>();
+            serviceDescriptors.AddSingleton(
+                new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>>
+                {
+                    {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>
+                    {
+                        {MarketplaceName.WB, x => x.GetRequiredService<WbStandardAutoresponderValidator>() }
+                    }}
+                });
+
+            serviceDescriptors.AddSingleton(
+                new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>>
+                {
+                    {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>
+                    {
+                        {MarketplaceName.WB, x => new WbStandardAutoresponderConnectionDifinitionService() }
+                    }}
+                });
 
             return serviceDescriptors;
         }

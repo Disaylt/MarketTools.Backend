@@ -58,9 +58,9 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
         private async Task CheckConnection(MarketplaceConnectionEntity entity)
         {
-            await _connectionServiceFactory.Create(EnumProjectServices.StandardAutoresponder)
-                .Create(entity.MarketplaceName)
-                .TryActivete(entity.Id);
+            await _connectionServiceFactory
+                .Create(EnumProjectServices.StandardAutoresponder, entity.MarketplaceName)
+                .TryActivete();
         }
     }
 }

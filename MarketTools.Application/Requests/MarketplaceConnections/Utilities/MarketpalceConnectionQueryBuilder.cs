@@ -38,8 +38,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
             if(projectService.HasValue && marketplaceName.HasValue)
             {
                 MarketplaceConnectionType type = connectionDefinitionService
-                    .Create(projectService.Value)
-                    .Create(marketplaceName.Value)
+                    .Create(projectService.Value, marketplaceName.Value)
                     .Get();
 
                 Query = Query.Where(x => x.ConnectionType == type);
