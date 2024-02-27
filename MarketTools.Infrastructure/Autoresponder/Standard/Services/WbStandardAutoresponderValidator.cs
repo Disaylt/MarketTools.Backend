@@ -1,5 +1,4 @@
 ﻿using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.ProjectServices;
@@ -12,28 +11,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Http.Wb;
+using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Domain.Interfaces.Http;
+using MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller;
 
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
-    internal class WbStandardAutoresponderValidator(IFeedbacksHttpService _feedbacksHttpService,
-        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory,
-        IContextService<MarketplaceConnectionEntity> _contextService)
+    internal class WbStandardAutoresponderValidator(IWbHttpRequestFactory<IWbSellerFeedbacksHttpService> _feedbacksHttpService,
+        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
         : IServiceValidator
     {
         public async Task TryActivete()
         {
-            FeedbacksQuery feedbacksQuery = CreateFeedbackQuery();
-            await _feedbacksHttpService.GetFeedbacksAsync(feedbacksQuery);
+            IWbSellerFeedbacksHttpService wbSellerFeedbacksHttpService = GetWbSellerFeedbacksHttpService();
+            IParamsBuilder paramsBuilder = CreateFeedbackParamsBuilder();
+            await wbSellerFeedbacksHttpService.GetFeedbacksAsync(paramsBuilder);
         }
 
-        private FeedbacksQuery CreateFeedbackQuery()
+        private IWbSellerFeedbacksHttpService GetWbSellerFeedbacksHttpService()
         {
-            return new FeedbacksQuery
-            {
-                IsAnswered = false,
-                Skip = 0,
-                Take = 1
-            };
+            MarketplaceConnectionType connectionType = _connectionDefinitionServiceFactory
+                .Create(EnumProjectServices.StandardAutoresponder, MarketplaceName.WB)
+                .Get();
+            
+            return _feedbacksHttpService
+                .Create(connectionType);
+        }
+
+        private IParamsBuilder CreateFeedbackParamsBuilder()
+        {
+            return new WbSellerGetFeedbacksParamBuilder()
+                .Take(1)
+                .Skip(0)
+                .IsAnswered(true);
+                
         }
     }
 }

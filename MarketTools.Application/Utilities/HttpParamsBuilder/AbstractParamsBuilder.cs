@@ -31,9 +31,8 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder
 
         public virtual string Build()
         {
-            string[] paramsList = KeyAndValueParams
-                .Select(x => $"{x.Key}={x.Value}")
-                .ToArray();
+            IEnumerable<string> paramsList = KeyAndValueParams
+                .Select(x => $"{x.Key}={x.Value}");
 
             StringBuilder sb = new StringBuilder();
             sb.AppendJoin('&', paramsList);

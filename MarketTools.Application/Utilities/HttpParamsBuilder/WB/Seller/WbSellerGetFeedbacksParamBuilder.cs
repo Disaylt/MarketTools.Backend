@@ -7,37 +7,45 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
 {
-    internal class WbSellerGetFeedbacksParamBuilder : AbstractParamsBuilder
+    public class WbSellerGetFeedbacksParamBuilder : AbstractParamsBuilder
     {
-        public void IsAnswered(bool value)
+        public WbSellerGetFeedbacksParamBuilder IsAnswered(bool value)
         {
             string key = "isAnswered";
 
             AddParam(key, value.ToString());
+
+            return this;
         }
 
-        public void Take(int value)
+        public WbSellerGetFeedbacksParamBuilder Take(int value)
         {
             string key = "take";
 
             AddParam(key, value.ToString());
+
+            return this;
         }
 
-        public void Skip(int value)
+        public WbSellerGetFeedbacksParamBuilder Skip(int value)
         {
             string key = "skip";
 
             AddParam(key, value.ToString());
+
+            return this;
         }
 
-        public void Order(string value)
+        public WbSellerGetFeedbacksParamBuilder Order(string value)
         {
             string key = "order";
 
             AddParam(key, value.ToString());
+
+            return this;
         }
 
-        public void NmId(int? value)
+        public WbSellerGetFeedbacksParamBuilder NmId(int? value)
         {
             if (value.HasValue)
             {
@@ -45,9 +53,11 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
 
                 AddParam(key, value.Value.ToString());
             }
+
+            return this;
         }
 
-        public void DateFrom(int? value)
+        public WbSellerGetFeedbacksParamBuilder DateFrom(int? value)
         {
             if (value.HasValue)
             {
@@ -55,9 +65,11 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
 
                 AddParam(key, value.Value.ToString());
             }
+
+            return this;
         }
 
-        public void DateTo(int? value)
+        public WbSellerGetFeedbacksParamBuilder DateTo(int? value)
         {
             if (value.HasValue)
             {
@@ -65,6 +77,8 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
 
                 AddParam(key, value.Value.ToString());
             }
+
+            return this;
         }
     }
 }
