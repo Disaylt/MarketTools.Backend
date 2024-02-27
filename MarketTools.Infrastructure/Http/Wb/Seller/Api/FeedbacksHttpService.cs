@@ -1,16 +1,10 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
-using MarketTools.Application.Interfaces.Identity;
-using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 {
