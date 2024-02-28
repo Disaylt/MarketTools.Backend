@@ -1,7 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
-using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;

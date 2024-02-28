@@ -3,7 +3,6 @@ using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
-using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Http.WB.Seller.Api;
@@ -12,8 +11,7 @@ using StandardAutoresponder.WorkerService.Interfaces;
 
 namespace StandardAutoresponder.WorkerService.Services
 {
-    internal class WbFeedbacksHandler(IFeedbacksHttpService _feedbacksHttpService, 
-        IAutoresponderResponseService _autoresponderResponseService,
+    internal class WbFeedbacksHandler(IAutoresponderResponseService _autoresponderResponseService,
         IAutoresponderReportsService _autoresponderReportsService,
         IContextService<AutoresponderContext> _autoresponderContext,
         IUnitOfWork _unitOfWork,
@@ -23,81 +21,81 @@ namespace StandardAutoresponder.WorkerService.Services
     {
         public async Task RunAsync()
         {
-            try
-            {
-                IEnumerable<FeedbackDetails> feedbacks = await GetFeedbacksAsync();
+            //try
+            //{
+            //    IEnumerable<FeedbackDetails> feedbacks = await GetFeedbacksAsync();
 
-                foreach(FeedbackDetails feedback in feedbacks)
-                {
-                    AutoresponderResultModel answer = BuildResponse(feedback);
-                    bool isSend = await TrySendAnswerAsync(answer, feedback);
-                    await _autoresponderReportsService.AddAsync(feedback, answer, _autoresponderContext.Context.Connection.SellerConnectionId);
-                }
-            }
-            catch(AppConnectionBadRequestException ex)
-            {
-                await _exceptionHandleService.Hadnle(ex);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-            }
-            finally
-            {
-                await _unitOfWork.CommitAsync();
-            }
+            //    foreach(FeedbackDetails feedback in feedbacks)
+            //    {
+            //        AutoresponderResultModel answer = BuildResponse(feedback);
+            //        bool isSend = await TrySendAnswerAsync(answer, feedback);
+            //        await _autoresponderReportsService.AddAsync(feedback, answer, _autoresponderContext.Context.Connection.SellerConnectionId);
+            //    }
+            //}
+            //catch(AppConnectionBadRequestException ex)
+            //{
+            //    await _exceptionHandleService.Hadnle(ex);
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex.Message);
+            //}
+            //finally
+            //{
+            //    await _unitOfWork.CommitAsync();
+            //}
         }
 
-        private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)
-        {
-            if (answer.IsSuccess == false || string.IsNullOrEmpty(answer.Text))
-            {
-                return false;
-            }
+        //private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)
+        //{
+        //    if (answer.IsSuccess == false || string.IsNullOrEmpty(answer.Text))
+        //    {
+        //        return false;
+        //    }
 
-            SendResponseBody body = new SendResponseBody
-            {
-                Id = feedback.Id,
-                Text = answer.Text
-            };
+        //    SendResponseBody body = new SendResponseBody
+        //    {
+        //        Id = feedback.Id,
+        //        Text = answer.Text
+        //    };
 
-            await _feedbacksHttpService.SendResponseAsync(body);
+        //    await _feedbacksHttpService.SendResponseAsync(body);
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        private AutoresponderResultModel BuildResponse(FeedbackDetails feedback)
-        {
-            AutoresponderRequestModel request = new AutoresponderRequestModel
-            {
-                Article = feedback.ProductDetails.NmId.ToString(),
-                Rating = feedback.ProductValuation,
-                Text = feedback.Text
-            };
+        //private AutoresponderResultModel BuildResponse(FeedbackDetails feedback)
+        //{
+        //    AutoresponderRequestModel request = new AutoresponderRequestModel
+        //    {
+        //        Article = feedback.ProductDetails.NmId.ToString(),
+        //        Rating = feedback.ProductValuation,
+        //        Text = feedback.Text
+        //    };
 
-            return _autoresponderResponseService.Build(request);
-        }
+        //    return _autoresponderResponseService.Build(request);
+        //}
 
-        private async Task<IEnumerable<FeedbackDetails>> GetFeedbacksAsync()
-        {
-            List<FeedbackDetails> feedbacks = new List<FeedbackDetails>();
+        //private async Task<IEnumerable<FeedbackDetails>> GetFeedbacksAsync()
+        //{
+        //    List<FeedbackDetails> feedbacks = new List<FeedbackDetails>();
 
-            FeedbacksQuery query = new FeedbacksQuery
-            {
-                Take = 3000,
-                Skip = 0,
-                IsAnswered = false
-            };
+        //    FeedbacksQuery query = new FeedbacksQuery
+        //    {
+        //        Take = 3000,
+        //        Skip = 0,
+        //        IsAnswered = false
+        //    };
 
-            WbApiResult<FeedbackResponseData> resultWithoutAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
-            feedbacks.AddRange(resultWithoutAnswer.Data.Feedbacks);
+        //    WbApiResult<FeedbackResponseData> resultWithoutAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
+        //    feedbacks.AddRange(resultWithoutAnswer.Data.Feedbacks);
 
-            query.IsAnswered = true;
+        //    query.IsAnswered = true;
 
-            WbApiResult<FeedbackResponseData> resultWithAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
-            feedbacks.AddRange(resultWithAnswer.Data.Feedbacks);
+        //    WbApiResult<FeedbackResponseData> resultWithAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
+        //    feedbacks.AddRange(resultWithAnswer.Data.Feedbacks);
 
-            return feedbacks.Where(x=> x.Answer == null);
-        }
+        //    return feedbacks.Where(x=> x.Answer == null);
+        //}
     }
 }

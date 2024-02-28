@@ -16,11 +16,11 @@ namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
     {
         public T Create(EnumProjectServices projectService, MarketplaceName marketplaceName)
         {
-            var test = _servicesDictionary.GetValueOrDefault(projectService)?
+            var serviceCall = _servicesDictionary.GetValueOrDefault(projectService)?
                 .GetValueOrDefault(marketplaceName)
                 ?? throw new AppNotFoundException("Сервис не добавлен");
 
-            return test.Invoke(_serviceProvider);
+            return serviceCall.Invoke(_serviceProvider);
         }
     }
 }
