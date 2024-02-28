@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http
 {
-    public interface IHttpResponseConverter<out TResult>
+    public interface IHttpResponseConverter<TResult>
     {
-        public TResult Convert(HttpResponseMessage message);
+        public Task<TResult> ConvertAsync(HttpResponseMessage message);
     }
 }
