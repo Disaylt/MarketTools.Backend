@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http
 {
-    public interface IHttpResponseConverterFactory<THttpService>
+    public interface IHttpResponseConverterFactory<THttpService, TResult>
     {
-        public IHttpResponseConverter<TResult> Create<TResult>(MarketplaceConnectionType type);
+        public IHttpResponseConverter<TResult> Create(MarketplaceConnectionType type);
     }
 }

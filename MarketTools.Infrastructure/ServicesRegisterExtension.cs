@@ -33,6 +33,7 @@ using MarketTools.Domain.Enums;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Infrastructure.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Infrastructure.Http;
 
 namespace MarketTools.Infrastructure
 {
@@ -89,19 +90,20 @@ namespace MarketTools.Infrastructure
 
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
-            serviceDescriptors.AddScoped(typeof(IWbHttpRequestFactory<>), typeof(WbHttpRequestFactory<>));
-
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
             serviceDescriptors.AddHttpClient<IHttpConnectionClient, WbOpenApiHttpConnectionSender>();
             serviceDescriptors.AddHttpClient<IHttpConnectionClientFactory, IHttpConnectionClientFactory>();
 
+            serviceDescriptors.AddScoped(typeof(IWbHttpRequestFactory<>), typeof(WbHttpRequestFactory<>));
             serviceDescriptors.AddTransient<SellerOpenApiFeedbacksHttpService>();
             serviceDescriptors.AddSingleton(
                 new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IWbSellerFeedbacksHttpService>>
                 {
                     { MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<SellerOpenApiFeedbacksHttpService>() }
                 });
+
+            serviceDescriptors.AddScoped(typeof(IHttpResponseConverterFactory<,>), typeof(HttpResponseConverterFactory<,>));
 
             return serviceDescriptors;
         }
