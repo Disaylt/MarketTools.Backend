@@ -10,6 +10,6 @@ namespace MarketTools.Application.Interfaces.Http
 {
     public interface IHttpConnectionClientFactory
     {
-        public IMarketplaceProvider<IHttpConnectionClient> Create(MarketplaceConnectionType type);
+        public IHttpConnectionClient Create(MarketplaceConnectionType type, MarketplaceName marketplaceName);
     }
 }

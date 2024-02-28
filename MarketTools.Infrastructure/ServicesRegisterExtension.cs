@@ -34,6 +34,7 @@ using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Infrastructure.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
 using MarketTools.Infrastructure.Http;
+using MarketTools.Application.Models.Http.WB.Seller;
 
 namespace MarketTools.Infrastructure
 {
@@ -92,8 +93,15 @@ namespace MarketTools.Infrastructure
         {
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
-            serviceDescriptors.AddHttpClient<IHttpConnectionClient, WbOpenApiHttpConnectionSender>();
-            serviceDescriptors.AddHttpClient<IHttpConnectionClientFactory, IHttpConnectionClientFactory>();
+            serviceDescriptors.AddHttpClient<IHttpConnectionClientFactory, HttpConnectionClientFactory>();
+            serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionSender>();
+            serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>
+            {
+                {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>
+                {
+                    { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionSender>() }
+                }}
+            });
 
             serviceDescriptors.AddScoped(typeof(IWbHttpRequestFactory<>), typeof(WbHttpRequestFactory<>));
             serviceDescriptors.AddTransient<SellerOpenApiFeedbacksHttpService>();
@@ -104,6 +112,17 @@ namespace MarketTools.Infrastructure
                 });
 
             serviceDescriptors.AddScoped(typeof(IHttpResponseConverterFactory<,>), typeof(HttpResponseConverterFactory<,>));
+            serviceDescriptors.AddSingleton<SellerOpenApiGetFeedbacksResponseConverter>();
+            serviceDescriptors.AddSingleton(
+                new Dictionary<Type, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpResponseConverter<IEnumerable<FeedbackDto>>>>>
+                {
+                    {typeof(IWbSellerFeedbacksHttpService), new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpResponseConverter<IEnumerable<FeedbackDto>>>>
+                        {
+                            {MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<SellerOpenApiGetFeedbacksResponseConverter>() }
+                        } 
+                    }
+                }
+                );
 
             return serviceDescriptors;
         }

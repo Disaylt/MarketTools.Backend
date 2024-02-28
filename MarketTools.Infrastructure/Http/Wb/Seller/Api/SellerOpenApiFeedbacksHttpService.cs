@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Domain.Enums;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using MarketTools.Domain.Interfaces.Http;
@@ -15,9 +16,7 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
 
         public SellerOpenApiFeedbacksHttpService(IHttpConnectionClientFactory connectionClientFactory)
         {
-            _connectionClient = connectionClientFactory
-                .Create(Domain.Enums.MarketplaceConnectionType.OpenApi)
-                .Create(Domain.Enums.MarketplaceName.WB);
+            _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
         }
 
