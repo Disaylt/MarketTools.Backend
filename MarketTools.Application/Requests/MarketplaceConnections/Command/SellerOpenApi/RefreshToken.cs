@@ -1,9 +1,11 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Http.Connections;
+using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,14 +15,20 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi
 {
-    public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>
+    public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
     {
         public int Id { get; set; }
         public required string Token { get; set; }
+        public int ConnectionId
+        {
+            get { return Id; }
+            set { Id = value; }
+        }
     }
 
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IUserNotificationsService _userNotificationsService)
+        IUserNotificationsService _userNotificationsService,
+        IContextService<MarketplaceConnectionEntity> _connectionContextService)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
@@ -28,25 +36,24 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
 
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            MarketplaceConnectionEntity entity = await _repository.FirstAsync(x => x.Id == request.Id);
-            RefreshToken(entity, request);
+            RefreshToken(request);
 
-            entity.NumConnectionsAttempt = 0;
+            _connectionContextService.Context.NumConnectionsAttempt = 0;
 
-            _repository.Update(entity);
+            _repository.Update(_connectionContextService.Context);
 
-            await _userNotificationsService.AddAsync($"Измение токена для API '{entity.Name}'. Маркетплейс: {entity.MarketplaceName}");
+            await _userNotificationsService.AddAsync($"Измение токена для API '{_connectionContextService.Context.Name}'. Маркетплейс: {_connectionContextService.Context.MarketplaceName}");
 
             await _authUnitOfWork.CommitAsync(cancellationToken);
 
-            return entity;
+            return _connectionContextService.Context;
         }
 
-        private void RefreshToken(MarketplaceConnectionEntity newEntity, OpenApiRefreshTokenCommand request)
+        private void RefreshToken(OpenApiRefreshTokenCommand request)
         {
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
             new MarketplaceConnectionConverterFactory()
-                .Create<ApiConnectionDto>(newEntity)
+                .Create<ApiConnectionDto>(_connectionContextService.Context)
                 .SetDetails(apiConnection);
         }
     }

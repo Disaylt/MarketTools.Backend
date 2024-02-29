@@ -21,6 +21,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
             return _repository.GetAsQueryable()
                 .Include(x=> x.Cookies)
                 .Include(x=> x.Headers)
+                .AsSingleQuery()
                 .FirstAsync(x=> x.Id == connectionId);
         }
     }
