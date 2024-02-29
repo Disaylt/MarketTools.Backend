@@ -13,5 +13,6 @@ namespace MarketTools.Application.Interfaces.Http
         public void Set(MarketplaceConnectionEntity connectionEntity);
         public MarketplaceConnectionEntity GetRequired(MarketplaceName marketplaceName, MarketplaceConnectionType type);
         public MarketplaceConnectionEntity? GetOrDefault(MarketplaceName marketplaceName, MarketplaceConnectionType type);
+        public bool IsContains(int id);
     }
 }

@@ -24,15 +24,28 @@ namespace MarketTools.Infrastructure.Http.Services
                 ?? throw new AppNotFoundException("Не установлен контекст подключения, для дальнейшей обработки запросов.");
         }
 
+        public bool IsContains(int id)
+        {
+            return _connections.Any(x=> x.Id == id);
+        }
+
         public void Set(MarketplaceConnectionEntity connectionEntity)
         {
-            MarketplaceConnectionEntity? oldConnenection = _connections.FirstOrDefault(x=> x.Id == connectionEntity.Id);
-            if(oldConnenection != null)
-            {
-                _connections.Remove(oldConnenection);
-            }
+            DeleteRepeatConnections(connectionEntity);
 
             _connections.Add(connectionEntity);
+        }
+
+        private void DeleteRepeatConnections(MarketplaceConnectionEntity connection)
+        {
+            IEnumerable<MarketplaceConnectionEntity> connections = _connections
+                .Where(x => x.Id == connection.Id
+                || x.MarketplaceName == connection.MarketplaceName && x.ConnectionType == connection.ConnectionType);
+
+            foreach(MarketplaceConnectionEntity connectionToRemove in connections)
+            {
+                _connections.Remove(connectionToRemove);
+            }
         }
     }
 }

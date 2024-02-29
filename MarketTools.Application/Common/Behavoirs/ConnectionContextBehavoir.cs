@@ -14,11 +14,6 @@ namespace MarketTools.Application.Common.Behavoirs
         public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             Console.WriteLine("asdasda");
-            Console.WriteLine("asdasda");
-            Console.WriteLine("asdasda");
-            Console.WriteLine("asdasda");
-            Console.WriteLine("asdasda");
-            Console.WriteLine("asdasda");
             return next();
         }
     }

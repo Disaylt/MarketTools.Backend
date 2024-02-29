@@ -22,8 +22,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
         public required int Skip { get; set;}
         public required string Order { get; set; }
         public int? NmId { get; set; }
-        public int DateFrom { get; set; }
-        public int DateTo { get; set; }
+        public int? DateFrom { get; set; }
+        public int? DateTo { get; set; }
     }
 
     public class GetRangeWbFeedbacksHandler

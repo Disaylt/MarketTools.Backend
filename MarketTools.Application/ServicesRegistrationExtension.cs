@@ -23,6 +23,7 @@ namespace MarketTools.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConnectionContextBehavoir<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(StandardAutoresponderContextBehavoir<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(HttpConnectionContextBehavoirs<,>));
 
             return services;
         }
