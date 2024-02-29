@@ -60,7 +60,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
-            serviceDescriptors.AddScoped<IConnectionActivatorService, SelleOpenApiConnectionActivatorService>();
+            serviceDescriptors.AddScoped<IConnectionValidatorService, ConnectionValidatorService>();
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
 
             AddSolutionMapping(serviceDescriptors);
