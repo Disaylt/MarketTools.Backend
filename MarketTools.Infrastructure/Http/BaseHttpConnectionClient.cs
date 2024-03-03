@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http
 {
-    internal abstract class BaseHttpConnectionSender : IHttpConnectionClient
+    internal abstract class BaseHttpConnectionClient : IHttpConnectionClient
     {
         protected MarketplaceConnectionEntity Connection { get; }
         public HttpClient HttpClient { get; }
 
-        public BaseHttpConnectionSender(IContextService<MarketplaceConnectionEntity> connectionContextReader, HttpClient httpClient)
+        public BaseHttpConnectionClient(IContextService<MarketplaceConnectionEntity> connectionContextReader, HttpClient httpClient)
         {
             Connection = connectionContextReader.Context;
             HttpClient = httpClient;

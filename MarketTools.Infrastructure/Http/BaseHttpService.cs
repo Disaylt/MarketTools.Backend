@@ -1,6 +1,4 @@
 ﻿using MarketTools.Application.Common.Exceptions;
-using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
-using MarketTools.Domain.Http.WB.Seller.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +10,7 @@ namespace MarketTools.Infrastructure.Http
 {
     internal class BaseHttpService
     {
-        protected async Task<T> ReadAsJsonAsync<T>(HttpResponseMessage message)
+        protected async Task<T> GetJsonResponseContentAsync<T>(HttpResponseMessage message)
         {
             return await message
                 .Content

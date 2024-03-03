@@ -94,12 +94,12 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddTransient<IHttpConnectionClientFactory, HttpConnectionClientFactory>();
 
-            serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionSender>();
+            serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>
             {
                 {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>
                 {
-                    { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionSender>() }
+                    { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionClient>() }
                 }}
             });
 
