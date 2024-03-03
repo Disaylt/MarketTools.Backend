@@ -18,7 +18,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard
             profile.CreateMap<ReportQueryDto, GetRangeReportsQuery>()
                 .ForMember(x => x.PageRequest, x => x.MapFrom(opt => new PageRequest
                 {
-                    OrderType = OrderType.Desk,
+                    OrderType = OrderType.Desc,
                     Skip = opt.Skip,
                     Take = opt.Take
                 }));

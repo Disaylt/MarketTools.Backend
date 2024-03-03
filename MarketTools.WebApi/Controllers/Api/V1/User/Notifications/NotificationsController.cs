@@ -66,7 +66,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.User.Notifications
                 {
                     Skip = queryHttp.Skip,
                     Take = queryHttp.Take,
-                    OrderType = Domain.Enums.OrderType.Desk
+                    OrderType = Domain.Enums.OrderType.Desc
                 },
                 IsRead = queryHttp.IsRead,
                 IsSetReadStatus = true

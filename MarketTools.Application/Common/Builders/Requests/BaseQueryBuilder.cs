@@ -33,10 +33,10 @@ namespace MarketTools.Application.Common.Builders.Requests
 
             switch (pageRequest.OrderType)
             {
-                case OrderType.Ask:
+                case OrderType.Asc:
                     Query = Query.OrderBy(x => x.Id);
                     break;
-                case OrderType.Desk:
+                case OrderType.Desc:
                     Query = Query.OrderByDescending(x => x.Id);
                     break;
             }

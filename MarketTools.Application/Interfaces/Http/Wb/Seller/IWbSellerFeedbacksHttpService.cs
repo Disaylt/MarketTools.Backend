@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
+﻿using MarketTools.Application.Models.Http.WB.Seller;
+using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using MarketTools.Domain.Interfaces.Http;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace MarketTools.Application.Interfaces.Http.Wb.Seller
 {
     public interface IWbSellerFeedbacksHttpService
     {
-        public Task<HttpResponseMessage> GetFeedbacksAsync(IParamsBuilder paramsBuilder);
-        public Task<HttpResponseMessage> SendResponseAsync(SendResponseBody body);
+        public Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(GetFeedbacksHttpDto data);
+        public Task SendResponseAsync(SendResponseDto body);
     }
 }
