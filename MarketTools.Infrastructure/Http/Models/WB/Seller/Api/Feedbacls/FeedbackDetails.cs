@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
+namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
 {
-    public class FeedbackDetails
+    internal class FeedbackDetails
     {
         public required string Id { get; set; }
         public AnswerDetails? Answer { get; set; }

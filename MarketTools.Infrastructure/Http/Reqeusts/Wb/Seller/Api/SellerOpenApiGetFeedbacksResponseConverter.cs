@@ -11,7 +11,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
+namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 {
     internal class SellerOpenApiGetFeedbacksResponseConverter(IMapper _mapper)
         : IHttpResponseConverter<IEnumerable<FeedbackDto>>

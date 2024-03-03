@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Http.WB.Seller.Api
+namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api
 {
-    public class WbApiResult<TData>
+    internal class WbApiResult<TData>
     {
         public required TData Data { get; set; }
         public required bool Error { get; set; }

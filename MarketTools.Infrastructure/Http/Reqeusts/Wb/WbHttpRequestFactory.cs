@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Wb
+namespace MarketTools.Infrastructure.Http.Reqeusts.Wb
 {
     internal class WbHttpRequestFactory<T>(IServiceProvider _serviceProvider, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, T>> _serviceDictionary)
         : IWbHttpRequestFactory<T>

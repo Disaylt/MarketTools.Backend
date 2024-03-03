@@ -11,13 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
+namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 {
     internal class WbOpenApiHttpConnectionSender : BaseHttpConnectionSender
     {
         private readonly ApiConnectionDto _apiConnection;
-        public WbOpenApiHttpConnectionSender(IContextService<MarketplaceConnectionEntity> connectionContextReader, 
-            HttpClient httpClient) 
+        public WbOpenApiHttpConnectionSender(IContextService<MarketplaceConnectionEntity> connectionContextReader,
+            HttpClient httpClient)
             : base(connectionContextReader, httpClient)
         {
 

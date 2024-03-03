@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
+namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
 {
-    public class ProductDetails
+    internal class ProductDetails
     {
         public int ImtId { get; set; }
         public int NmId { get; set; }

@@ -25,16 +25,15 @@ using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
-using MarketTools.Infrastructure.Http.Wb.Seller.Api;
 using MarketTools.Domain.Http.Connections;
-using MarketTools.Infrastructure.Http.Services;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.ConnectionDefinitions;
 using MarketTools.Domain.Enums;
 using MarketTools.Application.Interfaces.Http.Wb;
-using MarketTools.Infrastructure.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
 using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Models.Http.WB.Seller;
+using MarketTools.Infrastructure.Http.Reqeusts.Wb;
+using MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {

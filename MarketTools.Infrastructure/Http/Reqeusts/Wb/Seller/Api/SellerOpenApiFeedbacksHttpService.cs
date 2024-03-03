@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Enums;
 using MarketTools.Domain.Http.WB.Seller.Api;
 using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
@@ -8,9 +9,9 @@ using MarketTools.Domain.Interfaces.Http;
 using System.Net.Http.Json;
 using System.Text;
 
-namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
+namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 {
-    internal class SellerOpenApiFeedbacksHttpService : IWbSellerFeedbacksHttpService
+    internal class SellerOpenApiFeedbacksHttpService : BaseHttpService, IWbSellerFeedbacksHttpService
     {
         private readonly IHttpConnectionClient _connectionClient;
 
@@ -28,6 +29,11 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             return await _connectionClient.SendAsync(requestMessage);
         }
 
+        public Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(GetFeedbacksHttpDto data)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<HttpResponseMessage> SendResponseAsync(SendResponseBody body)
         {
             string path = "";
@@ -37,6 +43,11 @@ namespace MarketTools.Infrastructure.Http.Wb.Seller.Api
             request.Content = content;
 
             return await _connectionClient.SendAsync(request);
+        }
+
+        public Task SendResponseAsync(SendResponseDto body)
+        {
+            throw new NotImplementedException();
         }
     }
 }

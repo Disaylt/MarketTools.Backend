@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Services
+namespace MarketTools.Infrastructure.Http
 {
     internal class HttpConnectionContextService : IHttpConnectionContextService
     {
@@ -26,7 +26,7 @@ namespace MarketTools.Infrastructure.Http.Services
 
         public bool IsContains(int id)
         {
-            return _connections.Any(x=> x.Id == id);
+            return _connections.Any(x => x.Id == id);
         }
 
         public void Set(MarketplaceConnectionEntity connectionEntity)
@@ -42,7 +42,7 @@ namespace MarketTools.Infrastructure.Http.Services
                 .Where(x => x.Id == connection.Id
                 || x.MarketplaceName == connection.MarketplaceName && x.ConnectionType == connection.ConnectionType);
 
-            foreach(MarketplaceConnectionEntity connectionToRemove in connections)
+            foreach (MarketplaceConnectionEntity connectionToRemove in connections)
             {
                 _connections.Remove(connectionToRemove);
             }

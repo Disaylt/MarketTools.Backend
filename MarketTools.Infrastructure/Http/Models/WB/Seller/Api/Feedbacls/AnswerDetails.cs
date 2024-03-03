@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
+namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
 {
-    public class AnswerDetails
+    internal class AnswerDetails
     {
         public string? Text { get; set; }
     }

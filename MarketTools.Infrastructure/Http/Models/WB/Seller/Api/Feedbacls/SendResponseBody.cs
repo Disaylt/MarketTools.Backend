@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Domain.Http.WB.Seller.Api.Feedbaks
+namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
 {
-    public class SendResponseBody
+    internal class SendResponseBody
     {
         public required string Id { get; set; }
         public required string Text { get; set; }
