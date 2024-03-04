@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
 {
-    internal class AnswerDetails : IHasMap
+    public class AnswerDetails : IHasMap
     {
         public string? Text { get; set; }
 
