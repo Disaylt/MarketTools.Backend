@@ -7,6 +7,7 @@ using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.Http.Models.WB.Seller.Api;
 using MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls;
+using MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -26,7 +27,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(GetFeedbacksHttpDto data)
         {
-            string path = $"api/v1/feedbacks?{paramsBuilder.Build()}";
+            string path = BuilUrlForGetFeedbacks(data);
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
 
             HttpResponseMessage httpResponseMessage = await _connectionClient.SendAsync(requestMessage);
@@ -44,6 +45,21 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             request.Content = content;
 
             await _connectionClient.SendAsync(request);
+        }
+
+        private string BuilUrlForGetFeedbacks(GetFeedbacksHttpDto data)
+        {
+            string query = new GetFeedbacksQueryBuilder()
+                .IsAnswered(data.IsAnswered)
+                .Sort(data.Order)
+                .NmId(data.NmId)
+                .DateFrom(data.DateFrom)
+                .DateTo(data.DateTo)
+                .Take(data.Take)
+                .Skip(data.Skip)
+                .Build();
+
+            return "api/v1/feedbacks?" + query;
         }
     }
 }

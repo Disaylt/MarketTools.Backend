@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks
 {
-    internal class GetFeedbacksQueryBuilder : AbstractQueryBuilder
+    internal class GetFeedbacksQueryBuilder : BaseQueryBuilder
     {
         public GetFeedbacksQueryBuilder IsAnswered(bool value)
         {
@@ -19,25 +19,7 @@ namespace MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks
             return this;
         }
 
-        public GetFeedbacksQueryBuilder Take(int value)
-        {
-            string key = "take";
-
-            AddParam(key, value.ToString());
-
-            return this;
-        }
-
-        public GetFeedbacksQueryBuilder Skip(int value)
-        {
-            string key = "skip";
-
-            AddParam(key, value.ToString());
-
-            return this;
-        }
-
-        public GetFeedbacksQueryBuilder Order(OrderType value)
+        public override GetFeedbacksQueryBuilder Sort(OrderType value)
         {
             string? strValue = SelectOrder(value);
 
