@@ -1,8 +1,8 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Models.Autoresponder;
+using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Entities;
-using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
+        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
         {
             StandardAutoresponderNotificationEntity entity = Create(feedback, answer, connectionId);
             await _repository.AddAsync(entity);
@@ -25,7 +25,7 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
             return entity;
         }
 
-        private StandardAutoresponderNotificationEntity Create(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId)
+        private StandardAutoresponderNotificationEntity Create(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId)
         {
             return new StandardAutoresponderNotificationEntity
             {

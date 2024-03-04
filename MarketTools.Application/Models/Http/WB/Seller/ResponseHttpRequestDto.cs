@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Http.WB.Seller
 {
-    public class SendResponseDto
+    public class ResponseHttpRequestDto
     {
         public required string Id { get; set; }
         public required string Text { get; set; }

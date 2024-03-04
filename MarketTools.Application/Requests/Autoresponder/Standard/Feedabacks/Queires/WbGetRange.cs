@@ -1,11 +1,11 @@
-﻿using MarketTools.Application.Interfaces.Http;
+﻿using AutoMapper;
+using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Application.Interfaces.Mapping;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Http.WB.Seller;
-using MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller;
 using MarketTools.Domain.Enums;
-using MarketTools.Domain.Interfaces.Http;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Queires
 {
-    public class GetRangeWbFeedbacksQuery : IRequest<IEnumerable<FeedbackDto>>
+    public class GetRangeWbFeedbacksQuery : IRequest<IEnumerable<FeedbackDto>>, IHasMap
     {
         public required bool IsAnswered { get; set; }
         public required int Take { get; set;}
@@ -24,40 +24,36 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
         public int? NmId { get; set; }
         public int? DateFrom { get; set; }
         public int? DateTo { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<GetRangeWbFeedbacksQuery, FeedbacksHttpRequestDto>();
+        }
     }
 
     public class GetRangeWbFeedbacksHandler
         : IRequestHandler<GetRangeWbFeedbacksQuery, IEnumerable<FeedbackDto>>
     {
         private readonly IWbSellerFeedbacksHttpService _wbSellerFeedbacksHttpService;
+        private readonly IMapper _mapper;
 
         public GetRangeWbFeedbacksHandler(IWbHttpRequestFactory<IWbSellerFeedbacksHttpService> _wbHttpRequestFactory,
-            IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
+            IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory,
+            IMapper mapper)
         {
             MarketplaceConnectionType marketplaceConnectionType = _connectionDefinitionServiceFactory
                 .Create(EnumProjectServices.StandardAutoresponder, MarketplaceName.WB)
                 .Get();
 
             _wbSellerFeedbacksHttpService = _wbHttpRequestFactory.Create(marketplaceConnectionType);
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<FeedbackDto>> Handle(GetRangeWbFeedbacksQuery request, CancellationToken cancellationToken)
         {
-            IParamsBuilder paramsBuilder = CreateParamsBuilder(request);
-            HttpResponseMessage httpResponse = await _wbSellerFeedbacksHttpService.GetFeedbacksAsync(paramsBuilder);
-            return await _httpResponseConverter.ConvertAsync(httpResponse);
-        }
+            FeedbacksHttpRequestDto httpQuery = _mapper.Map<FeedbacksHttpRequestDto>(request);
 
-        private IParamsBuilder CreateParamsBuilder(GetRangeWbFeedbacksQuery request)
-        {
-            return new WbSellerGetFeedbacksParamBuilder()
-                .IsAnswered(request.IsAnswered)
-                .Take(request.Take)
-                .Skip(request.Skip)
-                .DateFrom(request.DateFrom)
-                .DateTo(request.DateTo)
-                .NmId(request.NmId)
-                .Order(request.Order);
+            return await _wbSellerFeedbacksHttpService.GetFeedbacksAsync(httpQuery);
         }
     }
 }

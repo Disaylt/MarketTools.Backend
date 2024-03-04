@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Http.WB.Seller
 {
-    public class GetFeedbacksHttpDto
+    public class FeedbacksHttpRequestDto
     {
         public required bool IsAnswered { get; set; }
         public required int Take { get; set; }

@@ -4,7 +4,6 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
-using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +12,7 @@ using System.Threading.Tasks;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
-using MarketTools.Domain.Interfaces.Http;
-using MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller;
+using MarketTools.Application.Models.Http.WB.Seller;
 
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
@@ -25,8 +23,8 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
         public async Task TryActivete()
         {
             IWbSellerFeedbacksHttpService wbSellerFeedbacksHttpService = GetWbSellerFeedbacksHttpService();
-            IParamsBuilder paramsBuilder = CreateFeedbackParamsBuilder();
-            await wbSellerFeedbacksHttpService.GetFeedbacksAsync(paramsBuilder);
+            FeedbacksHttpRequestDto query = CreateRequestData();
+            await wbSellerFeedbacksHttpService.GetFeedbacksAsync(query);
         }
 
         private IWbSellerFeedbacksHttpService GetWbSellerFeedbacksHttpService()
@@ -39,12 +37,14 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
                 .Create(connectionType);
         }
 
-        private IParamsBuilder CreateFeedbackParamsBuilder()
+        private FeedbacksHttpRequestDto CreateRequestData()
         {
-            return new WbSellerGetFeedbacksParamBuilder()
-                .Take(1)
-                .Skip(0)
-                .IsAnswered(true);
+            return new FeedbacksHttpRequestDto
+            {
+                IsAnswered = true,
+                Take = 1,
+                Skip = 0
+            };
                 
         }
     }
