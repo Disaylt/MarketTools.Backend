@@ -9,7 +9,7 @@ namespace MarketTools.Application.Interfaces.Http.Wb.Seller
 {
     public interface IWbSellerFeedbacksHttpService
     {
-        public Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksHttpRequestDto data);
-        public Task SendResponseAsync(ResponseHttpRequestDto body);
+        public Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksGetDto data);
+        public Task SendResponseAsync(ResponseSendDto body);
     }
 }

@@ -25,7 +25,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
         }
 
-        public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksHttpRequestDto data)
+        public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksGetDto data)
         {
             string path = BuilUrlForGetFeedbacks(data);
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
@@ -36,7 +36,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             return _mapper.Map<IEnumerable<FeedbackDto>>(responseContent.Data.Feedbacks);
         }
 
-        public async Task SendResponseAsync(ResponseHttpRequestDto body)
+        public async Task SendResponseAsync(ResponseSendDto body)
         {
             string path = "";
             HttpContent content = JsonContent.Create(body);
@@ -47,7 +47,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             await _connectionClient.SendAsync(request);
         }
 
-        private string BuilUrlForGetFeedbacks(FeedbacksHttpRequestDto data)
+        private string BuilUrlForGetFeedbacks(FeedbacksGetDto data)
         {
             string query = new GetFeedbacksQueryBuilder()
                 .IsAnswered(data.IsAnswered)

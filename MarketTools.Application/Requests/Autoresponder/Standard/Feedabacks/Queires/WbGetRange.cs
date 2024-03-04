@@ -27,7 +27,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<GetRangeWbFeedbacksQuery, FeedbacksHttpRequestDto>();
+            profile.CreateMap<GetRangeWbFeedbacksQuery, FeedbacksGetDto>();
         }
     }
 
@@ -51,7 +51,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
 
         public async Task<IEnumerable<FeedbackDto>> Handle(GetRangeWbFeedbacksQuery request, CancellationToken cancellationToken)
         {
-            FeedbacksHttpRequestDto httpQuery = _mapper.Map<FeedbacksHttpRequestDto>(request);
+            FeedbacksGetDto httpQuery = _mapper.Map<FeedbacksGetDto>(request);
 
             return await _wbSellerFeedbacksHttpService.GetFeedbacksAsync(httpQuery);
         }

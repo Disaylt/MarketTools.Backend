@@ -23,7 +23,7 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
         public async Task TryActivete()
         {
             IWbSellerFeedbacksHttpService wbSellerFeedbacksHttpService = GetWbSellerFeedbacksHttpService();
-            FeedbacksHttpRequestDto query = CreateRequestData();
+            FeedbacksGetDto query = CreateRequestData();
             await wbSellerFeedbacksHttpService.GetFeedbacksAsync(query);
         }
 
@@ -37,9 +37,9 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
                 .Create(connectionType);
         }
 
-        private FeedbacksHttpRequestDto CreateRequestData()
+        private FeedbacksGetDto CreateRequestData()
         {
-            return new FeedbacksHttpRequestDto
+            return new FeedbacksGetDto
             {
                 IsAnswered = true,
                 Take = 1,

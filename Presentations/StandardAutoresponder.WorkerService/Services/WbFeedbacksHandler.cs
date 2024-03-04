@@ -5,8 +5,6 @@ using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
-using MarketTools.Domain.Http.WB.Seller.Api;
-using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using StandardAutoresponder.WorkerService.Interfaces;
 
 namespace StandardAutoresponder.WorkerService.Services
