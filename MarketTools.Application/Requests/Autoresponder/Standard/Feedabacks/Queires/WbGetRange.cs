@@ -30,10 +30,8 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
         : IRequestHandler<GetRangeWbFeedbacksQuery, IEnumerable<FeedbackDto>>
     {
         private readonly IWbSellerFeedbacksHttpService _wbSellerFeedbacksHttpService;
-        private readonly IHttpResponseConverter<IEnumerable<FeedbackDto>> _httpResponseConverter;
 
         public GetRangeWbFeedbacksHandler(IWbHttpRequestFactory<IWbSellerFeedbacksHttpService> _wbHttpRequestFactory,
-            IHttpResponseConverterFactory<IWbSellerFeedbacksHttpService, IEnumerable<FeedbackDto>> _httpResponseConverterFactory,
             IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
         {
             MarketplaceConnectionType marketplaceConnectionType = _connectionDefinitionServiceFactory
@@ -41,7 +39,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Feedabacks.Que
                 .Get();
 
             _wbSellerFeedbacksHttpService = _wbHttpRequestFactory.Create(marketplaceConnectionType);
-            _httpResponseConverter = _httpResponseConverterFactory.Create(marketplaceConnectionType);
         }
 
         public async Task<IEnumerable<FeedbackDto>> Handle(GetRangeWbFeedbacksQuery request, CancellationToken cancellationToken)

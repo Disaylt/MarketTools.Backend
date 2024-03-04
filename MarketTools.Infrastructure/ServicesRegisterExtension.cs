@@ -111,19 +111,6 @@ namespace MarketTools.Infrastructure
                     { MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<SellerOpenApiFeedbacksHttpService>() }
                 });
 
-            serviceDescriptors.AddScoped(typeof(IHttpResponseConverterFactory<,>), typeof(HttpResponseConverterFactory<,>));
-            serviceDescriptors.AddSingleton<SellerOpenApiGetFeedbacksResponseConverter>();
-            serviceDescriptors.AddSingleton(
-                new Dictionary<Type, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpResponseConverter<IEnumerable<FeedbackDto>>>>>
-                {
-                    {typeof(IWbSellerFeedbacksHttpService), new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpResponseConverter<IEnumerable<FeedbackDto>>>>
-                        {
-                            {MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<SellerOpenApiGetFeedbacksResponseConverter>() }
-                        } 
-                    }
-                }
-                );
-
             return serviceDescriptors;
         }
 

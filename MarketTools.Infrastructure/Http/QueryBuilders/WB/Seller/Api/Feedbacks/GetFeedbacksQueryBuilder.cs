@@ -1,15 +1,16 @@
-﻿using MarketTools.Domain.Interfaces.Http;
+﻿using MarketTools.Application.Utilities.HttpParamsBuilder;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
+namespace MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks
 {
-    public class WbSellerGetFeedbacksParamBuilder : AbstractParamsBuilder
+    internal class GetFeedbacksQueryBuilder : AbstractQueryBuilder
     {
-        public WbSellerGetFeedbacksParamBuilder IsAnswered(bool value)
+        public GetFeedbacksQueryBuilder IsAnswered(bool value)
         {
             string key = "isAnswered";
 
@@ -18,7 +19,7 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder Take(int value)
+        public GetFeedbacksQueryBuilder Take(int value)
         {
             string key = "take";
 
@@ -27,7 +28,7 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder Skip(int value)
+        public GetFeedbacksQueryBuilder Skip(int value)
         {
             string key = "skip";
 
@@ -36,16 +37,22 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder Order(string value)
+        public GetFeedbacksQueryBuilder Order(OrderType value)
         {
-            string key = "order";
+            string? strValue = SelectOrder(value);
 
-            AddParam(key, value.ToString());
+            if(strValue != null)
+            {
+                string key = "order";
+
+
+                AddParam(key, strValue);
+            }
 
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder NmId(int? value)
+        public GetFeedbacksQueryBuilder NmId(int? value)
         {
             if (value.HasValue)
             {
@@ -57,7 +64,7 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder DateFrom(int? value)
+        public GetFeedbacksQueryBuilder DateFrom(int? value)
         {
             if (value.HasValue)
             {
@@ -69,7 +76,7 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             return this;
         }
 
-        public WbSellerGetFeedbacksParamBuilder DateTo(int? value)
+        public GetFeedbacksQueryBuilder DateTo(int? value)
         {
             if (value.HasValue)
             {
@@ -79,6 +86,16 @@ namespace MarketTools.Application.Utilities.HttpParamsBuilder.WB.Seller
             }
 
             return this;
+        }
+
+        private string? SelectOrder(OrderType value)
+        {
+            return value switch
+            {
+                OrderType.Desc => "dateDesc",
+                OrderType.Asc => "dateAsc",
+                _ => null
+            } ;
         }
     }
 }
