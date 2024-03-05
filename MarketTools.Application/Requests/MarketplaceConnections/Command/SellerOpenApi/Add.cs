@@ -64,7 +64,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
         private void SetToken(MarketplaceConnectionEntity newEntity, SellerOpenApiAddCommand request)
         {
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
-            _connectionConverter.UpdateDetails(newEntity, apiConnection);
+            _connectionConverter.SetDetails(newEntity, apiConnection);
         }
 
         private MarketplaceConnectionEntity Create(SellerOpenApiAddCommand request)

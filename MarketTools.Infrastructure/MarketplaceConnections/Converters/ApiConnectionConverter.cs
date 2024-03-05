@@ -21,7 +21,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Converters
             };
         }
 
-        public void UpdateDetails(MarketplaceConnectionEntity connection, ApiConnectionDto apiConnection)
+        public void SetDetails(MarketplaceConnectionEntity connection, ApiConnectionDto apiConnection)
         {
             MarketplaceConnectionHeaderEntity? tokenHeader = connection
                 .Headers

@@ -76,7 +76,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
         private void RefreshToken(OpenApiRefreshTokenCommand request)
         {
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
-            _connectionConverter.UpdateDetails(_connectionContextService.Context, apiConnection);
+            _connectionConverter.SetDetails(_connectionContextService.Context, apiConnection);
         }
     }
 }

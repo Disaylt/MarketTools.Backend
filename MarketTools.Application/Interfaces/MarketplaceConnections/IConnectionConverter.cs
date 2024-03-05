@@ -11,6 +11,6 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections
     public interface IConnectionConverter<T> where T : AbstractConnection
     {
         public T Convert(MarketplaceConnectionEntity connection);
-        public void UpdateDetails(MarketplaceConnectionEntity connection, T concreteConnection);
+        public void SetDetails(MarketplaceConnectionEntity connection, T concreteConnection);
     }
 }
