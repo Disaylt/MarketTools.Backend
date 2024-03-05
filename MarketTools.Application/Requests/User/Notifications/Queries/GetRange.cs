@@ -5,7 +5,6 @@ using MarketTools.Application.Requests.User.Notifications.Models;
 using MarketTools.Application.Requests.User.Notifications.Utilities;
 using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
-using MarketTools.Domain.Http.Connections;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
