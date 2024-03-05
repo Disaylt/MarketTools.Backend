@@ -77,7 +77,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
             new MarketplaceConnectionConverterFactory()
                 .Create<ApiConnectionDto>(_connectionContextService.Context)
-                .SetDetails(apiConnection);
+                .UpdateDetails(apiConnection);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
     public interface IConnectionConverter<T> where T : AbstractConnection
     {
-        public T Convert();
-        public void SetDetails(T concreteConnection);
+        public T Convert(MarketplaceConnectionEntity connection);
+        public void UpdateDetails(MarketplaceConnectionEntity connection, T concreteConnection);
     }
 }
