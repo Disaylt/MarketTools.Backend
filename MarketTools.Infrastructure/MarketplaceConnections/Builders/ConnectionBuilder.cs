@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Builders
 {
-    internal abstract class AbstractConnectionBuilder
+    internal abstract class ConnectionBuilder
     {
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
         private readonly List<CookieModel> _cookies = new List<CookieModel>();
-        public MarketplaceConnectionEntity Build(MarketplaceConnectionEntity connection)
+        public virtual MarketplaceConnectionEntity Build(MarketplaceConnectionEntity connection)
         {
             SetCookies(connection);
             SetHeaders(connection);
@@ -20,7 +20,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Builders
             return connection;
         }
 
-        public void AddOrUpdateCookie(CookieModel newCookie)
+        public virtual void AddOrUpdateCookie(CookieModel newCookie)
         {
             CookieModel? cookie = _cookies
                 .FirstOrDefault(x=> x.Name == newCookie.Name && x.Domain == newCookie.Domain);
@@ -42,7 +42,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Builders
             }
         }
 
-        public void AddOrUpdateHeader(string name, string value)
+        public virtual void AddOrUpdateHeader(string name, string value)
         {
             if(_headers.ContainsKey(name))
             {

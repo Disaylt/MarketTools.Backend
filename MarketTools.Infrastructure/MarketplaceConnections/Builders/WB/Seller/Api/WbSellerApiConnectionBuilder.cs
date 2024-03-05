@@ -8,28 +8,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Builders.WB.Seller.Api
 {
-    internal class WbSellerApiConnectionBuilder : IWbSellerApiConnectionBuilder
+    internal class WbSellerApiConnectionBuilder : ConnectionBuilder, IWbSellerApiConnectionBuilder
     {
-        private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
-        public MarketplaceConnectionEntity Build(MarketplaceConnectionEntity connection)
-        {
-
-
-            return connection;
-        }
-
         public IWbSellerApiConnectionBuilder SetToken(string token)
         {
             string name = "Authorization";
-
-            if(_headers.ContainsKey(name))
-            {
-                _headers[name] = token;
-            }
-            else
-            {
-                _headers.Add(name, token);
-            }
+            AddOrUpdateHeader(name, token);
 
             return this;
         }
