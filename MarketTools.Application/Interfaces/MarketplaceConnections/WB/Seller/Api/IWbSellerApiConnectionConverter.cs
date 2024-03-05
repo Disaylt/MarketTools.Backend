@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api
 {
-    public interface IWbSellerApiConnectionBuilder : IConnectionBuilder
+    public interface IWbSellerApiConnectionConverter : IConnectionConverter
     {
-        public IWbSellerApiConnectionBuilder SetToken(string token);
+        public IWbSellerApiConnectionConverter SetToken(string token);
+        public string? GetToken(MarketplaceConnectionEntity connection);
     }
 }

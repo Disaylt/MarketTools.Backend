@@ -1,4 +1,5 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Domain.Entities;
 using MarketTools.Infrastructure.MarketplaceConnections.Models;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,14 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Builders
 {
-    internal abstract class ConnectionBuilder
+    internal abstract class ConnectionConverter : IConnectionConverter
     {
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
         private readonly List<CookieModel> _cookies = new List<CookieModel>();
-        public virtual MarketplaceConnectionEntity Build(MarketplaceConnectionEntity connection)
+        public virtual void Convert(MarketplaceConnectionEntity connection)
         {
             SetCookies(connection);
             SetHeaders(connection);
-
-            return connection;
         }
 
         public virtual void AddOrUpdateCookie(CookieModel newCookie)

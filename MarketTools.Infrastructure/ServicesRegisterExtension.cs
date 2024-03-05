@@ -36,6 +36,8 @@ using MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Infrastructure.MarketplaceConnections.Builders.WB.Seller.Api;
 using MarketTools.Infrastructure.Http.Clients;
+using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
+using MarketTools.Infrastructure.MarketplaceConnections.Builders.Ozon.Seller.Account;
 
 namespace MarketTools.Infrastructure
 {
@@ -61,7 +63,8 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
-            serviceDescriptors.AddSingleton<IWbSellerApiConnectionBuilder, WbSellerApiConnectionBuilder>();
+            serviceDescriptors.AddSingleton<IWbSellerApiConnectionConverter, WbSellerApiConnectionBuilder>();
+            serviceDescriptors.AddSingleton<IOzonSellerAccountConnectionConverter, OzonSellerAccountConnectionBuilder>();
 
             serviceDescriptors.AddScoped<IConnectionValidatorService, ConnectionValidatorService>();
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();

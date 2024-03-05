@@ -41,7 +41,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
-        IWbSellerApiConnectionBuilder _wbSellerApiConnectionBuilder)
+        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<AddCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -51,7 +51,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             MarketplaceConnectionEntity newEntity = Create(request);
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
-                .Build(newEntity);
+                .Convert(newEntity);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

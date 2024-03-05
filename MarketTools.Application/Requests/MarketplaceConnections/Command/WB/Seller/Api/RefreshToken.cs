@@ -25,7 +25,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
-        IWbSellerApiConnectionBuilder _wbSellerApiConnectionBuilder)
+        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<RefreshTokenCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -33,7 +33,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         {
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
-                .Build(_connectionContextService.Context);
+                .Convert(_connectionContextService.Context);
 
             await CheckServicesAsync(request.Token);
             ChangeProperties(request);

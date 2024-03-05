@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionBuilder
+    public interface IConnectionConverter
     {
-        public MarketplaceConnectionEntity Build(MarketplaceConnectionEntity connection);
+        public void Convert(MarketplaceConnectionEntity connection);
     }
 }
