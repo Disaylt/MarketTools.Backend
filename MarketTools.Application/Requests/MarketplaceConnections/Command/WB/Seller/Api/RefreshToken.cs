@@ -1,8 +1,9 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Application.Interfaces.Notifications;
-using MarketTools.Application.Utilities.MarketplaceConnections;
+using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
@@ -12,32 +13,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi
+namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api
 {
-    [Obsolete]
-    public class OpenApiRefreshTokenCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
+    public class RefreshTokenCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
     {
-        public int Id { get; set; }
         public required string Token { get; set; }
-        public int ConnectionId
-        {
-            get { return Id; }
-            set { Id = value; }
-        }
+        public int ConnectionId { get; set; }
     }
 
-    [Obsolete]
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
-        IContextService<MarketplaceConnectionEntity> _connectionContextService)
-        : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
+        IContextService<MarketplaceConnectionEntity> _connectionContextService,
+        IWbSellerApiConnectionBuilder _wbSellerApiConnectionBuilder)
+        : IRequestHandler<RefreshTokenCommand, MarketplaceConnectionEntity>
     {
-
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
-
-        public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<MarketplaceConnectionEntity> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
+            _wbSellerApiConnectionBuilder
+                .SetToken(request.Token)
+                .Build(_connectionContextService.Context);
+
             await CheckServicesAsync(request.Token);
             ChangeProperties(request);
 
@@ -50,7 +47,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
             return _connectionContextService.Context;
         }
 
-        private void ChangeProperties(OpenApiRefreshTokenCommand request)
+        private void ChangeProperties(RefreshTokenCommand request)
         {
             _connectionContextService.Context.NumConnectionsAttempt = 0;
 
@@ -66,7 +63,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
 
         private async Task CheckServicesAsync(string token)
         {
-            if(string.IsNullOrEmpty(token) == false)
+            if (string.IsNullOrEmpty(token) == false)
             {
                 await _connectionValidatorService.CheckServices(_connectionContextService.Context);
             }
