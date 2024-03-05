@@ -44,7 +44,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
     }
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
-        IContextService<IdentityContext> _identityContext)
+        IContextService<IdentityContext> _identityContext,
+        IConnectionConverter<ApiConnectionDto> _connectionConverter)
         : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -63,9 +64,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
         private void SetToken(MarketplaceConnectionEntity newEntity, SellerOpenApiAddCommand request)
         {
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
-            new MarketplaceConnectionConverterFactory()
-                .Create<ApiConnectionDto>(newEntity)
-                .UpdateDetails(apiConnection);
+            _connectionConverter.UpdateDetails(newEntity, apiConnection);
         }
 
         private MarketplaceConnectionEntity Create(SellerOpenApiAddCommand request)

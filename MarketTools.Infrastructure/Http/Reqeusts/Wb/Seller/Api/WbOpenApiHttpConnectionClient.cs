@@ -17,13 +17,12 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
     {
         private readonly ApiConnectionDto _apiConnection;
         public WbOpenApiHttpConnectionClient(IContextService<MarketplaceConnectionEntity> connectionContextReader,
+            IConnectionConverter<ApiConnectionDto> connectionConverter,
             HttpClient httpClient)
             : base(connectionContextReader, httpClient)
         {
 
-            _apiConnection = new MarketplaceConnectionConverterFactory()
-                .Create<ApiConnectionDto>(Connection)
-                .Convert();
+            _apiConnection = connectionConverter.Convert(Connection);
         }
 
         public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)

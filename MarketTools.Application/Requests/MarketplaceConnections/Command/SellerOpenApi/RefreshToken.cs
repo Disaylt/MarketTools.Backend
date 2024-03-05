@@ -29,7 +29,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
-        IContextService<MarketplaceConnectionEntity> _connectionContextService)
+        IContextService<MarketplaceConnectionEntity> _connectionContextService,
+        IConnectionConverter<ApiConnectionDto> _connectionConverter)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
     {
 
@@ -75,9 +76,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
         private void RefreshToken(OpenApiRefreshTokenCommand request)
         {
             ApiConnectionDto apiConnection = new ApiConnectionDto { Token = request.Token };
-            new MarketplaceConnectionConverterFactory()
-                .Create<ApiConnectionDto>(_connectionContextService.Context)
-                .UpdateDetails(apiConnection);
+            _connectionConverter.UpdateDetails(_connectionContextService.Context, apiConnection);
         }
     }
 }
