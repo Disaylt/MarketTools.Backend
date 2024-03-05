@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
-using MarketTools.Application.Interfaces.Identity;
-using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Application.Models.Identity;
-using MarketTools.Application.Utilities.MarketplaceConnections;
+using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
+using MarketTools.Application.Requests.MarketplaceConnections.Models;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using MarketTools.Domain.Interfaces.Limits;
@@ -15,19 +15,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi
+namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api
 {
-    [Obsolete]
-    public class SellerOpenApiAddCommand : IRequest<MarketplaceConnectionEntity>
+    public class AddCommand : AddBaseCommand, IRequest<MarketplaceConnectionEntity>
     {
-        public required string Name { get; set; }
-        public string? Description { get; set; }
         public required string Token { get; set; }
-        public MarketplaceName MarketplaceName { get; set; }
     }
 
-    [Obsolete]
-    public class AddCommandValidator : AbstractValidator<SellerOpenApiAddCommand>
+    public class AddCommandValidator : AbstractValidator<AddCommand>
     {
         public AddCommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService)
         {
@@ -44,16 +39,19 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
         }
     }
 
-    [Obsolete]
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
-        IContextService<IdentityContext> _identityContext)
-        : IRequestHandler<SellerOpenApiAddCommand, MarketplaceConnectionEntity>
+        IContextService<IdentityContext> _identityContext,
+        IWbSellerApiConnectionBuilder _wbSellerApiConnectionBuilder)
+        : IRequestHandler<AddCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
-        public async Task<MarketplaceConnectionEntity> Handle(SellerOpenApiAddCommand request, CancellationToken cancellationToken)
+        public async Task<MarketplaceConnectionEntity> Handle(AddCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
+            _wbSellerApiConnectionBuilder
+                .SetToken(request.Token)
+                .Build(newEntity);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
@@ -61,14 +59,14 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
             return newEntity;
         }
 
-        private MarketplaceConnectionEntity Create(SellerOpenApiAddCommand request)
+        private MarketplaceConnectionEntity Create(AddCommand request)
         {
             return new MarketplaceConnectionEntity
             {
                 Description = request.Description,
                 Name = request.Name,
                 UserId = _identityContext.Context.UserId,
-                MarketplaceName = request.MarketplaceName,
+                MarketplaceName = MarketplaceName.WB,
                 ConnectionType = MarketplaceConnectionType.OpenApi
             };
         }
