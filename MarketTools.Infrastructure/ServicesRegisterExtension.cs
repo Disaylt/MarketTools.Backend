@@ -34,7 +34,8 @@ using MarketTools.Infrastructure.Http;
 using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Infrastructure.Http.Reqeusts.Wb;
 using MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api;
-using MarketTools.Infrastructure.MarketplaceConnections.Converters;
+using MarketTools.Infrastructure.MarketplaceConnections.Converters.WB.Seller.Api;
+using MarketTools.Application.Models.Connections.WB.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -60,7 +61,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
-            serviceDescriptors.AddSingleton<IConnectionConverter<ApiConnectionDto>, ApiConnectionConverter>();
+            serviceDescriptors.AddSingleton<IConnectionConverter<WbSellerApiConnectionDto>, WbSellerApiConnectionConverter>();
 
             serviceDescriptors.AddScoped<IConnectionValidatorService, ConnectionValidatorService>();
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
