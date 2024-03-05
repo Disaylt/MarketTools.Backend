@@ -12,13 +12,26 @@ using System.Threading.Tasks;
 namespace MarketTools.Infrastructure.ProjectServices.ServiceFactories
 {
     internal class ProjectServiceFactory<T>(Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, T>>> _servicesDictionary, IServiceProvider _serviceProvider)
-        : IProjectServiceFactory<T> where T : IProjectService
+        : IProjectServiceFactory<T> where T : class, IProjectService
     {
         public T Create(EnumProjectServices projectService, MarketplaceName marketplaceName)
         {
             var serviceCall = _servicesDictionary.GetValueOrDefault(projectService)?
                 .GetValueOrDefault(marketplaceName)
                 ?? throw new AppNotFoundException("Сервис не добавлен");
+
+            return serviceCall.Invoke(_serviceProvider);
+        }
+
+        public T? CreateOrDefault(EnumProjectServices projectService, MarketplaceName marketplaceName)
+        {
+            var serviceCall = _servicesDictionary.GetValueOrDefault(projectService)?
+                .GetValueOrDefault(marketplaceName);
+
+            if(serviceCall == null)
+            {
+                return null;
+            }
 
             return serviceCall.Invoke(_serviceProvider);
         }
