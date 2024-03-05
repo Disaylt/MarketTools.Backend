@@ -10,7 +10,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http
+namespace MarketTools.Infrastructure.Http.Clients
 {
     internal abstract class BaseHttpConnectionClient : IHttpConnectionClient
     {
@@ -28,6 +28,11 @@ namespace MarketTools.Infrastructure.Http
 
         public virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
+            foreach (var header in Connection.Headers)
+            {
+                httpRequestMessage.Headers.Add(header.Name, header.Value);
+            }
+
             HttpResponseMessage httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
 
             if ((int)httpResponseMessage.StatusCode >= 400 && _options.IsThrowBadRequestexception)

@@ -38,6 +38,7 @@ using MarketTools.Infrastructure.MarketplaceConnections.Converters.WB.Seller.Api
 using MarketTools.Application.Models.Connections.WB.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Infrastructure.MarketplaceConnections.Builders.WB.Seller.Api;
+using MarketTools.Infrastructure.Http.Clients;
 
 namespace MarketTools.Infrastructure
 {
