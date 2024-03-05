@@ -1,25 +1,25 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
+using MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api;
 using MarketTools.Domain.Entities;
 using MarketTools.WebApi.Models.Api.MarketplaceConnections;
-using MarketTools.WebApi.Models.Api.WB.Connections.Seller;
+using MarketTools.WebApi.Models.Api.MarketplaceConnections.WB.Seller.Api;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
+namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections.WB.Seller
 {
-    [Route("api/v1/wb/connections/seller/[controller]")]
+    [Route("api/v1/connections/wb/seller/[controller]")]
     [ApiController]
     [Authorize]
-    public class OpenApiController(IMediator _mediator, IMapper _mapper)
-        : ControllerBase
+    public class ApiController(IMediator _mediator, IMapper _mapper) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] NewOpenApiBody body)
+        public async Task<IActionResult> AddAsync([FromBody] NewWbConnectionModel body)
         {
-            SellerOpenApiAddCommand command = _mapper.Map<SellerOpenApiAddCommand>(body);
+            AddCommand command = _mapper.Map<AddCommand>(body);
 
             MarketplaceConnectionEntity entity = await _mediator.Send(command);
 
@@ -30,9 +30,9 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections
 
         [HttpPut]
         [Route("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenOpenApiBody body)
+        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshApiTokenModel body)
         {
-            OpenApiRefreshTokenCommand command = _mapper.Map<OpenApiRefreshTokenCommand>(body);
+            RefreshTokenCommand command = _mapper.Map<RefreshTokenCommand>(body);
 
             MarketplaceConnectionEntity entity = await _mediator.Send(command);
 
