@@ -9,6 +9,6 @@ namespace MarketTools.Domain.Enums
     public enum MarketplaceConnectionType
     {
         OpenApi = 1,
-        Cabinet
+        Account
     }
 }
