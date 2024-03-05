@@ -88,7 +88,8 @@ namespace MarketTools.Infrastructure
                 {
                     {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>
                     {
-                        {MarketplaceName.WB, x => new WbStandardAutoresponderConnectionDifinitionService() }
+                        {MarketplaceName.WB, x => new WbStandardAutoresponderConnectionDifinitionService() },
+                        {MarketplaceName.OZON, x=> new OzonStandardAutoresponderDefinitionService() }
                     }}
                 });
 
