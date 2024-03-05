@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Api\V1\MarketplaceConnections\WB\Seller\" />
     <Folder Include="Controllers\Api\V1\Ozon\" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Domain.Entities
 {
-    [Index(nameof(ConnectionId), nameof(Name), IsUnique = true)]
+    [Index(nameof(ConnectionId), nameof(Name), nameof(Domain), IsUnique = true)]
     public class MarketplaceConnectionCookieEntity : CookieEntity
     {
         public int ConnectionId { get; set; }
