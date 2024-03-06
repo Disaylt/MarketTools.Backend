@@ -7,11 +7,6 @@ using MarketTools.Application.Requests.MarketplaceConnections.Utilities;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.Seller.Account
 {

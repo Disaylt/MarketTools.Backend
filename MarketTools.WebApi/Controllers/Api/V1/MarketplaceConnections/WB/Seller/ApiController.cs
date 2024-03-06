@@ -29,8 +29,8 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections.WB.Seller
         }
 
         [HttpPut]
-        [Route("refresh-token")]
-        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshApiTokenModel body)
+        [Route("token")]
+        public async Task<IActionResult> UpdateTokenAsync([FromBody] UpdateApiTokenModel body)
         {
             UpdateTokenSellerApiCommand command = _mapper.Map<UpdateTokenSellerApiCommand>(body);
 

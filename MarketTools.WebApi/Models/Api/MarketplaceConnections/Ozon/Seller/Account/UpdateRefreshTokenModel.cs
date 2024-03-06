@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MarketTools.Application.Interfaces.Mapping;
-using MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api;
+using MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.Seller.Account;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarketTools.WebApi.Models.Api.MarketplaceConnections.WB.Seller.Api
+namespace MarketTools.WebApi.Models.Api.MarketplaceConnections.Ozon.Seller.Account
 {
-    public class RefreshApiTokenModel : IHasMap
+    public class UpdateRefreshTokenModel : IHasMap
     {
         [MaxLength(1000, ErrorMessage = "Длинна токена не может превышать 1000 символов.")]
         public string Token { get; set; } = string.Empty;
@@ -13,7 +13,7 @@ namespace MarketTools.WebApi.Models.Api.MarketplaceConnections.WB.Seller.Api
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RefreshApiTokenModel, UpdateTokenSellerApiCommand>();
+            profile.CreateMap<UpdateRefreshTokenModel, UpdateRefreshTokenSellerAccountCommand>();
         }
     }
 }
