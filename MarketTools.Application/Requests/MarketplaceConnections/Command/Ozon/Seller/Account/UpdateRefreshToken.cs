@@ -1,9 +1,8 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
-using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
+using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Application.Interfaces.Notifications;
-using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
 using MarketTools.Application.Requests.MarketplaceConnections.Utilities;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Interfaces.Requests;
@@ -14,27 +13,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api
+namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.Seller.Account
 {
-    public class UpdateTokenSellerApiCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
+    public class UpdateRefreshTokenSellerAccountCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
     {
         public required string Token { get; set; }
         public int ConnectionId { get; set; }
     }
 
-    public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
+    public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
-        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
-        : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
+        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
+        : IRequestHandler<UpdateRefreshTokenSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
         private readonly ActivateUtility _activateUtility = new ActivateUtility(_connectionValidatorService);
-        public async Task<MarketplaceConnectionEntity> Handle(UpdateTokenSellerApiCommand request, CancellationToken cancellationToken)
+
+        public async Task<MarketplaceConnectionEntity> Handle(UpdateRefreshTokenSellerAccountCommand request, CancellationToken cancellationToken)
         {
-            _wbSellerApiConnectionBuilder
-                .SetToken(request.Token)
+            _ozonSellerAccountConnectionConverter
+                .SetRefreshToken(request.Token)
                 .Convert(_connectionContextService.Context);
 
             await _activateUtility.TryActivateAsync(request.Token, _connectionContextService.Context);
@@ -47,6 +47,5 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
 
             return _connectionContextService.Context;
         }
-
     }
 }
