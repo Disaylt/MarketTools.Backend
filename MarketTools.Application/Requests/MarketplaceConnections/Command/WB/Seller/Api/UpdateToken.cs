@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api
 {
-    public class RefreshTokenCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
+    public class UpdateTokenSellerApiCommand : IRequest<MarketplaceConnectionEntity>, IConnectionContextCall
     {
         public required string Token { get; set; }
         public int ConnectionId { get; set; }
@@ -26,10 +26,10 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
-        : IRequestHandler<RefreshTokenCommand, MarketplaceConnectionEntity>
+        : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
-        public async Task<MarketplaceConnectionEntity> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<MarketplaceConnectionEntity> Handle(UpdateTokenSellerApiCommand request, CancellationToken cancellationToken)
         {
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
@@ -47,7 +47,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             return _connectionContextService.Context;
         }
 
-        private void ChangeProperties(RefreshTokenCommand request)
+        private void ChangeProperties(UpdateTokenSellerApiCommand request)
         {
             _connectionContextService.Context.NumConnectionsAttempt = 0;
 

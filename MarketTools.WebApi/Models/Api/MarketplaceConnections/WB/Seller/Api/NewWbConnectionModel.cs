@@ -12,7 +12,7 @@ namespace MarketTools.WebApi.Models.Api.MarketplaceConnections.WB.Seller.Api
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewWbConnectionModel, AddCommand>();
+            profile.CreateMap<NewWbConnectionModel, AddWbSellerApiCommand>();
         }
     }
 }

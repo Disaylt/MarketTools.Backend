@@ -19,7 +19,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections.WB.Seller
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] NewWbConnectionModel body)
         {
-            AddCommand command = _mapper.Map<AddCommand>(body);
+            AddWbSellerApiCommand command = _mapper.Map<AddWbSellerApiCommand>(body);
 
             MarketplaceConnectionEntity entity = await _mediator.Send(command);
 
@@ -32,7 +32,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1.MarketplaceConnections.WB.Seller
         [Route("refresh-token")]
         public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshApiTokenModel body)
         {
-            RefreshTokenCommand command = _mapper.Map<RefreshTokenCommand>(body);
+            UpdateTokenSellerApiCommand command = _mapper.Map<UpdateTokenSellerApiCommand>(body);
 
             MarketplaceConnectionEntity entity = await _mediator.Send(command);
 

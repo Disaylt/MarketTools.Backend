@@ -17,13 +17,13 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.Seller.Account
 {
-    public class AddCommand : AddBaseCommand, IRequest<MarketplaceConnectionEntity>
+    public class AddOzonSellerAccountCommand : AddBaseCommand, IRequest<MarketplaceConnectionEntity>
     {
         public required string RefreshToken { get; set; }
         public required string SellerId { get; set; }
     }
 
-    public class AddCommandValidator : AbstractValidator<AddCommand>
+    public class AddCommandValidator : AbstractValidator<AddOzonSellerAccountCommand>
     {
         public AddCommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService)
         {
@@ -43,11 +43,11 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
-        : IRequestHandler<AddCommand, MarketplaceConnectionEntity>
+        : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
-        public async Task<MarketplaceConnectionEntity> Handle(AddCommand request, CancellationToken cancellationToken)
+        public async Task<MarketplaceConnectionEntity> Handle(AddOzonSellerAccountCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
             _ozonSellerAccountConnectionConverter
@@ -61,7 +61,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
             return newEntity;
         }
 
-        private MarketplaceConnectionEntity Create(AddCommand request)
+        private MarketplaceConnectionEntity Create(AddOzonSellerAccountCommand request)
         {
             return new MarketplaceConnectionEntity
             {

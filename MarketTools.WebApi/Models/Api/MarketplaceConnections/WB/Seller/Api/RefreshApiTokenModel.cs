@@ -13,7 +13,7 @@ namespace MarketTools.WebApi.Models.Api.MarketplaceConnections.WB.Seller.Api
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<RefreshApiTokenModel, RefreshTokenCommand>();
+            profile.CreateMap<RefreshApiTokenModel, UpdateTokenSellerApiCommand>();
         }
     }
 }

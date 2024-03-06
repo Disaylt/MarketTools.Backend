@@ -17,12 +17,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Seller.Api
 {
-    public class AddCommand : AddBaseCommand, IRequest<MarketplaceConnectionEntity>
+    public class AddWbSellerApiCommand : AddBaseCommand, IRequest<MarketplaceConnectionEntity>
     {
         public required string Token { get; set; }
     }
 
-    public class AddCommandValidator : AbstractValidator<AddCommand>
+    public class AddCommandValidator : AbstractValidator<AddWbSellerApiCommand>
     {
         public AddCommandValidator(IAuthUnitOfWork authUnitOfWork, ILimitsService<IMarketplaceConnectionLimits> limitsService)
         {
@@ -42,11 +42,11 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
-        : IRequestHandler<AddCommand, MarketplaceConnectionEntity>
+        : IRequestHandler<AddWbSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
-        public async Task<MarketplaceConnectionEntity> Handle(AddCommand request, CancellationToken cancellationToken)
+        public async Task<MarketplaceConnectionEntity> Handle(AddWbSellerApiCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
             _wbSellerApiConnectionBuilder
@@ -59,7 +59,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             return newEntity;
         }
 
-        private MarketplaceConnectionEntity Create(AddCommand request)
+        private MarketplaceConnectionEntity Create(AddWbSellerApiCommand request)
         {
             return new MarketplaceConnectionEntity
             {
