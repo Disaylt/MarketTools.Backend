@@ -38,6 +38,7 @@ using MarketTools.Infrastructure.MarketplaceConnections.Builders.WB.Seller.Api;
 using MarketTools.Infrastructure.Http.Clients;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections.Builders.Ozon.Seller.Account;
+using MarketTools.Infrastructure.MarketplaceConnections;
 
 namespace MarketTools.Infrastructure
 {
@@ -100,7 +101,7 @@ namespace MarketTools.Infrastructure
         {
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
-            serviceDescriptors.AddTransient<IHttpConnectionClientFactory, HttpConnectionClientFactory>();
+            serviceDescriptors.AddTransient(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
 
             serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>

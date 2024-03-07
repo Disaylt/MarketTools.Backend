@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.Http.Models.WB.Seller.Api;
@@ -18,7 +19,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
         private readonly IHttpConnectionClient _connectionClient;
         private readonly IMapper _mapper;
 
-        public SellerOpenApiFeedbacksHttpService(IHttpConnectionClientFactory connectionClientFactory, IMapper mapper)
+        public SellerOpenApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory, IMapper mapper)
         {
             _mapper = mapper;
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
