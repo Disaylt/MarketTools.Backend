@@ -84,8 +84,7 @@ namespace MarketTools.Infrastructure
                     }}
                 });
 
-            serviceDescriptors.AddSingleton(
-                new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>>
+            serviceDescriptors.AddSingleton(new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>>
                 {
                     {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>
                     {

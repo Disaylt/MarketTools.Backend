@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Http\Wb\Seller\Api\" />
     <Folder Include="Requests\Autoresponder\Standard\Feedabacks\Commands\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>

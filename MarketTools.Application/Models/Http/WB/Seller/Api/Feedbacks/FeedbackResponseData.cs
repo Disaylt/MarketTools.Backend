@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
+namespace MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks
 {
-    internal class FeedbackResponseData
+    public class FeedbackResponseData
     {
         public int CountUnanswered { get; set; }
         public int CountArchive { get; set; }

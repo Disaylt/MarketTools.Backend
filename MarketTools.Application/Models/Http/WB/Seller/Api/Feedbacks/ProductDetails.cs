@@ -1,15 +1,12 @@
-﻿using AutoMapper;
-using MarketTools.Application.Interfaces.Mapping;
-using MarketTools.Application.Models.Http.WB.Seller;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
+namespace MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks
 {
-    public class ProductDetails : IHasMap
+    public class ProductDetails
     {
         public int ImtId { get; set; }
         public int NmId { get; set; }
@@ -18,10 +15,5 @@ namespace MarketTools.Infrastructure.Http.Models.WB.Seller.Api.Feedbacls
         public required string SupplierName { get; set; }
         public required string BrandName { get; set; }
         public required string Size { get; set; }
-
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap<ProductDetails, ProductDetailsDto>();
-        }
     }
 }
