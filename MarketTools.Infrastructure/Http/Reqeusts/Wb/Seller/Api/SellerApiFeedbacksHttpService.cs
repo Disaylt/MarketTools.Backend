@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
+using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Application.Models.Http.WB.Seller.Api;
@@ -14,30 +15,27 @@ using System.Text;
 
 namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 {
-    internal class SellerOpenApiFeedbacksHttpService : BaseHttpService, IWbSellerFeedbacksHttpService
+    internal class SellerApiFeedbacksHttpService : BaseHttpService, IWbSellerApiFeedbacksService
     {
         private readonly IHttpConnectionClient _connectionClient;
-        private readonly IMapper _mapper;
 
-        public SellerOpenApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory, IMapper mapper)
+        public SellerApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory)
         {
-            _mapper = mapper;
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
         }
 
-        public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksGetDto data)
+        public async Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query)
         {
-            string path = BuilUrlForGetFeedbacks(data);
+            string path = BuilUrlForGetFeedbacks(query);
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
 
             HttpResponseMessage httpResponseMessage = await _connectionClient.SendAsync(requestMessage);
-            WbApiResult<FeedbackResponseData> responseContent = await GetJsonResponseContentAsync<WbApiResult<FeedbackResponseData>>(httpResponseMessage);
 
-            return _mapper.Map<IEnumerable<FeedbackDto>>(responseContent.Data.Feedbacks);
+            return await GetJsonResponseContentAsync<WbApiResult<FeedbackResponseData>>(httpResponseMessage);
         }
 
-        public async Task SendResponseAsync(ResponseSendDto body)
+        public async Task SendResponseAsync(ResponseBody body)
         {
             string path = "";
             HttpContent content = JsonContent.Create(body);
@@ -48,7 +46,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             await _connectionClient.SendAsync(request);
         }
 
-        private string BuilUrlForGetFeedbacks(FeedbacksGetDto data)
+        private string BuilUrlForGetFeedbacks(FeedbacksQuery data)
         {
             string query = new GetFeedbacksQueryBuilder()
                 .IsAnswered(data.IsAnswered)

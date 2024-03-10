@@ -39,6 +39,7 @@ using MarketTools.Infrastructure.Http.Clients;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections.Builders.Ozon.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections;
+using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -111,13 +112,7 @@ namespace MarketTools.Infrastructure
                 }}
             });
 
-            serviceDescriptors.AddScoped(typeof(IWbHttpRequestFactory<>), typeof(WbHttpRequestFactory<>));
-            serviceDescriptors.AddTransient<SellerOpenApiFeedbacksHttpService>();
-            serviceDescriptors.AddSingleton(
-                new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IWbSellerFeedbacksHttpService>>
-                {
-                    { MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<SellerOpenApiFeedbacksHttpService>() }
-                });
+            serviceDescriptors.AddTransient<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
 
             return serviceDescriptors;
         }
