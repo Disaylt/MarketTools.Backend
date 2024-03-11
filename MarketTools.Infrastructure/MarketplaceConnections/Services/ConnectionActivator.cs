@@ -1,12 +1,8 @@
-﻿using MarketTools.Application.Interfaces.Database;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
@@ -14,12 +10,13 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
     {
         public async Task ActivateAsync(MarketplaceConnectionEntity connection)
         {
-            if(connection.Id == 0)
+            if(connection.Id != 0)
             {
-                return;
+                await TryActivateStandardAutoresponderAsync(connection);
             }
 
-            await TryActivateStandardAutoresponderAsync(connection);
+            connection.IsActive = true;
+            connection.NumConnectionsAttempt = 0;
         }
 
         private async Task TryActivateStandardAutoresponderAsync(MarketplaceConnectionEntity connection)
@@ -28,11 +25,18 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                 .GetRepository<StandardAutoresponderConnectionEntity>()
                 .FirstAsync(x => x.SellerConnectionId == connection.Id);
 
-            if(entity.IsActive)
+            if(entity.IsActive == false)
             {
-                await _projectServiceFactory
+                return;
+            }
+
+            bool serviceActivated = await _projectServiceFactory
                     .Create(Domain.Enums.EnumProjectServices.StandardAutoresponder)
                     .TryActivate(connection);
+
+            if(serviceActivated == false)
+            {
+                throw new AppBadRequestException("Не удалось выполнить подключение к стандартному автоответчику. Отключите сервис или используйте другие данные.");
             }
         }
     }

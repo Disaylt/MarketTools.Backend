@@ -25,6 +25,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
+        IConnectionActivator _connectionActivator,
         IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
     {
@@ -34,6 +35,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
                 .Convert(_connectionContextService.Context);
+
+            await _connectionActivator.ActivateAsync(_connectionContextService.Context);
 
             _repository.Update(_connectionContextService.Context);
 

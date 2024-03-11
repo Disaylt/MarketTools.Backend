@@ -19,6 +19,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
+        IConnectionActivator _connectionActivator,
         IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
         : IRequestHandler<UpdateRefreshTokenSellerAccountCommand, MarketplaceConnectionEntity>
     {
@@ -29,6 +30,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
             _ozonSellerAccountConnectionConverter
                 .SetRefreshToken(request.Token)
                 .Convert(_connectionContextService.Context);
+
+            await _connectionActivator.ActivateAsync(_connectionContextService.Context);
 
             _repository.Update(_connectionContextService.Context);
 

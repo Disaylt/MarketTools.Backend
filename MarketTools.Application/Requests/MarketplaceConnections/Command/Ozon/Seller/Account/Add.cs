@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Application.Models.Identity;
@@ -42,6 +43,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
+        IConnectionActivator _connectionActivator,
         IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
         : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
@@ -53,7 +55,9 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
             _ozonSellerAccountConnectionConverter
                 .SetSellerId(request.SellerId)
                 .SetRefreshToken(request.RefreshToken)
-                .Convert(newEntity);
+            .Convert(newEntity);
+
+            await _connectionActivator.ActivateAsync(newEntity);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

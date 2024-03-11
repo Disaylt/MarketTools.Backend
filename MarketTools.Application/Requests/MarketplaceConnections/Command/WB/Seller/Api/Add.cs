@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Database;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Application.Models.Identity;
 using MarketTools.Application.Requests.MarketplaceConnections.Command.SellerOpenApi;
@@ -41,6 +42,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
+        IConnectionActivator _connectionActivator,
         IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<AddWbSellerApiCommand, MarketplaceConnectionEntity>
     {
@@ -52,6 +54,8 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
                 .Convert(newEntity);
+
+            await _connectionActivator.ActivateAsync(newEntity);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
