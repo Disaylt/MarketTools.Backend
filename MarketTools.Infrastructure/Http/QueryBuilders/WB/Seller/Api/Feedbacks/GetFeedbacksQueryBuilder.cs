@@ -46,7 +46,7 @@ namespace MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks
             return this;
         }
 
-        public GetFeedbacksQueryBuilder DateFrom(int? value)
+        public GetFeedbacksQueryBuilder DateFrom(long? value)
         {
             if (value.HasValue)
             {
@@ -58,7 +58,7 @@ namespace MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks
             return this;
         }
 
-        public GetFeedbacksQueryBuilder DateTo(int? value)
+        public GetFeedbacksQueryBuilder DateTo(long? value)
         {
             if (value.HasValue)
             {

@@ -1,4 +1,6 @@
-﻿using MarketTools.Domain.Enums;
+﻿using AutoMapper;
+using MarketTools.Application.Interfaces.Mapping;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

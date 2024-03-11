@@ -14,7 +14,7 @@ namespace MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks
         public required int Skip { get; set; }
         public OrderType Order { get; set; }
         public int? NmId { get; set; }
-        public int? DateFrom { get; set; }
-        public int? DateTo { get; set; }
+        public long? DateFrom { get; set; }
+        public long? DateTo { get; set; }
     }
 }
