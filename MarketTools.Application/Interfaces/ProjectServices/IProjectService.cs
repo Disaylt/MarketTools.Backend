@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces.Services
+namespace MarketTools.Application.Interfaces.ProjectServices
 {
     public interface IProjectService
     {

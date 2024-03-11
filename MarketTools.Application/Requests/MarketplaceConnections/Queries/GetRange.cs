@@ -22,7 +22,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Queries
         public EnumProjectServices? ProjectService { get; set; }
     }
 
-    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionService)
+    public class QueryHandler(IAuthUnitOfWork _authUnitOfWork, IConnectionDefinitionService _connectionDefinitionService)
         : IRequestHandler<GetRangeMarketplaceConnectionsQuery, IEnumerable<MarketplaceConnectionEntity>>
     {
         public async Task<IEnumerable<MarketplaceConnectionEntity>> Handle(GetRangeMarketplaceConnectionsQuery request, CancellationToken cancellationToken)

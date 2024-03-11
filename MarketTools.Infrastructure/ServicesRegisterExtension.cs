@@ -23,8 +23,6 @@ using MarketTools.Infrastructure.User.Notifications;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
-using MarketTools.Application.Interfaces.ProjectServices;
-using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Domain.Enums;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
