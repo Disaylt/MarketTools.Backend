@@ -18,7 +18,7 @@ using MarketTools.Application.Interfaces.Feedbacks;
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class WbStandardAutoresponderValidator(IConnectionServiceFactory<IFeedbacksService> _feedbacksService,
-        IProjectServiceFactory<IConnectionDefinitionFactory> _connectionDefinitionServiceFactory)
+        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
         : IServiceValidator
     {
         public async Task TryActivete()

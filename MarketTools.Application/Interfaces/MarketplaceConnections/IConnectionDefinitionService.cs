@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IConnectionDefinitionFactory : IProjectService
+    public interface IConnectionDefinitionService : IProjectService
     {
         public MarketplaceConnectionType Get(MarketplaceName marketplaceName, EnumProjectServices service);
     }

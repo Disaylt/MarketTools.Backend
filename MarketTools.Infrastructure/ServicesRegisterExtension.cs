@@ -25,7 +25,6 @@ using MarketTools.Infrastructure.Exceptions;
 using MarketTools.Infrastructure.MarketplaceConnections.Services;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
-using MarketTools.Infrastructure.MarketplaceConnections.Services.ConnectionDefinitions;
 using MarketTools.Domain.Enums;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
@@ -75,7 +74,7 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
-            serviceDescriptors.AddSingleton<IConnectionDefinitionFactory, ConnectionDefinitionFactory>();
+            serviceDescriptors.AddSingleton<IConnectionDefinitionService, ConnectionDefinitionService>();
 
             serviceDescriptors.AddScoped(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
 

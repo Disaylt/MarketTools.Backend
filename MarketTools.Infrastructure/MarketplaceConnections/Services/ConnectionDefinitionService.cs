@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
-    internal class ConnectionDefinitionFactory : IConnectionDefinitionFactory
+    internal class ConnectionDefinitionService : IConnectionDefinitionService
     {
         private static Dictionary<EnumProjectServices, Dictionary<MarketplaceName, MarketplaceConnectionType>> _connections =
             new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, MarketplaceConnectionType>>
