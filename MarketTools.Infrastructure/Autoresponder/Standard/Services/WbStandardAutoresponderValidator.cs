@@ -1,7 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
-using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -18,7 +17,7 @@ using MarketTools.Application.Interfaces.Feedbacks;
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class WbStandardAutoresponderValidator(IConnectionServiceFactory<IFeedbacksService> _feedbacksService,
-        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
+        IConnectionDefinitionService _connectionDefinitionServiceFactory)
         : IServiceValidator
     {
         public async Task TryActivete()

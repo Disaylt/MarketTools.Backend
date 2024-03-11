@@ -39,6 +39,8 @@ using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.Feedbacks;
 using MarketTools.Infrastructure.Feedbacks.WB.Seller.Api;
+using MarketTools.Application.Interfaces.ProjectServices;
+using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 
 namespace MarketTools.Infrastructure
 {
@@ -67,7 +69,6 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IWbSellerApiConnectionConverter, WbSellerApiConnectionBuilder>();
             serviceDescriptors.AddSingleton<IOzonSellerAccountConnectionConverter, OzonSellerAccountConnectionBuilder>();
 
-            serviceDescriptors.AddScoped<IConnectionValidatorService, ConnectionValidatorService>();
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
 
             AddSolutionMapping(serviceDescriptors);
@@ -85,6 +86,8 @@ namespace MarketTools.Infrastructure
                     } 
                 }
             });
+
+            serviceDescriptors.AddScoped(typeof(IProjectServiceFactory<>), typeof(ProjectServiceFactory<>));
 
             return serviceDescriptors;
         }
