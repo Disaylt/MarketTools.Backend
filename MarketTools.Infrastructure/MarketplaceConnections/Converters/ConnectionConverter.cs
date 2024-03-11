@@ -13,10 +13,12 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Builders
     {
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
         private readonly List<CookieModel> _cookies = new List<CookieModel>();
-        public virtual void Convert(MarketplaceConnectionEntity connection)
+        public virtual MarketplaceConnectionEntity Convert(MarketplaceConnectionEntity connection)
         {
             SetCookies(connection);
             SetHeaders(connection);
+
+            return connection;
         }
 
         public virtual void AddOrUpdateCookie(CookieModel newCookie)

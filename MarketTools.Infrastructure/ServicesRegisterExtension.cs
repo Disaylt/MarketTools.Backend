@@ -74,6 +74,7 @@ namespace MarketTools.Infrastructure
             AddSolutionMapping(serviceDescriptors);
 
             serviceDescriptors.AddSingleton<IConnectionDefinitionService, ConnectionDefinitionService>();
+            serviceDescriptors.AddScoped<IConnectionActivator, ConnectionActivator>();
 
             serviceDescriptors.AddScoped(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
 
@@ -88,6 +89,12 @@ namespace MarketTools.Infrastructure
             });
 
             serviceDescriptors.AddScoped(typeof(IProjectServiceFactory<>), typeof(ProjectServiceFactory<>));
+
+            serviceDescriptors.AddScoped<StandardAutoresponderValidator>();
+            serviceDescriptors.AddSingleton(new Dictionary<EnumProjectServices, Func<IServiceProvider, IProjectServiceValidator>>
+            {
+                {EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<StandardAutoresponderValidator>() }
+            });
 
             return serviceDescriptors;
         }
