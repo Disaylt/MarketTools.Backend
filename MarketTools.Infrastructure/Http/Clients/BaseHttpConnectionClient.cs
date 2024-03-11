@@ -2,7 +2,6 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Domain.Entities;
-using MarketTools.Infrastructure.Http.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +15,11 @@ namespace MarketTools.Infrastructure.Http.Clients
     {
         protected MarketplaceConnectionEntity Connection { get; }
         public HttpClient HttpClient { get; }
-        private readonly HttpConnectionClientOptions _options;
 
-        public BaseHttpConnectionClient(IContextService<MarketplaceConnectionEntity> connectionContextReader, HttpClient httpClient, HttpConnectionClientOptions? options = null)
+        public BaseHttpConnectionClient(IContextService<MarketplaceConnectionEntity> connectionContextReader, HttpClient httpClient)
         {
             Connection = connectionContextReader.Context;
             HttpClient = httpClient;
-
-            _options = options ?? new HttpConnectionClientOptions();
         }
 
         public virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
@@ -35,7 +31,7 @@ namespace MarketTools.Infrastructure.Http.Clients
 
             HttpResponseMessage httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
 
-            if ((int)httpResponseMessage.StatusCode >= 400 && _options.IsThrowBadRequestexception)
+            if ((int)httpResponseMessage.StatusCode >= 400)
             {
                 throw new AppConnectionBadRequestException(Connection, httpResponseMessage.StatusCode);
             }
