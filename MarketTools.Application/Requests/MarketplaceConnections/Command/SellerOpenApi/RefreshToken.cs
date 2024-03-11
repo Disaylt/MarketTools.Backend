@@ -28,7 +28,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
 
     [Obsolete]
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService)
         : IRequestHandler<OpenApiRefreshTokenCommand, MarketplaceConnectionEntity>
@@ -38,7 +37,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
 
         public async Task<MarketplaceConnectionEntity> Handle(OpenApiRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            await CheckServicesAsync(request.Token);
             ChangeProperties(request);
 
             _repository.Update(_connectionContextService.Context);
@@ -61,14 +59,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Seller
             else
             {
                 _connectionContextService.Context.IsActive = true;
-            }
-        }
-
-        private async Task CheckServicesAsync(string token)
-        {
-            if(string.IsNullOrEmpty(token) == false)
-            {
-                await _connectionValidatorService.CheckServices(_connectionContextService.Context);
             }
         }
     }

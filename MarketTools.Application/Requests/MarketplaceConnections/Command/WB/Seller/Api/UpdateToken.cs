@@ -23,21 +23,17 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
     }
 
     public class RefreshTokenCommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
-        private readonly ActivateUtility _activateUtility = new ActivateUtility(_connectionValidatorService);
         public async Task<MarketplaceConnectionEntity> Handle(UpdateTokenSellerApiCommand request, CancellationToken cancellationToken)
         {
             _wbSellerApiConnectionBuilder
                 .SetToken(request.Token)
                 .Convert(_connectionContextService.Context);
-
-            await _activateUtility.TryActivateAsync(request.Token, _connectionContextService.Context);
 
             _repository.Update(_connectionContextService.Context);
 

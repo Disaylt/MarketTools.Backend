@@ -17,22 +17,18 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     }
 
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
-        IConnectionValidatorService _connectionValidatorService,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
         : IRequestHandler<UpdateRefreshTokenSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
-        private readonly ActivateUtility _activateUtility = new ActivateUtility(_connectionValidatorService);
 
         public async Task<MarketplaceConnectionEntity> Handle(UpdateRefreshTokenSellerAccountCommand request, CancellationToken cancellationToken)
         {
             _ozonSellerAccountConnectionConverter
                 .SetRefreshToken(request.Token)
                 .Convert(_connectionContextService.Context);
-
-            await _activateUtility.TryActivateAsync(request.Token, _connectionContextService.Context);
 
             _repository.Update(_connectionContextService.Context);
 

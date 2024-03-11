@@ -24,7 +24,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
 
     public class UpdateStatusCommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
-        IProjectServiceFactory<IServiceValidator> _connectionServiceFactory,
+        IProjectServiceFactory<IProjectServiceValidator> _connectionServiceFactory,
         IUserNotificationsService _userNotificationsService)
         : IRequestHandler<UpdateConnenctionStatusCommand, Unit>
     {
@@ -34,7 +34,9 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
         {
             if (request.IsActive)
             {
-                await CheckConnection();
+                await _connectionServiceFactory
+                    .Create(EnumProjectServices.StandardAutoresponder)
+                    .TryActivate(_connectionContextService.Context);
             }
 
             StandardAutoresponderConnectionEntity serviceConnection = await _repository.FirstAsync(x => x.SellerConnectionId == request.ConnectionId, cancellationToken);
@@ -54,13 +56,6 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
             string message = $"Стандартный автоответчик - {status}. Подключение: {_connectionContextService.Context.Name}. Маркетплейс: {MarketplaceNameConverter.Convert(_connectionContextService.Context.MarketplaceName)}";
 
             await _userNotificationsService.AddAsync(message);
-        }
-
-        private async Task CheckConnection()
-        {
-            await _connectionServiceFactory
-                .Create(EnumProjectServices.StandardAutoresponder, _connectionContextService.Context.MarketplaceName)
-                .TryActivete();
         }
     }
 }
