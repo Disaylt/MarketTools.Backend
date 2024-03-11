@@ -33,7 +33,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
 
         public virtual MarketpalceConnectionQueryBuilder SetByService(EnumProjectServices? projectService, 
             MarketplaceName? marketplaceName, 
-            IProjectServiceFactory<IConnectionDefinitionService> connectionDefinitionService)
+            IProjectServiceFactory<IConnectionDefinitionFactory> connectionDefinitionService)
         {
             if(projectService.HasValue && marketplaceName.HasValue)
             {

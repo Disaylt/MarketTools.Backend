@@ -75,30 +75,10 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
-            serviceDescriptors.AddScoped(typeof(IProjectServiceFactory<>), typeof(ProjectServiceFactory<>));
 
-            serviceDescriptors.AddScoped<WbStandardAutoresponderValidator>();
-            serviceDescriptors.AddSingleton(
-                new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>>
-                {
-                    {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IServiceValidator>>
-                    {
-                        {MarketplaceName.WB, x => x.GetRequiredService<WbStandardAutoresponderValidator>() }
-                    }}
-                });
+            serviceDescriptors.AddScoped(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
 
-            serviceDescriptors.AddSingleton(new Dictionary<EnumProjectServices, Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>>
-                {
-                    {EnumProjectServices.StandardAutoresponder, new Dictionary<MarketplaceName, Func<IServiceProvider, IConnectionDefinitionService>>
-                    {
-                        {MarketplaceName.WB, x => new WbStandardAutoresponderConnectionDifinitionService() },
-                        {MarketplaceName.OZON, x=> new OzonStandardAutoresponderDefinitionService() }
-                    }}
-                });
-
-            serviceDescriptors.AddTransient(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
-
-            serviceDescriptors.AddTransient<WbSellerApiFeedbacksService>();
+            serviceDescriptors.AddScoped<WbSellerApiFeedbacksService>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IFeedbacksService>>>
             {
                 {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IFeedbacksService>>
@@ -125,7 +105,7 @@ namespace MarketTools.Infrastructure
                 }
             });
 
-            serviceDescriptors.AddTransient<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
+            serviceDescriptors.AddScoped<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
 
             return serviceDescriptors;
         }

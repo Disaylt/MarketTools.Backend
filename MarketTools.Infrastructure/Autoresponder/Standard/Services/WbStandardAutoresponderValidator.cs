@@ -13,29 +13,21 @@ using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http.Wb;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
 using MarketTools.Application.Models.Http.WB.Seller;
+using MarketTools.Application.Interfaces.Feedbacks;
 
 namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
-    internal class WbStandardAutoresponderValidator(IWbHttpRequestFactory<IWbSellerFeedbacksHttpService> _feedbacksHttpService,
-        IProjectServiceFactory<IConnectionDefinitionService> _connectionDefinitionServiceFactory)
+    internal class WbStandardAutoresponderValidator(IConnectionServiceFactory<IFeedbacksService> _feedbacksService,
+        IProjectServiceFactory<IConnectionDefinitionFactory> _connectionDefinitionServiceFactory)
         : IServiceValidator
     {
         public async Task TryActivete()
         {
-            IWbSellerFeedbacksHttpService wbSellerFeedbacksHttpService = GetWbSellerFeedbacksHttpService();
-            FeedbacksGetDto query = CreateRequestData();
-            await wbSellerFeedbacksHttpService.GetFeedbacksAsync(query);
+            //IWbSellerFeedbacksHttpService wbSellerFeedbacksHttpService = GetWbSellerFeedbacksHttpService();
+            //FeedbacksGetDto query = CreateRequestData();
+            //await wbSellerFeedbacksHttpService.GetFeedbacksAsync(query);
         }
 
-        private IWbSellerFeedbacksHttpService GetWbSellerFeedbacksHttpService()
-        {
-            MarketplaceConnectionType connectionType = _connectionDefinitionServiceFactory
-                .Create(EnumProjectServices.StandardAutoresponder, MarketplaceName.WB)
-                .Get();
-            
-            return _feedbacksHttpService
-                .Create(connectionType);
-        }
 
         private FeedbacksGetDto CreateRequestData()
         {
