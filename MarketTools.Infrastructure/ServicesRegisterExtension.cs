@@ -75,6 +75,7 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
+            serviceDescriptors.AddSingleton<IConnectionDefinitionFactory, ConnectionDefinitionFactory>();
 
             serviceDescriptors.AddScoped(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
 
