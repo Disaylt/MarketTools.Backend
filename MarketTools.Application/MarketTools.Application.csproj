@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\Autoresponder\Standard\Feedabacks\Commands\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>
 

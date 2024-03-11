@@ -40,6 +40,8 @@ using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Acco
 using MarketTools.Infrastructure.MarketplaceConnections.Builders.Ozon.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
+using MarketTools.Application.Interfaces.Feedbacks;
+using MarketTools.Infrastructure.Feedbacks.WB.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -94,6 +96,18 @@ namespace MarketTools.Infrastructure
                     }}
                 });
 
+            serviceDescriptors.AddTransient(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
+
+            serviceDescriptors.AddTransient<WbSellerApiFeedbacksService>();
+            serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IFeedbacksService>>>
+            {
+                {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IFeedbacksService>>
+                    {
+                        {MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<WbSellerApiFeedbacksService>() }
+                    } 
+                }
+            });
+
             return serviceDescriptors;
         }
 
@@ -101,15 +115,14 @@ namespace MarketTools.Infrastructure
         {
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
-            serviceDescriptors.AddTransient(typeof(IConnectionServiceFactory<>), typeof(ConnectionServiceFactory<>));
-
             serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>
             {
                 {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>
-                {
-                    { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionClient>() }
-                }}
+                    {
+                        { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionClient>() }
+                    }
+                }
             });
 
             serviceDescriptors.AddTransient<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
