@@ -8,14 +8,19 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 {
     internal class StandardAutoresponderValidator(IConnectionServiceFactory<IFeedbacksService> _feedbacksServiceFactory) : IProjectServiceValidator
     {
-        public async Task<bool> TryActivate(MarketplaceConnectionEntity connection)
+        public async Task ActivateAsync(MarketplaceConnectionEntity connection)
+        {
+            FeedbacksQueryDto query = CreateQuery();
+            await _feedbacksServiceFactory
+                .Create(connection.ConnectionType, connection.MarketplaceName)
+                .GetFeedbacksAsync(query);
+        }
+
+        public async Task<bool> TryActivateAsync(MarketplaceConnectionEntity connection)
         {
             try
             {
-                FeedbacksQueryDto query = CreateQuery();
-                await _feedbacksServiceFactory
-                    .Create(connection.ConnectionType, connection.MarketplaceName)
-                    .GetFeedbacksAsync(query);
+                await ActivateAsync(connection);
             }
             catch
             {

@@ -36,7 +36,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Connections.Co
             {
                 await _connectionServiceFactory
                     .Create(EnumProjectServices.StandardAutoresponder)
-                    .TryActivate(_connectionContextService.Context);
+                    .ActivateAsync(_connectionContextService.Context);
             }
 
             StandardAutoresponderConnectionEntity serviceConnection = await _repository.FirstAsync(x => x.SellerConnectionId == request.ConnectionId, cancellationToken);

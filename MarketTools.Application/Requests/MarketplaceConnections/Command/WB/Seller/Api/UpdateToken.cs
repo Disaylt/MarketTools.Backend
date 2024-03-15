@@ -36,7 +36,10 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
                 .SetToken(request.Token)
                 .Convert(_connectionContextService.Context);
 
-            await _connectionActivator.ActivateAsync(_connectionContextService.Context);
+            if(string.IsNullOrEmpty(request.Token) is false)
+            {
+                await _connectionActivator.ActivateAsync(_connectionContextService.Context);
+            }
 
             _repository.Update(_connectionContextService.Context);
 

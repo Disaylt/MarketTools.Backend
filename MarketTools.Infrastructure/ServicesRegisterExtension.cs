@@ -31,10 +31,8 @@ using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Infrastructure.Http.Reqeusts.Wb;
 using MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
-using MarketTools.Infrastructure.MarketplaceConnections.Builders.WB.Seller.Api;
 using MarketTools.Infrastructure.Http.Clients;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
-using MarketTools.Infrastructure.MarketplaceConnections.Builders.Ozon.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.Feedbacks;
@@ -65,9 +63,6 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IExceptionHandleService<AppConnectionBadRequestException>, HttpExceptionHandleService>();
 
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
-
-            serviceDescriptors.AddSingleton<IWbSellerApiConnectionConverter, WbSellerApiConnectionBuilder>();
-            serviceDescriptors.AddSingleton<IOzonSellerAccountConnectionConverter, OzonSellerAccountConnectionBuilder>();
 
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
 

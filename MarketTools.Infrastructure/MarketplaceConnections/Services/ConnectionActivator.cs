@@ -32,7 +32,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 
             bool serviceActivated = await _projectServiceFactory
                     .Create(Domain.Enums.EnumProjectServices.StandardAutoresponder)
-                    .TryActivate(connection);
+                    .TryActivateAsync(connection);
 
             if(serviceActivated == false)
             {

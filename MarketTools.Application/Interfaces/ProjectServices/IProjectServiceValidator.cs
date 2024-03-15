@@ -9,6 +9,7 @@ namespace MarketTools.Application.Interfaces.ProjectServices
 {
     public interface IProjectServiceValidator : IProjectService
     {
-        public Task<bool> TryActivate(MarketplaceConnectionEntity connection);
+        public Task<bool> TryActivateAsync(MarketplaceConnectionEntity connection);
+        public Task ActivateAsync(MarketplaceConnectionEntity connection);
     }
 }
