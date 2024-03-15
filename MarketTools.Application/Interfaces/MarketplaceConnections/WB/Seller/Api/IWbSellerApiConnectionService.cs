@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api
 {
-    public interface IWbSellerApiConnectionService
+    public interface IWbSellerApiConnectionService : IBaseConnectionService
     {
-        public bool IsChanged { get; }
-
+        public void Change(string token);
     }
 }
