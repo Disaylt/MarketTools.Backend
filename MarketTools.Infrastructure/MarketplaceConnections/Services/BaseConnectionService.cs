@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MarketTools.Infrastructure.MarketplaceConnections.Models;
@@ -30,6 +31,14 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                     throw new AppNotFoundException("Подключение не установлено.");
                 }
                 return _connection;
+            }
+        }
+
+        public BaseConnectionService(IContextService<MarketplaceConnectionEntity> contextService)
+        {
+            if (contextService.IsExists())
+            {
+                _connection = contextService.Context;
             }
         }
 

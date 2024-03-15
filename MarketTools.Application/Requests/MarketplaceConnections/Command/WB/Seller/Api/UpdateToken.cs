@@ -26,15 +26,13 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IConnectionActivator _connectionActivator,
-        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
+        IWbSellerApiConnectionService _wbSellerApiConnectionBuilder)
         : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
         public async Task<MarketplaceConnectionEntity> Handle(UpdateTokenSellerApiCommand request, CancellationToken cancellationToken)
         {
-            _wbSellerApiConnectionBuilder
-                .SetToken(request.Token)
-                .Convert(_connectionContextService.Context);
+            _wbSellerApiConnectionBuilder.Change(request.Token);
 
             if(string.IsNullOrEmpty(request.Token) is false)
             {

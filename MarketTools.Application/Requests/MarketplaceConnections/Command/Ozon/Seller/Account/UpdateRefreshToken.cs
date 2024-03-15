@@ -20,16 +20,14 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IConnectionActivator _connectionActivator,
-        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
+        IOzonSellerAccountConnectionService _ozonSellerAccountConnectionConverter)
         : IRequestHandler<UpdateRefreshTokenSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
 
         public async Task<MarketplaceConnectionEntity> Handle(UpdateRefreshTokenSellerAccountCommand request, CancellationToken cancellationToken)
         {
-            _ozonSellerAccountConnectionConverter
-                .SetRefreshToken(request.Token)
-                .Convert(_connectionContextService.Context);
+            _ozonSellerAccountConnectionConverter.ChangeRefreshToken(request.Token);
 
             if(string.IsNullOrEmpty(request.Token) is false)
             {

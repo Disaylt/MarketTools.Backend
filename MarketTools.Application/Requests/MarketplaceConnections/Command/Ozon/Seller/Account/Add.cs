@@ -44,7 +44,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IConnectionActivator _connectionActivator,
-        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
+        IOzonSellerAccountConnectionService _ozonSellerAccountConnectionConverter)
         : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -52,10 +52,9 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
         public async Task<MarketplaceConnectionEntity> Handle(AddOzonSellerAccountCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
-            _ozonSellerAccountConnectionConverter
-                .SetSellerId(request.SellerId)
-                .SetRefreshToken(request.RefreshToken)
-            .Convert(newEntity);
+            _ozonSellerAccountConnectionConverter.Connection = newEntity;
+            _ozonSellerAccountConnectionConverter.ChangeSellerId(request.SellerId);
+            _ozonSellerAccountConnectionConverter.ChangeRefreshToken(request.RefreshToken);
 
             await _connectionActivator.ActivateAsync(newEntity);
 

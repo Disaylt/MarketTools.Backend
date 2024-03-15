@@ -39,6 +39,8 @@ using MarketTools.Application.Interfaces.Feedbacks;
 using MarketTools.Infrastructure.Feedbacks.WB.Seller.Api;
 using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
+using MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller.Account;
+using MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -65,6 +67,9 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IUserNotificationsService, UserNotificationsService>();
 
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
+
+            serviceDescriptors.AddTransient<IOzonSellerAccountConnectionService, OzonSellerAccountConnectionService>();
+            serviceDescriptors.AddTransient<IWbSellerApiConnectionService, WbSellerApiConnectionService>();
 
             AddSolutionMapping(serviceDescriptors);
 

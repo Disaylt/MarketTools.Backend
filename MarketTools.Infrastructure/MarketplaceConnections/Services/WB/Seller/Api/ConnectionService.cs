@@ -1,4 +1,6 @@
-﻿using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
+﻿using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
+using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,11 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.A
     internal class WbSellerApiConnectionService : BaseConnectionService, IWbSellerApiConnectionService
     {
         private const string _tokenHeaderKey = "Authorization";
+
+        public WbSellerApiConnectionService(IContextService<MarketplaceConnectionEntity> contextService) : base(contextService)
+        {
+        }
+
         public void Change(string token)
         {
             AddOrUpdateHeader(_tokenHeaderKey, token);

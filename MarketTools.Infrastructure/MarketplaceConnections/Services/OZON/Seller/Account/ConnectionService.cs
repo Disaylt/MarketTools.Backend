@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Domain.Entities;
 using System;
@@ -15,6 +16,10 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller
         private const string _cookieDomain = "ozon.ru";
         private const string _cookieNameRefreshToken = "__Secure-refresh-token";
         private const string _cookieNameSellerId = "contentId";
+
+        public OzonSellerAccountConnectionService(IContextService<MarketplaceConnectionEntity> contextService) : base(contextService)
+        {
+        }
 
         public void ChangeAllCookies(CookieContainer cookieContainer)
         {
