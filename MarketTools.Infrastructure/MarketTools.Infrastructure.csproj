@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Http\Reqeusts\Ozon\" />
     <Folder Include="ProjectServices\" />
   </ItemGroup>
 

@@ -34,5 +34,17 @@ namespace MarketTools.Infrastructure.Database
         {
             base.OnModelCreating(builder);
         }
+
+        public override void Dispose()
+        {
+            SaveChanges();
+            base.Dispose();
+        }
+
+        public override async ValueTask DisposeAsync()
+        {
+            await SaveChangesAsync();
+            await base.DisposeAsync();
+        }
     }
 }
