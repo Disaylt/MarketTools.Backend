@@ -9,7 +9,9 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.
 {
     public interface IOzonSellerAccountConnectionService : IBaseConnectionService
     {
-        public void Change(string sellerId, string refreshToken);
-        public void Change(CookieContainer cookieContainer);
+        public void ChangeSellerId(string sellerId);
+        public void ChangeRefreshToken(string refreshToken);
+        public void ChangeAllCookies(CookieContainer cookieContainer);
+        public string GetSellerId();
     }
 }
