@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Models.Autoresponder;
+using MarketTools.Application.Models.Feedbacks;
 using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Entities;
 using System;
@@ -29,11 +30,11 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
         {
             return new StandardAutoresponderNotificationEntity
             {
-                Article = feedback.ProductDetails.ImtId,
-                SupplierArticle = feedback.ProductDetails.SupplierArticle,
+                Article = feedback.ProductDetails.Article,
+                SupplierArticle = feedback.ProductDetails.SellerArticle,
                 StandardAutoresponderConnectionId = connectionId,
                 IsSuccess = answer.IsSuccess,
-                Rating = feedback.ProductValuation,
+                Rating = feedback.Grade,
                 Report = answer.Report,
                 Response = answer.Text ?? "-",
                 ReviewCreateDate = feedback.CreatedDate

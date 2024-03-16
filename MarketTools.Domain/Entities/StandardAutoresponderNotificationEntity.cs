@@ -10,7 +10,7 @@ namespace MarketTools.Domain.Entities
     {
         public int Rating { get; set; }
         public DateTime ReviewCreateDate { get; set; }
-        public int Article { get; set; }
+        public string Article { get; set; } = null!;
         public string SupplierArticle { get; set; } = "-";
         public string Response { get; set; } = string.Empty;
         public string Report { get; set; } = string.Empty;

@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Application.Models.Feedbacks;
 using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Entities;
 using System;
