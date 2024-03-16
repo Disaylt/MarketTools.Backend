@@ -15,12 +15,14 @@ namespace MarketTools.Infrastructure.Http.Clients
     {
         private readonly IOzonSellerAccountConnectionService _ozonSellerAccountConnectionService;
         private readonly IRepository<MarketplaceConnectionEntity> _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader, 
             IOzonSellerAccountConnectionService ozonSellerAccountConnectionService,
             IUnitOfWork unitOfWork) 
             : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account)
         {
+            _unitOfWork = unitOfWork;
             _repository = unitOfWork.GetRepository<MarketplaceConnectionEntity>();
             ozonSellerAccountConnectionService.Connection = Connection;
             _ozonSellerAccountConnectionService = ozonSellerAccountConnectionService;
@@ -29,20 +31,19 @@ namespace MarketTools.Infrastructure.Http.Clients
         public override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
             HttpResponseMessage response = await base.SendAsync(httpRequestMessage);
-
-            _ozonSellerAccountConnectionService.ChangeAllCookies(ClientHandler.CookieContainer);
-            UpdateCookies();
+            await UpdateCookiesAsync();
 
             return response;
         }
 
-        private void UpdateCookies()
+        private async Task UpdateCookiesAsync()
         {
             _ozonSellerAccountConnectionService.ChangeAllCookies(ClientHandler.CookieContainer);
 
             if(_ozonSellerAccountConnectionService.IsChanged)
             {
                 _repository.Update(Connection);
+                await _unitOfWork.CommitAsync();
             }
         }
     }

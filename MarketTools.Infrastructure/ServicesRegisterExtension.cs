@@ -104,11 +104,17 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
 
             serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
+            serviceDescriptors.AddScoped<OzonSellerAccountHttpConnectionClient>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>
             {
                 {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>
                     {
                         { MarketplaceConnectionType.OpenApi, x => x.GetRequiredService<WbOpenApiHttpConnectionClient>() }
+                    }
+                },
+                { MarketplaceName.OZON, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>
+                    {
+                        { MarketplaceConnectionType.Account, x=> x.GetRequiredService<OzonSellerAccountHttpConnectionClient>() }
                     }
                 }
             });

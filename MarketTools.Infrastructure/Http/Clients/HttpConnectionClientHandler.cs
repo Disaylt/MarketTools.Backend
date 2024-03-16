@@ -24,6 +24,7 @@ namespace MarketTools.Infrastructure.Http.Clients
             : base(connectionContextReader, new HttpClient(httpClientHandler), marketplaceName, type)
         {
             ClientHandler = httpClientHandler;
+            ClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
             ClientHandler.UseCookies = true;
             ClientHandler.CookieContainer = new CookieContainer(200,100, 4000);
             SetCookies();
