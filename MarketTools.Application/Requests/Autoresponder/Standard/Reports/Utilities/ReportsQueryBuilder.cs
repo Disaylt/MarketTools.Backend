@@ -51,14 +51,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Reports.Utilit
                 return this;
             }
 
-            if (int.TryParse(article, out var numArticle))
-            {
-                Query = Query.Where(x => x.Article == numArticle || x.SupplierArticle == article);
-            }
-            else
-            {
-                Query = Query.Where(x => x.SupplierArticle == article);
-            }
+            Query = Query.Where(x => x.Article == article || x.SupplierArticle == article);
 
             return this;
         }
