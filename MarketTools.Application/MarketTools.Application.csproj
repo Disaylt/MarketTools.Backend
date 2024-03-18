@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Http\Ozon\Seller\" />
     <Folder Include="Requests\Ozon\" />
   </ItemGroup>
 
