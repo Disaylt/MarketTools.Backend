@@ -41,6 +41,7 @@ using MarketTools.Application.Interfaces.ProjectServices;
 using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.Api;
+using MarketTools.Infrastructure.Http.Proxy;
 
 namespace MarketTools.Infrastructure
 {
@@ -102,6 +103,8 @@ namespace MarketTools.Infrastructure
         public static IServiceCollection AddHttpClients(this IServiceCollection serviceDescriptors, SequreSettings sequreSettings)
         {
             serviceDescriptors.AddScoped<IHttpConnectionContextService, HttpConnectionContextService>();
+            serviceDescriptors.AddSingleton<IProxyService, OptionsProxyService>();
+            serviceDescriptors.AddSingleton<IProxyConverter, SobotProxyConverter>();
 
             serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
             serviceDescriptors.AddScoped<OzonSellerAccountHttpConnectionClient>();
