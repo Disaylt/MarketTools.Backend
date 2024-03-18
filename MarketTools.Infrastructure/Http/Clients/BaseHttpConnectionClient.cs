@@ -31,6 +31,7 @@ namespace MarketTools.Infrastructure.Http.Clients
 
         public virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
         {
+            httpRequestMessage.Version = new Version(2, 0);
             HttpResponseMessage httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
 
             if ((int)httpResponseMessage.StatusCode >= 400)

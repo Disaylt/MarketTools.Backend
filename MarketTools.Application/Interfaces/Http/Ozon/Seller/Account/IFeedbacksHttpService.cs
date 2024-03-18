@@ -10,6 +10,6 @@ namespace MarketTools.Application.Interfaces.Http.Ozon.Seller.Account
     public interface IOzonSellerAccountFeedbacksHttpService
     {
         public Task<FeedbacksResponseBody> GetFeedbacksAsync(FeedbacksRequestBody body);
-        public Task SendResponseAsync();
+        public Task SendResponseAsync(AnswerRequestBody body);
     }
 }
