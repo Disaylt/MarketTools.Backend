@@ -44,7 +44,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IConnectionActivator _connectionActivator,
-        IOzonSellerAccountConnectionService _ozonSellerAccountConnectionConverter)
+        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
         : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();

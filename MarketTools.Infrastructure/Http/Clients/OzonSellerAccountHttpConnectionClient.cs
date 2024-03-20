@@ -13,12 +13,12 @@ namespace MarketTools.Infrastructure.Http.Clients
 {
     internal class OzonSellerAccountHttpConnectionClient : HttpConnectionClientHandler
     {
-        private readonly IOzonSellerAccountConnectionService _ozonSellerAccountConnectionService;
+        private readonly IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionService;
         private readonly IRepository<MarketplaceConnectionEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
         public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader, 
-            IOzonSellerAccountConnectionService ozonSellerAccountConnectionService,
+            IOzonSellerAccountConnectionConverter ozonSellerAccountConnectionService,
             IProxyService proxyService,
             IUnitOfWork unitOfWork) 
             : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account)

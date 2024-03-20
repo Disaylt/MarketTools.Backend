@@ -1,4 +1,5 @@
 ﻿using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IBaseConnectionService
+    public interface IConnectionConverterFactory<T>
     {
-        public bool IsChanged { get; }
-        public MarketplaceConnectionEntity Connection { set; }
+        public T Create(MarketplaceConnectionEntity connection);
+        public T CreateFromContext();
+        public T CreateFromHttpContext();
     }
 }

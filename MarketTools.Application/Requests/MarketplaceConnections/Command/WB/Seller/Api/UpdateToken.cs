@@ -26,7 +26,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
         IConnectionActivator _connectionActivator,
-        IWbSellerApiConnectionService _wbSellerApiConnectionBuilder)
+        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<UpdateTokenSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();

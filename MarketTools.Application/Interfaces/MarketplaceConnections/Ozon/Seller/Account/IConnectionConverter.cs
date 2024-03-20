@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account
 {
-    public interface IOzonSellerAccountConnectionService : IBaseConnectionService
+    public interface IOzonSellerAccountConnectionConverter : IBaseConnectionConverter
     {
         public void ChangeSellerId(string sellerId);
         public void ChangeRefreshToken(string refreshToken);

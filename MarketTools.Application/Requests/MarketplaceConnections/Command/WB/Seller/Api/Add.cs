@@ -43,7 +43,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IConnectionActivator _connectionActivator,
-        IWbSellerApiConnectionService _wbSellerApiConnectionBuilder)
+        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
         : IRequestHandler<AddWbSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();

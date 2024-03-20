@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
 {
     internal class OzonSellerAccountFeedbacksService(IOzonSellerAccountFeedbacksHttpService _ozonSellerAccountFeedbacksHttpService,
-        IOzonSellerAccountConnectionService _ozonSellerAccountConnectionService)
+        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionService)
         : IFeedbacksService
     {
         private const int _maxIteration = 10;

@@ -13,15 +13,13 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller.Account
 {
-    internal class OzonSellerAccountConnectionService : BaseConnectionService, IOzonSellerAccountConnectionService
+    internal class OzonSellerAccountConnectionConverter : BaseConnectionConverter, IOzonSellerAccountConnectionConverter
     {
         private const string _cookieDomain = "ozon.ru";
         private const string _cookieNameRefreshToken = "__Secure-refresh-token";
         private const string _cookieNameSellerId = "contentId";
 
-        public OzonSellerAccountConnectionService(IHttpConnectionContextService contextService) : base(contextService, MarketplaceName.OZON, MarketplaceConnectionType.Account)
-        {
-        }
+        public OzonSellerAccountConnectionConverter(MarketplaceConnectionEntity connection) : base(connection) { }
 
         public void ChangeAllCookies(CookieContainer cookieContainer)
         {

@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.Api
 {
-    internal class WbSellerApiConnectionService : BaseConnectionService, IWbSellerApiConnectionService
+    internal class WbSellerApiConnectionConverter : BaseConnectionConverter, IWbSellerApiConnectionConverter
     {
         private const string _tokenHeaderKey = "Authorization";
 
-        public WbSellerApiConnectionService(IContextService<MarketplaceConnectionEntity> contextService) : base(contextService)
-        {
-        }
+        public WbSellerApiConnectionConverter(MarketplaceConnectionEntity connection) : base(connection) { }
 
         public void Change(string token)
         {

@@ -15,38 +15,15 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
-    internal class BaseConnectionService : IBaseConnectionService
+    internal class BaseConnectionConverter : IBaseConnectionConverter
     {
         public bool IsChanged { get; protected set; }
 
-        private MarketplaceConnectionEntity? _connection;
-        public MarketplaceConnectionEntity Connection
-        {
-            set
-            {
-                _connection = value;
-            }
-            protected get
-            {
-                if(_connection == null)
-                {
-                    throw new AppNotFoundException("Подключение не установлено.");
-                }
-                return _connection;
-            }
-        }
+        protected MarketplaceConnectionEntity Connection { get; }
 
-        public BaseConnectionService(IContextService<MarketplaceConnectionEntity> contextService)
+        public BaseConnectionConverter(MarketplaceConnectionEntity connection)
         {
-            if (contextService.IsExists())
-            {
-                _connection = contextService.Context;
-            }
-        }
-
-        public BaseConnectionService(IHttpConnectionContextService httpConnectionContextService, MarketplaceName marketplaceName, MarketplaceConnectionType type)
-        {
-            _connection = httpConnectionContextService.GetOrDefault(marketplaceName, type);
+            Connection = connection;
         }
 
         protected void AddOrUpdateHeader(string key, string value)
