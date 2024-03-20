@@ -1,5 +1,4 @@
-﻿using MarketTools.Application.Utilities.HttpParamsBuilder;
-using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -32,12 +32,14 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
 
         private FeedbacksQueryDto CreateQuery()
         {
-            return new FeedbacksQueryDto
+            FeedbacksQueryDto query = new FeedbacksQueryDto
             {
-                IsAnswered = false,
                 Skip = 0,
-                Take = 0
+                Take = 1
             };
+            query.Types.Add(FeedbacksType.Viewed);
+
+            return query;
         }
     }
 }
