@@ -15,11 +15,14 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account
     internal class OzonSellerAccountFeedbacksHttpService : BaseHttpService, IOzonSellerAccountFeedbacksHttpService
     {
         private readonly IHttpConnectionClient _connectionClient;
+        private readonly IHttpContentConverter<FeedbacksRequestBody> _feedbacksRequestConverter;
 
-        public OzonSellerAccountFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory)
+        public OzonSellerAccountFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory,
+            IHttpContentConverter<FeedbacksRequestBody> feedbacksRequestConverter)
         {
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.Account, MarketplaceName.OZON);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://seller.ozon.ru");
+            _feedbacksRequestConverter = feedbacksRequestConverter;
         }
 
         public async Task<FeedbacksResponseBody> GetFeedbacksAsync(FeedbacksRequestBody body)
@@ -27,7 +30,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account
             string path = "api/v3/review/list";
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path)
             {
-                Content = JsonContent.Create(body)
+                Content = _feedbacksRequestConverter.Convert(body)
             };
 
             HttpResponseMessage response = await _connectionClient.SendAsync(request);

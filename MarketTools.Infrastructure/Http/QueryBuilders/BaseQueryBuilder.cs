@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Utilities.HttpParamsBuilder;
+﻿using MarketTools.Application.Utilities.Http.HttpQueryBuilder;
 using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks;
 using System;

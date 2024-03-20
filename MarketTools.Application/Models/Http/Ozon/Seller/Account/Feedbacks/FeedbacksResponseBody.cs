@@ -90,7 +90,7 @@ namespace MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks
         public int Rating { get; set; }
 
         [JsonPropertyName("interaction_status")]
-        public string InteractionStatus { get; set; } = = string.Empty;
+        public string InteractionStatus { get; set; } = string.Empty;
 
         [JsonPropertyName("comments_amount")]
         public int CommentsAmount { get; set; }
@@ -102,7 +102,7 @@ namespace MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks
         public int DislikesAmount { get; set; }
 
         [JsonPropertyName("author_name")]
-        public string AuthorName { get; set; } = = string.Empty;
+        public string AuthorName { get; set; } =  string.Empty;
 
         [JsonPropertyName("photos_count")]
         public int PhotosCount { get; set; }

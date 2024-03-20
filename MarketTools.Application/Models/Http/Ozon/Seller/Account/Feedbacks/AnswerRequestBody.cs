@@ -9,16 +9,9 @@ namespace MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks
 {
     public class AnswerRequestBody
     {
-        [JsonPropertyName("company_id")]
         public required string CompanyId { get; set; }
-
-        [JsonPropertyName("company_type")]
-        public string CompanyType { get; set; } = "seller";
-
-        [JsonPropertyName("review_uuid")]
+        public OzonCompanyType CompanyType { get; set; }
         public required string ReviewUuid { get; set; }
-
-        [JsonPropertyName("text")]
         public required string Text { get; set; }
     }
 }

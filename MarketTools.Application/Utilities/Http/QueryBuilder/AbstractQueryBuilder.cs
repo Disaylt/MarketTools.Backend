@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Utilities.HttpParamsBuilder
+namespace MarketTools.Application.Utilities.Http.HttpQueryBuilder
 {
     public class AbstractQueryBuilder
     {

@@ -42,6 +42,8 @@ using MarketTools.Infrastructure.ProjectServices.ServiceFactories;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller.Account;
 using MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.Api;
 using MarketTools.Infrastructure.Http.Proxy;
+using MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks;
+using MarketTools.Infrastructure.Http.ContentConverters.Ozon.Seller.Account.Feedbacks;
 
 namespace MarketTools.Infrastructure
 {
@@ -71,6 +73,9 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddTransient<IOzonSellerAccountConnectionService, OzonSellerAccountConnectionService>();
             serviceDescriptors.AddTransient<IWbSellerApiConnectionService, WbSellerApiConnectionService>();
+
+            serviceDescriptors.AddSingleton<IHttpContentConverter<FeedbacksRequestBody>, OzonSellerAccountFeedbacksRequestBodyConverter>();
+            serviceDescriptors.AddSingleton<IHttpContentConverter<AnswerRequestBody>, OzonSellerAccountAnswerRequesstBodyConverter>();
 
             AddSolutionMapping(serviceDescriptors);
 

@@ -19,6 +19,7 @@ namespace MarketTools.Infrastructure.Http.Clients
 
         public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader, 
             IOzonSellerAccountConnectionService ozonSellerAccountConnectionService,
+            IProxyService proxyService,
             IUnitOfWork unitOfWork) 
             : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account)
         {
@@ -26,6 +27,7 @@ namespace MarketTools.Infrastructure.Http.Clients
             _repository = unitOfWork.GetRepository<MarketplaceConnectionEntity>();
             ozonSellerAccountConnectionService.Connection = Connection;
             _ozonSellerAccountConnectionService = ozonSellerAccountConnectionService;
+            ClientHandler.Proxy = proxyService.GetRandom();
         }
 
         public override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
