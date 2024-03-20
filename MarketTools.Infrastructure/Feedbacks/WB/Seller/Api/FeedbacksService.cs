@@ -13,16 +13,34 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
     {
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksQueryDto data)
         {
-            FeedbacksQuery feedbacksQuery = MapQuery(data);
-            WbApiResult<FeedbackResponseData> result = await _wbSellerApiFeedbacksService.GetFeedbacksAsync(feedbacksQuery);
+            List<FeedbackDto> allFeedbacks = new List<FeedbackDto>();
 
-            return MapFeedbacks(result);
+            foreach(FeedbacksType type in data.Types)
+            {
+                bool isAnswered = ConvertIsAnsweredType(type);
+                FeedbacksQuery feedbacksQuery = MapQuery(data, isAnswered);
+                WbApiResult<FeedbackResponseData> result = await _wbSellerApiFeedbacksService.GetFeedbacksAsync(feedbacksQuery);
+                IEnumerable<FeedbackDto> feedbacks = MapFeedbacks(result);
+                allFeedbacks.Concat(feedbacks);
+            }
+
+            return allFeedbacks;
         }
 
         public async Task SendAnswerAsync(AnswerDto data)
         {
             ResponseBody answer = MapAnswer(data);
             await _wbSellerApiFeedbacksService.SendResponseAsync(answer);
+        }
+
+        private bool ConvertIsAnsweredType(FeedbacksType type)
+        {
+            return type switch
+            {
+                FeedbacksType.New => false,
+                FeedbacksType.Viewed => true,
+                _ => throw new AppNotFoundException()
+            };
         }
 
         private ResponseBody MapAnswer(AnswerDto data)
@@ -55,16 +73,16 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
                 });
         }
 
-        private FeedbacksQuery MapQuery(FeedbacksQueryDto data)
+        private FeedbacksQuery MapQuery(FeedbacksQueryDto data, bool isAnswered)
         {
-            if(data.Grade != null)
+            if(data.Grades.Count > 0)
             {
                 throw new AppBadRequestException("WB API не поддерживает поиск отзывов по оценке.");
             }
 
             FeedbacksQuery query = new FeedbacksQuery
             {
-                IsAnswered = data.IsAnswered,
+                IsAnswered = isAnswered,
                 Skip = data.Skip,
                 Take = data.Take,
                 Order = data.Order

@@ -1,7 +1,9 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller
         private const string _cookieNameRefreshToken = "__Secure-refresh-token";
         private const string _cookieNameSellerId = "contentId";
 
-        public OzonSellerAccountConnectionService(IContextService<MarketplaceConnectionEntity> contextService) : base(contextService)
+        public OzonSellerAccountConnectionService(IHttpConnectionContextService contextService) : base(contextService, MarketplaceName.OZON, MarketplaceConnectionType.Account)
         {
         }
 

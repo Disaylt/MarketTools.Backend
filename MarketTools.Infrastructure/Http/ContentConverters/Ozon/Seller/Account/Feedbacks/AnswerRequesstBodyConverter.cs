@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Models.Http.Ozon.Seller.Account;
 using MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks;
 using MarketTools.Infrastructure.Http.Models.Ozon.Seller.Account.Feedbacks;
 using System;
@@ -17,7 +18,7 @@ namespace MarketTools.Infrastructure.Http.ContentConverters.Ozon.Seller.Account.
             AnswerRequestJsonBody jsonBody = new AnswerRequestJsonBody
             {
                 CompanyId = body.CompanyId,
-                CompanyType = Convert(body.CompanyType),
+                CompanyType = Convert(OzonCompanyType.Seller),
                 ReviewUuid = body.ReviewUuid,
                 Text = body.Text
             };

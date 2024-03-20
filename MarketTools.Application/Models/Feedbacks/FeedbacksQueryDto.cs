@@ -11,13 +11,19 @@ namespace MarketTools.Application.Models.Feedbacks
 {
     public class FeedbacksQueryDto
     {
-        public required bool IsAnswered { get; set; }
+        public List<FeedbacksType> Types { get; } = new List<FeedbacksType>();
         public required int Take { get; set; }
         public required int Skip { get; set; }
-        public int? Grade { get; set; }
+        public List<int> Grades { get; } = new List<int>();
         public OrderType Order { get; set; }
         public string? Article { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
+    }
+
+    public enum FeedbacksType
+    {
+        New,
+        Viewed
     }
 }

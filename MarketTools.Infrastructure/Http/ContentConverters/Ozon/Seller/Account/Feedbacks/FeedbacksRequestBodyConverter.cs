@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Models.Http.Ozon.Seller.Account;
 using MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks;
 using MarketTools.Infrastructure.Http.Models.Ozon.Seller.Account.Feedbacks;
 using System;
@@ -18,7 +19,7 @@ namespace MarketTools.Infrastructure.Http.ContentConverters.Ozon.Seller.Account.
             FeedbacksRequestJsonBody jsonBody = new FeedbacksRequestJsonBody
             {
                 CompanyId = body.CompanyId,
-                CompanyType = Convert(body.CompanyType),
+                CompanyType = Convert(OzonCompanyType.Seller),
                 PaginationLastTimestamp = body.PaginationLastTimestamp,
                 PaginationLastUuid = body.PaginationLastUuid
             };

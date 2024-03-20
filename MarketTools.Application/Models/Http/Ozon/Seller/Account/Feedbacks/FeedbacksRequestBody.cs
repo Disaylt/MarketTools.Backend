@@ -10,7 +10,6 @@ namespace MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks
 {
     public class FeedbacksRequestBody
     {
-        public OzonCompanyType CompanyType { get; set; } 
         public required string CompanyId { get; set; }
         public string? PaginationLastTimestamp { get; set; }
         public string? PaginationLastUuid { get; set; }

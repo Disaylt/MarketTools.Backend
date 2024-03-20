@@ -1,7 +1,9 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
+using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MarketTools.Infrastructure.MarketplaceConnections.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,11 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
             {
                 _connection = contextService.Context;
             }
+        }
+
+        public BaseConnectionService(IHttpConnectionContextService httpConnectionContextService, MarketplaceName marketplaceName, MarketplaceConnectionType type)
+        {
+            _connection = httpConnectionContextService.GetOrDefault(marketplaceName, type);
         }
 
         protected void AddOrUpdateHeader(string key, string value)

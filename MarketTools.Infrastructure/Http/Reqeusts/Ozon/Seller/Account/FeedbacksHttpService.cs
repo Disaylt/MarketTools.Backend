@@ -16,13 +16,16 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account
     {
         private readonly IHttpConnectionClient _connectionClient;
         private readonly IHttpContentConverter<FeedbacksRequestBody> _feedbacksRequestConverter;
+        private readonly IHttpContentConverter<AnswerRequestBody> _answerRequestConverter;
 
         public OzonSellerAccountFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory,
-            IHttpContentConverter<FeedbacksRequestBody> feedbacksRequestConverter)
+            IHttpContentConverter<FeedbacksRequestBody> feedbacksRequestConverter,
+            IHttpContentConverter<AnswerRequestBody> answerRequestConverter)
         {
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.Account, MarketplaceName.OZON);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://seller.ozon.ru");
             _feedbacksRequestConverter = feedbacksRequestConverter;
+            _answerRequestConverter = answerRequestConverter;
         }
 
         public async Task<FeedbacksResponseBody> GetFeedbacksAsync(FeedbacksRequestBody body)
@@ -43,7 +46,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account
             string path = "api/review/comment/create";
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path)
             {
-                Content = JsonContent.Create(body)
+                Content = _answerRequestConverter.Convert(body)
             };
 
             await _connectionClient.SendAsync(request);
