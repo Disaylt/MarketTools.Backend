@@ -45,6 +45,8 @@ using MarketTools.Infrastructure.Http.Proxy;
 using MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks;
 using MarketTools.Infrastructure.Http.ContentConverters.Ozon.Seller.Account.Feedbacks;
 using MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account;
+using MarketTools.Application.Interfaces.Http.Ozon.Seller.Account;
+using MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account;
 
 namespace MarketTools.Infrastructure
 {
@@ -135,6 +137,7 @@ namespace MarketTools.Infrastructure
             });
 
             serviceDescriptors.AddScoped<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
+            serviceDescriptors.AddScoped<IOzonSellerAccountFeedbacksHttpService, OzonSellerAccountFeedbacksHttpService>();
 
             return serviceDescriptors;
         }

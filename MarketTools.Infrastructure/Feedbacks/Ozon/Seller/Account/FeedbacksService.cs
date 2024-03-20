@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Feedbacks;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Ozon.Seller.Account;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Application.Models.Feedbacks;
 using MarketTools.Application.Models.Http.Ozon.Seller.Account;
@@ -15,9 +16,10 @@ using System.Threading.Tasks;
 namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
 {
     internal class OzonSellerAccountFeedbacksService(IOzonSellerAccountFeedbacksHttpService _ozonSellerAccountFeedbacksHttpService,
-        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionService)
+        IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> _ozonSellerAccountConnectionServiceFactory)
         : IFeedbacksService
     {
+        private readonly IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter = _ozonSellerAccountConnectionServiceFactory.CreateFromHttpContext();
         private const int _maxIteration = 10;
 
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksQueryDto data)
@@ -59,7 +61,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
         {
             AnswerRequestBody body = new AnswerRequestBody
             {
-                CompanyId = _ozonSellerAccountConnectionService.GetSellerId(),
+                CompanyId = _ozonSellerAccountConnectionConverter.GetSellerId(),
                 ReviewUuid = data.FeedbackId,
                 Text = data.Text
             };
@@ -111,7 +113,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
         {
             FeedbacksRequestBody body = new FeedbacksRequestBody
             {
-                CompanyId = _ozonSellerAccountConnectionService.GetSellerId(),
+                CompanyId = _ozonSellerAccountConnectionConverter.GetSellerId(),
                 OrderType = data.Order,
                 PaginationLastTimestamp = paginationLastTimestamp,
                 PaginationLastUuid = paginationLastUuid,
