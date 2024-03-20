@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Api;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -13,20 +14,20 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.A
 {
     internal class WbSellerApiConnectionConverterFactory(IHttpConnectionContextService _httpConnectionContextService,
         IContextService<MarketplaceConnectionEntity> _contextService)
-        : IConnectionConverterFactory<WbSellerApiConnectionConverter>
+        : IConnectionConverterFactory<IWbSellerApiConnectionConverter>
     {
 
-        public WbSellerApiConnectionConverter Create(MarketplaceConnectionEntity connection)
+        public IWbSellerApiConnectionConverter Create(MarketplaceConnectionEntity connection)
         {
             return new WbSellerApiConnectionConverter(connection);
         }
 
-        public WbSellerApiConnectionConverter CreateFromContext()
+        public IWbSellerApiConnectionConverter CreateFromContext()
         {
             return new WbSellerApiConnectionConverter(_contextService.Context);
         }
 
-        public WbSellerApiConnectionConverter CreateFromHttpContext()
+        public IWbSellerApiConnectionConverter CreateFromHttpContext()
         {
             return new WbSellerApiConnectionConverter(_httpConnectionContextService.GetRequired(MarketplaceName.WB, MarketplaceConnectionType.OpenApi));
         }

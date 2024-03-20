@@ -43,7 +43,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IConnectionActivator _connectionActivator,
-        IWbSellerApiConnectionConverter _wbSellerApiConnectionBuilder)
+        IConnectionConverterFactory<IWbSellerApiConnectionConverter> _wbSellerApiConnectionBuilderFactory)
         : IRequestHandler<AddWbSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -51,8 +51,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
         public async Task<MarketplaceConnectionEntity> Handle(AddWbSellerApiCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
-            _wbSellerApiConnectionBuilder.Connection = newEntity;
-            _wbSellerApiConnectionBuilder.Change(request.Token);
+            ChangeValues(newEntity, request);
 
             await _connectionActivator.ActivateAsync(newEntity);
 
@@ -60,6 +59,12 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return newEntity;
+        }
+
+        private void ChangeValues(MarketplaceConnectionEntity newEntity, AddWbSellerApiCommand request)
+        {
+            IWbSellerApiConnectionConverter wbSellerApiConnectionConverter = _wbSellerApiConnectionBuilderFactory.Create(newEntity);
+            wbSellerApiConnectionConverter.Change(request.Token);
         }
 
         private MarketplaceConnectionEntity Create(AddWbSellerApiCommand request)

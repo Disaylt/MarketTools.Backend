@@ -1,5 +1,6 @@
 ﻿using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
@@ -17,16 +18,15 @@ namespace MarketTools.Infrastructure.Http.Clients
         private readonly IRepository<MarketplaceConnectionEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader, 
-            IOzonSellerAccountConnectionConverter ozonSellerAccountConnectionService,
+        public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader,
+            IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> ozonSellerAccountConnectionServiceFactory,
             IProxyService proxyService,
             IUnitOfWork unitOfWork) 
             : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account)
         {
             _unitOfWork = unitOfWork;
             _repository = unitOfWork.GetRepository<MarketplaceConnectionEntity>();
-            ozonSellerAccountConnectionService.Connection = Connection;
-            _ozonSellerAccountConnectionService = ozonSellerAccountConnectionService;
+            _ozonSellerAccountConnectionService = ozonSellerAccountConnectionServiceFactory.CreateFromHttpContext();
             ClientHandler.Proxy = proxyService.GetRandom();
         }
 

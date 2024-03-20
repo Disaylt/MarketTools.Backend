@@ -72,8 +72,8 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddScoped<IMarketplaceConnectionService, MarketplaceConnectionService>();
 
-            serviceDescriptors.AddTransient<IOzonSellerAccountConnectionConverter, OzonSellerAccountConnectionConverter>();
-            serviceDescriptors.AddTransient<IWbSellerApiConnectionConverter, WbSellerApiConnectionConverter>();
+            serviceDescriptors.AddScoped<IConnectionConverterFactory<IWbSellerApiConnectionConverter>, WbSellerApiConnectionConverterFactory>();
+            serviceDescriptors.AddScoped<IConnectionConverterFactory<IOzonSellerAccountConnectionConverter>, OzonSellerAccountConnectionConverterFactory>();
 
             serviceDescriptors.AddSingleton<IHttpContentConverter<FeedbacksRequestBody>, OzonSellerAccountFeedbacksRequestBodyConverter>();
             serviceDescriptors.AddSingleton<IHttpContentConverter<AnswerRequestBody>, OzonSellerAccountAnswerRequesstBodyConverter>();

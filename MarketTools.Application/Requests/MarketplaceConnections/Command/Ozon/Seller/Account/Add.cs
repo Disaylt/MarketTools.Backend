@@ -44,7 +44,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
         IConnectionActivator _connectionActivator,
-        IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter)
+        IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> _ozonSellerAccountConnectionConverterFactory)
         : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -52,9 +52,7 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
         public async Task<MarketplaceConnectionEntity> Handle(AddOzonSellerAccountCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
-            _ozonSellerAccountConnectionConverter.Connection = newEntity;
-            _ozonSellerAccountConnectionConverter.ChangeSellerId(request.SellerId);
-            _ozonSellerAccountConnectionConverter.ChangeRefreshToken(request.RefreshToken);
+            ChangeValues(newEntity, request);
 
             await _connectionActivator.ActivateAsync(newEntity);
 
@@ -62,6 +60,13 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return newEntity;
+        }
+
+        private void ChangeValues(MarketplaceConnectionEntity newEntity, AddOzonSellerAccountCommand request)
+        {
+            IOzonSellerAccountConnectionConverter ozonSellerAccountConnectionConverter = _ozonSellerAccountConnectionConverterFactory.Create(newEntity);
+            ozonSellerAccountConnectionConverter.ChangeSellerId(request.SellerId);
+            ozonSellerAccountConnectionConverter.ChangeRefreshToken(request.RefreshToken);
         }
 
         private MarketplaceConnectionEntity Create(AddOzonSellerAccountCommand request)

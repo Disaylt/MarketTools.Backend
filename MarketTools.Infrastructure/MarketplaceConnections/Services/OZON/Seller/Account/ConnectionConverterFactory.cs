@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
+using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
@@ -13,19 +14,19 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller
 {
     internal class OzonSellerAccountConnectionConverterFactory(IHttpConnectionContextService _httpConnectionContextService,
         IContextService<MarketplaceConnectionEntity> _contextService) 
-        : IConnectionConverterFactory<OzonSellerAccountConnectionConverter>
+        : IConnectionConverterFactory<IOzonSellerAccountConnectionConverter>
     {
-        public OzonSellerAccountConnectionConverter Create(MarketplaceConnectionEntity connection)
+        public IOzonSellerAccountConnectionConverter Create(MarketplaceConnectionEntity connection)
         {
             return new OzonSellerAccountConnectionConverter(connection);
         }
 
-        public OzonSellerAccountConnectionConverter CreateFromContext()
+        public IOzonSellerAccountConnectionConverter CreateFromContext()
         {
             return new OzonSellerAccountConnectionConverter(_contextService.Context);
         }
 
-        public OzonSellerAccountConnectionConverter CreateFromHttpContext()
+        public IOzonSellerAccountConnectionConverter CreateFromHttpContext()
         {
             return new OzonSellerAccountConnectionConverter(_httpConnectionContextService.GetRequired(MarketplaceName.OZON, MarketplaceConnectionType.Account));
         }
