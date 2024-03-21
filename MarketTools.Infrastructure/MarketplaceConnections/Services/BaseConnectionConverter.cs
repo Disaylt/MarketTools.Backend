@@ -26,6 +26,22 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
             Connection = connection;
         }
 
+        protected string? GetFromHeaders(string key)
+        {
+            return Connection
+                .Headers
+                .FirstOrDefault(x => x.Name == key)?
+                .Value;
+        }
+
+        protected string? GetFromCookies(string name, string domain)
+        {
+            return Connection
+                .Cookies
+                .FirstOrDefault(x => x.Name == name && x.Domain == domain)?
+                .Value;
+        }
+
         protected void AddOrUpdateHeader(string key, string value)
         {
 

@@ -43,7 +43,12 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller
             AddOrUpdateCookie(_cookieNameSellerId, sellerId, "/", _cookieDomain);
         }
 
-        public string GetSellerId()
+        public string? GetRefreshToken()
+        {
+            return GetFromCookies(_cookieNameRefreshToken, _cookieDomain);
+        }
+
+        public string GetRequiredSellerId()
         {
             return Connection
                 .Cookies

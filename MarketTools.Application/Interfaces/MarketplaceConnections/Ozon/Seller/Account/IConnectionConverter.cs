@@ -12,6 +12,7 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.
         public void ChangeSellerId(string sellerId);
         public void ChangeRefreshToken(string refreshToken);
         public void ChangeAllCookies(CookieContainer cookieContainer);
-        public string GetSellerId();
+        public string GetRequiredSellerId();
+        public string? GetRefreshToken();
     }
 }

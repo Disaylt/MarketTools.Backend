@@ -22,11 +22,23 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.A
             _wbSellerApiConnectionBuilderFactory = wbSellerApiConnectionBuilderFactory;
         }
 
-        public override Task ActivateAsync(MarketplaceConnectionEntity connection)
+        public override async Task ActivateAsync(MarketplaceConnectionEntity connection)
+        {
+            if (IsSkipActivate(connection))
+            {
+                connection.IsActive = false;
+                return;
+            }
+
+            await base.ActivateAsync(connection);
+        }
+
+        private bool IsSkipActivate(MarketplaceConnectionEntity connection)
         {
             IWbSellerApiConnectionConverter wbSellerApiConnectionConverter = _wbSellerApiConnectionBuilderFactory.Create(connection);
+            string? value = wbSellerApiConnectionConverter.GetToken();
 
-            return base.ActivateAsync(connection);
+            return string.IsNullOrEmpty(value);
         }
     }
 }

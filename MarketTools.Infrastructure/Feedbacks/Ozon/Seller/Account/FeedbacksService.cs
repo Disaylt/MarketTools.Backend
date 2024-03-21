@@ -61,7 +61,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
         {
             AnswerRequestBody body = new AnswerRequestBody
             {
-                CompanyId = _ozonSellerAccountConnectionConverter.GetSellerId(),
+                CompanyId = _ozonSellerAccountConnectionConverter.GetRequiredSellerId(),
                 ReviewUuid = data.FeedbackId,
                 Text = data.Text
             };
@@ -113,7 +113,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
         {
             FeedbacksRequestBody body = new FeedbacksRequestBody
             {
-                CompanyId = _ozonSellerAccountConnectionConverter.GetSellerId(),
+                CompanyId = _ozonSellerAccountConnectionConverter.GetRequiredSellerId(),
                 OrderType = data.Order,
                 PaginationLastTimestamp = paginationLastTimestamp,
                 PaginationLastUuid = paginationLastUuid,
