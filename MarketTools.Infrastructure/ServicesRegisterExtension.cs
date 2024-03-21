@@ -103,6 +103,22 @@ namespace MarketTools.Infrastructure
                 }
             });
 
+            serviceDescriptors.AddScoped<OzonSellerAccountConnectionActivator>();
+            serviceDescriptors.AddScoped<WbSelleApiConnectionActivator>();
+            serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IConnectionActivator>>>
+            {
+                {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IConnectionActivator>>
+                    {
+                        {MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<OzonSellerAccountConnectionActivator>() }
+                    }
+                },
+                {MarketplaceName.OZON, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IConnectionActivator>>
+                    {
+                        {MarketplaceConnectionType.Account, x=> x.GetRequiredService<WbSelleApiConnectionActivator>() }
+                    }
+                }
+            });
+
             serviceDescriptors.AddScoped(typeof(IProjectServiceFactory<>), typeof(ProjectServiceFactory<>));
 
             serviceDescriptors.AddScoped<StandardAutoresponderValidator>();
