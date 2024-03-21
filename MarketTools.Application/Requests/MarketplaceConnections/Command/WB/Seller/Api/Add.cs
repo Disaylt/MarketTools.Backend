@@ -53,7 +53,10 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
             MarketplaceConnectionEntity newEntity = Create(request);
             ChangeValues(newEntity, request);
 
-            await _connectionActivator.ActivateAsync(newEntity);
+            if(string.IsNullOrEmpty(request.Token) == false)
+            {
+                await _connectionActivator.ActivateAsync(newEntity);
+            }
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);

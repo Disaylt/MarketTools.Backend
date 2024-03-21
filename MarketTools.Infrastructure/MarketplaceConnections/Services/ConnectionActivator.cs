@@ -8,7 +8,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
 {
     internal class ConnectionActivator(IProjectServiceFactory<IProjectServiceValidator> _projectServiceFactory, IAuthUnitOfWork _unitOfWork) : IConnectionActivator
     {
-        public async Task ActivateAsync(MarketplaceConnectionEntity connection)
+        public virtual async Task ActivateAsync(MarketplaceConnectionEntity connection)
         {
             if(connection.Id != 0)
             {

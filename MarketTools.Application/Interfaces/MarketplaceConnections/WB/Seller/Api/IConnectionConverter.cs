@@ -9,5 +9,6 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections.WB.Seller.Ap
     public interface IWbSellerApiConnectionConverter : IBaseConnectionConverter
     {
         public void Change(string token);
+        public string? GetToken();
     }
 }
