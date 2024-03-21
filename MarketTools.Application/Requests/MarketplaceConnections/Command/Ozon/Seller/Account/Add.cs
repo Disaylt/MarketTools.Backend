@@ -43,11 +43,12 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
-        IConnectionActivator _connectionActivator,
+        IConnectionServiceFactory<IConnectionActivator> _connectionServiceFactory,
         IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> _ozonSellerAccountConnectionConverterFactory)
         : IRequestHandler<AddOzonSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
+        private readonly IConnectionActivator _connectionActivator = _connectionServiceFactory.Create(MarketplaceConnectionType.Account, MarketplaceName.OZON);
 
         public async Task<MarketplaceConnectionEntity> Handle(AddOzonSellerAccountCommand request, CancellationToken cancellationToken)
         {

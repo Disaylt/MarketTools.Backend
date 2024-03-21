@@ -5,6 +5,7 @@ using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Acco
 using MarketTools.Application.Interfaces.Notifications;
 using MarketTools.Application.Requests.MarketplaceConnections.Utilities;
 using MarketTools.Domain.Entities;
+using MarketTools.Domain.Enums;
 using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 
@@ -19,21 +20,18 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.Ozon.S
     public class CommandHandler(IAuthUnitOfWork _authUnitOfWork,
         IUserNotificationsService _userNotificationsService,
         IContextService<MarketplaceConnectionEntity> _connectionContextService,
-        IConnectionActivator _connectionActivator,
+        IConnectionServiceFactory<IConnectionActivator> _connectionServiceFactory,
         IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> _ozonSellerAccountConnectionConverterFactory)
         : IRequestHandler<UpdateRefreshTokenSellerAccountCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _repository = _authUnitOfWork.GetRepository<MarketplaceConnectionEntity>();
         private readonly IOzonSellerAccountConnectionConverter _ozonSellerAccountConnectionConverter = _ozonSellerAccountConnectionConverterFactory.CreateFromContext();
+        private readonly IConnectionActivator _connectionActivator = _connectionServiceFactory.Create(MarketplaceConnectionType.Account, MarketplaceName.OZON);
 
         public async Task<MarketplaceConnectionEntity> Handle(UpdateRefreshTokenSellerAccountCommand request, CancellationToken cancellationToken)
         {
             _ozonSellerAccountConnectionConverter.ChangeRefreshToken(request.Token);
-
-            if(string.IsNullOrEmpty(request.Token) is false)
-            {
-                await _connectionActivator.ActivateAsync(_connectionContextService.Context);
-            }
+            await _connectionActivator.ActivateAsync(_connectionContextService.Context);
 
             _repository.Update(_connectionContextService.Context);
 

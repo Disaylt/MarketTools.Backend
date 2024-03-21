@@ -38,7 +38,7 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.OZON.Seller
             IOzonSellerAccountConnectionConverter ozonSellerAccountConnectionConverter = _ozonSellerAccountConnectionConverterFactory.Create(connection);
             string? token = ozonSellerAccountConnectionConverter.GetRefreshToken();
 
-            return string.IsNullOrEmpty(token)
+            return string.IsNullOrEmpty(token);
         }
     }
 }

@@ -42,21 +42,18 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Command.WB.Sel
 
     public class AddCommandHandler(IUnitOfWork _unitOfWork,
         IContextService<IdentityContext> _identityContext,
-        IConnectionActivator _connectionActivator,
+        IConnectionServiceFactory<IConnectionActivator> _connectionServiceFactory,
         IConnectionConverterFactory<IWbSellerApiConnectionConverter> _wbSellerApiConnectionBuilderFactory)
         : IRequestHandler<AddWbSellerApiCommand, MarketplaceConnectionEntity>
     {
         private readonly IRepository<MarketplaceConnectionEntity> _connectionRepository = _unitOfWork.GetRepository<MarketplaceConnectionEntity>();
+        private readonly IConnectionActivator _connectionActivator = _connectionServiceFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
 
         public async Task<MarketplaceConnectionEntity> Handle(AddWbSellerApiCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionEntity newEntity = Create(request);
             ChangeValues(newEntity, request);
-
-            if(string.IsNullOrEmpty(request.Token) == false)
-            {
-                await _connectionActivator.ActivateAsync(newEntity);
-            }
+            await _connectionActivator.ActivateAsync(newEntity);
 
             await _connectionRepository.AddAsync(newEntity, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
