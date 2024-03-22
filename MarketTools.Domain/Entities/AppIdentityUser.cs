@@ -10,6 +10,8 @@ namespace MarketTools.Domain.Entities
     public class AppIdentityUser : IdentityUser
     {
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public string? ConfirmationCode { get; set; }
+        public DateTime ConfirmationCodeCreateDate { get; set; }
 
         public List<StandardAutoresponderRecommendationProductEntity> StandardAutoresponderRecommendationProducts { get; set; } = new List<StandardAutoresponderRecommendationProductEntity>();
         public List<StandardAutoresponderColumnEntity> StandardAutoreponderColumns { get; set; } = new List<StandardAutoresponderColumnEntity>();
