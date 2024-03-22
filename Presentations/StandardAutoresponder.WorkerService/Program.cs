@@ -4,7 +4,6 @@ using Quartz;
 using StandardAutoresponder.WorkerService.Interfaces;
 using StandardAutoresponder.WorkerService.Jobs;
 using StandardAutoresponder.WorkerService.Services;
-using StandardAutoresponder.WorkerService.Utilities;
 using MarketTools.Infrastructure;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +19,6 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddHttpClients(sequreConfiguration);
 
 builder.Services.AddScoped<IWbFeedbacksHandler, WbFeedbacksHandler>();
-builder.Services.AddScoped<IContextLoader, ContextLoader>();
 
 builder.Services.AddQuartz(opt =>
 {

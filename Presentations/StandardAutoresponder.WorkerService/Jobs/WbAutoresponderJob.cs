@@ -49,10 +49,6 @@ namespace StandardAutoresponder.WorkerService.Jobs
                     .GetRequiredService<IIdentityContextLoadService>()
                     .LoadByConnection(connectionId);
 
-                await serviceScope.ServiceProvider
-                    .GetRequiredService<IContextLoader>()
-                    .Handle(MarketplaceName.WB, connectionId);
-
                 await serviceScope
                     .ServiceProvider
                     .GetRequiredService<IWbFeedbacksHandler>()
