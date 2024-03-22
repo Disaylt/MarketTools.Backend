@@ -1,6 +1,6 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
-using MarketTools.Domain.Common;
+using MarketTools.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Common
 {
-    internal class ContextService<T> : IContextService<T> where T : IContext
+    internal class ContextService<T> : IContextService<T>
     {
         private T? _context;
         public T Context
@@ -26,6 +26,11 @@ namespace MarketTools.Infrastructure.Common
             {
                 _context = value;
             }
+        }
+
+        public bool IsExists()
+        {
+            return _context != null;
         }
     }
 }

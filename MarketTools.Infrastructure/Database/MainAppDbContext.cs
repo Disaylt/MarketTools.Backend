@@ -24,12 +24,12 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<StandardAutoresponderConnectionRatingEntity> StandardAutoresponderConnectionRatings { get; set; } = null!;
         public DbSet<StandardAutoresponderTemplateSettingsEntity> StandardAutoresponderTemplateSettings { get; set; } = null!;
         public DbSet<MarketplaceConnectionEntity> MarketplaceConnection { get; set; } = null!;
-        public DbSet<MarketplaceConnectionOpenApiEntity> MarketplaceConnectionOpenAPIs { get; set; } = null!;
         public DbSet<StandardAutoresponderBlackListEntity> StandardAutoresponderBlackLists { get; set; } = null!;
         public DbSet<StandardAutoresponderBanWordEntity> StandardAutoresponderBanWords { get; set; } = null!;
         public DbSet<UserNotificationEntity> UserNotifications { get; set; } = null!;
         public DbSet<StandardAutoresponderNotificationEntity> StandardAutoresponderNotifications { get; set; } = null!;
-
+        public DbSet<MarketplaceConnectionHeaderEntity> MarketplaceConnectionHeaders { get; set; } = null!;
+        public DbSet<MarketplaceConnectionCookieEntity> MarketplaceConnectionCookies { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

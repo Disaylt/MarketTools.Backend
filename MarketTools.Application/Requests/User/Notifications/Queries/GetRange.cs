@@ -3,6 +3,7 @@ using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Models.Requests;
 using MarketTools.Application.Requests.User.Notifications.Models;
 using MarketTools.Application.Requests.User.Notifications.Utilities;
+using MarketTools.Application.Utilities.MarketplaceConnections;
 using MarketTools.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

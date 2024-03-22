@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Command
 {
-    public class CreateResponseCommand : IRequest<AutoresponderResultModel>
+    public class CreateResponseCommand : IRequest<AutoresponderResultModel>, IStandardAutoresponderContextCall
     {
         public int ConnectionId { get; set; }
         public required string Article { get; set; }
@@ -19,17 +20,16 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Response.Comma
         public int Rating { get; set; }
     }
 
-    public class CreateCommandHandler(IAutoresponderContextLoadService _autoresponderContextService,
-        IAutoresponderResponseService _autoresponderResponseService,
-        IContextService<AutoresponderContext> _autoresponderContext)
+    public class CreateCommandHandler(IAutoresponderResponseService _autoresponderResponseService)
         : IRequestHandler<CreateResponseCommand, AutoresponderResultModel>
     {
-        public async Task<AutoresponderResultModel> Handle(CreateResponseCommand command, CancellationToken cancellationToken)
+        public Task<AutoresponderResultModel> Handle(CreateResponseCommand command, CancellationToken cancellationToken)
         {
             AutoresponderRequestModel buildRequest = CreateRequest(command);
-            _autoresponderContext.Context = await _autoresponderContextService.Create(command.ConnectionId);
 
-            return _autoresponderResponseService.Build(buildRequest);
+            AutoresponderResultModel autoresponderResult = _autoresponderResponseService.Build(buildRequest);
+
+            return Task.FromResult(autoresponderResult);
         }
 
         private AutoresponderRequestModel CreateRequest(CreateResponseCommand request)

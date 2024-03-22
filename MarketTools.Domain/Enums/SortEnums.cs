@@ -8,8 +8,8 @@ namespace MarketTools.Domain.Enums
 {
     public enum OrderType
     {
-        Ask,
-        Desk,
+        Asc,
+        Desc,
         None
     }
 }

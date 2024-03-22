@@ -89,6 +89,51 @@ namespace MarketTools.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionCookieEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConnectionId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Domain")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConnectionId", "Name", "Domain")
+                        .IsUnique();
+
+                    b.ToTable("MarketplaceConnectionCookies");
+                });
+
             modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -96,6 +141,9 @@ namespace MarketTools.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConnectionType")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -105,9 +153,7 @@ namespace MarketTools.Infrastructure.Migrations
                         .HasColumnType("character varying(300)");
 
                     b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(34)
-                        .HasColumnType("character varying(34)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -138,10 +184,41 @@ namespace MarketTools.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("MarketplaceConnection");
+                });
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("MarketplaceConnectionEntity");
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionHeaderEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.UseTphMappingStrategy();
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConnectionId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConnectionId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("MarketplaceConnectionHeaders");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBanWordEntity", b =>
@@ -321,8 +398,9 @@ namespace MarketTools.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Article")
-                        .HasColumnType("integer");
+                    b.Property<string>("Article")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -669,16 +747,15 @@ namespace MarketTools.Infrastructure.Migrations
                     b.ToTable("StandardAutoresponderConnectionRatingEntityStandardAutorespond~");
                 });
 
-            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionOpenApiEntity", b =>
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionCookieEntity", b =>
                 {
-                    b.HasBaseType("MarketTools.Domain.Entities.MarketplaceConnectionEntity");
+                    b.HasOne("MarketTools.Domain.Entities.MarketplaceConnectionEntity", "Connection")
+                        .WithMany("Cookies")
+                        .HasForeignKey("ConnectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.HasDiscriminator().HasValue("MarketplaceConnectionOpenApiEntity");
+                    b.Navigation("Connection");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionEntity", b =>
@@ -690,6 +767,17 @@ namespace MarketTools.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MarketTools.Domain.Entities.MarketplaceConnectionHeaderEntity", b =>
+                {
+                    b.HasOne("MarketTools.Domain.Entities.MarketplaceConnectionEntity", "Connection")
+                        .WithMany("Headers")
+                        .HasForeignKey("ConnectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Connection");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBanWordEntity", b =>
@@ -935,6 +1023,10 @@ namespace MarketTools.Infrastructure.Migrations
                 {
                     b.Navigation("AutoresponderConnection")
                         .IsRequired();
+
+                    b.Navigation("Cookies");
+
+                    b.Navigation("Headers");
                 });
 
             modelBuilder.Entity("MarketTools.Domain.Entities.StandardAutoresponderBlackListEntity", b =>

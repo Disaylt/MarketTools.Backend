@@ -17,22 +17,12 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StandardAutoresponder.WorkerService.Utilities
 {
-    internal class ContextLoader(IProjectServiceFactory<IConnectionDeterminantService> _connectionServiceFactory,
-        IHttpConnectionContextWriter _httpConnectionContextWriter,
-        IUnitOfWork _unitOfWork,
-        IAutoresponderContextLoadService _autoresponderContextService,
+    internal class ContextLoader(IAutoresponderContextLoadService _autoresponderContextService,
         IContextService<AutoresponderContext> _autoresponderContext)
         : IContextLoader
     {
         public async Task Handle(MarketplaceName marketplaceName, int connectionId)
         {
-            MarketplaceConnectionEntity connection = await _connectionServiceFactory
-                .Create(EnumProjectServices.StandardAutoresponder)
-                .Create(MarketplaceName.WB)
-                .GetAsync(_unitOfWork, connectionId);
-
-            _httpConnectionContextWriter.Write(connection);
-
             _autoresponderContext.Context = await _autoresponderContextService.Create(connectionId);
         }
     }

@@ -11,6 +11,6 @@ namespace MarketTools.Domain.Common
     {
         public int Take { get; set; }
         public int Skip { get; set; }
-        public OrderType OrderType { get; set; } = OrderType.Ask;
+        public OrderType OrderType { get; set; } = OrderType.Asc;
     }
 }

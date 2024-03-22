@@ -1,15 +1,14 @@
-﻿using MarketTools.Application.Interfaces.Services;
-using MarketTools.Domain.Enums;
+﻿using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Interfaces.MarketplaceConnections
+namespace MarketTools.Application.Interfaces.ProjectServices
 {
     public interface IProjectServiceFactory<T> where T : IProjectService
     {
-        public IMarketplaceProvider<T> Create(EnumProjectServices projectService);
+        public T Create(EnumProjectServices service);
     }
 }

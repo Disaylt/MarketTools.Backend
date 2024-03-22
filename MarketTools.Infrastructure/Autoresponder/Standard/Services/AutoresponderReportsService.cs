@@ -1,8 +1,9 @@
 ﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Models.Autoresponder;
+using MarketTools.Application.Models.Feedbacks;
+using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Domain.Entities;
-using MarketTools.Domain.Http.WB.Seller.Api.Feedbaks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
+        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
         {
             StandardAutoresponderNotificationEntity entity = Create(feedback, answer, connectionId);
             await _repository.AddAsync(entity);
@@ -25,15 +26,15 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
             return entity;
         }
 
-        private StandardAutoresponderNotificationEntity Create(FeedbackDetails feedback, AutoresponderResultModel answer, int connectionId)
+        private StandardAutoresponderNotificationEntity Create(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId)
         {
             return new StandardAutoresponderNotificationEntity
             {
-                Article = feedback.ProductDetails.ImtId,
-                SupplierArticle = feedback.ProductDetails.SupplierArticle,
+                Article = feedback.ProductDetails.Article,
+                SupplierArticle = feedback.ProductDetails.SellerArticle,
                 StandardAutoresponderConnectionId = connectionId,
                 IsSuccess = answer.IsSuccess,
-                Rating = feedback.ProductValuation,
+                Rating = feedback.Grade,
                 Report = answer.Report,
                 Response = answer.Text ?? "-",
                 ReviewCreateDate = feedback.CreatedDate

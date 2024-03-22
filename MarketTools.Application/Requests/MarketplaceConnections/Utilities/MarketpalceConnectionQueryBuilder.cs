@@ -16,8 +16,6 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
 {
     internal class MarketpalceConnectionQueryBuilder : BaseQueryBuilder<MarketplaceConnectionEntity>
     {
-        private MarketplaceName? _marketplaceName;
-
         public MarketpalceConnectionQueryBuilder(IQueryable<MarketplaceConnectionEntity> query) : base(query)
         {
 
@@ -27,43 +25,32 @@ namespace MarketTools.Application.Requests.MarketplaceConnections.Utilities
         {
             if (marketplaceName != null)
             {
-                _marketplaceName = marketplaceName;
                 Query = Query.Where(x => x.MarketplaceName == marketplaceName);
             }
 
             return this;
         }
 
-        public virtual MarketpalceConnectionQueryBuilder SetByService(IProjectServiceFactory<IConnectionDeterminantService> marketplaceConnectionFactory, EnumProjectServices? projectService)
+        public virtual MarketpalceConnectionQueryBuilder SetByService(EnumProjectServices? projectService, 
+            MarketplaceName? marketplaceName, 
+            IConnectionDefinitionService connectionDefinitionService)
         {
-            if (projectService == null)
+            if(projectService.HasValue && marketplaceName.HasValue)
             {
-                return this;
+                MarketplaceConnectionType type = connectionDefinitionService.Get(marketplaceName.Value, projectService.Value);
+
+                Query = Query.Where(x => x.ConnectionType == type);
             }
-
-            if (_marketplaceName == null)
-            {
-                throw new AppBadRequestException("Для выбора подключений по сервису необходимо указать название маркетплейса.");
-            }
-
-            string discriminator = marketplaceConnectionFactory.Create(projectService.Value)
-                .Create(_marketplaceName.Value)
-                .Determinant();
-
-            Query = Query.Where(x => x.Discriminator == discriminator);
 
             return this;
         }
 
         public virtual MarketpalceConnectionQueryBuilder SetByType(MarketplaceConnectionType? type)
         {
-            if (type == null)
+            if (type.HasValue)
             {
-                return this;
+                Query = Query.Where(x => x.ConnectionType == type.Value);
             }
-
-            string discriminator = new ConnectionTypeFactory().Get(type.Value);
-            Query = Query.Where(x => x.Discriminator == discriminator);
 
             return this;
         }
