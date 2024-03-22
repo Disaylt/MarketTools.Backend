@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StandardAutoresponder.WorkerService.Interfaces
 {
-    internal interface IWbFeedbacksHandler
+    internal interface IAutoresponderHandler
     {
         public Task RunAsync(int connectionId);
     }

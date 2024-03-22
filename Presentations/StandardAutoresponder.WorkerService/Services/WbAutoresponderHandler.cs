@@ -17,8 +17,8 @@ using StandardAutoresponder.WorkerService.Interfaces;
 namespace StandardAutoresponder.WorkerService.Services
 {
 
-    internal class WbFeedbacksHandler(IMediator _mediator)
-        : IWbFeedbacksHandler
+    internal class WbAutoresponderHandler(IMediator _mediator)
+        : IAutoresponderHandler
     {
         private static readonly EnumProjectServices _service = EnumProjectServices.StandardAutoresponder;
         private static readonly MarketplaceName _marketplaceName = MarketplaceName.WB;

@@ -52,8 +52,8 @@ namespace StandardAutoresponder.WorkerService.Jobs
 
                 await serviceScope
                     .ServiceProvider
-                    .GetRequiredService<IWbFeedbacksHandler>()
-                    .RunAsync();
+                    .GetRequiredService<IAutoresponderHandler>()
+                    .RunAsync(connectionId);
             }
             catch(Exception ex)
             {

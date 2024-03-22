@@ -132,6 +132,8 @@ namespace MarketTools.Infrastructure
                 {EnumProjectServices.StandardAutoresponder, x=> x.GetRequiredService<StandardAutoresponderValidator>() }
             });
 
+            serviceDescriptors.AddScoped(typeof(IAreaServiceFactory<>), typeof(AreaServiceFactory<>));
+
             return serviceDescriptors;
         }
 

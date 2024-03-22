@@ -18,7 +18,7 @@ builder.Services.AddDatabases(sequreConfiguration);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddHttpClients(sequreConfiguration);
 
-builder.Services.AddScoped<IWbFeedbacksHandler, WbFeedbacksHandler>();
+builder.Services.AddScoped<IAutoresponderHandler, WbAutoresponderHandler>();
 
 builder.Services.AddQuartz(opt =>
 {
