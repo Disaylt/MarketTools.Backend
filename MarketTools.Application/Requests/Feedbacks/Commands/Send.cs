@@ -9,26 +9,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Requests.Feedbacks.Queries
+namespace MarketTools.Application.Requests.Feedbacks.Commands
 {
-    public class GetRangeFeedbacksByServiceQuery : IRequest<IEnumerable<FeedbackDto>>
+    public class SendAnswerCommand() : IRequest<Unit>
     {
         public EnumProjectServices Service { get; set; }
         public MarketplaceName MarketplaceName { get; set; }
-        public required FeedbacksQueryDto Data { get; set; }
+        public required AnswerDto Data { get; set; }
     }
 
-    public class QueryHandler(IConnectionServiceFactory<IFeedbacksService> _feedbacksServiceFactory, 
+    public class CommandHandler(IConnectionServiceFactory<IFeedbacksService> _feedbacksServiceFactory,
         IConnectionDefinitionService _connectionDefinitionService)
-        : IRequestHandler<GetRangeFeedbacksByServiceQuery, IEnumerable<FeedbackDto>>
+        : IRequestHandler<SendAnswerCommand, Unit>
     {
-        public async Task<IEnumerable<FeedbackDto>> Handle(GetRangeFeedbacksByServiceQuery request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SendAnswerCommand request, CancellationToken cancellationToken)
         {
             MarketplaceConnectionType connectionType = _connectionDefinitionService.Get(request.MarketplaceName, request.Service);
-
-            return await _feedbacksServiceFactory
+            await _feedbacksServiceFactory
                 .Create(connectionType, request.MarketplaceName)
-                .GetFeedbacksAsync(request.Data);
+                .SendAnswerAsync(request.Data);
+
+            return Unit.Value;
         }
     }
 }
