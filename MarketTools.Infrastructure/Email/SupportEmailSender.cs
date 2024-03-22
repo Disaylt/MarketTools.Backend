@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Email
 {
-    internal class EmailService(IOptions<SequreSettings> _options) : IEmailService
+    internal class SupportEmailSender(IOptions<SequreSettings> _options) : IEmailSender
     {
         private readonly string _email = _options.Value.SupportEmail.Email;
         private readonly string _password = _options.Value.SupportEmail.Password;
@@ -27,7 +27,7 @@ namespace MarketTools.Infrastructure.Email
         {
             using (SmtpClient smtpClient = new SmtpClient())
             {
-                await smtpClient.ConnectAsync("mailbe03.hoster.by", 465, true);
+                await smtpClient.ConnectAsync("smtp.timeweb.ru", 465, true);
                 await smtpClient.AuthenticateAsync(_email, _password);
                 await smtpClient.SendAsync(mimeMessage);
 

@@ -84,7 +84,7 @@ namespace MarketTools.Infrastructure
 
             AddSolutionMapping(serviceDescriptors);
 
-            serviceDescriptors.AddSingleton<IEmailService, EmailService>();
+            serviceDescriptors.AddSingleton<IEmailSender, SupportEmailSender>();
 
             serviceDescriptors.AddSingleton<IConnectionDefinitionService, ConnectionDefinitionService>();
             serviceDescriptors.AddScoped<IConnectionActivator, ConnectionActivator>();

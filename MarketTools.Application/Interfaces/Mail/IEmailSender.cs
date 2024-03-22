@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Mail
 {
-    public interface IEmailService
+    public interface IEmailSender
     {
         public Task SendAsync(string email, string subject, string message);
     }
