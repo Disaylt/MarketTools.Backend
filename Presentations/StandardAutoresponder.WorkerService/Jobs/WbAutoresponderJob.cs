@@ -6,6 +6,7 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Autoresponder.Standard;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using StandardAutoresponder.WorkerService.Interfaces;
 using System;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 namespace StandardAutoresponder.WorkerService.Jobs
 {
     [DisallowConcurrentExecution]
-    internal class WbAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, IServiceProvider _serviceProvider) : IJob
+    internal class WbAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, IServiceProvider _serviceProvider, ILogger<WbAutoresponderJob> _logger) : IJob
     {
         private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(10);
 
@@ -53,6 +54,10 @@ namespace StandardAutoresponder.WorkerService.Jobs
                     .ServiceProvider
                     .GetRequiredService<IWbFeedbacksHandler>()
                     .RunAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"Bad execute connection - {connectionId}");
             }
             finally 
             {

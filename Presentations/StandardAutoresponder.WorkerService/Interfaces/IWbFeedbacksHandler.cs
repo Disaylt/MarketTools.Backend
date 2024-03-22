@@ -8,6 +8,6 @@ namespace StandardAutoresponder.WorkerService.Interfaces
 {
     internal interface IWbFeedbacksHandler
     {
-        public Task RunAsync();
+        public Task RunAsync(int connectionId);
     }
 }

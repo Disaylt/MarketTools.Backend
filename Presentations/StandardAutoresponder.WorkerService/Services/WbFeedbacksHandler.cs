@@ -5,95 +5,102 @@ using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Models.Autoresponder;
 using MarketTools.Application.Models.Autoresponder.Standard;
+using MarketTools.Application.Models.Feedbacks;
+using MarketTools.Application.Requests.Autoresponder.Standard.Reports.Commands;
+using MarketTools.Application.Requests.Autoresponder.Standard.Response.Command;
+using MarketTools.Application.Requests.Feedbacks.Commands;
+using MarketTools.Application.Requests.Feedbacks.Queries;
+using MarketTools.Domain.Enums;
+using MediatR;
 using StandardAutoresponder.WorkerService.Interfaces;
 
 namespace StandardAutoresponder.WorkerService.Services
 {
-    internal class WbFeedbacksHandler(IAutoresponderResponseService _autoresponderResponseService,
-        IAutoresponderReportsService _autoresponderReportsService,
-        IContextService<AutoresponderContext> _autoresponderContext,
-        IUnitOfWork _unitOfWork,
-        ILogger<WbFeedbacksHandler> _logger,
-        IExceptionHandleService<AppConnectionBadRequestException> _exceptionHandleService)
+
+    internal class WbFeedbacksHandler(IMediator _mediator)
         : IWbFeedbacksHandler
     {
-        public async Task RunAsync()
-        {
-            //try
-            //{
-            //    IEnumerable<FeedbackDetails> feedbacks = await GetFeedbacksAsync();
+        private static readonly EnumProjectServices _service = EnumProjectServices.StandardAutoresponder;
+        private static readonly MarketplaceName _marketplaceName = MarketplaceName.WB;
 
-            //    foreach(FeedbackDetails feedback in feedbacks)
-            //    {
-            //        AutoresponderResultModel answer = BuildResponse(feedback);
-            //        bool isSend = await TrySendAnswerAsync(answer, feedback);
-            //        await _autoresponderReportsService.AddAsync(feedback, answer, _autoresponderContext.Context.Connection.SellerConnectionId);
-            //    }
-            //}
-            //catch(AppConnectionBadRequestException ex)
-            //{
-            //    await _exceptionHandleService.Hadnle(ex);
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex.Message);
-            //}
-            //finally
-            //{
-            //    await _unitOfWork.CommitAsync();
-            //}
+
+        public async Task RunAsync(int connectionId)
+        {
+            IEnumerable<FeedbackDto> feedbacks = await GetFeedbackAsync(connectionId);
+
+            foreach(FeedbackDto feedback in feedbacks)
+            {
+                AutoresponderResultModel result = await CreateAnswerAsync(feedback, connectionId);
+                if (result.IsSuccess && result.Text != null)
+                {
+                    await SendAsync(feedback, result.Text, connectionId);
+                }
+                await CreateReportAsync(feedback, result, connectionId);
+            }
         }
 
-        //private async Task<bool> TrySendAnswerAsync(AutoresponderResultModel answer, FeedbackDetails feedback)
-        //{
-        //    if (answer.IsSuccess == false || string.IsNullOrEmpty(answer.Text))
-        //    {
-        //        return false;
-        //    }
+        private async Task CreateReportAsync(FeedbackDto feedback, AutoresponderResultModel result, int connectionId)
+        {
+            CreateReportCommand request = new CreateReportCommand
+            {
+                ConnectionId = connectionId,
+                Feedback = feedback,
+                Result = result
+            };
 
-        //    SendResponseBody body = new SendResponseBody
-        //    {
-        //        Id = feedback.Id,
-        //        Text = answer.Text
-        //    };
+            await _mediator.Send(request);
+        }
 
-        //    await _feedbacksHttpService.SendResponseAsync(body);
+        private async Task SendAsync(FeedbackDto feedback, string answer, int connectionId)
+        {
+            SendAnswerCommand requst = new SendAnswerCommand
+            {
+                Data = new AnswerDto
+                {
+                    FeedbackId = feedback.Id,
+                    Text = answer
+                },
+                ConnectionId = connectionId,
+                MarketplaceName = _marketplaceName,
+                Service = _service
+            };
 
-        //    return true;
-        //}
+            await _mediator.Send(requst);
+        }
 
-        //private AutoresponderResultModel BuildResponse(FeedbackDetails feedback)
-        //{
-        //    AutoresponderRequestModel request = new AutoresponderRequestModel
-        //    {
-        //        Article = feedback.ProductDetails.NmId.ToString(),
-        //        Rating = feedback.ProductValuation,
-        //        Text = feedback.Text
-        //    };
+        private async Task<AutoresponderResultModel> CreateAnswerAsync(FeedbackDto feedback, int connectionId)
+        {
+            CreateResponseCommand request = new CreateResponseCommand
+            {
+                Article = feedback.ProductDetails.Article,
+                ConnectionId = connectionId,
+                Rating = feedback.Grade,
+                Text = feedback.Text
+            };
 
-        //    return _autoresponderResponseService.Build(request);
-        //}
+            return await _mediator.Send(request);
+        }
 
-        //private async Task<IEnumerable<FeedbackDetails>> GetFeedbacksAsync()
-        //{
-        //    List<FeedbackDetails> feedbacks = new List<FeedbackDetails>();
+        private async Task<IEnumerable<FeedbackDto>> GetFeedbackAsync(int connectionId)
+        {
+            FeedbacksQueryDto feedbacksQueryDto = new FeedbacksQueryDto
+            {
+                Take = 5,
+                Skip = 0,
+                Order = OrderType.Desc
+            };
+            feedbacksQueryDto.Types.Add(FeedbacksType.New);
+            feedbacksQueryDto.Types.Add(FeedbacksType.Viewed);
 
-        //    FeedbacksQuery query = new FeedbacksQuery
-        //    {
-        //        Take = 3000,
-        //        Skip = 0,
-        //        IsAnswered = false
-        //    };
+            GetRangeFeedbacksByServiceQuery request = new GetRangeFeedbacksByServiceQuery
+            {
+                Data = feedbacksQueryDto,
+                ConnectionId = connectionId,
+                MarketplaceName = _marketplaceName,
+                Service = _service
+            };
 
-        //    WbApiResult<FeedbackResponseData> resultWithoutAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
-        //    feedbacks.AddRange(resultWithoutAnswer.Data.Feedbacks);
-
-        //    query.IsAnswered = true;
-
-        //    WbApiResult<FeedbackResponseData> resultWithAnswer = await _feedbacksHttpService.GetFeedbacksAsync(query);
-        //    feedbacks.AddRange(resultWithAnswer.Data.Feedbacks);
-
-        //    return feedbacks.Where(x=> x.Answer == null);
-        //}
+            return await _mediator.Send(request);
+        }
     }
 }

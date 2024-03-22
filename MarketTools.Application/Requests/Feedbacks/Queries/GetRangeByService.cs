@@ -2,6 +2,7 @@
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Feedbacks;
 using MarketTools.Domain.Enums;
+using MarketTools.Domain.Interfaces.Requests;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,12 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Feedbacks.Queries
 {
-    public class GetRangeFeedbacksByServiceQuery : IRequest<IEnumerable<FeedbackDto>>
+    public class GetRangeFeedbacksByServiceQuery : IRequest<IEnumerable<FeedbackDto>>, IHttpConnectionContextCall
     {
         public EnumProjectServices Service { get; set; }
         public MarketplaceName MarketplaceName { get; set; }
         public required FeedbacksQueryDto Data { get; set; }
+        public int ConnectionId { get; set; }
     }
 
     public class QueryHandler(IConnectionServiceFactory<IFeedbacksService> _feedbacksServiceFactory, 
