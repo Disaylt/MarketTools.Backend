@@ -17,11 +17,10 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.Services
     {
         private readonly IRepository<StandardAutoresponderNotificationEntity> _repository = _unitOfWork.GetRepository<StandardAutoresponderNotificationEntity>();
 
-        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId, bool isUseCommit = false)
+        public async Task<StandardAutoresponderNotificationEntity> AddAsync(FeedbackDto feedback, AutoresponderResultModel answer, int connectionId)
         {
             StandardAutoresponderNotificationEntity entity = Create(feedback, answer, connectionId);
             await _repository.AddAsync(entity);
-            await _unitOfWork.UseCommit(isUseCommit);
 
             return entity;
         }
