@@ -28,14 +28,14 @@ namespace MarketTools.WebApi.Services.Identity
             return userVm;
         }
 
-        public async Task<TokenVm> ResetPasswordAsync(PasswordRecoveryModel passwordRecovery)
+        public async Task<TokenVm> ResetPasswordAsync(ResetPasswordModel passwordRecovery)
         {
             ValidatePasswords(passwordRecovery.Password, passwordRecovery.RepeatPassword);
 
             AppIdentityUser user = await _userManager.FindByEmailAsync(passwordRecovery.Email)
                 ?? throw new AppNotFoundException("Пользователь не найден.");
 
-            if (_confirmCodeService.Check(passwordRecovery.Code, user))
+            if (_confirmCodeService.Check(passwordRecovery.Code, user) == false)
             {
                 throw new AppBadRequestException("Код подтверждения не совпадает либо устарел.");
             }

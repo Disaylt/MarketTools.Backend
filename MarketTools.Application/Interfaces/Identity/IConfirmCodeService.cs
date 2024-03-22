@@ -11,5 +11,6 @@ namespace MarketTools.Application.Interfaces.Identity
     {
         public Task<string> CreateAsync(string email);
         public Task<bool> CheckAsync(string code, string email);
+        public bool Check(string code, AppIdentityUser user);
     }
 }

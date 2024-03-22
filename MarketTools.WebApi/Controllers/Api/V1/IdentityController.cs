@@ -28,7 +28,11 @@ namespace MarketTools.WebApi.Controllers.Api.V1
         [Route("send-code")]
         public async Task<IActionResult> SendCodeAsync(string email)
         {
-            SendConfirmCodeCommand command = new SendConfirmCodeCommand();
+            SendConfirmCodeCommand command = new SendConfirmCodeCommand
+            {
+                Email = email
+            };
+
             await _mediator.Send(command);
 
             return Ok();
@@ -36,7 +40,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
         [HttpPost]
         [Route("reset-password")]
-        public async Task<IActionResult> ResetPasswordAsync(PasswordRecoveryModel body)
+        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordModel body)
         {
             TokenVm token = await _identityService.ResetPasswordAsync(body);
 

@@ -17,28 +17,18 @@ namespace MarketTools.Application.Requests.Identity.Commands
         public required string Email { get; set; }
     }
 
-    public class CommandHandler(IEmailSender _emailSender, IConfirmCodeService _confirmCodeService, IAuthUnitOfWork _authUnitOfWork)
+    public class CommandHandler(IEmailSender _emailSender, IConfirmCodeService _confirmCodeService)
         : IRequestHandler<SendConfirmCodeCommand, Unit>
     {
-        private readonly IRepository<AppIdentityUser> _reporitory = _authUnitOfWork.GetRepository<AppIdentityUser>();
-
         public async Task<Unit> Handle(SendConfirmCodeCommand request, CancellationToken cancellationToken)
         {
-            string code = await _confirmCodeService.CreateAsync();
-            string email = await GetEmailAsync();
+            string code = await _confirmCodeService.CreateAsync(request.Email);
             string subject = "Код подтверждения.";
             string message = $"Код: {code}.\r\n Действителен в течении 24 часов.";
 
-            await _emailSender.SendAsync(email, subject, message);
+            await _emailSender.SendAsync(request.Email, subject, message);
 
             return Unit.Value;
-        }
-
-        private async Task<string> GetEmailAsync()
-        {
-            AppIdentityUser user = await _reporitory.FirstAsync();
-
-            return user.Email ?? throw new AppBadRequestException("Не удалось получить Email пользователя.");
         }
     }
 }

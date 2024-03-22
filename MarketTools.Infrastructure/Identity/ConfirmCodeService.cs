@@ -30,7 +30,7 @@ namespace MarketTools.Infrastructure.Identity
             identity.ConfirmationCodeCreateDate = DateTime.UtcNow;
 
             _repository.Update(identity);
-            await _unitOfWork.RollbackAsync();
+            await _unitOfWork.CommitAsync();
 
             return identity.ConfirmationCode;
         }
@@ -39,9 +39,14 @@ namespace MarketTools.Infrastructure.Identity
         {
             AppIdentityUser identity = await _repository.FirstAsync(x => x.NormalizedEmail == email.ToUpper());
 
-            TimeSpan timeSinceLastCreation = DateTime.UtcNow - identity.ConfirmationCodeCreateDate;
+            return Check(code, identity);
+        }
 
-            return identity.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
+        public bool Check(string code, AppIdentityUser user)
+        {
+            TimeSpan timeSinceLastCreation = DateTime.UtcNow - user.ConfirmationCodeCreateDate;
+
+            return user.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
         }
 
         private string GenerateCode()
