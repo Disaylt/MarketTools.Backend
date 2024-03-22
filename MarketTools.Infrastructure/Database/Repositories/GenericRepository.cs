@@ -51,9 +51,20 @@ namespace MarketTools.Infrastructure.Database.Repositories
                 ?? throw new AppNotFoundException();
         }
 
+        public virtual async Task<T> FirstAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet.FirstOrDefaultAsync(cancellationToken)
+                ?? throw new AppNotFoundException();
+        }
+
         public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
         {
             return await DbSet.FirstOrDefaultAsync(condition, cancellationToken);
+        }
+
+        public virtual async Task<T?> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet.FirstOrDefaultAsync(cancellationToken);
         }
 
         public virtual async Task AddAsync(T entity, CancellationToken cancellationToken = default)

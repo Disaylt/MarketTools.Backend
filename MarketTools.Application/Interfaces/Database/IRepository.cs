@@ -12,7 +12,9 @@ namespace MarketTools.Application.Interfaces.Database
         public Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
         public Task<bool> AnyAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
         public Task<T> FirstAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
+        public Task<T> FirstAsync(CancellationToken cancellationToken = default);
         public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);
+        public Task<T?> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
         public Task AddAsync(T entity, CancellationToken cancellationToken = default);
         public Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
         public Task<IEnumerable<T>> GetRangeAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default);

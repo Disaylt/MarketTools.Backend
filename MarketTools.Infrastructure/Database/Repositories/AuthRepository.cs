@@ -48,6 +48,12 @@ namespace MarketTools.Infrastructure.Database.Repositories
                  ?? throw new AppNotFoundException();
         }
 
+        public override async Task<T> FirstAsync(CancellationToken cancellationToken = default)
+        {
+            return await FirstOrDefaultAsync(cancellationToken)
+                 ?? throw new AppNotFoundException();
+        }
+
         public override async Task<IEnumerable<T>> GetRangeAsync(CancellationToken cancellationToken = default)
         {
             return await DbSet
@@ -68,6 +74,12 @@ namespace MarketTools.Infrastructure.Database.Repositories
             return await DbSet
                 .Where(_userCondition)
                 .FirstOrDefaultAsync(condition, cancellationToken);
+        }
+
+        public override async Task<T?> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
+        {
+            return await DbSet
+                .FirstOrDefaultAsync(_userCondition, cancellationToken);
         }
 
         public override async Task<bool> AnyAsync(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default)
