@@ -12,5 +12,6 @@ namespace MarketTools.Domain.Common.Configuration
         public required TelegramBots TelegramBots { get; set; }
         public required Database Database { get; set; }
         public required Jwt Jwt { get; set; }
+        public required SupportEmail SupportEmail { get; set; }
     }
 }
