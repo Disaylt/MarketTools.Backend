@@ -47,6 +47,8 @@ using MarketTools.Infrastructure.Http.ContentConverters.Ozon.Seller.Account.Feed
 using MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account;
 using MarketTools.Application.Interfaces.Http.Ozon.Seller.Account;
 using MarketTools.Infrastructure.Http.Reqeusts.Ozon.Seller.Account;
+using MarketTools.Application.Interfaces.Mail;
+using MarketTools.Infrastructure.Email;
 
 namespace MarketTools.Infrastructure
 {
@@ -81,6 +83,8 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IHttpContentConverter<AnswerRequestBody>, OzonSellerAccountAnswerRequesstBodyConverter>();
 
             AddSolutionMapping(serviceDescriptors);
+
+            serviceDescriptors.AddSingleton<IEmailService, EmailService>();
 
             serviceDescriptors.AddSingleton<IConnectionDefinitionService, ConnectionDefinitionService>();
             serviceDescriptors.AddScoped<IConnectionActivator, ConnectionActivator>();
