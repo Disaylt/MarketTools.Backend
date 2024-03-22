@@ -10,9 +10,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MarketTools.WebApi.Services.Identity
 {
-    public class IdentityService(UserManager<AppIdentityUser> _userManager, ITokenService _tokenService, IMapper _mapper, IContextService<IdentityContext> _identityContext)
+    public class IdentityService(UserManager<AppIdentityUser> _userManager, 
+        ITokenService _tokenService, 
+        IMapper _mapper, 
+        IContextService<IdentityContext> _identityContext,
+        IConfirmCodeService _confirmCodeService)
         : IIdentityService
     {
+
         public async Task<UserVm> GetAuthUserAsync()
         {
             AppIdentityUser appIdentityUser = await _userManager.FindByIdAsync(_identityContext.Context.UserId)
@@ -21,6 +26,26 @@ namespace MarketTools.WebApi.Services.Identity
             UserVm userVm = _mapper.Map<UserVm>(appIdentityUser);
 
             return userVm;
+        }
+
+        public async Task<TokenVm> ResetPasswordAsync(ResetPasswordModel passwordRecovery)
+        {
+            ValidatePasswords(passwordRecovery.Password, passwordRecovery.RepeatPassword);
+
+            AppIdentityUser user = await _userManager.FindByEmailAsync(passwordRecovery.Email)
+                ?? throw new AppNotFoundException("Пользователь не найден.");
+
+            if (_confirmCodeService.Check(passwordRecovery.Code, user) == false)
+            {
+                throw new AppBadRequestException("Код подтверждения не совпадает либо устарел.");
+            }
+
+            string passwordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            await _userManager.ResetPasswordAsync(user, passwordToken, passwordRecovery.Password);
+
+            string token = _tokenService.Create(user);
+
+            return new TokenVm { Token = token };
         }
 
         public async Task<TokenVm> LoginAsync(LoginModel login)

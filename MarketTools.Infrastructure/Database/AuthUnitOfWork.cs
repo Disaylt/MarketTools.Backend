@@ -36,6 +36,7 @@ namespace MarketTools.Infrastructure.Database
                 { typeof(StandardAutoresponderRecommendationProductEntity), (identity) => new AuthCondition<StandardAutoresponderRecommendationProductEntity>(x=> x.UserId == identity.UserId)},
                 { typeof(StandardAutoresponderColumnEntity), (identity) => new AuthCondition<StandardAutoresponderColumnEntity>(x=> x.UserId == identity.UserId)},
                 { typeof(UserNotificationEntity), (identity) => new AuthCondition<UserNotificationEntity>(x=> x.UserId == identity.UserId)},
+                { typeof(AppIdentityUser), (identity) => new AuthCondition<AppIdentityUser>(x=> x.Id == identity.UserId)},
                 { typeof(StandardAutoresponderNotificationEntity), (identity) => new AuthCondition<StandardAutoresponderNotificationEntity>(x=> x.StandardAutoresponderConnection.SellerConnection.UserId == identity.UserId)}
             };
 
