@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarketTools.Application.Requests.Identity.Commands;
 using MarketTools.WebApi.Interfaces;
 using MarketTools.WebApi.Models.Api.Identity;
 using MarketTools.WebApi.Models.Identity;
@@ -12,7 +13,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
     [Route("api/v1/[controller]")]
     [ApiController]
     
-    public class IdentityController(IIdentityService _identityService) : ControllerBase
+    public class IdentityController(IIdentityService _identityService, IMediator _mediator) : ControllerBase
     {
         [HttpPost]
         [Route("register")]
@@ -22,6 +23,18 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
             return Ok(token);
         }
+
+        [HttpPost]
+        [Route("send-code")]
+        [Authorize]
+        public async Task<IActionResult> SendCodeAsync()
+        {
+            SendConfirmCodeCommand command = new SendConfirmCodeCommand();
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
 
         [HttpGet]
         [Authorize]

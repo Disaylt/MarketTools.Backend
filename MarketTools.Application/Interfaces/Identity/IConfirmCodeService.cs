@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketTools.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace MarketTools.Application.Interfaces.Identity
     {
         public Task<string> CreateAsync();
         public Task<bool> CheckAsync(string code);
+        public bool Check(string code, AppIdentityUser user);
     }
 }

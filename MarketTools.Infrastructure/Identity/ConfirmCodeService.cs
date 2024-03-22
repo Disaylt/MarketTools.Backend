@@ -5,6 +5,7 @@ using MarketTools.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,24 +16,32 @@ namespace MarketTools.Infrastructure.Identity
         private static readonly TimeSpan _awaitCreateTime = TimeSpan.FromMinutes(1);
         private static readonly TimeSpan _awaitCheckTime = TimeSpan.FromDays(1);
         private static readonly Random _random = new Random();
-
-        private readonly IRepository<AppIdentityUser> _reporitory = _authUnitOfWork.GetRepository<AppIdentityUser>();
         public async Task<bool> CheckAsync(string code)
         {
-            AppIdentityUser identity = await _reporitory.FirstAsync();
-            TimeSpan timeSinceLastCreation = DateTime.UtcNow - identity.ConfirmationCodeCreateDate;
+            AppIdentityUser identity = await _authUnitOfWork
+                .GetRepository<AppIdentityUser>()
+                .FirstAsync();
 
-            return identity.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
+            return Check(code, identity);
         }
+
+        public bool Check(string code, AppIdentityUser user)
+        {
+            TimeSpan timeSinceLastCreation = DateTime.UtcNow - user.ConfirmationCodeCreateDate;
+
+            return user.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
+        }
+
 
         public async Task<string> CreateAsync()
         {
-            AppIdentityUser identity = await _reporitory.FirstAsync();
+            IRepository<AppIdentityUser> repository = _authUnitOfWork.GetRepository<AppIdentityUser>();
+            AppIdentityUser identity = await repository.FirstAsync();
             CheckCreateTime(identity);
             identity.ConfirmationCode = GenerateCode();
             identity.ConfirmationCodeCreateDate = DateTime.UtcNow;
 
-            _reporitory.Update(identity);
+            repository.Update(identity);
             await _authUnitOfWork.RollbackAsync();
 
             return identity.ConfirmationCode;
