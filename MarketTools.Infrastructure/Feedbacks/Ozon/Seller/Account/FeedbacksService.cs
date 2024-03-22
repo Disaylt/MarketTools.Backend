@@ -24,7 +24,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
 
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksQueryDto data)
         {
-            List<FeedbackDto> allFeedbacks = new List<FeedbackDto>();
+            IEnumerable<FeedbackDto> allFeedbacks = new List<FeedbackDto>();
 
             ValidateRequest(data);
             IEnumerable<InteractionStatus> interactStatuses = ConvertStatuses(data.Types);
@@ -39,7 +39,7 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
                 FeedbacksRequestBody body = MapFeedbackRequestBody(data, interactStatuses, paginationLastTimestamp, paginationLastUuid);
                 FeedbacksResponseBody responseBody = await _ozonSellerAccountFeedbacksHttpService.GetFeedbacksAsync(body);
                 IEnumerable<FeedbackDto> feedbacks = MapFeedbacks(responseBody);
-                allFeedbacks.Concat(feedbacks);
+                allFeedbacks = allFeedbacks.Concat(feedbacks);
 
                 if(responseBody.HasNext)
                 {

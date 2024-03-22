@@ -13,7 +13,7 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
     {
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksQueryDto data)
         {
-            List<FeedbackDto> allFeedbacks = new List<FeedbackDto>();
+            IEnumerable<FeedbackDto> allFeedbacks = new List<FeedbackDto>();
 
             foreach(FeedbacksType type in data.Types)
             {
@@ -21,7 +21,7 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
                 FeedbacksQuery feedbacksQuery = MapQuery(data, isAnswered);
                 WbApiResult<FeedbackResponseData> result = await _wbSellerApiFeedbacksService.GetFeedbacksAsync(feedbacksQuery);
                 IEnumerable<FeedbackDto> feedbacks = MapFeedbacks(result);
-                allFeedbacks.Concat(feedbacks);
+                allFeedbacks = allFeedbacks.Concat(feedbacks);
             }
 
             return allFeedbacks;

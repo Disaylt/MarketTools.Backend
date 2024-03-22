@@ -109,12 +109,12 @@ namespace MarketTools.Infrastructure
             {
                 {MarketplaceName.WB, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IConnectionActivator>>
                     {
-                        {MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<OzonSellerAccountConnectionActivator>() }
+                        {MarketplaceConnectionType.OpenApi, x=> x.GetRequiredService<WbSelleApiConnectionActivator>() }
                     }
                 },
                 {MarketplaceName.OZON, new Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IConnectionActivator>>
                     {
-                        {MarketplaceConnectionType.Account, x=> x.GetRequiredService<WbSelleApiConnectionActivator>() }
+                        {MarketplaceConnectionType.Account, x=> x.GetRequiredService<OzonSellerAccountConnectionActivator>() }
                     }
                 }
             });

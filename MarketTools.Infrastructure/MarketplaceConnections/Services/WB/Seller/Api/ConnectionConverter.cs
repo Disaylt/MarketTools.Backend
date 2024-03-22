@@ -17,7 +17,6 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services.WB.Seller.A
 
         public void Change(string token)
         {
-            if (string.IsNullOrEmpty(token)) return;
             AddOrUpdateHeader(_tokenHeaderKey, token);
         }
 
