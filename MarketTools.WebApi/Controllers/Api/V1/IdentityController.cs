@@ -26,8 +26,7 @@ namespace MarketTools.WebApi.Controllers.Api.V1
 
         [HttpPost]
         [Route("send-code")]
-        [Authorize]
-        public async Task<IActionResult> SendCodeAsync()
+        public async Task<IActionResult> SendCodeAsync(string email)
         {
             SendConfirmCodeCommand command = new SendConfirmCodeCommand();
             await _mediator.Send(command);

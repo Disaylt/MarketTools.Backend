@@ -12,7 +12,10 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Requests.Identity.Commands
 {
-    public class SendConfirmCodeCommand : IRequest<Unit> { }
+    public class SendConfirmCodeCommand : IRequest<Unit> 
+    {
+        public required string Email { get; set; }
+    }
 
     public class CommandHandler(IEmailSender _emailSender, IConfirmCodeService _confirmCodeService, IAuthUnitOfWork _authUnitOfWork)
         : IRequestHandler<SendConfirmCodeCommand, Unit>

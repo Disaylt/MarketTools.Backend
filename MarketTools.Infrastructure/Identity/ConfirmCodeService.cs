@@ -1,7 +1,9 @@
-﻿using MarketTools.Application.Common.Exceptions;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Database;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Domain.Entities;
+using MarketTools.Infrastructure.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,40 +13,35 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Identity
 {
-    internal class ConfirmCodeService(IAuthUnitOfWork _authUnitOfWork) : IConfirmCodeService
+    internal class ConfirmCodeService(IUnitOfWork _unitOfWork) : IConfirmCodeService
     {
         private static readonly TimeSpan _awaitCreateTime = TimeSpan.FromMinutes(1);
         private static readonly TimeSpan _awaitCheckTime = TimeSpan.FromDays(1);
         private static readonly Random _random = new Random();
-        public async Task<bool> CheckAsync(string code)
+
+        IRepository<AppIdentityUser> _repository = _unitOfWork.GetRepository<AppIdentityUser>();
+
+        public async Task<string> CreateAsync(string email)
         {
-            AppIdentityUser identity = await _authUnitOfWork
-                .GetRepository<AppIdentityUser>()
-                .FirstAsync();
+            AppIdentityUser identity = await _repository.FirstAsync(x=> x.NormalizedEmail == email.ToUpper());
 
-            return Check(code, identity);
-        }
-
-        public bool Check(string code, AppIdentityUser user)
-        {
-            TimeSpan timeSinceLastCreation = DateTime.UtcNow - user.ConfirmationCodeCreateDate;
-
-            return user.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
-        }
-
-
-        public async Task<string> CreateAsync()
-        {
-            IRepository<AppIdentityUser> repository = _authUnitOfWork.GetRepository<AppIdentityUser>();
-            AppIdentityUser identity = await repository.FirstAsync();
             CheckCreateTime(identity);
             identity.ConfirmationCode = GenerateCode();
             identity.ConfirmationCodeCreateDate = DateTime.UtcNow;
 
-            repository.Update(identity);
-            await _authUnitOfWork.RollbackAsync();
+            _repository.Update(identity);
+            await _unitOfWork.RollbackAsync();
 
             return identity.ConfirmationCode;
+        }
+
+        public async Task<bool> CheckAsync(string code, string email)
+        {
+            AppIdentityUser identity = await _repository.FirstAsync(x => x.NormalizedEmail == email.ToUpper());
+
+            TimeSpan timeSinceLastCreation = DateTime.UtcNow - identity.ConfirmationCodeCreateDate;
+
+            return identity.ConfirmationCode == code.Trim() && _awaitCheckTime > timeSinceLastCreation;
         }
 
         private string GenerateCode()

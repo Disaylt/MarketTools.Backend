@@ -9,8 +9,7 @@ namespace MarketTools.Application.Interfaces.Identity
 {
     public interface IConfirmCodeService
     {
-        public Task<string> CreateAsync();
-        public Task<bool> CheckAsync(string code);
-        public bool Check(string code, AppIdentityUser user);
+        public Task<string> CreateAsync(string email);
+        public Task<bool> CheckAsync(string code, string email);
     }
 }
