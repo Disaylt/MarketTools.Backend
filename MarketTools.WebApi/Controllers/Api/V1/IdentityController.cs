@@ -35,6 +35,15 @@ namespace MarketTools.WebApi.Controllers.Api.V1
             return Ok();
         }
 
+        [HttpPost]
+        [Route("reset-password")]
+        public async Task<IActionResult> ResetPasswordAsync(PasswordRecoveryModel body)
+        {
+            TokenVm token = await _identityService.ResetPasswordAsync(body);
+
+            return Ok(token);
+        }
+
 
         [HttpGet]
         [Authorize]

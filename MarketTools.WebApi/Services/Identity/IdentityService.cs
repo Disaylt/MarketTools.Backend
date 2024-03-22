@@ -28,7 +28,7 @@ namespace MarketTools.WebApi.Services.Identity
             return userVm;
         }
 
-        public async Task<TokenVm> PasswordRecoveryAsync(PasswordRecoveryModel passwordRecovery)
+        public async Task<TokenVm> ResetPasswordAsync(PasswordRecoveryModel passwordRecovery)
         {
             ValidatePasswords(passwordRecovery.Password, passwordRecovery.RepeatPassword);
 
