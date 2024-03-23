@@ -17,12 +17,15 @@ using StandardAutoresponder.WorkerService.Interfaces;
 namespace StandardAutoresponder.WorkerService.Services
 {
 
-    internal class WbAutoresponderHandler(IMediator _mediator)
-        : IAutoresponderHandler
+    internal class WbAutoresponderHandler
+        : AutoresponderHandler, IAutoresponderHandler
     {
-        private static readonly EnumProjectServices _service = EnumProjectServices.StandardAutoresponder;
-        private static readonly MarketplaceName _marketplaceName = MarketplaceName.WB;
+        private readonly IMediator _mediator;
 
+        public WbAutoresponderHandler(IMediator mediator) : base(mediator, MarketplaceName.WB)
+        {
+            _mediator = mediator;
+        }
 
         public async Task RunAsync(int connectionId)
         {
@@ -30,55 +33,8 @@ namespace StandardAutoresponder.WorkerService.Services
 
             foreach(FeedbackDto feedback in feedbacks)
             {
-                AutoresponderResultModel result = await CreateAnswerAsync(feedback, connectionId);
-                if (result.IsSuccess && result.Text != null)
-                {
-                    await SendAsync(feedback, result.Text, connectionId);
-                }
-                await CreateReportAsync(feedback, result, connectionId);
+                await HandleAsync(feedback, connectionId);
             }
-        }
-
-        private async Task CreateReportAsync(FeedbackDto feedback, AutoresponderResultModel result, int connectionId)
-        {
-            CreateReportCommand request = new CreateReportCommand
-            {
-                ConnectionId = connectionId,
-                Feedback = feedback,
-                Result = result
-            };
-
-            await _mediator.Send(request);
-        }
-
-        private async Task SendAsync(FeedbackDto feedback, string answer, int connectionId)
-        {
-            SendAnswerCommand requst = new SendAnswerCommand
-            {
-                Data = new AnswerDto
-                {
-                    FeedbackId = feedback.Id,
-                    Text = answer
-                },
-                ConnectionId = connectionId,
-                MarketplaceName = _marketplaceName,
-                Service = _service
-            };
-
-            await _mediator.Send(requst);
-        }
-
-        private async Task<AutoresponderResultModel> CreateAnswerAsync(FeedbackDto feedback, int connectionId)
-        {
-            CreateResponseCommand request = new CreateResponseCommand
-            {
-                Article = feedback.ProductDetails.Article,
-                ConnectionId = connectionId,
-                Rating = feedback.Grade,
-                Text = feedback.Text
-            };
-
-            return await _mediator.Send(request);
         }
 
         private async Task<IEnumerable<FeedbackDto>> GetFeedbackAsync(int connectionId)
@@ -96,8 +52,8 @@ namespace StandardAutoresponder.WorkerService.Services
             {
                 Data = feedbacksQueryDto,
                 ConnectionId = connectionId,
-                MarketplaceName = _marketplaceName,
-                Service = _service
+                MarketplaceName = MarketplaceName.WB,
+                Service = EnumProjectServices.StandardAutoresponder
             };
 
             return await _mediator.Send(request);
