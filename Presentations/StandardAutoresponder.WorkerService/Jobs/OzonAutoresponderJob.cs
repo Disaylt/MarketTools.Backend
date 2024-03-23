@@ -14,8 +14,7 @@ namespace StandardAutoresponder.WorkerService.Jobs
     {
         public OzonAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, 
             IServiceProvider _serviceProvider, 
-            ILogger<WbAutoresponderJob> _logger, 
-            MarketplaceName _marketplaceName) 
+            ILogger<WbAutoresponderJob> _logger) 
             : base(_autoresponderConnectionsService, _serviceProvider, _logger, MarketplaceName.OZON, 10)
         {
         }
