@@ -7,6 +7,8 @@ using StandardAutoresponder.WorkerService.Services;
 using MarketTools.Infrastructure;
 using MarketTools.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using MarketTools.Domain.Enums;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.AddConfiguration();
@@ -18,7 +20,14 @@ builder.Services.AddDatabases(sequreConfiguration);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddHttpClients(sequreConfiguration);
 
-builder.Services.AddScoped<IAutoresponderHandler, WbAutoresponderHandler>();
+builder.Services.AddScoped<WbAutoresponderHandler>();
+builder.Services.AddScoped<OzonAutoresponderHandler>();
+
+builder.Services.AddSingleton(new Dictionary<MarketplaceName, Func<IServiceProvider, IAutoresponderHandler>>
+{
+    {MarketplaceName.WB, x=> x.GetRequiredService<WbAutoresponderHandler>() },
+    {MarketplaceName.OZON, x=> x.GetRequiredService<OzonAutoresponderHandler>() }
+});
 
 builder.Services.AddQuartz(opt =>
 {

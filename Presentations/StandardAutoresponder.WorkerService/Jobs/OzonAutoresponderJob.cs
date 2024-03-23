@@ -1,4 +1,6 @@
-﻿using Quartz;
+﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Domain.Enums;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +10,14 @@ using System.Threading.Tasks;
 namespace StandardAutoresponder.WorkerService.Jobs
 {
     [DisallowConcurrentExecution]
-    internal class OzonAutoresponderJob : IJob
+    internal class OzonAutoresponderJob : AutoresponderJob
     {
-        public Task Execute(IJobExecutionContext context)
+        public OzonAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, 
+            IServiceProvider _serviceProvider, 
+            ILogger<WbAutoresponderJob> _logger, 
+            MarketplaceName _marketplaceName) 
+            : base(_autoresponderConnectionsService, _serviceProvider, _logger, MarketplaceName.OZON, 10)
         {
-            throw new NotImplementedException();
         }
     }
 }

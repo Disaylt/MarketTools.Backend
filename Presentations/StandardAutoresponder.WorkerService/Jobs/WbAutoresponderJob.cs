@@ -18,51 +18,14 @@ using System.Threading.Tasks;
 namespace StandardAutoresponder.WorkerService.Jobs
 {
     [DisallowConcurrentExecution]
-    internal class WbAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, IServiceProvider _serviceProvider, ILogger<WbAutoresponderJob> _logger) : IJob
+    internal class WbAutoresponderJob
+        : AutoresponderJob
     {
-        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(10);
-
-        public async Task Execute(IJobExecutionContext context)
+        public WbAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, 
+            IServiceProvider _serviceProvider, 
+            ILogger<WbAutoresponderJob> _logger) 
+            : base(_autoresponderConnectionsService, _serviceProvider, _logger, MarketplaceName.WB, 10)
         {
-            IEnumerable<StandardAutoresponderConnectionEntity> activeConnections = await _autoresponderConnectionsService
-                .GetRangeForHandleAsync(MarketplaceName.WB, context.CancellationToken);
-
-            List<Task> tasks = new List<Task>();
-
-            foreach (var activeConnection in activeConnections)
-            {
-                Task task = HandleConnection(activeConnection.SellerConnectionId);
-                tasks.Add(task);
-            }
-
-            await Task.WhenAll(tasks);
-        }
-
-        private async Task HandleConnection(int connectionId)
-        {
-            await _semaphoreSlim.WaitAsync();
-
-            try
-            {
-                using IServiceScope serviceScope = _serviceProvider.CreateScope();
-
-                await serviceScope.ServiceProvider
-                    .GetRequiredService<IIdentityContextLoadService>()
-                    .LoadByConnection(connectionId);
-
-                await serviceScope
-                    .ServiceProvider
-                    .GetRequiredService<IAutoresponderHandler>()
-                    .RunAsync(connectionId);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, $"Bad execute connection - {connectionId}");
-            }
-            finally 
-            {
-                _semaphoreSlim.Release();
-            }
         }
     }
 }
