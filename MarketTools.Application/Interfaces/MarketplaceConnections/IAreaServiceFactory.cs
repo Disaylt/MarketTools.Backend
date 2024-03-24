@@ -1,4 +1,4 @@
-﻿using MarketTools.Domain.Entities;
+﻿using MarketTools.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.MarketplaceConnections
 {
-    public interface IBaseConnectionConverter
+    public interface IAreaServiceFactory<T>
     {
-        public bool IsChanged { get; }
-        public void ResetChangeStatus();
+        public T Create(MarketplaceName marketplaceName);
     }
 }

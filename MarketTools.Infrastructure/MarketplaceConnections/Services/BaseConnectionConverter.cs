@@ -26,6 +26,11 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
             Connection = connection;
         }
 
+        public void ResetChangeStatus()
+        {
+            IsChanged = false;
+        }
+
         protected string? GetFromHeaders(string key)
         {
             return Connection

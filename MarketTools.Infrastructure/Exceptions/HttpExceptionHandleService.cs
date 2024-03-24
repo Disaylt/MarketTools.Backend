@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Exceptions
 {
-    internal class HttpExceptionHandleService(IUserNotificationsService _userNotificationsService, IAuthUnitOfWork _authUnitOfWork)
+    internal class HttpExceptionHandleService(IUserNotificationsService _userNotificationsService, IUnitOfWork _authUnitOfWork)
         : IExceptionHandleService<AppConnectionBadRequestException>
     {
         private static int _maxNumErrors = 3;
