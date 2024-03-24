@@ -19,7 +19,7 @@ namespace MarketTools.Infrastructure.Identity
         {
             MarketplaceConnectionEntity entity = await _repository.FirstAsync(x=> x.Id == connectionId);
 
-            _contextService.Context.UserId = entity.UserId;
+            _contextService.Context = new IdentityContext { UserId = entity.UserId };
         }
     }
 }

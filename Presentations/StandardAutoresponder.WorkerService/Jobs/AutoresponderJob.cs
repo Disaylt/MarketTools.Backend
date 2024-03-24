@@ -1,4 +1,6 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Identity;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Domain.Entities;
@@ -15,8 +17,8 @@ namespace StandardAutoresponder.WorkerService.Jobs
 {
     [DisallowConcurrentExecution]
     internal abstract class AutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, 
-        IServiceProvider _serviceProvider, 
-        ILogger<WbAutoresponderJob> _logger,
+        IServiceProvider _serviceProvider,
+        ILogger _logger,
         MarketplaceName _marketplaceName,
         int _maxTasks = 10) 
         : IJob
@@ -37,16 +39,16 @@ namespace StandardAutoresponder.WorkerService.Jobs
             }
 
             await Task.WhenAll(tasks);
+
+            _logger.LogInformation($"Выполнено {activeConnections.Count()} подключение для {_marketplaceName}");
         }
 
         private async Task HandleConnection(int connectionId)
         {
             await _semaphoreSlim.WaitAsync();
-
+            using IServiceScope serviceScope = _serviceProvider.CreateScope();
             try
             {
-                using IServiceScope serviceScope = _serviceProvider.CreateScope();
-
                 await serviceScope.ServiceProvider
                     .GetRequiredService<IIdentityContextLoadService>()
                     .LoadByConnection(connectionId);
@@ -56,6 +58,14 @@ namespace StandardAutoresponder.WorkerService.Jobs
                     .GetRequiredService<IAreaServiceFactory<IAutoresponderHandler>>()
                     .Create(_marketplaceName)
                     .RunAsync(connectionId);
+
+                _logger.LogInformation($"Id: {connectionId} успешно завершен.");
+            }
+            catch (AppConnectionBadRequestException ex)
+            {
+                await serviceScope.ServiceProvider
+                    .GetRequiredService<IExceptionHandleService<AppConnectionBadRequestException>>()
+                    .Hadnle(ex);
             }
             catch (Exception ex)
             {

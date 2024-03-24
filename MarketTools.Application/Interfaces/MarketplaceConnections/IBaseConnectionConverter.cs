@@ -10,5 +10,6 @@ namespace MarketTools.Application.Interfaces.MarketplaceConnections
     public interface IBaseConnectionConverter
     {
         public bool IsChanged { get; }
+        public void ResetChangeStatus();
     }
 }

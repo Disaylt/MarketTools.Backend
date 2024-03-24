@@ -15,14 +15,23 @@ namespace StandardAutoresponder.WorkerService.Services
 {
     internal class AutoresponderHandler(IMediator _mediator, MarketplaceName _marketplaceName)
     {
-        public async Task HandleAsync(FeedbackDto feedback, int connectionId)
+        public async Task<bool> HandleAsync(FeedbackDto feedback, int connectionId)
         {
+            bool isSuccessed = false;
+            if (string.IsNullOrEmpty(feedback.Answer) == false)
+            {
+                return isSuccessed;
+            }
+
             AutoresponderResultModel result = await CreateAnswerAsync(feedback, connectionId);
             if (result.IsSuccess && result.Text != null)
             {
                 await SendAsync(feedback, result.Text, connectionId);
+                isSuccessed = true;
             }
             await CreateReportAsync(feedback, result, connectionId);
+
+            return isSuccessed;
         }
 
         private async Task CreateReportAsync(FeedbackDto feedback, AutoresponderResultModel result, int connectionId)

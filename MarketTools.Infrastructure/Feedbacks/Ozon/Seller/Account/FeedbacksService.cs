@@ -80,8 +80,8 @@ namespace MarketTools.Infrastructure.Feedbacks.Ozon.Seller.Account
                     Id = x.Uuid,
                     ProductDetails = new ProductDetails
                     {
-                        Article = x.Id,
-                        SellerArticle = x.Sku,
+                        Article = x.Sku,
+                        SellerArticle = x.Product.OfferId,
                         ProductName = x.Product.Title
                     },
                     Text = $"{x.Text.Comment}{x.Text.Negative}{x.Text.Positive}"

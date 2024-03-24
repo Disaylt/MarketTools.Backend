@@ -1,4 +1,6 @@
-﻿using MarketTools.Application.Interfaces.Autoresponder.Standard;
+﻿using MarketTools.Application.Common.Exceptions;
+using MarketTools.Application.Interfaces.Autoresponder.Standard;
+using MarketTools.Application.Interfaces.Common;
 using MarketTools.Domain.Enums;
 using Quartz;
 using System;
@@ -13,9 +15,9 @@ namespace StandardAutoresponder.WorkerService.Jobs
     internal class OzonAutoresponderJob : AutoresponderJob
     {
         public OzonAutoresponderJob(IAutoresponderConnectionsService _autoresponderConnectionsService, 
-            IServiceProvider _serviceProvider, 
-            ILogger<WbAutoresponderJob> _logger) 
-            : base(_autoresponderConnectionsService, _serviceProvider, _logger, MarketplaceName.OZON, 10)
+            IServiceProvider _serviceProvider,
+            ILogger<OzonAutoresponderJob> _logger) 
+            : base(_autoresponderConnectionsService, _serviceProvider,_logger, MarketplaceName.OZON, 10)
         {
         }
     }

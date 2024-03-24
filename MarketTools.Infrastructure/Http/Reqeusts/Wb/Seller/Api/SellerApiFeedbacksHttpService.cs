@@ -37,7 +37,7 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 
         public async Task SendResponseAsync(ResponseBody body)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "api/v1/feedbacks")
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, "api/v1/feedbacks")
             {
                 Content = JsonContent.Create(body)
             };

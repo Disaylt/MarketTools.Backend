@@ -16,6 +16,7 @@ SequreSettings sequreConfiguration = builder.Configuration.GetSection("Sequre").
     ?? throw new NullReferenceException();
 
 builder.Services.AddApplicationLayer();
+builder.Services.AddMedatorRequests();
 builder.Services.AddDatabases(sequreConfiguration);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddHttpClients(sequreConfiguration);
@@ -31,16 +32,28 @@ builder.Services.AddSingleton(new Dictionary<MarketplaceName, Func<IServiceProvi
 
 builder.Services.AddQuartz(opt =>
 {
-    JobKey jobKey = new JobKey("WB");
-    opt.AddJob<WbAutoresponderJob>(x=> x.WithIdentity(jobKey));
+    JobKey wbJobKey = new JobKey("WB");
+    opt.AddJob<WbAutoresponderJob>(x=> x.WithIdentity(wbJobKey));
 
     opt.AddTrigger(tOpts => tOpts
-        .ForJob(jobKey)
-        .WithIdentity($"{jobKey.Name}-t")
+        .ForJob(wbJobKey)
+        .WithIdentity($"{wbJobKey.Name}-t")
         .StartNow()
         .WithSimpleSchedule(scheduleOpt => scheduleOpt
             .WithIntervalInMinutes(10)
             .RepeatForever()));
+
+    JobKey ozonJobKey = new JobKey("Ozon");
+    opt.AddJob<OzonAutoresponderJob>(x => x.WithIdentity(ozonJobKey));
+
+    opt.AddTrigger(tOpts => tOpts
+        .ForJob(ozonJobKey)
+        .WithIdentity($"{ozonJobKey.Name}-t")
+        .StartNow()
+        .WithSimpleSchedule(scheduleOpt => scheduleOpt
+            .WithIntervalInMinutes(10)
+            .RepeatForever()));
+
 });
 
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

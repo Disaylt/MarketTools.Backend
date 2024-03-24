@@ -4,6 +4,7 @@ using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Interfaces.MarketplaceConnections.Ozon.Seller.Account;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,10 @@ namespace MarketTools.Infrastructure.Http.Clients
 
         public OzonSellerAccountHttpConnectionClient(IHttpConnectionContextService connectionContextReader,
             IConnectionConverterFactory<IOzonSellerAccountConnectionConverter> ozonSellerAccountConnectionServiceFactory,
+            ILogger<OzonSellerAccountHttpConnectionClient> logger,
             IProxyService proxyService,
             IUnitOfWork unitOfWork) 
-            : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account)
+            : base(connectionContextReader, MarketplaceName.OZON, MarketplaceConnectionType.Account, logger)
         {
             _unitOfWork = unitOfWork;
             _repository = unitOfWork.GetRepository<MarketplaceConnectionEntity>();
@@ -46,6 +48,7 @@ namespace MarketTools.Infrastructure.Http.Clients
             {
                 _repository.Update(Connection);
                 await _unitOfWork.CommitAsync();
+                _ozonSellerAccountConnectionService.ResetChangeStatus();
             }
         }
     }

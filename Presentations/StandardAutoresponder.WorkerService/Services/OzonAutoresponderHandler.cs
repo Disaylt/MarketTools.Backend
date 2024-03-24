@@ -35,7 +35,11 @@ namespace StandardAutoresponder.WorkerService.Services
 
             foreach (FeedbackDto feedback in feedbacks)
             {
-                await HandleAsync(feedback, connectionId);
+                bool isSuccessed = await HandleAsync(feedback, connectionId);
+                if(isSuccessed)
+                {
+                    await Task.Delay(1000);
+                }
             }
         }
 
@@ -43,7 +47,7 @@ namespace StandardAutoresponder.WorkerService.Services
         {
             FeedbacksQueryDto feedbacksQueryDto = new FeedbacksQueryDto
             {
-                Take = 5,
+                Take = 100,
                 Skip = 0,
                 Order = OrderType.Desc
             };
