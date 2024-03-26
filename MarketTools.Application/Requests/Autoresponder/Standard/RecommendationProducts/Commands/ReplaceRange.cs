@@ -41,7 +41,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
     }
 
     public class ReplceRangeCommandHandler(IContextService<IdentityContext> _identityContext,
-        IUnitOfWork _unitOfWork)
+        IAuthUnitOfWork _unitOfWork)
         : IRequestHandler<RecommendationProductReplaceRangeCommand, IEnumerable<StandardAutoresponderRecommendationProductEntity>>
     {
 
@@ -55,7 +55,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Recommendation
 
             ValidateProductsDetails(products);
 
-            await _repository.ExecuteDeleteAsync(x => x.UserId == _identityContext.Context.UserId);
+            await _repository.ExecuteDeleteAsync(x => x.MarketplaceName == request.MarketplaceName);
 
             await _repository.AddRangeAsync(products, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
