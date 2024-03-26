@@ -50,7 +50,6 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 string[] corsUrls = sequreConfiguration.CorsUrls.ToArray();
 app.UseCors(builder => builder
     .WithOrigins(corsUrls)
-    .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader()
 );
