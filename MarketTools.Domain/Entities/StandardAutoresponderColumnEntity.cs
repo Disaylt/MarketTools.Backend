@@ -10,7 +10,7 @@ namespace MarketTools.Domain.Entities
 {
     public class StandardAutoresponderColumnEntity : BaseEntity
     {
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string Name { get; set; } = null!;
 
         [Range(1, 999)]

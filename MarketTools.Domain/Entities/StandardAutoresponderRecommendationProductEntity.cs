@@ -14,13 +14,13 @@ namespace MarketTools.Domain.Entities
         [Required(ErrorMessage = "Введите артикул")]
         public string FeedbackArticle { get; set; } = null!;
 
-        [MaxLength(100, ErrorMessage = "Превышена максимальная длинна названия купленного продукта")]
+        [MaxLength(1000, ErrorMessage = "Превышена максимальная длинна названия купленного продукта")]
         public string? FeedbackProductName { get; set; }
 
         [MaxLength(25, ErrorMessage = "Превышена максимальная длинна артикула рекомендуеммого продукта")]
         public string? RecommendationArticle { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Превышена максимальная длинна названия рекомендуеммого продукта")]
+        [MaxLength(1000, ErrorMessage = "Превышена максимальная длинна названия рекомендуеммого продукта")]
         public string? RecommendationProductName { get; set; }
 
         [Range(1, 999)]
