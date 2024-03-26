@@ -15,5 +15,6 @@ namespace MarketTools.Domain.Entities
 
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
+        public bool IsMain { get; set; }
     }
 }
