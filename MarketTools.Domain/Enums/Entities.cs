@@ -9,7 +9,8 @@ namespace MarketTools.Domain.Enums
     public enum MarketplaceName
     {
         WB = 1,
-        OZON
+        OZON,
+        Telegram
     }
 
     public enum AutoresponderColumnType
@@ -20,6 +21,21 @@ namespace MarketTools.Domain.Enums
 
     public enum EnumProjectServices
     {
-        StandardAutoresponder = 1
+        StandardAutoresponder = 1,
+        PriceMonitoring
+    }
+
+    public enum MarketplaceConnectionType
+    {
+        OpenApi = 1,
+        Account,
+        None
+    }
+
+    public enum OrderType
+    {
+        Asc,
+        Desc,
+        None
     }
 }
