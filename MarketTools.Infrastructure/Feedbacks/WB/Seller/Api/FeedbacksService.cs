@@ -9,7 +9,7 @@ using ProductDetails = MarketTools.Application.Models.Feedbacks.ProductDetails;
 
 namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
 {
-    internal class WbSellerApiFeedbacksService(IWbSellerApiFeedbacksService _wbSellerApiFeedbacksService) : IFeedbacksService
+    internal class WbSellerApiFeedbacksService(IWbSellerApiFeedbacksHttpService _wbSellerApiFeedbacksService) : IFeedbacksService
     {
         public async Task<IEnumerable<FeedbackDto>> GetFeedbacksAsync(FeedbacksQueryDto data)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Interfaces.Http.Wb.Seller.Api
 {
-    public interface IWbSellerApiFeedbacksService
+    public interface IWbSellerApiFeedbacksHttpService
     {
         public Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query);
         public Task SendResponseAsync(ResponseBody body);

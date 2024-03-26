@@ -15,7 +15,7 @@ using System.Text;
 
 namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
 {
-    internal class SellerApiFeedbacksHttpService : BaseHttpService, IWbSellerApiFeedbacksService
+    internal class SellerApiFeedbacksHttpService : BaseHttpService, IWbSellerApiFeedbacksHttpService
     {
         private readonly IHttpConnectionClient _connectionClient;
 

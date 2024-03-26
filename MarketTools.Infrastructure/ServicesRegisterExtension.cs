@@ -159,7 +159,7 @@ namespace MarketTools.Infrastructure
                 }
             });
 
-            serviceDescriptors.AddScoped<IWbSellerApiFeedbacksService, SellerApiFeedbacksHttpService>();
+            serviceDescriptors.AddScoped<IWbSellerApiFeedbacksHttpService, SellerApiFeedbacksHttpService>();
             serviceDescriptors.AddScoped<IOzonSellerAccountFeedbacksHttpService, OzonSellerAccountFeedbacksHttpService>();
 
             return serviceDescriptors;
