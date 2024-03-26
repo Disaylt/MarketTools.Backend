@@ -10,5 +10,7 @@ namespace MarketTools.Domain.Entities
     {
         public int ConnectionId { get; set; }
         public PriceMonitoringConnectionEntity Connection { get; set; } = null!;
+
+        public List<PriceMonitoringProductRecordEntity> ProductRecords { get; set; } = new List<PriceMonitoringProductRecordEntity>();
     }
 }
