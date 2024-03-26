@@ -19,5 +19,6 @@ namespace MarketTools.Domain.Entities
 
         public int ReportId { get; set; }
         public PriceMonitoringReportEntity Report { get; set; } = null!;
+        public List<PriceMonitoringSizeRecordEntity> Sizes { get; set; } = new List<PriceMonitoringSizeRecordEntity>();
     }
 }
