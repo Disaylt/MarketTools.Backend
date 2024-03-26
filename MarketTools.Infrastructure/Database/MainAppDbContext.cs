@@ -34,6 +34,7 @@ namespace MarketTools.Infrastructure.Database
         public DbSet<PriceMonitoringConnectionEntity> PriceMonitoringConnections { get; set; } = null!;
         public DbSet<PriceMonotoringProductEntity> PriceMonitoringProducts { get; set; } = null!;
         public DbSet<PriceMonitoringSizeEntity> PriceMonitoringSizes{ get; set; } = null!;
+        public DbSet<PriceMonitoringReportEntity> PriceMonitoringReports { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
