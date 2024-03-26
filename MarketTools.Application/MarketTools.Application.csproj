@@ -27,4 +27,8 @@
     <ProjectReference Include="..\MarketTools.Domain\MarketTools.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\PriceMonitoring\" />
+  </ItemGroup>
+
 </Project>

@@ -10,7 +10,6 @@ namespace MarketTools.Domain.Enums
     {
         WB = 1,
         OZON,
-        Telegram
     }
 
     public enum AutoresponderColumnType
@@ -28,8 +27,7 @@ namespace MarketTools.Domain.Enums
     public enum MarketplaceConnectionType
     {
         OpenApi = 1,
-        Account,
-        None
+        Account
     }
 
     public enum OrderType

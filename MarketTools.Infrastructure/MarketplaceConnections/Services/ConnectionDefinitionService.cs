@@ -19,6 +19,11 @@ namespace MarketTools.Infrastructure.MarketplaceConnections.Services
                         {MarketplaceName.WB, MarketplaceConnectionType.OpenApi },
                         {MarketplaceName.OZON, MarketplaceConnectionType.Account },
                     }
+                },
+                {EnumProjectServices.PriceMonitoring, new Dictionary<MarketplaceName, MarketplaceConnectionType>
+                    {
+                        {MarketplaceName.WB, MarketplaceConnectionType.OpenApi }
+                    }
                 }
             };
 
