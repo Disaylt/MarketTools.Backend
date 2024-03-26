@@ -48,12 +48,14 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseCors(builder => builder
-    //.WithOrigins(
-    //    "http://localhost:4200",
-    //    "http://dashboard.mp-force.ru",
-    //    "https://localhost:4200",
-    //    "https://dashboard.mp-force.ru"
-    //)
+    .WithOrigins(
+        "http://localhost:4200",
+        "http://dashboard.mp-force.ru",
+        "http://dashboard.mp-snake.ru",
+        "https://localhost:4200",
+        "https://dashboard.mp-force.ru",
+        "https://dashboard.mp-snake.ru"
+    )
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader()
