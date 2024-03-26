@@ -8,5 +8,6 @@ namespace MarketTools.Domain.Entities
 {
     public class PriceMonitoringConnectionEntity : BaseServiceConnectionEntity
     {
+        public List<PriceMonotoringProductEntity> Products { get; set; } = new List<PriceMonotoringProductEntity>();
     }
 }

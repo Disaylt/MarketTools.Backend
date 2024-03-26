@@ -35,6 +35,7 @@ namespace MarketTools.Domain.Entities
         public AppIdentityUser User { get; set; } = null!;
 
         public StandardAutoresponderConnectionEntity AutoresponderConnection { get; set; } = new StandardAutoresponderConnectionEntity();
+        public PriceMonitoringConnectionEntity PriceMonitoringConnection { get; set; } = new PriceMonitoringConnectionEntity();
 
         public List<MarketplaceConnectionHeaderEntity> Headers { get; set; } = new List<MarketplaceConnectionHeaderEntity>();
         public List<MarketplaceConnectionCookieEntity> Cookies { get; set; } = new List<MarketplaceConnectionCookieEntity>();
