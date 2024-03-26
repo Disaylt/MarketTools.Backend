@@ -47,15 +47,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
                         | ForwardedHeaders.XForwardedProto
 });
 
+string[] corsUrls = sequreConfiguration.CorsUrls.ToArray();
 app.UseCors(builder => builder
-    .WithOrigins(
-        "http://localhost:4200",
-        "http://dashboard.mp-force.ru",
-        "http://dashboard.mp-snake.ru",
-        "https://localhost:4200",
-        "https://dashboard.mp-force.ru",
-        "https://dashboard.mp-snake.ru"
-    )
+    .WithOrigins(corsUrls)
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader()

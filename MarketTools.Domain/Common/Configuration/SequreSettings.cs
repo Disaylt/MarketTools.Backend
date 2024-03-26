@@ -13,5 +13,6 @@ namespace MarketTools.Domain.Common.Configuration
         public required Database Database { get; set; }
         public required Jwt Jwt { get; set; }
         public required SupportEmail SupportEmail { get; set; }
+        public List<string> CorsUrls { get; set; } = new List<string>();
     }
 }
