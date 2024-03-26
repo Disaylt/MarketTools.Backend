@@ -26,9 +26,18 @@ namespace MarketTools.Infrastructure.Autoresponder.Standard.ResponseHandlers
 
         private IEnumerable<StandardAutoresponderTemplateEntity> FindTemplates(StandardAutoresponderConnectionRatingEntity body)
         {
-            return body.Templates
-                .Where(template => template.Articles.Count == 0
-                    || template.Articles.Any(article => article.Value == Request.Article));
+            IEnumerable<StandardAutoresponderTemplateEntity> temaplatesWithArticles = body
+                .Templates
+                .Where(template => template.Articles.Any(article => article.Value == Request.Article));
+
+            if(temaplatesWithArticles.Any())
+            {
+                return temaplatesWithArticles;
+            }
+
+            return body
+                .Templates
+                .Where(template => template.Articles.Count == 0 || template.Settings.IsMain);
         }
     }
 }
