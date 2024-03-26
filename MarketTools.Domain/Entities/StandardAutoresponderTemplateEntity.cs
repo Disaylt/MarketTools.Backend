@@ -9,7 +9,7 @@ namespace MarketTools.Domain.Entities
 {
     public class StandardAutoresponderTemplateEntity : BaseEntity
     {
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string Name { get; set; } = null!;
 
         public string UserId { get; set; } = null!;

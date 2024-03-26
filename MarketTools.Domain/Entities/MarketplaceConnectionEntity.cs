@@ -12,7 +12,7 @@ namespace MarketTools.Domain.Entities
 {
     public class MarketplaceConnectionEntity : BaseEntity
     {
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string Name { get; set; } = null!;
         public string? Discriminator { get; set; }
 

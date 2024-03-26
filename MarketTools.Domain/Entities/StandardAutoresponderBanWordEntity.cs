@@ -10,7 +10,7 @@ namespace MarketTools.Domain.Entities
 {
     public class StandardAutoresponderBanWordEntity : BaseEntity
     {
-        [MaxLength(100)]
+        [MaxLength(1000)]
         [Required]
         public string Value { get; set; } = null!;
 

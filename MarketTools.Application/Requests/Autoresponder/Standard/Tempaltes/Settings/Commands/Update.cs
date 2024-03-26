@@ -14,6 +14,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Sett
         public int TemplateId { get; set; }
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
+        public bool IsMain { get; set; }
     }
 
     public class UpdateCommandHandler
@@ -38,6 +39,7 @@ namespace MarketTools.Application.Requests.Autoresponder.Standard.Tempaltes.Sett
         {
             entity.IsSkipWithTextFeedbacks = request.IsSkipWithTextFeedbacks;
             entity.IsSkipEmptyFeedbacks = request.IsSkipEmptyFeedbacks;
+            entity.IsMain = request.IsMain;
         }
     }
 }
