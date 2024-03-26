@@ -9,6 +9,7 @@ namespace MarketTools.WebApi.Models.Api.Autoreponder.Standard.Template
     {
         public bool IsSkipWithTextFeedbacks { get; set; }
         public bool IsSkipEmptyFeedbacks { get; set; }
+        public bool IsMain { get; set; }
 
         public void Mapping(Profile profile)
         {
