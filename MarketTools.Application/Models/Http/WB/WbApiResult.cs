@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Application.Models.Http.WB.Seller.Api
+namespace MarketTools.Application.Models.Http.WB
 {
     public class WbApiResult<TData>
     {

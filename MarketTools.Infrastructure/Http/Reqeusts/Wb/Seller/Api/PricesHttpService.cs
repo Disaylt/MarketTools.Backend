@@ -1,7 +1,7 @@
 ﻿using MarketTools.Application.Interfaces.Http;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
-using MarketTools.Application.Models.Http.WB.Seller.Api;
+using MarketTools.Application.Models.Http.WB;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Prices;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using MarketTools.Application.Models.Http.WB.Seller.Api;
+﻿using MarketTools.Application.Models.Http.WB;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Prices;
 using System;
 using System.Collections.Generic;

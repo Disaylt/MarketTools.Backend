@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\Http\Wb\Buyer\Account\" />
     <Folder Include="Interfaces\PriceMonitoring\" />
   </ItemGroup>
 

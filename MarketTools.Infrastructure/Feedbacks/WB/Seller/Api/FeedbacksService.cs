@@ -3,7 +3,7 @@ using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Feedbacks;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Models.Feedbacks;
-using MarketTools.Application.Models.Http.WB.Seller.Api;
+using MarketTools.Application.Models.Http.WB;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks;
 using ProductDetails = MarketTools.Application.Models.Feedbacks.ProductDetails;
 
