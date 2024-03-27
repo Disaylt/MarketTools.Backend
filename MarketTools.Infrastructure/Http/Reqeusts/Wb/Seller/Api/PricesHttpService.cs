@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Clients;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Http.WB;

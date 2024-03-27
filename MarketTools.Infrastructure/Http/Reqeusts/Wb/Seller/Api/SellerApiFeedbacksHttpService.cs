@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Clients;
 using MarketTools.Application.Interfaces.Http.Wb.Seller;
 using MarketTools.Application.Interfaces.Http.Wb.Seller.Api;
 using MarketTools.Application.Interfaces.MarketplaceConnections;

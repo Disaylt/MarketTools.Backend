@@ -1,4 +1,5 @@
 ﻿using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Clients;
 using MarketTools.Application.Interfaces.Http.Ozon.Seller.Account;
 using MarketTools.Application.Interfaces.MarketplaceConnections;
 using MarketTools.Application.Models.Http.Ozon.Seller.Account.Feedbacks;

@@ -53,6 +53,7 @@ using MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks;
 using MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Feedbacks;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Prices;
 using MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Prices;
+using MarketTools.Application.Interfaces.Http.Clients;
 
 namespace MarketTools.Infrastructure
 {

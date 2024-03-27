@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Http\Reqeusts\Wb\Buyer\" />
     <Folder Include="ProjectServices\" />
   </ItemGroup>
 

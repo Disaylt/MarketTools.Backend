@@ -1,6 +1,7 @@
 ﻿using MarketTools.Application.Common.Exceptions;
 using MarketTools.Application.Interfaces.Common;
 using MarketTools.Application.Interfaces.Http;
+using MarketTools.Application.Interfaces.Http.Clients;
 using MarketTools.Domain.Entities;
 using MarketTools.Domain.Enums;
 using System;
