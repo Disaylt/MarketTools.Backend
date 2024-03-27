@@ -56,6 +56,8 @@ using MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Prices;
 using MarketTools.Application.Interfaces.Http.Clients;
 using MarketTools.Application.Models.Http.WB.Buyer.Api.Products;
 using MarketTools.Infrastructure.Http.QueryConverters.WB.Buyer.Api;
+using MarketTools.Application.Interfaces.Http.Wb.Buyer.Api.Products;
+using MarketTools.Infrastructure.Http.Reqeusts.Wb.Buyer.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -137,6 +139,9 @@ namespace MarketTools.Infrastructure
             });
 
             serviceDescriptors.AddScoped(typeof(IAreaServiceFactory<>), typeof(AreaServiceFactory<>));
+            serviceDescriptors.AddScoped(typeof(IConnectionTypeServiceFactory<>), typeof(ConnectionTypeServiceFactory<>));
+
+
 
             return serviceDescriptors;
         }
@@ -175,6 +180,7 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddScoped<IOzonSellerAccountFeedbacksHttpService, OzonSellerAccountFeedbacksHttpService>();
 
             serviceDescriptors.AddScoped<IWbSellerApiPriceHttpService, WbSellerApiPricesHttpService>();
+            serviceDescriptors.AddScoped<IWbBuyerApiProductsHttpService, WbBuyerApiProductsHttpService>();
 
             serviceDescriptors.AddSingleton<IHttpContentConverter<FeedbacksRequestBody>, OzonSellerAccountFeedbacksRequestBodyConverter>();
             serviceDescriptors.AddSingleton<IHttpContentConverter<AnswerRequestBody>, OzonSellerAccountAnswerRequesstBodyConverter>();

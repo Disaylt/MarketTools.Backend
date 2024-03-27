@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Http\Wb\Buyer\Account\" />
-    <Folder Include="Interfaces\PriceMonitoring\" />
+    <Folder Include="Interfaces\PriceMonitoring\WB\" />
   </ItemGroup>
 
 </Project>
