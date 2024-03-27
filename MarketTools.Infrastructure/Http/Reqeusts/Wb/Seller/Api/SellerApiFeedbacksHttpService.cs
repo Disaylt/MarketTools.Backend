@@ -9,7 +9,6 @@ using MarketTools.Application.Models.Http.WB.Seller;
 using MarketTools.Application.Models.Http.WB.Seller.Api;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks;
 using MarketTools.Domain.Enums;
-using MarketTools.Infrastructure.Http.QueryBuilders.WB.Seller.Api.Feedbacks;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -18,16 +17,18 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
     internal class SellerApiFeedbacksHttpService : BaseHttpService, IWbSellerApiFeedbacksHttpService
     {
         private readonly IHttpConnectionClient _connectionClient;
+        private readonly IHttpQueryConverter<WbSellerApiFeedbacksQuery> _httpQueryConverter;
 
-        public SellerApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory)
+        public SellerApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory, IHttpQueryConverter<WbSellerApiFeedbacksQuery> httpQueryConverter)
         {
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");
+            _httpQueryConverter = httpQueryConverter;
         }
 
         public async Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(WbSellerApiFeedbacksQuery query)
         {
-            string path = BuilUrlForGetFeedbacks(query);
+            string path = $"api/v1/feedbacks?{_httpQueryConverter.Convert(query)}";
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, path);
 
             HttpResponseMessage httpResponseMessage = await _connectionClient.SendAsync(requestMessage);
@@ -43,21 +44,6 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
             };
 
             await _connectionClient.SendAsync(request);
-        }
-
-        private string BuilUrlForGetFeedbacks(WbSellerApiFeedbacksQuery data)
-        {
-            string query = new GetFeedbacksQueryBuilder()
-                .IsAnswered(data.IsAnswered)
-                .Sort(data.Order)
-                .NmId(data.NmId)
-                .DateFrom(data.DateFrom)
-                .DateTo(data.DateTo)
-                .Take(data.Take)
-                .Skip(data.Skip)
-                .Convert();
-
-            return "api/v1/feedbacks?" + query;
         }
     }
 }
