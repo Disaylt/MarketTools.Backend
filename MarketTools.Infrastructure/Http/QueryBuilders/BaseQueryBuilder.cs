@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.QueryBuilders
 {
-    internal class BaseQueryBuilder : AbstractQueryBuilder
+    internal class BaseQueryBuilder : BaseQueryConverter
     {
         public virtual BaseQueryBuilder Take(int value)
         {

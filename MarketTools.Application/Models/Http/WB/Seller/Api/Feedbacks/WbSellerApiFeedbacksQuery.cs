@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Models.Http.WB.Seller.Api.Feedbacks
 {
-    public class FeedbacksQuery
+    public class WbSellerApiFeedbacksQuery
     {
         public required bool IsAnswered { get; set; }
         public required int Take { get; set; }

@@ -18,7 +18,7 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
             foreach(FeedbacksType type in data.Types)
             {
                 bool isAnswered = ConvertIsAnsweredType(type);
-                FeedbacksQuery feedbacksQuery = MapQuery(data, isAnswered);
+                WbSellerApiFeedbacksQuery feedbacksQuery = MapQuery(data, isAnswered);
                 WbApiResult<FeedbackResponseData> result = await _wbSellerApiFeedbacksService.GetFeedbacksAsync(feedbacksQuery);
                 IEnumerable<FeedbackDto> feedbacks = MapFeedbacks(result);
                 allFeedbacks = allFeedbacks.Concat(feedbacks);
@@ -73,14 +73,14 @@ namespace MarketTools.Infrastructure.Feedbacks.WB.Seller.Api
                 });
         }
 
-        private FeedbacksQuery MapQuery(FeedbacksQueryDto data, bool isAnswered)
+        private WbSellerApiFeedbacksQuery MapQuery(FeedbacksQueryDto data, bool isAnswered)
         {
             if(data.Grades.Count > 0)
             {
                 throw new AppBadRequestException("WB API не поддерживает поиск отзывов по оценке.");
             }
 
-            FeedbacksQuery query = new FeedbacksQuery
+            WbSellerApiFeedbacksQuery query = new WbSellerApiFeedbacksQuery
             {
                 IsAnswered = isAnswered,
                 Skip = data.Skip,

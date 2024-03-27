@@ -10,7 +10,7 @@ namespace MarketTools.Application.Interfaces.Http.Wb.Seller.Api
 {
     public interface IWbSellerApiFeedbacksHttpService
     {
-        public Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(FeedbacksQuery query);
+        public Task<WbApiResult<FeedbackResponseData>> GetFeedbacksAsync(WbSellerApiFeedbacksQuery query);
         public Task SendResponseAsync(ResponseBody body);
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Application.Utilities.Http.HttpQueryBuilder
 {
-    public class AbstractQueryBuilder
+    public class BaseQueryConverter
     {
         protected IDictionary<string, string> KeyAndValueParams { get; }
 
-        public AbstractQueryBuilder()
+        public BaseQueryConverter()
         {
             KeyAndValueParams = new Dictionary<string, string>();
         }
@@ -28,7 +28,7 @@ namespace MarketTools.Application.Utilities.Http.HttpQueryBuilder
             }
         }
 
-        public virtual string Build()
+        protected virtual string Convert()
         {
             IEnumerable<string> paramsList = KeyAndValueParams
                 .Select(x => $"{x.Key}={x.Value}");
