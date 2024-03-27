@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketTools.Application.Models.Http.WB.Seller.Api;
+using MarketTools.Application.Models.Http.WB.Seller.Api.Prices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,6 @@ namespace MarketTools.Application.Interfaces.Http.Wb.Seller.Api
 {
     public interface IWbSellerApiPriceHttpService
     {
-
+        public Task<WbApiResult<PriceProductsResponseData>> GetRange(PriceProductRequestQuery query);
     }
 }

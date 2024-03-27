@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Http\QueryConverters\" />
     <Folder Include="ProjectServices\" />
   </ItemGroup>
 
