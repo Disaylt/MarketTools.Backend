@@ -145,6 +145,14 @@ namespace MarketTools.Infrastructure
             serviceDescriptors.AddSingleton<IProxyService, OptionsProxyService>();
             serviceDescriptors.AddSingleton<IProxyConverter, SobotProxyConverter>();
 
+            serviceDescriptors.AddHttpClient<IRandomProxyClient, RandomProxyClient>()
+                .ConfigurePrimaryHttpMessageHandler((x) =>
+                {
+                    IProxyService proxyService = x.GetRequiredService<IProxyService>();
+                    SocketsHttpHandler socketsHttpHandler = new SocketsHttpHandler();
+                    socketsHttpHandler.Proxy = proxyService.GetRandom();
+                    return socketsHttpHandler;
+                });
             serviceDescriptors.AddHttpClient<WbOpenApiHttpConnectionClient>();
             serviceDescriptors.AddScoped<OzonSellerAccountHttpConnectionClient>();
             serviceDescriptors.AddSingleton(new Dictionary<MarketplaceName, Dictionary<MarketplaceConnectionType, Func<IServiceProvider, IHttpConnectionClient>>>

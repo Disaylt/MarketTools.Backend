@@ -7,23 +7,10 @@ using System.Threading.Tasks;
 
 namespace MarketTools.Infrastructure.Http.Clients
 {
-    internal class RandomProxyClient : IRandomProxyClient
+    internal class RandomProxyClient : BaseHttpClient, IRandomProxyClient
     {
-        private readonly HttpClient _httpClient;
-
-        public RandomProxyClient(HttpClient httpClient)
+        public RandomProxyClient(HttpClient httpClient) : base(httpClient)
         {
-            _httpClient = httpClient;
-        }
-
-        public Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetBaseUrl(string value)
-        {
-            throw new NotImplementedException();
         }
     }
 }
