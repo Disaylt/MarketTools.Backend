@@ -8,7 +8,7 @@ namespace MarketTools.Application.Models.Http.WB.Seller.Api.Prices
 {
     public class PriceProductRequestQuery
     {
-        public int Take { get; set; }
+        public required int Take { get; set; }
         public int Skip { get; set; }
         public string? Article { get; set; }
     }

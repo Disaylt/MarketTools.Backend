@@ -19,7 +19,8 @@ namespace MarketTools.Infrastructure.Http.Reqeusts.Wb.Seller.Api
         private readonly IHttpConnectionClient _connectionClient;
         private readonly IHttpQueryConverter<WbSellerApiFeedbacksQuery> _httpQueryConverter;
 
-        public SellerApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory, IHttpQueryConverter<WbSellerApiFeedbacksQuery> httpQueryConverter)
+        public SellerApiFeedbacksHttpService(IConnectionServiceFactory<IHttpConnectionClient> connectionClientFactory, 
+            IHttpQueryConverter<WbSellerApiFeedbacksQuery> httpQueryConverter)
         {
             _connectionClient = connectionClientFactory.Create(MarketplaceConnectionType.OpenApi, MarketplaceName.WB);
             _connectionClient.HttpClient.BaseAddress = new Uri("https://feedbacks-api.wildberries.ru");

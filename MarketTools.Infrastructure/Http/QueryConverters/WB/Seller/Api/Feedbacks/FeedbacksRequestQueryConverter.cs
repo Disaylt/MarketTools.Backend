@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api
+namespace MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Feedbacks
 {
     internal class WbSellerApiFeedbacksRequestQueryConverter : StandardQueryConverter, IHttpQueryConverter<WbSellerApiFeedbacksQuery>
     {
@@ -67,7 +67,7 @@ namespace MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api
                 _ => null
             };
 
-            if(strValue != null )
+            if (strValue != null)
             {
                 string key = "order";
                 AddParam(key, strValue);
