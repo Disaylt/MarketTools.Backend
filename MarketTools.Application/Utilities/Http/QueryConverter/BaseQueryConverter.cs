@@ -33,10 +33,9 @@ namespace MarketTools.Application.Utilities.Http.HttpQueryBuilder
             IEnumerable<string> paramsList = KeyAndValueParams
                 .Select(x => $"{x.Key}={x.Value}");
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendJoin('&', paramsList);
-
-            return sb.ToString();
+            return new StringBuilder()
+                .AppendJoin('&', paramsList)
+                .ToString();
         }
     }
 }
