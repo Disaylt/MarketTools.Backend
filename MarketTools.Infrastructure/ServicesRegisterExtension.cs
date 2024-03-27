@@ -54,6 +54,8 @@ using MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Feedbacks;
 using MarketTools.Application.Models.Http.WB.Seller.Api.Prices;
 using MarketTools.Infrastructure.Http.QueryConverters.WB.Seller.Api.Prices;
 using MarketTools.Application.Interfaces.Http.Clients;
+using MarketTools.Application.Models.Http.WB.Buyer.Api.Products;
+using MarketTools.Infrastructure.Http.QueryConverters.WB.Buyer.Api;
 
 namespace MarketTools.Infrastructure
 {
@@ -179,6 +181,7 @@ namespace MarketTools.Infrastructure
 
             serviceDescriptors.AddSingleton<IHttpQueryConverter<WbSellerApiFeedbacksQuery>, WbSellerApiFeedbacksRequestQueryConverter>();
             serviceDescriptors.AddSingleton<IHttpQueryConverter<PriceProductRequestQuery>, WbSellerApiPriceInfoRequestQuery>();
+            serviceDescriptors.AddSingleton<IHttpQueryConverter<WbBuyerApiProductsRequestQuery>, WbBuyerApiProductsQueryConverter>();
 
             return serviceDescriptors;
         }
